@@ -8,6 +8,8 @@
 
 补充调研表明，长期个人工作系统还需要三个固定能力：分层记忆、停止前检查和技能质量门槛。对应规则分别见 `docs/assistant/memory-model.md`、`docs/assistant/pre-finish-check.md` 和 `docs/assistant/skill-quality-standard.md`。
 
+外部 agent 工具、编码代理、Windows 自动化和评测资料的持续调研见 `docs/assistant/agent-tool-landscape.md`。该文件用于判断哪些外部能力可以转化为本地规则、脚本、模板或检查项。
+
 ## 用户画像分层
 
 用户画像应分为五类事实：
