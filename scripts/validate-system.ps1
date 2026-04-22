@@ -29,6 +29,7 @@ $required = @(
     "docs\tasks\done.md",
     "docs\tasks\blocked.md",
     "templates\knowledge\knowledge-item.md",
+    "templates\assistant\skill-adoption-review.md",
     "scripts\validate-skills.ps1"
 )
 

@@ -44,6 +44,8 @@ active
 
 第十一，停止前检查应制度化。OpenAI Codex 最佳实践强调，把重复流程转化为 skills，把稳定流程转化为 automations；Claude Code hooks 文档中的 Stop hook 思路说明，agent 不应在任务未完成、校验失败或仍有明显后续工作时结束。对当前系统的启发是：即使当前环境不能直接配置同类 hooks，也应把停止前检查写成本地规则，并在复杂任务中主动执行。
 
+第十二，风格技能和同事经验提炼技能需要更严格的授权与样例标准。Claude Skills 资料强调，skill 适合封装已经被反复验证的工作方法、模板、材料和质量标准；公开 skills 目录则显示可用技能数量增长很快，但来源差异很大。对当前系统的启发是：可以学习“把稳定工作方式封装成技能”的方法，但不能在缺少授权和样例时提炼他人信息；风格类技能必须有正例、反例和验收方式。
+
 # paths
 
 - `docs/assistant/agent-capability-improvement.md`
@@ -82,6 +84,10 @@ active
 - OpenAI practical guide to building agents: https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
 - Anthropic Building Effective AI Agents: https://resources.anthropic.com/building-effective-ai-agents
 - Anthropic public skills repository: https://github.com/anthropics/skills
+- OpenAI skills catalog: https://github.com/openai/skills
+- Claude Skills tutorial: https://claude.com/resources/tutorials/teach-claude-your-way-of-working-using-skills
+- Anthropic skills directory: https://skills.sh/anthropics
+- SkillsBench paper: https://www.skillsbench.ai/skillsbench.pdf
 - Agent skill security analysis: https://arxiv.org/abs/2603.16572
 - SWE-Skills-Bench: https://arxiv.org/abs/2603.15401
 - CoEvoSkills: https://arxiv.org/abs/2604.01687
@@ -100,4 +106,5 @@ active
 - 为 Office、科研、编码、网页四类任务建立偏好缺失判断表。
 - 对第三方 skills 建立只读评估准则：先审计来源、权限、脚本和外部访问，再决定是否借鉴。
 - 把停止前检查、技能质量标准和分层记忆模型纳入系统校验。
+- 为第三方、同事经验和风格 skills 使用 `templates/assistant/skill-adoption-review.md` 做审查记录。
 - 在后续真实任务中记录哪些规则确实改善结果，哪些只是增加负担。
