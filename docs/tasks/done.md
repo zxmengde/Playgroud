@@ -13,3 +13,4 @@
 | 2026-04-22 | 增强无感化与自适应访谈机制 | `docs/user-guide.md`、`docs/assistant/execution-contract.md`、`docs/assistant/intent-interview.md`、`skills/intent-interviewer/` 和相关技能 | 系统校验通过，全部相关技能校验通过 |
 | 2026-04-22 | 重构为真实需求优先机制 | `AGENTS.md`、`docs/assistant/intent-interview.md`、`docs/user-guide.md`、`skills/*` | 系统校验通过，全部相关技能校验通过 |
 | 2026-04-22 | 建立用户画像与偏好采集机制 | `docs/profile/user-model.md`、`docs/profile/intake-questionnaire.md`、`skills/preference-intake/`、`docs/assistant/alignment-audit.md` | 系统校验通过，全部相关技能校验通过 |
+| 2026-04-23 | 第一轮广域 agent 能力调研与系统改进落地 | `docs/knowledge/items/2026-04-23-agent-harness-skills-research.md`、`docs/assistant/agent-capability-improvement.md`、用户画像和执行规则更新 | 系统校验通过，相关技能校验通过 |

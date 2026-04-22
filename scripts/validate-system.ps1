@@ -10,6 +10,8 @@ $required = @(
     "docs\profile\intake-questionnaire.md",
     "docs\assistant\overview.md",
     "docs\assistant\alignment-audit.md",
+    "docs\assistant\agent-capability-improvement.md",
+    "docs\assistant\third-party-skill-evaluation.md",
     "docs\assistant\preferences.md",
     "docs\assistant\execution-contract.md",
     "docs\assistant\intent-interview.md",

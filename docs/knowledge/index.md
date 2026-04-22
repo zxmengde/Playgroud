@@ -9,3 +9,4 @@
 | 2026-04-22 | MEMS 可靠性研究总纲摘要 | research | active | `docs/knowledge/items/2026-04-22-mems-reliability-research-outline.md` |
 | 2026-04-22 | MEMS 最小研究链路项目地图 | project | active | `docs/knowledge/items/2026-04-22-mems-code-project-map.md` |
 | 2026-04-22 | Harness Engineering 与个人工作系统 | web-source | active | `docs/knowledge/items/2026-04-22-harness-engineering-personal-system.md` |
+| 2026-04-23 | AI agent harness、skills 与个人工作系统调研 | web-source | active | `docs/knowledge/items/2026-04-23-agent-harness-skills-research.md` |

@@ -19,6 +19,8 @@ Clarify the research question only when it cannot be inferred from files or the 
 
 Separate facts, inference, and uncertainty. Preserve source URLs, local paths, keywords, and follow-up actions.
 
+For literature reviews, formal reports, paper drafts, or publishable text, verify citations as a separate task. Do not invent references. Prefer DOI, publisher pages, arXiv, PubMed, ACL Anthology, IEEE, ACM, standards bodies, datasets, and institution pages. Treat unverified citations as leads, not bibliography entries.
+
 For substantial research, deliver both a usable research artifact and a concise explanation of evidence quality, assumptions, and limitations.
 
 ## Output

@@ -16,6 +16,7 @@
 - `docs/assistant/execution-contract.md`
 - `docs/assistant/permissions.md`
 - `docs/assistant/tool-registry.md`
+- `docs/assistant/agent-capability-improvement.md`
 
 复杂或含糊任务开始前，还应读取：
 
@@ -31,6 +32,8 @@
 - `docs/workflows/knowledge.md`
 
 云端 Codex 无法读取本机用户级 `.codex` 目录时，应读取仓库内 `skills/` 下的同名技能定义。该目录是本机 Codex 技能组的可同步副本。
+
+涉及第三方 skills、插件、agent 模板或外部工具安装时，还应读取 `docs/assistant/third-party-skill-evaluation.md`。
 
 ## 工作约定
 

@@ -20,6 +20,10 @@ For concrete tasks, continue until one of these outcomes exists:
 
 Do not assume the user's message contains the entire desired outcome. Use available context, project rules, prior artifacts, and task type to infer likely requirements. When the literal instruction would likely produce a weaker result, state the issue directly, propose the better path, and include low-risk improvements by default. When a hidden requirement could materially change the result, use `intent-interviewer` to clarify before executing.
 
+If the user asks for broad improvement or research and gives examples, treat the examples as a starting set rather than a boundary. Expand to adjacent official documentation, papers, open-source projects, safety reports, and local system changes when this is low risk.
+
+If the user asks not to continue questioning, do not stop the task. Continue with safe research, synthesis, file updates, validation, and progress recording until there is a useful artifact, verification result, or explicit blocker.
+
 ## Prohibited Stop Points
 
 Do not stop after only giving a proposal when the task can be executed. Do not use task decomposition as a reason to pause.

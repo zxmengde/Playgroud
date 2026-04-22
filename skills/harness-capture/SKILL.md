@@ -13,6 +13,8 @@ Convert feedback and failures into durable system changes without making the use
 
 When Codex notices a mismatch, first fix the current task if possible. Then classify the cause: missing context, unclear intent, unsuitable tone, insufficient verification, tool failure, incomplete execution, weak workflow rule, or over-literal instruction following.
 
+Also classify failures where Codex was too passive, too narrow in research, too bound to the user's examples, or asked questions that did not help reveal durable user preferences.
+
 Append an internal entry to `D:\Code\Playgroud\docs\assistant\harness-log.md` with date, event, cause, proposed correction, verification, and status. If the correction changes future behavior, ask the user to confirm the system update in plain language. Do not require the user to know internal file names. After confirmation, update the relevant rule, workflow, skill, template, script, or tool registry, then validate, commit, and push.
 
 ## Examples
@@ -21,3 +23,4 @@ Append an internal entry to `D:\Code\Playgroud\docs\assistant\harness-log.md` wi
 - If tone is unsuitable, propose a style-rule correction and ask for confirmation.
 - If a tool fails repeatedly, update tool notes after confirmation and add a check or fallback.
 - If context must be repeated, propose a knowledge item or workflow note.
+- If the user says the system feels passive or underpowered, research adjacent agent practices, extract transferable principles, and update local rules after confirmation or when the user has already authorized that class of low-risk improvement.

@@ -11,6 +11,8 @@ Use this skill when the task is complex, underspecified, high-impact, or likely 
 
 Treat the user's instruction as a partial expression of intent, not necessarily the full requirement. First inspect available context, then ask only the questions that materially affect outcome, risk, or acceptance.
 
+Do not treat the literal prompt as the maximum scope. When the user gives examples, infer the broader goal and safely expand the work to adjacent evidence, alternatives, risks, and system improvements.
+
 ## Complexity Levels
 
 - Simple: clear input, clear output, low risk. Do not interview; execute directly.
@@ -31,6 +33,8 @@ For complex tasks, confirm these points:
 - Preferences: implicit style, audience, depth, examples, tradeoffs.
 - Acceptance checks: tests, rendering, screenshots, source citations, review criteria.
 
+For user-alignment and system-improvement tasks, also consider the person behind the task: working style, tolerance for interruption, aesthetic standards, learning style, collaboration mode, ambition level, and behaviors the user rejects. Do not ask all of these mechanically; use them to design better questions when questions are appropriate.
+
 ## Scenario Focus
 
 - Preference-dependent initialization: if docs, workflows, templates, or skills would be created from assumptions rather than user information, use `preference-intake`.
@@ -43,6 +47,8 @@ For complex tasks, confirm these points:
 ## Question Discipline
 
 Explore available files and context before asking. Ask questions only when the answer materially changes the result or risk. Prefer one concise batch of questions. If an assumption is low risk, state it and proceed.
+
+If the user asks Codex to stop questioning for now, continue the safe parts of the work without further interview. Record unresolved high-impact unknowns for later preference intake.
 
 ## After Interview
 
