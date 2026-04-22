@@ -1,0 +1,28 @@
+# Local runtime and temporary files
+.cache/
+.tmp/
+tmp/
+logs/
+*.log
+
+# Python and Node artifacts
+__pycache__/
+*.pyc
+node_modules/
+.venv/
+venv/
+
+# Office and editor temporary files
+~$*
+*.tmp
+*.bak
+
+# Local credentials and environment files
+.env
+.env.*
+*.key
+*.pem
+secrets/
+
+# Codex local transient files
+.codex-local/
