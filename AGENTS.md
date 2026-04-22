@@ -17,6 +17,7 @@
 - `docs/assistant/permissions.md`
 - `docs/assistant/tool-registry.md`
 - `docs/assistant/agent-capability-improvement.md`
+- `docs/assistant/personal-agent-operating-model.md`
 - `docs/assistant/memory-model.md`
 - `docs/assistant/pre-finish-check.md`
 - `docs/assistant/skill-quality-standard.md`
