@@ -33,6 +33,7 @@ For complex tasks, confirm these points:
 
 ## Scenario Focus
 
+- Preference-dependent initialization: if docs, workflows, templates, or skills would be created from assumptions rather than user information, use `preference-intake`.
 - Research: question, audience, source standard, currency requirement, output type, evidence vs inference, uncertainty handling.
 - Coding: desired behavior, affected surface, compatibility, tests, allowed refactor scope, rollback risk.
 - Office: audience, purpose, file type, structure, visual standard, editability, citation needs, review method.

@@ -11,7 +11,9 @@ Use Playwright or browser tools for real web interaction. Read `D:\Code\Playgrou
 
 ## Process
 
-Before web execution, infer the user's real information need and identify the goal, source reliability standard, output format, whether login is needed, whether screenshots or downloads are needed, and what actions require confirmation. Use `intent-interviewer` when the web task involves comparison, decision support, account actions, or current facts with high consequence.
+Before web execution, read `docs/profile/user-model.md`. If screenshot, download, naming, archive, or source reliability preference is missing and affects the task, use `preference-intake`.
+
+Infer the user's real information need and identify the goal, source reliability standard, output format, whether login is needed, whether screenshots or downloads are needed, and what actions require confirmation. Use `intent-interviewer` when the web task involves comparison, decision support, account actions, or current facts with high consequence.
 
 Capture source URLs, timestamps when useful, extracted text, screenshots, and uncertainty. Confirm before login-dependent writes, form submission, message sending, purchases, publishing, or account changes.
 

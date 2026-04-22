@@ -1,0 +1,4 @@
+interface:
+  display_name: "Preference Intake"
+  short_description: "Collect missing user preferences before work."
+  default_prompt: "Use $preference-intake to collect missing preferences before this task."

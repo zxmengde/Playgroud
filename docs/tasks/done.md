@@ -12,3 +12,4 @@
 | 2026-04-22 | 完成 Git 初始提交准备 | 当前控制仓库全部文件 | `git status` 将在提交前检查 |
 | 2026-04-22 | 增强无感化与自适应访谈机制 | `docs/user-guide.md`、`docs/assistant/execution-contract.md`、`docs/assistant/intent-interview.md`、`skills/intent-interviewer/` 和相关技能 | 系统校验通过，全部相关技能校验通过 |
 | 2026-04-22 | 重构为真实需求优先机制 | `AGENTS.md`、`docs/assistant/intent-interview.md`、`docs/user-guide.md`、`skills/*` | 系统校验通过，全部相关技能校验通过 |
+| 2026-04-22 | 建立用户画像与偏好采集机制 | `docs/profile/user-model.md`、`docs/profile/intake-questionnaire.md`、`skills/preference-intake/`、`docs/assistant/alignment-audit.md` | 系统校验通过，全部相关技能校验通过 |

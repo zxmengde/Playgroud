@@ -6,7 +6,10 @@ $ErrorActionPreference = "Stop"
 
 $required = @(
     "AGENTS.md",
+    "docs\profile\user-model.md",
+    "docs\profile\intake-questionnaire.md",
     "docs\assistant\overview.md",
+    "docs\assistant\alignment-audit.md",
     "docs\assistant\preferences.md",
     "docs\assistant\execution-contract.md",
     "docs\assistant\intent-interview.md",

@@ -18,6 +18,7 @@ This skill is the routing entry for the controlled personal work system. Its fir
 ## Route Map
 
 - Complex or ambiguous task: use `intent-interviewer` before execution. Do not ask generic checklists; infer from context and ask only high-impact questions.
+- Missing user-specific preference, template, or quality standard: use `preference-intake` before creating reusable artifacts.
 - Research, papers, literature, PDF study, technical investigation: use `research-workflow` and read `docs/workflows/research.md`.
 - Codebase analysis, editing, testing, debugging, review: use `coding-workflow` and read `docs/workflows/coding.md`.
 - Word, PowerPoint, Excel, PDF, Markdown, report writing: use `office-workflow` and read `docs/workflows/office.md`.
