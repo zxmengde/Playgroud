@@ -11,6 +11,9 @@ $required = @(
     "docs\assistant\overview.md",
     "docs\assistant\alignment-audit.md",
     "docs\assistant\agent-capability-improvement.md",
+    "docs\assistant\memory-model.md",
+    "docs\assistant\pre-finish-check.md",
+    "docs\assistant\skill-quality-standard.md",
     "docs\assistant\third-party-skill-evaluation.md",
     "docs\assistant\preferences.md",
     "docs\assistant\execution-contract.md",
@@ -23,7 +26,8 @@ $required = @(
     "docs\tasks\active.md",
     "docs\tasks\done.md",
     "docs\tasks\blocked.md",
-    "templates\knowledge\knowledge-item.md"
+    "templates\knowledge\knowledge-item.md",
+    "scripts\validate-skills.ps1"
 )
 
 $missing = @()
@@ -80,5 +84,7 @@ foreach ($file in $textFiles) {
 if ($secretHits.Count -gt 0) {
     Write-Error ("Potential secrets found in: " + (($secretHits | Select-Object -Unique) -join ", "))
 }
+
+& (Join-Path $Root "scripts\validate-skills.ps1") -Root $Root
 
 Write-Output "System validation passed."

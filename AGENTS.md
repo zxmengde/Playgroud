@@ -17,6 +17,9 @@
 - `docs/assistant/permissions.md`
 - `docs/assistant/tool-registry.md`
 - `docs/assistant/agent-capability-improvement.md`
+- `docs/assistant/memory-model.md`
+- `docs/assistant/pre-finish-check.md`
+- `docs/assistant/skill-quality-standard.md`
 
 复杂或含糊任务开始前，还应读取：
 
@@ -48,6 +51,8 @@
 当任务依赖尚未采集的个人偏好、模板或质量标准时，Codex 应先进行偏好采集。不得在缺少关键偏好时假装已经了解用户。
 
 遇到用户指出工作方式、语气、验证或执行深度不符合偏好时，Codex 应先修正当前任务，再判断是否需要改进系统。需要改变未来行为时，应主动用普通语言请求确认；用户确认后，Codex 自动修改规则、技能或模板，并完成校验、提交和推送。
+
+复杂任务结束前，应按 `docs/assistant/pre-finish-check.md` 自检。若仍可继续执行、验证、记录或同步，不应把工作交回给用户。
 
 ## 安全边界
 

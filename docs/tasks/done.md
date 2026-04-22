@@ -14,3 +14,4 @@
 | 2026-04-22 | 重构为真实需求优先机制 | `AGENTS.md`、`docs/assistant/intent-interview.md`、`docs/user-guide.md`、`skills/*` | 系统校验通过，全部相关技能校验通过 |
 | 2026-04-22 | 建立用户画像与偏好采集机制 | `docs/profile/user-model.md`、`docs/profile/intake-questionnaire.md`、`skills/preference-intake/`、`docs/assistant/alignment-audit.md` | 系统校验通过，全部相关技能校验通过 |
 | 2026-04-23 | 第一轮广域 agent 能力调研与系统改进落地 | `docs/knowledge/items/2026-04-23-agent-harness-skills-research.md`、`docs/assistant/agent-capability-improvement.md`、用户画像和执行规则更新 | 系统校验通过，相关技能校验通过 |
+| 2026-04-23 | 增强分层记忆、停止前检查和技能质量校验 | `docs/assistant/memory-model.md`、`docs/assistant/pre-finish-check.md`、`docs/assistant/skill-quality-standard.md`、`scripts/validate-skills.ps1` | `scripts/validate-system.ps1` 和 `scripts/validate-skills.ps1` 通过 |

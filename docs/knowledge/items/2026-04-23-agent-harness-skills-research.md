@@ -40,9 +40,16 @@ active
 
 第九，第三方 skills 应先评估后迁移。Anthropic 官方 skills 仓库可作为结构参考，但其说明也要求在关键任务前充分测试。SWE-Skills-Bench 的结果提示，多数公开软件工程 skills 对端到端任务未必有收益，甚至可能因版本或上下文不匹配造成干扰。因此当前系统应优先吸收方法并重写为自有规则，而不是批量安装。
 
+第十，个性化记忆需要分层，而不是把全部对话保存为长期事实。HiMeS、Mem-PAL、Memoria 和 PASK 等近期研究共同指向一个方向：短期任务状态、长期用户偏好、工作区知识、全局经验和主动意图识别应分开管理。对当前系统的启发是：`user-model.md` 只保存稳定画像，任务细节进 `active.md`，来源和结论进知识条目，失败与修正进复盘记录。
+
+第十一，停止前检查应制度化。OpenAI Codex 最佳实践强调，把重复流程转化为 skills，把稳定流程转化为 automations；Claude Code hooks 文档中的 Stop hook 思路说明，agent 不应在任务未完成、校验失败或仍有明显后续工作时结束。对当前系统的启发是：即使当前环境不能直接配置同类 hooks，也应把停止前检查写成本地规则，并在复杂任务中主动执行。
+
 # paths
 
 - `docs/assistant/agent-capability-improvement.md`
+- `docs/assistant/memory-model.md`
+- `docs/assistant/pre-finish-check.md`
+- `docs/assistant/skill-quality-standard.md`
 - `docs/profile/user-model.md`
 - `docs/assistant/intent-interview.md`
 - `skills/preference-intake/SKILL.md`
@@ -81,6 +88,10 @@ active
 - OpenClaw safety reporting: https://www.techradar.com/pro/how-to-safely-experiment-with-openclaw
 - Cybernews Claude Code leak reporting: https://cybernews.com/tech/claude-code-leak-spawns-fastest-github-repo/
 - TechRadar malware warning: https://www.techradar.com/pro/security/be-careful-what-you-click-hackers-use-claude-code-leak-to-push-malware
+- PASK intent-aware proactive agents: https://arxiv.org/abs/2604.08000
+- HiMeS personalized assistant memory: https://arxiv.org/abs/2601.06152
+- Mem-PAL personalized dialogue memory: https://arxiv.org/abs/2511.13410
+- Memoria scalable agentic memory: https://arxiv.org/abs/2512.12686
 
 # next_actions
 
@@ -88,4 +99,5 @@ active
 - 为复杂任务增加概念上的 planner、executor、evaluator 自检流程。
 - 为 Office、科研、编码、网页四类任务建立偏好缺失判断表。
 - 对第三方 skills 建立只读评估准则：先审计来源、权限、脚本和外部访问，再决定是否借鉴。
+- 把停止前检查、技能质量标准和分层记忆模型纳入系统校验。
 - 在后续真实任务中记录哪些规则确实改善结果，哪些只是增加负担。
