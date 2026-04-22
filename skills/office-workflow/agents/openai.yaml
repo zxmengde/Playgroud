@@ -1,0 +1,4 @@
+interface:
+  display_name: "Office Workflow"
+  short_description: "Create and validate editable office documents."
+  default_prompt: "Use $office-workflow to create or edit this office document."

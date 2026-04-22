@@ -1,0 +1,4 @@
+interface:
+  display_name: "Coding Workflow"
+  short_description: "Explore, edit, test, and review code repositories."
+  default_prompt: "Use $coding-workflow to work through this code task."

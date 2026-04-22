@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Workflow"
+  short_description: "Use browser workflows for web sources and screenshots."
+  default_prompt: "Use $web-workflow to access and verify this web task."

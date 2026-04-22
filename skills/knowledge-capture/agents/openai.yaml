@@ -1,0 +1,4 @@
+interface:
+  display_name: "Knowledge Capture"
+  short_description: "Save durable context into the local knowledge base."
+  default_prompt: "Use $knowledge-capture to preserve this information locally."

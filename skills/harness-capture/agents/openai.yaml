@@ -1,0 +1,4 @@
+interface:
+  display_name: "Harness Capture"
+  short_description: "Turn failures and feedback into durable improvements."
+  default_prompt: "Use $harness-capture to record and correct this workflow issue."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Assistant Router"
+  short_description: "Route personal work tasks to the correct workflow."
+  default_prompt: "Use $assistant-router to route and complete this personal work task."

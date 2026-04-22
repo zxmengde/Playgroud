@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Workflow"
+  short_description: "Run source-backed research and capture durable notes."
+  default_prompt: "Use $research-workflow to research this question and capture sources."
