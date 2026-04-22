@@ -11,6 +11,8 @@ Use `D:\Code\Playgroud\templates\knowledge\knowledge-item.md` for new knowledge 
 
 ## Rules
 
+Codex should decide whether durable capture is useful; the user should not need to ask for it every time. Capture durable context when it will reduce future repetition, improve task quality, or preserve evidence.
+
 Do not store secrets, tokens, passwords, or sensitive credentials. Mark uncertain or time-sensitive information clearly.
 
 ## Output

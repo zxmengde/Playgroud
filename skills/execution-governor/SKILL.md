@@ -16,6 +16,10 @@ For concrete tasks, continue until one of these outcomes exists:
 - A web extraction with URL and evidence.
 - A clear blocker with completed work, remaining work, reason, and unblock condition.
 
+## Interpret Beyond the Literal Text
+
+Do not assume the user's message contains the entire desired outcome. Use available context, project rules, prior artifacts, and task type to infer likely requirements. When a hidden requirement could materially change the result, use `intent-interviewer` to clarify before executing.
+
 ## Prohibited Stop Points
 
 Do not stop after only giving a proposal when the task can be executed. Do not use task decomposition as a reason to pause.
@@ -27,3 +31,7 @@ Run available checks. If checks are not possible, state the reason and remaining
 ## Permission Gate
 
 Before deletion, overwrite, external submission, sending messages, purchasing, publishing, account changes, or saving sensitive data, ask for confirmation.
+
+## Confirmed System Updates
+
+When the user confirms a rule or skill update, apply it, run validation, commit, and push without asking the user to perform Git steps.

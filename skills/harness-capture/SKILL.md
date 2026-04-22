@@ -7,15 +7,17 @@ description: Use when Codex makes a repeated mistake, misses context, stops too 
 
 ## Purpose
 
-Convert feedback and failure into durable system changes. Do not leave the correction only in the conversation.
+Convert feedback and failures into durable system changes without making the user remember internal files or skill names.
 
 ## Process
 
-Append an entry to `D:\Code\Playgroud\docs\assistant\harness-log.md` with date, event, cause, correction, verification, and status. Then update the relevant rule, workflow, skill, template, script, or tool registry.
+When Codex notices a mismatch, first fix the current task if possible. Then classify the cause: missing context, unclear intent, unsuitable tone, insufficient verification, tool failure, incomplete execution, or weak workflow rule.
+
+Append an internal entry to `D:\Code\Playgroud\docs\assistant\harness-log.md` with date, event, cause, proposed correction, verification, and status. If the correction changes future behavior, ask the user to confirm the system update in plain language. After confirmation, update the relevant rule, workflow, skill, template, script, or tool registry, then validate, commit, and push.
 
 ## Examples
 
-- If work stops at a plan, update `execution-contract.md` or `execution-governor`.
-- If tone is unsuitable, update `preferences.md` or `style-governor`.
-- If a tool fails repeatedly, update `tool-registry.md` and add a check or fallback.
-- If context must be repeated, add a knowledge item or workflow note.
+- If work stops at a plan, propose a future-behavior correction and ask for confirmation.
+- If tone is unsuitable, propose a style-rule correction and ask for confirmation.
+- If a tool fails repeatedly, update tool notes after confirmation and add a check or fallback.
+- If context must be repeated, propose a knowledge item or workflow note.

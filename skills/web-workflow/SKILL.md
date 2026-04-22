@@ -11,6 +11,8 @@ Use Playwright or browser tools for real web interaction. Read `D:\Code\Playgrou
 
 ## Process
 
+Before web execution, identify the goal, source reliability need, output format, whether login is needed, and what actions require confirmation. Use `intent-interviewer` when the web task involves comparison, decision support, account actions, or current facts with high consequence.
+
 Capture source URLs, timestamps when useful, extracted text, screenshots, and uncertainty. Confirm before login-dependent writes, form submission, message sending, purchases, publishing, or account changes.
 
 ## Output

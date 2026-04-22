@@ -7,10 +7,17 @@ description: Use when the user asks for broad personal assistant behavior, contr
 
 ## Core Rule
 
-This skill is the routing entry for the controlled personal work system. Before starting a complex task in `D:\Code\Playgroud`, read the local `AGENTS.md`, then load the workflow file that matches the task.
+This skill is the routing entry for the controlled personal work system. Before starting work in `D:\Code\Playgroud`, sync or check the repository, read the local `AGENTS.md`, then load the workflow file that matches the task.
+
+## Startup
+
+- Local workspace: run `git pull` unless the working tree has uncommitted changes or Git/network errors. If it cannot sync, report the state and continue only when safe.
+- Cloud workspace: check the current branch against `origin/main` before starting substantial work.
+- Read `docs/assistant/execution-contract.md`, `docs/assistant/preferences.md`, and `docs/assistant/permissions.md` for complex tasks.
 
 ## Route Map
 
+- Complex or ambiguous task: use `intent-interviewer` before execution.
 - Research, papers, literature, PDF study, technical investigation: use `research-workflow` and read `docs/workflows/research.md`.
 - Codebase analysis, editing, testing, debugging, review: use `coding-workflow` and read `docs/workflows/coding.md`.
 - Word, PowerPoint, Excel, PDF, Markdown, report writing: use `office-workflow` and read `docs/workflows/office.md`.
@@ -22,4 +29,4 @@ This skill is the routing entry for the controlled personal work system. Before 
 
 ## Execution
 
-Do not stop at routing. Route, then continue executing the selected workflow until there is an artifact, verification result, or explicit blocker.
+Do not stop at routing or interview. Route, clarify when needed, then continue executing the selected workflow until there is an artifact, verification result, or explicit blocker.

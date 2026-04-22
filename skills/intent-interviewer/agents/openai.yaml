@@ -1,0 +1,4 @@
+interface:
+  display_name: "Intent Interviewer"
+  short_description: "Clarify complex tasks before execution."
+  default_prompt: "Use $intent-interviewer to clarify this complex task before execution."

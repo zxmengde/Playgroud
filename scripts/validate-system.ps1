@@ -9,6 +9,7 @@ $required = @(
     "docs\assistant\overview.md",
     "docs\assistant\preferences.md",
     "docs\assistant\execution-contract.md",
+    "docs\assistant\intent-interview.md",
     "docs\assistant\permissions.md",
     "docs\assistant\tool-registry.md",
     "docs\assistant\harness-log.md",
