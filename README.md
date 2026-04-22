@@ -6,9 +6,12 @@
 
 Codex 在本仓库工作时应先读取 `AGENTS.md`，再根据任务类型读取 `docs/assistant/` 和 `docs/workflows/` 下的对应文件。
 
+用户使用方法见 [docs/user-guide.md](docs/user-guide.md)。
+
 ## 目录
 
 - `docs/assistant/`：系统目标、偏好、执行契约、权限、工具登记和复盘记录。
+- `docs/user-guide.md`：面向用户的使用教程。
 - `docs/workflows/`：科研、编码、办公、网页和知识沉淀流程。
 - `docs/knowledge/`：长期知识条目和索引。
 - `docs/tasks/`：当前任务、已完成任务和阻塞任务。
