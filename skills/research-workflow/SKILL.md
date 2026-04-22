@@ -11,11 +11,13 @@ When working in the personal system, read `D:\Code\Playgroud\docs\workflows\rese
 
 ## Process
 
-Before research execution, identify the intended audience, depth, output format, source standard, and acceptance criteria. Use `intent-interviewer` for broad or ambiguous research tasks.
+Before research execution, infer the user's real research objective and identify the intended audience, depth, output format, source standard, and acceptance criteria. Use `intent-interviewer` for broad or ambiguous research tasks.
 
 Clarify the research question only when it cannot be inferred from files or the user request. Search current sources when facts may have changed. Prefer papers, official documentation, standards, datasets, and institutional sources.
 
 Separate facts, inference, and uncertainty. Preserve source URLs, local paths, keywords, and follow-up actions.
+
+For substantial research, deliver both a usable research artifact and a concise explanation of evidence quality, assumptions, and limitations.
 
 ## Output
 

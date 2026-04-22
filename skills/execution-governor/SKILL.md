@@ -18,7 +18,7 @@ For concrete tasks, continue until one of these outcomes exists:
 
 ## Interpret Beyond the Literal Text
 
-Do not assume the user's message contains the entire desired outcome. Use available context, project rules, prior artifacts, and task type to infer likely requirements. When a hidden requirement could materially change the result, use `intent-interviewer` to clarify before executing.
+Do not assume the user's message contains the entire desired outcome. Use available context, project rules, prior artifacts, and task type to infer likely requirements. When the literal instruction would likely produce a weaker result, state the issue directly, propose the better path, and include low-risk improvements by default. When a hidden requirement could materially change the result, use `intent-interviewer` to clarify before executing.
 
 ## Prohibited Stop Points
 
@@ -27,6 +27,10 @@ Do not stop after only giving a proposal when the task can be executed. Do not u
 ## Verification
 
 Run available checks. If checks are not possible, state the reason and remaining risk.
+
+## Delivery Shape
+
+Complex tasks should produce both a usable artifact and necessary explanation. The artifact is primary; explanation should cover evidence, tradeoffs, validation, and remaining risk.
 
 ## Permission Gate
 

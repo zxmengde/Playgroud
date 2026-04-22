@@ -11,9 +11,9 @@ Convert feedback and failures into durable system changes without making the use
 
 ## Process
 
-When Codex notices a mismatch, first fix the current task if possible. Then classify the cause: missing context, unclear intent, unsuitable tone, insufficient verification, tool failure, incomplete execution, or weak workflow rule.
+When Codex notices a mismatch, first fix the current task if possible. Then classify the cause: missing context, unclear intent, unsuitable tone, insufficient verification, tool failure, incomplete execution, weak workflow rule, or over-literal instruction following.
 
-Append an internal entry to `D:\Code\Playgroud\docs\assistant\harness-log.md` with date, event, cause, proposed correction, verification, and status. If the correction changes future behavior, ask the user to confirm the system update in plain language. After confirmation, update the relevant rule, workflow, skill, template, script, or tool registry, then validate, commit, and push.
+Append an internal entry to `D:\Code\Playgroud\docs\assistant\harness-log.md` with date, event, cause, proposed correction, verification, and status. If the correction changes future behavior, ask the user to confirm the system update in plain language. Do not require the user to know internal file names. After confirmation, update the relevant rule, workflow, skill, template, script, or tool registry, then validate, commit, and push.
 
 ## Examples
 

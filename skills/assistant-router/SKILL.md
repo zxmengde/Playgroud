@@ -7,7 +7,7 @@ description: Use when the user asks for broad personal assistant behavior, contr
 
 ## Core Rule
 
-This skill is the routing entry for the controlled personal work system. Before starting work in `D:\Code\Playgroud`, sync or check the repository, read the local `AGENTS.md`, then load the workflow file that matches the task.
+This skill is the routing entry for the controlled personal work system. Its first responsibility is to help Codex understand the user's real need, then route and execute. Before starting work in `D:\Code\Playgroud`, sync or check the repository, read the local `AGENTS.md`, then load the workflow file that matches the task.
 
 ## Startup
 
@@ -17,7 +17,7 @@ This skill is the routing entry for the controlled personal work system. Before 
 
 ## Route Map
 
-- Complex or ambiguous task: use `intent-interviewer` before execution.
+- Complex or ambiguous task: use `intent-interviewer` before execution. Do not ask generic checklists; infer from context and ask only high-impact questions.
 - Research, papers, literature, PDF study, technical investigation: use `research-workflow` and read `docs/workflows/research.md`.
 - Codebase analysis, editing, testing, debugging, review: use `coding-workflow` and read `docs/workflows/coding.md`.
 - Word, PowerPoint, Excel, PDF, Markdown, report writing: use `office-workflow` and read `docs/workflows/office.md`.
@@ -29,4 +29,4 @@ This skill is the routing entry for the controlled personal work system. Before 
 
 ## Execution
 
-Do not stop at routing or interview. Route, clarify when needed, then continue executing the selected workflow until there is an artifact, verification result, or explicit blocker.
+Do not stop at routing or interview. Route, clarify when needed, then continue executing the selected workflow until there is a usable artifact, necessary explanation, verification result, or explicit blocker.

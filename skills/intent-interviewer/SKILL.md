@@ -7,13 +7,15 @@ description: Use before complex or ambiguous tasks in the controlled personal wo
 
 ## Purpose
 
-Use this skill when the task is complex, underspecified, high-impact, or likely to depend on unstated preferences. The goal is to understand what the user actually wants before executing, while keeping the user's effort low.
+Use this skill when the task is complex, underspecified, high-impact, or likely to depend on unstated preferences. The goal is to infer and confirm the user's real need before executing, while keeping the user's effort low.
+
+Treat the user's instruction as a partial expression of intent, not necessarily the full requirement. First inspect available context, then ask only the questions that materially affect outcome, risk, or acceptance.
 
 ## Complexity Levels
 
 - Simple: clear input, clear output, low risk. Do not interview; execute directly.
-- Medium: mostly clear, but one to three decisions affect the result. State the inferred goal and ask only those questions.
-- Complex: broad, multi-file, research-heavy, design-heavy, external-facing, or likely to affect future workflow. Run a structured interview before execution.
+- Medium: mostly clear, but one to three decisions affect the result. State the inferred goal, fill in safe assumptions, and ask only those questions.
+- Complex: broad, multi-file, research-heavy, design-heavy, external-facing, formal, or likely to affect future workflow. Run a structured interview before execution.
 
 ## Interview Coverage
 
@@ -29,10 +31,18 @@ For complex tasks, confirm these points:
 - Preferences: implicit style, audience, depth, examples, tradeoffs.
 - Acceptance checks: tests, rendering, screenshots, source citations, review criteria.
 
+## Scenario Focus
+
+- Research: question, audience, source standard, currency requirement, output type, evidence vs inference, uncertainty handling.
+- Coding: desired behavior, affected surface, compatibility, tests, allowed refactor scope, rollback risk.
+- Office: audience, purpose, file type, structure, visual standard, editability, citation needs, review method.
+- Web: source purpose, reliability standard, login/download needs, screenshots, account actions, external writes.
+- System improvement: current-task fix vs future default behavior, whether to update rules, skills, templates, scripts, or tool notes.
+
 ## Question Discipline
 
 Explore available files and context before asking. Ask questions only when the answer materially changes the result or risk. Prefer one concise batch of questions. If an assumption is low risk, state it and proceed.
 
 ## After Interview
 
-Summarize the inferred task in one short paragraph, then continue execution. Do not treat the interview as the final deliverable.
+Summarize the inferred task in one short paragraph, including assumptions and the execution path, then continue execution. Do not treat the interview as the final deliverable.
