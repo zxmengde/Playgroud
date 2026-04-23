@@ -16,3 +16,4 @@
 | 2026-04-23 | 第一轮广域 agent 能力调研与系统改进落地 | `docs/knowledge/items/2026-04-23-agent-harness-skills-research.md`、`docs/assistant/agent-capability-improvement.md`、用户画像和执行规则更新 | 系统校验通过，相关技能校验通过 |
 | 2026-04-23 | 增强分层记忆、停止前检查和技能质量校验 | `docs/assistant/memory-model.md`、`docs/assistant/pre-finish-check.md`、`docs/assistant/skill-quality-standard.md`、`scripts/validate-skills.ps1` | `scripts/validate-system.ps1` 和 `scripts/validate-skills.ps1` 通过 |
 | 2026-04-23 | 增加 agent 工具图谱、Windows 自动化边界和个人化运行模型 | `docs/assistant/agent-tool-landscape.md`、`docs/assistant/personal-agent-operating-model.md`、相关知识条目和工作流更新 | 系统校验通过，远程同步完成 |
+| 2026-04-23 | 增加 agent 安全模型与文本风险扫描 | `docs/assistant/security-model.md`、`scripts/scan-text-risk.ps1`、相关知识条目和校验集成 | `scripts/validate-system.ps1` 通过，远程同步完成 |

@@ -35,3 +35,4 @@ Codex 在发送最终回复前应确认：
 
 稳定、可重复的停止前检查可以转化为脚本、自动化或技能。尚不稳定的流程先保留为人工可读规则，避免过早自动化。
 
+自动化候选应按 `docs/assistant/automation-policy.md` 审查。长任务结束前还应按 `docs/assistant/long-task-quality.md` 检查状态保存、恢复入口和验收维度。

@@ -17,6 +17,8 @@
 - `docs/assistant/permissions.md`
 - `docs/assistant/security-model.md`
 - `docs/assistant/tool-registry.md`
+- `docs/assistant/automation-policy.md`
+- `docs/assistant/long-task-quality.md`
 - `docs/assistant/agent-capability-improvement.md`
 - `docs/assistant/personal-agent-operating-model.md`
 - `docs/assistant/memory-model.md`

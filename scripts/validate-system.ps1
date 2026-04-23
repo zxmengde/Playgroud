@@ -12,6 +12,8 @@ $required = @(
     "docs\assistant\alignment-audit.md",
     "docs\assistant\agent-capability-improvement.md",
     "docs\assistant\agent-tool-landscape.md",
+    "docs\assistant\automation-policy.md",
+    "docs\assistant\long-task-quality.md",
     "docs\assistant\personal-agent-operating-model.md",
     "docs\assistant\memory-model.md",
     "docs\assistant\pre-finish-check.md",
@@ -30,6 +32,8 @@ $required = @(
     "docs\tasks\done.md",
     "docs\tasks\blocked.md",
     "templates\knowledge\knowledge-item.md",
+    "templates\assistant\automation-review.md",
+    "templates\assistant\long-task-state.md",
     "templates\assistant\skill-adoption-review.md",
     "scripts\scan-text-risk.ps1",
     "scripts\validate-skills.ps1"
@@ -70,7 +74,7 @@ if ($hits.Count -gt 0) {
 }
 
 $secretPatterns = @(
-    "sk-[A-Za-z0-9_-]{16,}",
+    "(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{16,}",
     "ghp_[A-Za-z0-9_]{20,}",
     "github_pat_[A-Za-z0-9_]{20,}",
     "xox[baprs]-[A-Za-z0-9-]{10,}"
