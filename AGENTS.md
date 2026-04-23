@@ -15,6 +15,7 @@
 - `docs/assistant/preferences.md`
 - `docs/assistant/execution-contract.md`
 - `docs/assistant/permissions.md`
+- `docs/assistant/security-model.md`
 - `docs/assistant/tool-registry.md`
 - `docs/assistant/agent-capability-improvement.md`
 - `docs/assistant/personal-agent-operating-model.md`

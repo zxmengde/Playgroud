@@ -11,6 +11,7 @@
 | Office 文件工具 | Word、PPT、Excel 创建与编辑 | DOCX、PPTX、XLSX | 覆盖源文件需确认 | 渲染、结构检查、打开性检查 | Pandoc 或 LibreOffice |
 | PDF 工具 | 提取文本、生成 PDF、渲染页面 | PDF 文件 | 不修改原件，除非确认 | 渲染图、页数、文本抽取 | OCR 或浏览器预览 |
 | Codex 技能 | 专项流程和工具使用规则 | 用户请求、文件路径 | 技能内容不得含敏感信息 | `quick_validate.py` | 项目级规则 |
+| 文本风险扫描 | 检查 Markdown、YAML、PowerShell、JSON 中的隐藏 Unicode 和异常控制字符 | 本地文本文件，扫描报告 | 只检测字符风险，不判断语义安全 | `scripts/scan-text-risk.ps1` | 人工审查 |
 | Automations | 周期性任务和线程跟进 | 提示和计划时间 | 长期运行需确认 | 自动化卡片、运行记录 | 手动任务记录 |
 | MCP | 外部文档、服务和工具接入 | MCP 服务配置 | 账号授权和写入需确认 | MCP 资源/工具列表 | 网页检索或本地文档 |
 

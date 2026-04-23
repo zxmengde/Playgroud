@@ -21,6 +21,7 @@ $required = @(
     "docs\assistant\execution-contract.md",
     "docs\assistant\intent-interview.md",
     "docs\assistant\permissions.md",
+    "docs\assistant\security-model.md",
     "docs\assistant\tool-registry.md",
     "docs\assistant\harness-log.md",
     "docs\knowledge\index.md",
@@ -30,6 +31,7 @@ $required = @(
     "docs\tasks\blocked.md",
     "templates\knowledge\knowledge-item.md",
     "templates\assistant\skill-adoption-review.md",
+    "scripts\scan-text-risk.ps1",
     "scripts\validate-skills.ps1"
 )
 
@@ -89,5 +91,6 @@ if ($secretHits.Count -gt 0) {
 }
 
 & (Join-Path $Root "scripts\validate-skills.ps1") -Root $Root
+& (Join-Path $Root "scripts\scan-text-risk.ps1") -Root $Root
 
 Write-Output "System validation passed."
