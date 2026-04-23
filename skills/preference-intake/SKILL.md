@@ -13,7 +13,7 @@ Preference intake is not only a form about the current task. It should gradually
 
 ## Source Of Truth
 
-Read `D:\Code\Playgroud\docs\profile\user-model.md` first. If needed, use `D:\Code\Playgroud\docs\profile\intake-questionnaire.md` to choose relevant questions.
+Read `D:\Code\Playgroud\docs\profile\user-model.md` and `D:\Code\Playgroud\docs\profile\preference-map.md` first. If needed, use `D:\Code\Playgroud\docs\profile\intake-questionnaire.md` to choose relevant questions.
 
 ## Method
 
@@ -22,6 +22,8 @@ Ask only questions that materially affect the current task or future reusable be
 If the user says not to ask more questions, stop asking. Continue with safe inference from existing files, prior feedback, and public research. Mark high-impact unknowns as pending rather than pretending they are known.
 
 When designing questions, prefer questions that reveal durable preference patterns over narrow one-off choices. For example, ask what makes a PPT useful for the user's research communication before asking only for colors.
+
+Use `D:\Code\Playgroud\templates\profile\preference-note.md` when recording a durable preference. Prefer updating `preference-map.md` when the information is a gap, default, or domain-specific preference; update `user-model.md` only for stable confirmed baseline preferences.
 
 ## Trigger Examples
 

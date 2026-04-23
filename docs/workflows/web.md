@@ -6,6 +6,8 @@
 
 ## 执行要求
 
+开始前读取 `docs/profile/user-model.md` 和 `docs/profile/preference-map.md`。若截图、下载、命名、归档或来源可靠性偏好未知且会影响任务，先使用 `preference-intake`。若用户暂时不想回答，采用 `preference-map.md` 中的网页与知识保守默认值。
+
 优先使用 Playwright 或浏览器工具获取页面内容、截图和链接。登录、提交表单、发送消息、购买、发布或外部写入前必须确认。
 
 ## 产物

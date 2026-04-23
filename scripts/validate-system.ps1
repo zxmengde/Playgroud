@@ -7,6 +7,7 @@ $ErrorActionPreference = "Stop"
 $required = @(
     "AGENTS.md",
     "docs\profile\user-model.md",
+    "docs\profile\preference-map.md",
     "docs\profile\intake-questionnaire.md",
     "docs\assistant\overview.md",
     "docs\assistant\alignment-audit.md",
@@ -32,6 +33,7 @@ $required = @(
     "docs\tasks\done.md",
     "docs\tasks\blocked.md",
     "templates\knowledge\knowledge-item.md",
+    "templates\profile\preference-note.md",
     "templates\assistant\automation-review.md",
     "templates\assistant\long-task-state.md",
     "templates\assistant\skill-adoption-review.md",

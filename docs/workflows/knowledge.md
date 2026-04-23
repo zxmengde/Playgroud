@@ -6,6 +6,8 @@
 
 ## 执行要求
 
+开始前读取 `docs/profile/user-model.md` 和 `docs/profile/preference-map.md`。若命名、标签、归档深度或外部知识工具联动偏好未知，先采用保守默认值，并把待采集项写入任务记录。
+
 知识条目应使用 `templates/knowledge/knowledge-item.md`。稳定事实写入本地文件，不能只依赖对话记忆。
 
 每个条目应包含来源、状态和后续可执行事项。过期或不确定内容应标注。

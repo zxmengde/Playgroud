@@ -11,6 +11,7 @@
 开始复杂任务前，优先读取：
 
 - `docs/profile/user-model.md`
+- `docs/profile/preference-map.md`
 - `docs/assistant/overview.md`
 - `docs/assistant/preferences.md`
 - `docs/assistant/execution-contract.md`
