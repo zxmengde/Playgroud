@@ -1,0 +1,4 @@
+interface:
+  display_name: "Literature Zotero Workflow"
+  short_description: "Work with Zotero libraries, PDFs, and verified citations."
+  default_prompt: "Use $literature-zotero-workflow to search, read, and summarize literature with verified sources."

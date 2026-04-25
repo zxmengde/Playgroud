@@ -18,3 +18,6 @@
 | 2026-04-23 | 增加 agent 工具图谱、Windows 自动化边界和个人化运行模型 | `docs/assistant/agent-tool-landscape.md`、`docs/assistant/personal-agent-operating-model.md`、相关知识条目和工作流更新 | 系统校验通过，远程同步完成 |
 | 2026-04-23 | 增加 agent 安全模型与文本风险扫描 | `docs/assistant/security-model.md`、`scripts/scan-text-risk.ps1`、相关知识条目和校验集成 | `scripts/validate-system.ps1` 通过，远程同步完成 |
 | 2026-04-23 | 增加长任务质量标准和自动化策略 | `docs/assistant/long-task-quality.md`、`docs/assistant/automation-policy.md`、相关模板和知识条目 | `scripts/validate-system.ps1` 通过，远程同步完成 |
+| 2026-04-25 | 针对迎合、伪需求、成本、Zotero、视频总结和 GitHub 网络问题进行系统改造 | `docs/assistant/cost-control.md`、`docs/assistant/git-network-troubleshooting.md`、`docs/workflows/literature-zotero.md`、`docs/workflows/video.md`、`skills/literature-zotero-workflow/`、`skills/video-source-workflow/`、`scripts/test-git-network.ps1` | `scripts/validate-system.ps1` 和 `scripts/validate-skills.ps1` 通过；Git 网络诊断复现代理端口不可达与 10106 错误 |
+| 2026-04-25 | 增加能力差距审查与技能审计 | `docs/assistant/capability-gap-review.md`、`docs/assistant/skill-audit.md`、`scripts/audit-skills.ps1`，并补齐多个技能的产物与验证段落 | `scripts/audit-skills.ps1` 无结构警告；`scripts/validate-system.ps1` 通过 |
+| 2026-04-26 | Playgroud v2 重构、旧规则迁移和代表性验收 | `docs/core/`、`docs/references/assistant/`、`docs/archive/assistant-v1/`、`docs/validation/v2-acceptance/`、新增结构与验收校验脚本 | `scripts/validate-system.ps1` 通过；停止前检查通过但提示工作区有未提交改动 |

@@ -5,29 +5,23 @@ description: Use when the user asks for broad personal assistant behavior, contr
 
 # Assistant Router
 
-## Core Rule
+## Trigger
 
-This skill is the routing entry for the controlled personal work system. Its first responsibility is to help Codex understand the user's real need, then route and execute. Before starting work in `D:\Code\Playgroud`, sync or check the repository, read the local `AGENTS.md`, then load the workflow file that matches the task.
+Use for multi-domain tasks or any task inside `D:\Code\Playgroud` that requires routing across research, coding, office, web, knowledge, automation, or system maintenance.
 
-## Startup
+## Read
 
-- Local workspace: run `git pull` unless the working tree has uncommitted changes or Git/network errors. If it cannot sync, report the state and continue only when safe.
-- Cloud workspace: check the current branch against `origin/main` before starting substantial work.
-- Read `docs/assistant/execution-contract.md`, `docs/assistant/preferences.md`, and `docs/assistant/permissions.md` for complex tasks.
+Start with `AGENTS.md`, the five files in `docs/core/`, `docs/profile/user-model.md`, `docs/profile/preference-map.md`, and `docs/tasks/active.md`. Then read only the workflow matching the task.
 
-## Route Map
+## Act
 
-- Complex or ambiguous task: use `intent-interviewer` before execution. Do not ask generic checklists; infer from context and ask only high-impact questions.
-- Missing user-specific preference, template, or quality standard: use `preference-intake` before creating reusable artifacts.
-- Research, papers, literature, PDF study, technical investigation: use `research-workflow` and read `docs/workflows/research.md`.
-- Codebase analysis, editing, testing, debugging, review: use `coding-workflow` and read `docs/workflows/coding.md`.
-- Word, PowerPoint, Excel, PDF, Markdown, report writing: use `office-workflow` and read `docs/workflows/office.md`.
-- Website access, browser automation, screenshots, web data extraction: use `web-workflow` and read `docs/workflows/web.md`.
-- Durable user preference, project background, templates, sources, notes: use `knowledge-capture` and read `docs/workflows/knowledge.md`.
-- User feedback about work quality, style, repeated errors, insufficient verification: use `harness-capture`.
-- Any user-facing response: apply `style-governor`.
-- Any task with a concrete outcome: apply `execution-governor`.
+Check Git state first. Do not pull if the working tree is dirty or network state is unsafe. Identify the real goal, route to the narrow workflow, and continue to artifact, validation, knowledge record, or explicit blocker.
 
-## Execution
+## Output
 
-Do not stop at routing or interview. Route, clarify when needed, then continue executing the selected workflow until there is a usable artifact, necessary explanation, verification result, or explicit blocker.
+Produce the routed workflow's artifact, extraction, patch, document, knowledge item, verification result, or blocker. Routing is not the deliverable.
+
+## Verify
+
+Confirm the selected workflow matches the task, permissions were respected, and available validation was run. Use `scripts/check-finish-readiness.ps1` for complex tasks.
+

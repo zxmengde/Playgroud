@@ -5,41 +5,22 @@ description: Use when a task has a concrete outcome and Codex should avoid stopp
 
 # Execution Governor
 
-## Completion Standard
+## Trigger
 
-For concrete tasks, continue until one of these outcomes exists:
+Use for any task where a concrete outcome is expected.
 
-- A generated or modified file.
-- A code change plus relevant check.
-- A research note with sources.
-- A processed document with validation.
-- A web extraction with URL and evidence.
-- A clear blocker with completed work, remaining work, reason, and unblock condition.
+## Read
 
-## Interpret Beyond the Literal Text
+Read `docs/core/identity-and-goal.md`, `docs/core/execution-loop.md`, `docs/core/memory-state.md`, `docs/core/finish-readiness.md`, and the task-specific workflow.
 
-Do not assume the user's message contains the entire desired outcome. Use available context, project rules, prior artifacts, and task type to infer likely requirements. When the literal instruction would likely produce a weaker result, state the issue directly, propose the better path, and include low-risk improvements by default. When a hidden requirement could materially change the result, use `intent-interviewer` to clarify before executing.
+## Act
 
-If the user asks for broad improvement or research and gives examples, treat the examples as a starting set rather than a boundary. Expand to adjacent official documentation, papers, open-source projects, safety reports, and local system changes when this is low risk.
+Do not stop at a proposal when safe execution is possible. Treat user examples as signals, not boundaries. Check for unsupported premises, pseudo-requirements, missing evidence, and lower-risk paths. Continue until artifact, validation, knowledge record, or explicit blocker exists.
 
-If the user asks not to continue questioning, do not stop the task. Continue with safe research, synthesis, file updates, validation, and progress recording until there is a useful artifact, verification result, or explicit blocker.
+## Output
 
-## Prohibited Stop Points
+End with a generated or modified file, code change, research note, processed document, web extraction, validation result, or blocker with unblock condition.
 
-Do not stop after only giving a proposal when the task can be executed. Do not use task decomposition as a reason to pause.
+## Verify
 
-## Verification
-
-Run available checks. If checks are not possible, state the reason and remaining risk.
-
-## Delivery Shape
-
-Complex tasks should produce both a usable artifact and necessary explanation. The artifact is primary; explanation should cover evidence, tradeoffs, validation, and remaining risk.
-
-## Permission Gate
-
-Before deletion, overwrite, external submission, sending messages, purchasing, publishing, account changes, or saving sensitive data, ask for confirmation.
-
-## Confirmed System Updates
-
-When the user confirms a rule or skill update, apply it, run validation, commit, and push without asking the user to perform Git steps.
+Run available checks. Use `scripts/check-finish-readiness.ps1` for complex tasks. Ask before deletion, overwrite, external submission, sending, purchasing, publishing, account changes, or sensitive data storage.
