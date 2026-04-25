@@ -1,37 +1,67 @@
-# 受控的个人智能工作系统
+# Playgroud v2：受控的个人智能工作系统
 
-本仓库是 Codex 在 Windows 环境中使用的个人智能工作系统控制仓库。它存放规则、工具登记、知识库、任务记录、模板、校验脚本和复盘记录。
+本仓库用于把 Codex 组织为可执行、可恢复、可审计的个人工作系统，服务科研、文献、Zotero、视频资料、Office、网页、编码、知识沉淀和系统维护。
+
+用户通常只需要表达目标。Codex 负责读取上下文、判断真实需求、执行低风险工作、运行检查、记录状态，并在需要高影响操作时确认。
 
 ## 入口
 
-Codex 在本仓库工作时应先读取 `AGENTS.md`，再根据任务类型读取 `docs/assistant/` 和 `docs/workflows/` 下的对应文件。
+- `AGENTS.md`：仓库入口和默认启动顺序。
+- `docs/core/`：v2 的五个核心协议。
+- `docs/profile/`：用户画像、偏好地图和偏好采集问题。
+- `docs/tasks/active.md`：当前任务状态和恢复入口。
+- `docs/workflows/`：科研、文献、办公、编码、网页、视频和知识沉淀流程。
+- `docs/capabilities/`：能力清单、成熟度和缺口。
+- `docs/knowledge/`：长期知识条目和分区索引。
+- `docs/references/`：按需读取的背景材料、工具说明和迁移原则。
+- `docs/archive/`：v1 规则正文归档；旧路径保留兼容入口。
+- `docs/validation/`：代表性任务验收记录。
+- `skills/`：Codex 技能定义的同步副本。
+- `scripts/`：校验、审计、网络诊断和停止前检查脚本。
+- `templates/`：知识、科研、办公、任务状态和复盘模板。
 
-用户使用方法见 [docs/user-guide.md](docs/user-guide.md)。
+## 默认工作方式
 
-用户通常只需要表达目标。同步仓库、读取规则、判断是否需要澄清、执行、验证和必要的系统改进建议由 Codex 负责。
+复杂任务默认遵循：
 
-## 目录
-
-- `docs/assistant/`：系统目标、偏好、执行契约、权限、工具登记和复盘记录。
-- `docs/user-guide.md`：面向用户的使用教程。
-- `docs/workflows/`：科研、编码、办公、网页和知识沉淀流程。
-- `docs/knowledge/`：长期知识条目和索引。
-- `docs/tasks/`：当前任务、已完成任务和阻塞任务。
-- `templates/`：科研、办公、编码、知识条目和复盘模板。
-- `skills/`：与本机 Codex 技能组对应的可同步技能定义，便于云端 Codex 读取。
-- `scripts/`：可复用的本地校验和辅助脚本。
-- `output/`：验收或任务生成的输出文件。
+1. 检查 Git 状态和任务状态。
+2. 读取五个核心协议、用户画像和任务相关工作流。
+3. 建立真实目标、成功标准、输入、输出、风险和验证方式。
+4. 直接执行低风险工作，必要时只询问关键问题。
+5. 产生产物、验证、知识记录或明确阻塞。
+6. 运行停止前检查并记录剩余风险。
 
 ## 校验
 
-在 PowerShell 中运行：
+常规系统校验：
 
 ```powershell
 .\scripts\validate-system.ps1
 ```
 
-该脚本检查必需结构、语言约束和潜在敏感信息。
+结构与验收校验：
+
+```powershell
+.\scripts\validate-doc-structure.ps1
+.\scripts\validate-acceptance-records.ps1
+```
+
+停止前检查：
+
+```powershell
+.\scripts\check-finish-readiness.ps1
+```
+
+GitHub 代理诊断：
+
+```powershell
+.\scripts\test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin
+```
 
 ## 权限
 
-本仓库不保存密钥、令牌、账号密码。外部账号写入、发送消息、发布、购买、删除、覆盖和大规模移动文件前需要明确确认。
+可直接执行：读取文件、检索公开资料、创建草稿和知识条目、运行非破坏性检查、截图、渲染和整理任务记录。
+
+需确认执行：删除、覆盖、大规模移动、外部账号写入、提交表单、发送消息、购买、发布、上传、保存敏感信息、修改系统配置或长期服务。
+
+禁止执行：保存或复述密钥、令牌、账号密码；绕过系统或网站权限；运行来源不明的第三方 agent、skill、插件或泄露源码镜像。

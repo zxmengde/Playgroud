@@ -5,22 +5,23 @@ description: Use for Word, PowerPoint, Excel, PDF, Markdown, reports, slide deck
 
 # Office Workflow
 
-## Context
+## Trigger
 
-Use the specialized document skills when applicable: `doc` for DOCX, `slides` or `PowerPoint` for PPTX, `Excel` for spreadsheets, and `pdf` for PDF. Read `D:\Code\Playgroud\docs\workflows\office.md`.
+Use for Word, PowerPoint, Excel, PDF, Markdown, reports, slide decks, spreadsheets, document conversion, rendering, and layout validation.
 
-## Process
+## Read
 
-Before creating or editing office artifacts, read `docs/profile/user-model.md`. If template, audience, file style, visual standard, citation format, or editability preference is missing, use `preference-intake` before producing the artifact.
+Read `docs/workflows/office.md`, `docs/profile/user-model.md`, and `docs/profile/preference-map.md`. Use specialized document, presentation, spreadsheet, or PDF skills when available.
 
-Infer the user's real communication goal and identify the audience, file type, structure, tone, visual standard, editability requirement, citation needs, and validation method. Use `intent-interviewer` for reports, slide decks, formal documents, or tasks with unclear audience.
+## Act
 
-Prefer editable source files. Preserve existing formatting unless the user requests redesign. For layout-sensitive work, validate with rendering, screenshots, workbook inspection, document structure checks, or openability checks.
-
-For PowerPoint, preserve editable shapes, charts, tables, speaker notes, master/layout consistency, and deck-wide visual coherence where possible. Validate both structure and rendered slides for layout-sensitive tasks. For Word, preserve headings, references, captions, numbering, tables, and editable text. For Excel, preserve formulas, tables, charts, and data provenance notes.
-
-If the user does not want to answer preference questions now, use conservative academic-research defaults and record unresolved template or style unknowns in the task notes.
+Infer audience, purpose, file type, structure, visual standard, editability requirement, citation needs, and validation method. Prefer editable files. Use conservative academic-research defaults when preferences are unknown and not worth interrupting for.
 
 ## Output
 
-Report output paths, validation method, and any remaining risk.
+Produce editable files, exports, rendered previews, structure checks, or a blocker.
+
+## Verify
+
+Use rendering, screenshots, workbook inspection, document structure checks, openability checks, or manual file review. Report output paths and remaining risk.
+

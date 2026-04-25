@@ -5,6 +5,23 @@ description: Legacy compatibility skill only. Use assistant-router for active pe
 
 # Personal Work Assistant
 
-This legacy skill remains for compatibility with older prompts. For active work, load `assistant-router`, then apply `style-governor` and `execution-governor`.
+## Trigger
 
-The local source of truth is `D:\Code\Playgroud\AGENTS.md` and the files under `D:\Code\Playgroud\docs\assistant\`.
+Legacy compatibility only. Do not expand this skill.
+
+## Read
+
+Read `AGENTS.md`, then use `assistant-router`, `style-governor`, and `execution-governor` as appropriate.
+
+## Act
+
+Delegate active work to the current v2 core protocols and task-specific workflow.
+
+## Output
+
+Produce the active workflow's artifact, validation result, knowledge record, or blocker.
+
+## Verify
+
+Confirm this legacy skill did not become the primary procedure.
+

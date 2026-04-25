@@ -5,33 +5,23 @@ description: Use when a task depends on user-specific preferences, templates, re
 
 # Preference Intake
 
-## Purpose
+## Trigger
 
-Use this skill to collect user-specific information before Codex creates or updates specialized documents, templates, workflows, or skills. Do not treat generic best practices as if they were the user's preferences.
+Use when missing user-specific preference would materially affect a reusable artifact, formal document, research output, coding convention, knowledge structure, or future default behavior.
 
-Preference intake is not only a form about the current task. It should gradually model the user's working style, thinking style, aesthetic standards, research standards, office templates, risk tolerance, collaboration preferences, and rejected assistant behaviors.
+## Read
 
-## Source Of Truth
+Read `docs/profile/user-model.md`, `docs/profile/preference-map.md`, `docs/profile/intake-questionnaire.md`, and `templates/profile/preference-note.md`.
 
-Read `D:\Code\Playgroud\docs\profile\user-model.md` and `D:\Code\Playgroud\docs\profile\preference-map.md` first. If needed, use `D:\Code\Playgroud\docs\profile\intake-questionnaire.md` to choose relevant questions.
+## Act
 
-## Method
+Ask only high-impact questions. Prefer durable preference patterns over narrow fields. If the user does not want questions, stop asking, continue with safe defaults, and record high-impact unknowns as pending.
 
-Ask only questions that materially affect the current task or future reusable behavior. For full preference collection, ask in batches of at most three high-impact questions. After receiving answers, update `user-model.md` and any affected workflow, template, or skill.
+## Output
 
-If the user says not to ask more questions, stop asking. Continue with safe inference from existing files, prior feedback, and public research. Mark high-impact unknowns as pending rather than pretending they are known.
+Produce a confirmed preference note, an update to `user-model.md` or `preference-map.md`, or a recorded pending preference.
 
-When designing questions, prefer questions that reveal durable preference patterns over narrow one-off choices. For example, ask what makes a PPT useful for the user's research communication before asking only for colors.
+## Verify
 
-Use `D:\Code\Playgroud\templates\profile\preference-note.md` when recording a durable preference. Prefer updating `preference-map.md` when the information is a gap, default, or domain-specific preference; update `user-model.md` only for stable confirmed baseline preferences.
+Check source, scope, confirmation status, and affected workflow or template.
 
-## Trigger Examples
-
-- Office task but no Word/PPT template, style, audience, or citation preference is known.
-- Research task but source standards, output style, or target audience are unknown.
-- Coding task but testing, refactor boundary, or commit preference is unknown.
-- System initialization task where docs or skills would otherwise be based on assumptions.
-
-## Safety
-
-Do not ask for secrets, passwords, tokens, private account credentials, or sensitive personal identifiers. If a credential is needed, ask the user to configure it outside the knowledge base.

@@ -5,18 +5,23 @@ description: Use for codebase exploration, implementation, debugging, testing, r
 
 # Coding Workflow
 
-## Context
+## Trigger
 
-Read the repository structure before editing. Use local conventions, dependency files, tests, and existing helpers. Do not revert user changes unless explicitly asked.
+Use for codebase reading, implementation, debugging, tests, refactors, reviews, dependency checks, Git work, and project maps.
 
-## Process
+## Read
 
-Before editing, read `docs/profile/user-model.md`. If coding style, test preference, refactor boundary, commit practice, or project-specific convention is missing and affects the task, use `preference-intake`.
+Read `docs/core/execution-loop.md`, `docs/workflows/coding.md`, `docs/profile/user-model.md`, and `docs/profile/preference-map.md`. For unfamiliar projects, read local `AGENTS.md`, README, manifests, test config, and relevant source files.
 
-Infer the user's real engineering goal and identify desired behavior, affected surface, compatibility needs, testing expectations, and rollback risk. Use `intent-interviewer` when the task is broad, architectural, or underspecified.
+## Act
 
-Find relevant files, implement scoped changes, run relevant tests or checks, and report what changed. For broad or unfamiliar projects, create or update a project map using `D:\Code\Playgroud\templates\coding\project-map.md`.
+Build a lightweight project map when scope is broad. Follow existing style, keep changes scoped, do not revert user changes, and separate understanding, implementation, and verification.
 
-## Verification
+## Output
 
-Use `git status`, targeted tests, build commands, linters, or direct scripts. If checks fail, inspect the failure and continue when the fix is within scope.
+Produce a patch, project map, review findings, test result, failure summary, or blocker.
+
+## Verify
+
+Run targeted tests, build, lint, direct scripts, or at minimum `git status` and a diff review. Explain any check that cannot run.
+

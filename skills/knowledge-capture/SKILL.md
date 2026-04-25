@@ -5,18 +5,23 @@ description: Use when durable information should be saved locally, including use
 
 # Knowledge Capture
 
-## Context
+## Trigger
 
-Use `D:\Code\Playgroud\templates\knowledge\knowledge-item.md` for new knowledge items. Read `D:\Code\Playgroud\docs\workflows\knowledge.md`.
+Use when information will reduce future repetition, improve task quality, preserve evidence, or clarify durable user preference.
 
-## Rules
+## Read
 
-Codex should decide whether durable capture is useful; the user should not need to ask for it every time. Capture durable context when it will reduce future repetition, improve task quality, preserve evidence, or clarify the user's real preferences.
+Read `docs/core/memory-state.md`, `docs/workflows/knowledge.md`, `docs/knowledge/index.md`, and `templates/knowledge/knowledge-item.md`.
 
-If knowledge organization preferences, tags, naming, or tool integration are unknown and matter to the task, use `preference-intake`.
+## Act
 
-Do not store secrets, tokens, passwords, or sensitive credentials. Mark uncertain or time-sensitive information clearly.
+Separate stable fact, inference, uncertainty, and source. Do not store secrets, credentials, or unsupported sensitive information. Use category indexes under `docs/knowledge/` when adding durable items.
 
 ## Output
 
-Create items in `D:\Code\Playgroud\docs\knowledge\items\`. Update `D:\Code\Playgroud\docs\knowledge\index.md` with date, title, type, status, and path.
+Create or update a knowledge item and update the main and category index when needed.
+
+## Verify
+
+Check source, status, paths or links, uncertainty notes, and index coverage. Run `scripts/validate-knowledge-index.ps1`.
+

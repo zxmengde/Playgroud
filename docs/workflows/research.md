@@ -12,6 +12,8 @@
 
 优先使用论文、官方文档、标准、数据集和机构资料。输出时区分事实、推断和不确定信息。
 
+涉及 Zotero、本地 PDF、BibTeX、RIS、CSL JSON、DOI 列表、引用核验或文献库整理时，同时读取 `docs/workflows/literature-zotero.md`，并使用 `literature-zotero-workflow`。Zotero 本地数据库默认只读处理，不得直接写入 `zotero.sqlite`。
+
 涉及论文、综述、报告或可发表文本时，引用真实性必须单独检查。不得生成无法核验的文献条目。每条关键引用应尽量保留 DOI、出版社页面、arXiv、PubMed、ACL Anthology、IEEE、ACM、Nature、ScienceDirect、机构页面或其他可验证来源。若引用只来自二手网页，应标注可信度限制。
 
 对新近、冷门或高影响结论，应进行来源交叉核对。无法核验的来源不得进入正式参考文献，只能作为待查线索。
