@@ -63,6 +63,12 @@
 | https://github.com/browser-use/browser-use | 浏览器自动化 agent | 参考网页任务抽象；本地优先使用已启用 Browser Use |
 | https://github.com/microsoft/playwright-mcp | Playwright MCP 浏览器控制 | 候选：需要稳定浏览器 MCP 时评估 |
 | https://github.com/microsoft/markitdown | 文档转 Markdown | 候选：大量 Office/PDF 转文本时评估 |
+| https://github.com/RookieCuzz/codex-bilibili-skills | Bilibili 证据采集和视频笔记技能 | 已安装两个经检查子技能；详见 `docs/references/assistant/bilibili-skill-evaluation.md` |
+| https://github.com/ysyecust/lecture-to-notes | 视频课程讲义和 PDF 生成 | 不默认安装；需要课程级 PDF 产物时按任务评估 |
+| https://github.com/ZachZeng99/video-summary | YouTube/Bilibili 字幕摘要 | 已排除为默认候选；主脚本语法检查失败且默认保存 `SESSDATA` |
+| https://github.com/Wscats/bilibili-all-in-one | Bilibili 下载、字幕、数据、投稿等综合工具 | 不默认安装；功能面包含账号写入和发布路径 |
+| https://github.com/openclaw/openclaw | 本地 agent、workspace、skills、doctor 和沙箱机制 | 迁移配置检查和失败状态思想，不安装常驻 agent |
+| https://github.com/NousResearch/hermes-agent | 记忆、skills、MCP、任务后学习和多终端后端 | 迁移技能治理和 MCP 环境过滤思想，不安装常驻 agent |
 
 ## 引入标准
 

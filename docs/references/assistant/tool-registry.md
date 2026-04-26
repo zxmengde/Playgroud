@@ -11,6 +11,7 @@
 | MCP 配置审计脚本 | 列出现有 MCP 服务器名称和 URL 或命令 | 用户级 Codex 配置，文本输出 | 不输出密钥；只读检查 | `scripts/audit-mcp-config.ps1` | 手动查看 `config.toml` |
 | MCP 引入评估脚本 | 为候选 MCP 生成评估记录 | MCP 名称，Markdown 输出 | 不安装服务器，不修改配置 | `scripts/new-mcp-adoption-review.ps1` | 手动复制模板 |
 | 仓库最小化审计 | 检查版本化生成物、旧入口、大文件、重复小文件和本地输出目录 | Git 跟踪文件和本地目录，文本输出 | 只读检查 | `scripts/audit-minimality.ps1` | `git ls-files` 和人工审查 |
+| 视频技能就绪审计 | 检查 Bilibili 视频技能安装文件、Python 依赖和可选转写工具 | 用户级 Codex skills、本机命令和 Python 模块 | 只读检查；不读取账号、不访问 Bilibili、不保存 cookie | `scripts/audit-video-skill-readiness.ps1` | 手动检查 `.codex\skills` 和依赖命令 |
 | Agent 就绪检查 | 汇总最小化、MCP 配置、运行时环境和任务状态标记 | 仓库、用户级 Codex 配置和运行时命令 | 只读检查；网络检查由单独脚本控制 | `scripts/check-agent-readiness.ps1` | 分别运行各审计脚本 |
 | Codex 运行时检查 | 检查 Windows 环境变量、代理变量、Git、Python、Node、npm、npx 和可选网络包访问 | 本机环境，文本输出 | 网络检查可能访问 npm 和 GitHub；不保存密钥 | `scripts/test-codex-runtime.ps1` | 手动运行版本命令 |
 | Python | 数据处理、文档解析、测试脚本 | 脚本、CSV、JSON、Office、PDF | 不保存密钥，不向外部写入 | 退出码、输出文件、单元检查 | PowerShell 或 Node |

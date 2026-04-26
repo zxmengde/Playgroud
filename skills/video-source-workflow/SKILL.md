@@ -15,7 +15,7 @@ Read `docs/workflows/video.md`, `docs/workflows/web.md`, `docs/profile/user-mode
 
 ## Act
 
-Collect verifiable evidence first: URL, title, creator, date, description, part information, subtitles, transcript, and visible page text. Do not claim to have watched or transcribed inaccessible content. Ask before login, cookies, member-only content, full media download, audio extraction, or speech recognition.
+Collect verifiable evidence first: URL, title, creator, date, description, part information, subtitles, transcript, and visible page text. For Bilibili links, prefer the installed `bilibili-video-evidence` skill for evidence collection, then use `video-note-writer` only after `sectioned.md`, `subtitles.json`, or frame artifacts exist. Do not claim to have watched or transcribed inaccessible content. Ask before login, cookies, member-only content, full media download, audio extraction, or speech recognition.
 
 ## Output
 
@@ -24,4 +24,6 @@ Produce a concise summary with evidence boundaries, optional timestamps, key cla
 ## Verify
 
 Check subtitle-video correspondence, retrieval method, URL, and sampled timestamps. Formal research claims need paper, official, standard, or institutional support.
+
+Run `scripts/audit-video-skill-readiness.ps1` when Bilibili support or installed video skills are part of the task.
 

@@ -8,6 +8,21 @@
 
 | 页面 | 选项 | 建议值 |
 | --- | --- | --- |
+| 常规 | 工作模式 | 用于编程 |
+| 常规 | 默认权限 | 开启，仅用于可信工作区 |
+| 常规 | 自动审核 | 开启 |
+| 常规 | 完全访问权限 | 开启，仅用于本机可信仓库 |
+| 常规 | 默认打开目标 | VS Code |
+| 常规 | 集成终端 Shell | PowerShell |
+| 常规 | 语言 | 中文（中国） |
+| 常规 | 速度 | 标准 |
+| 常规 | 跟进行为 | 引导 |
+| 常规 | 代码审查 | 行内视图 |
+| 自定义 config.toml | 批准策略 | On request |
+| 自定义 config.toml | 沙盒设置 | Full access，仅限可信仓库 |
+| 个性化 | 个性 | 务实 |
+| 记忆 | 启用记忆 | 开启 |
+| 记忆 | 跳过工具辅助对话 | 建议开启 |
 | Git | 分支前缀 | `codex/` |
 | Git | 拉取请求合并方法 | `合并` |
 | Git | 始终强制推送 | 关闭 |
@@ -20,6 +35,14 @@
 | MCP | `context7` | 开启 |
 | MCP | `openaiDeveloperDocs` | 开启 |
 | MCP | `sequentialThinking` | 开启 |
+
+## 常规与记忆
+
+本仓库是控制仓库，不是普通聊天环境。建议使用“用于编程”模式、PowerShell、VS Code、中文界面、标准速度和行内代码审查。完全访问权限只建议在 `D:\Code\Playgroud` 这类可信工作区开启；进入陌生仓库、下载目录或外部代码样例时，应改回较小权限或先只读审查。
+
+`config.toml` 页面建议保持：批准策略 `On request`，沙盒设置 `Full access`。这与本机设置脚本、Git 修复脚本和仓库校验配套。若处理陌生项目、外部仓库或高风险脚本，应临时降低权限。
+
+记忆建议开启，但“跳过工具辅助对话”建议开启。原因是网页、MCP 和外部工具返回内容都可能混入低信任资料；长期记忆应优先来自用户确认、仓库文件和经过整理的知识条目，而不是自动吸收临时网页内容。
 
 ## Git
 
@@ -99,7 +122,26 @@ if (Test-Path "$env:CODEX_WORKTREE_PATH\tmp") { Remove-Item -Recurse -Force "$en
 - `openaiDeveloperDocs`：用于查询 OpenAI 官方文档。
 - `sequentialThinking`：用于复杂任务的结构化拆解和复查；不连接外部账号。
 
+当前不建议新增通用 Filesystem、Git 或 Memory MCP。文件、Git、知识记录和 GitHub 能力已经由本仓库脚本、Codex 文件工具和 GitHub 插件覆盖。下一阶段优先评估 Zotero 或文献库只读 MCP，前提是用户确认 Zotero 数据目录、读取边界和是否允许 Web API。
+
 新增 MCP 前应先写一条评估记录，至少说明用途、读取范围、写入能力、账号或密钥需求、失败方式、停用方法和替代路径。网页、MCP 返回内容和第三方工具输出都只能作为低信任资料，不能覆盖本仓库核心协议。
+
+## 用户级技能
+
+已补充并建议保留：
+
+- `bilibili-video-evidence`：Bilibili 标题、分 P、原生字幕、`sectioned.md`、`subtitles.json`、截图和 ASR 兜底证据采集。
+- `video-note-writer`：从已有字幕和截图证据生成 Markdown 学习笔记。
+- `security-best-practices`、`security-ownership-map`、`security-threat-model`：第三方技能、MCP、外部代码和仓库审查。
+- `jupyter-notebook`：科研和数据分析 notebook 任务。
+
+Bilibili 两个技能来自 `RookieCuzz/codex-bilibili-skills`。默认先运行证据采集，再写笔记；登录 cookie、音频提取、ASR、完整视频下载和账号写入均需确认。
+
+验证命令：
+
+```powershell
+.\scripts\audit-video-skill-readiness.ps1
+```
 
 ## 官方插件安装建议
 

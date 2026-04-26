@@ -16,6 +16,7 @@
 | 旧 `personal-work-assistant` 技能 | 只是兼容入口，实际转交 `assistant-router` | 继续保留会扩大触发面 | 已从仓库同步副本删除；用户级副本已移入 `.codex\skills-disabled` |
 | 宽泛 skill | 部分 skill 仍承担较多路由职责 | 过度拆分会降低触发稳定性 | 只在真实任务显示重复或冲突时拆分 |
 | 外部工具候选 | GitHub、MCP、第三方 agent 项目很多 | 批量安装会增加权限和维护负担 | 先记录能力雷达，按任务试用 |
+| Bilibili 外部技能候选 | 七个仓库已审查 | 全部安装会引入下载、发布、账号凭据和重依赖 | 只安装 `bilibili-video-evidence` 与 `video-note-writer`；其他候选保留为参考 |
 | `.codex/` 工作区目录 | Codex App 自动生成本地环境状态 | 提交后会把本机状态误当作仓库事实 | 加入 `.gitignore`，不版本化 |
 | `docs/archive/assistant-v1/` 空目录 | 旧归档正文已合并为摘要，目录为空 | 空目录无版本价值 | 从本地删除空目录 |
 

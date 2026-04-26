@@ -32,6 +32,10 @@ Write-Output "## Runtime"
 & (Join-Path $Root "scripts\test-codex-runtime.ps1") -Root $Root -SkipNetwork
 
 Write-Output ""
+Write-Output "## Video skills"
+& (Join-Path $Root "scripts\audit-video-skill-readiness.ps1")
+
+Write-Output ""
 Write-Output "## Task state markers"
 $activePath = Join-Path $Root "docs\tasks\active.md"
 if (Test-Path -LiteralPath $activePath) {

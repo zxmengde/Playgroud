@@ -39,11 +39,13 @@
 ## 已执行的强制化改造
 
 - `scripts/audit-minimality.ps1`：检查版本化生成物、旧入口、大文件、重复小文件和本地输出目录。
+- `scripts/audit-video-skill-readiness.ps1`：检查 Bilibili 视频技能安装文件和本机依赖，避免视频能力只停留在说明层面。
 - `scripts/check-agent-readiness.ps1`：集中检查最小化证据、MCP 配置、运行时环境和任务状态标记。
 - `scripts/test-codex-runtime.ps1`：检查 Windows 环境变量、代理变量、Git、Python、Node、npm 和 npx。
 - `scripts/repair-git-network-env.ps1`：把 Git 代理同步为 Python、npm、MCP 常用代理环境变量。
 - 用户级 Codex 配置：新增 `sequentialThinking` MCP，关闭当前无任务支撑的 Android 测试插件，补齐 Windows 和代理环境变量。
 - 用户级 skills：新增 `security-best-practices`、`security-ownership-map`、`security-threat-model` 与 `jupyter-notebook`，旧 `personal-work-assistant` 移入禁用目录。
+- 用户级视频 skills：新增 `bilibili-video-evidence` 与 `video-note-writer`，用于先采集 Bilibili 证据再生成 Markdown 笔记。
 
 ## 后续门槛
 

@@ -16,7 +16,9 @@
 
 先明确用途：快速了解、课程笔记、科研资料、论文写作背景、观点核查还是知识库归档。用途决定摘要密度和是否需要逐段时间戳。
 
-再获取证据：优先保存 URL、标题、作者、发布时间、简介和字幕。若本机存在 `yt-dlp`，可在不下载视频的前提下尝试：
+再获取证据：优先保存 URL、标题、作者、发布时间、简介、分 P 信息和字幕。Bilibili 链接默认使用用户级 `bilibili-video-evidence` skill 采集证据，先取原生字幕，输出 `sectioned.md` 和 `subtitles.json`；需要截图时再按时间点生成 `frames/*.png`。只有字幕缺失且用户确认后，才进入 cookie、音频提取或 ASR 路径。
+
+若本机存在 `yt-dlp`，可在不下载视频的前提下尝试：
 
 ```powershell
 yt-dlp --skip-download --write-info-json --write-subs --write-auto-subs --sub-lang "zh.*,en.*" <url>
@@ -24,11 +26,21 @@ yt-dlp --skip-download --write-info-json --write-subs --write-auto-subs --sub-la
 
 若平台或账号状态导致字幕不可得，不绕过权限；记录失败原因并改用用户提供字幕、页面信息或经确认的本地音频转写。
 
-随后输出结构化摘要：核心内容、分段要点、关键时间戳、可核查说法、与用户任务的关系、待核查问题。科研或论文相关视频应转为知识条目，并标明视频资料的证据等级低于论文、标准和官方文档。
+随后输出结构化摘要：核心内容、分段要点、关键时间戳、可核查说法、与用户任务的关系、待核查问题。若已有 `sectioned.md`、`subtitles.json` 和截图证据，使用用户级 `video-note-writer` skill 生成 Markdown 笔记；该阶段不得自行补造字幕、公式、图表、日期或结论。
+
+课程讲义、长课、需要 PDF 或大量图像证据时，可参考 `lecture-to-notes` 的三方核对思路：时间戳、字幕和画面必须对应。但该流程依赖 `yt-dlp`、`ffmpeg`、LaTeX、ImageMagick 和 Whisper，不作为普通视频摘要默认路径。
+
+科研或论文相关视频应转为知识条目，并标明视频资料的证据等级低于论文、标准和官方文档。
 
 ## 验证
 
 检查字幕是否与视频标题和分 P 对应；抽查时间戳；保留获取命令、文件路径和 URL。若使用自动字幕，应标注可能存在识别错误。若引用视频观点进入正式文本，需再找论文、官方文档或机构资料支撑。
+
+本机能力检查：
+
+```powershell
+.\scripts\audit-video-skill-readiness.ps1
+```
 
 ## 参考来源
 

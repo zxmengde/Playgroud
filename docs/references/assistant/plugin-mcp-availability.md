@@ -49,6 +49,19 @@
 
 前三个技能补充第三方 MCP、agent、插件和脚本接入前的安全审查能力；`jupyter-notebook` 补充科研和数据分析中的 notebook 处理能力。未安装部署、Figma、Notion、语音、外部账号和平台发布类技能，因为当前任务没有对应账号和权限边界。
 
+2026-04-26 已从本地审查过的 `RookieCuzz/codex-bilibili-skills` 副本安装：
+
+- `bilibili-video-evidence`
+- `video-note-writer`
+
+这两个技能用于 Bilibili 视频证据采集和后续 Markdown 笔记生成。安装前已检查 `SKILL.md`、README、凭据处理说明和脚本，核心 Python 脚本已通过编译检查，安装后通过 Codex 技能结构校验。GitHub 下载脚本因本机 DNS 或网络栈错误未完成，因此使用已克隆并审查的本地副本安装。
+
+验证命令：
+
+```powershell
+.\scripts\audit-video-skill-readiness.ps1
+```
+
 暂不建议安装：
 
 - Filesystem MCP：当前已有仓库读写工具，额外接入会扩大文件访问面。

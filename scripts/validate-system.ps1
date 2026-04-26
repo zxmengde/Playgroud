@@ -57,6 +57,7 @@ $required = @(
     "scripts\audit-codex-capabilities.ps1",
     "scripts\audit-mcp-config.ps1",
     "scripts\audit-minimality.ps1",
+    "scripts\audit-video-skill-readiness.ps1",
     "scripts\check-agent-readiness.ps1",
     "scripts\test-codex-runtime.ps1",
     "scripts\new-mcp-adoption-review.ps1",
@@ -70,7 +71,8 @@ $required = @(
     "docs\references\assistant\codex-app-settings.md",
     "docs\references\assistant\plugin-mcp-availability.md",
     "docs\references\assistant\mcp-capability-plan.md",
-    "docs\references\assistant\agent-benchmark-integration.md"
+    "docs\references\assistant\agent-benchmark-integration.md",
+    "docs\references\assistant\bilibili-skill-evaluation.md"
 )
 
 $missing = @()
@@ -133,6 +135,7 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\audit-redundancy.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-profile-duplication.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-minimality.ps1") -Root $Root
+& (Join-Path $Root "scripts\audit-video-skill-readiness.ps1")
 & (Join-Path $Root "scripts\audit-codex-capabilities.ps1") | Out-Null
 & (Join-Path $Root "scripts\audit-mcp-config.ps1") | Out-Null
 & (Join-Path $Root "scripts\check-agent-readiness.ps1") -Root $Root -Strict

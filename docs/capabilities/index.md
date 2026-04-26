@@ -17,7 +17,7 @@
 | 反迎合与伪需求识别 | 可用 | 指出不可靠前提并给出更合适路径 | 停止前检查、复盘记录 | 缺少可复用反例 |
 | 科研文献与引用核验 | 可用 | 文献检索、综述、正式文本引用检查 | DOI、出版社页、PubMed、IEEE、ACM、标准页面 | 真实任务样例不足 |
 | Zotero 与本地 PDF | 草稿 | Zotero 导出、PDF 阅读、BibTeX/RIS 整理 | 只读路径、导出文件、引用核验、`docs/validation/v2-acceptance/zotero-pdf.md` | 未确认 Zotero 数据目录和偏好 |
-| 视频资料 | 草稿 | Bilibili、课程、会议视频字幕摘要 | URL、元数据、字幕、时间戳抽查、`docs/validation/v2-acceptance/video-source.md` | 未验证真实视频样例 |
+| 视频资料 | 可用 | Bilibili、课程、会议视频字幕摘要 | URL、元数据、字幕、时间戳抽查、`scripts/audit-video-skill-readiness.ps1`、`docs/validation/v2-acceptance/video-source.md` | 未验证真实视频样例；用户对下载、截图和 ASR 的默认授权仍待采集 |
 | Office 文档 | 可用 | Word、PPT、Excel、PDF 可编辑产物 | 结构检查、渲染、截图、打开性检查 | 模板和审美偏好待采集 |
 | 编码工作 | 可用 | 项目地图、补丁、测试、审查 | `git status`、测试、构建、静态检查 | 提交风格和测试偏好待采集 |
 | 网页资料 | 可用 | 当前资料核对、网页摘录、截图 | URL、访问时间、交叉核对、截图 | 归档命名和截图偏好待采集 |
