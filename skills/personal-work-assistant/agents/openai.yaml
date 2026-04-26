@@ -1,4 +1,0 @@
-interface:
-  display_name: "Personal Work Assistant Legacy"
-  short_description: "Legacy entry that redirects to assistant-router."
-  default_prompt: "Use $assistant-router instead of this legacy compatibility skill."

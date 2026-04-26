@@ -13,7 +13,7 @@
 | `docs/assistant/*.md` 兼容入口 | 已合并为 `docs/assistant/index.md` | 旧路径不再可直接打开 | 已更新校验脚本；后续使用索引和当前路径 |
 | `docs/archive/assistant-v1/` | 已合并为 `docs/archive/assistant-v1-summary.md` | 旧正文细节不再逐文件保留 | 保留摘要作为历史说明 |
 | `output/` 旧生成物 | 验收记录已保留结果摘要 | 直接依赖样例会增加仓库噪声 | 已删除并加入 `.gitignore`；新生成物默认不版本化 |
-| 用户画像重复信息 | `skills/personal-work-assistant/references/user-profile.md` 已改为指针 | 主画像仍有两个维护点 | 后续只在 `docs/profile/` 更新画像；运行 `scripts/audit-profile-duplication.ps1` |
+| 旧 `personal-work-assistant` 技能 | 只是兼容入口，实际转交 `assistant-router` | 继续保留会扩大触发面 | 已从仓库同步副本删除；用户级副本已移入 `.codex\skills-disabled` |
 | 宽泛 skill | 部分 skill 仍承担较多路由职责 | 过度拆分会降低触发稳定性 | 只在真实任务显示重复或冲突时拆分 |
 | 外部工具候选 | GitHub、MCP、第三方 agent 项目很多 | 批量安装会增加权限和维护负担 | 先记录能力雷达，按任务试用 |
 | `.codex/` 工作区目录 | Codex App 自动生成本地环境状态 | 提交后会把本机状态误当作仓库事实 | 加入 `.gitignore`，不版本化 |
@@ -27,4 +27,12 @@
 
 ## 当前结论
 
-本轮已在用户确认后删除分散旧入口和 v1 归档正文，并把旧技能中的重复用户画像收敛为指针。后续又把 `.codex/` 自动生成目录和 `output/` 生成物加入忽略规则，避免本机应用状态和一次性输出进入仓库。`scripts/audit-redundancy.ps1`、`scripts/audit-profile-duplication.ps1` 与 `scripts/audit-codex-capabilities.ps1` 继续用于检查重复入口、重复画像和插件可见状态。
+本轮已在用户确认后删除分散旧入口和 v1 归档正文，并把 `.codex/` 自动生成目录和 `output/` 生成物加入忽略规则，避免本机应用状态和一次性输出进入仓库。本次进一步删除旧 `personal-work-assistant` 技能同步副本，并把用户级同名技能移入禁用目录。
+
+后续以脚本证据为准：
+
+```powershell
+.\scripts\audit-minimality.ps1
+.\scripts\audit-redundancy.ps1
+.\scripts\audit-profile-duplication.ps1
+```

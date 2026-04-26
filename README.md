@@ -49,6 +49,7 @@
 重复和精简候选审计：
 
 ```powershell
+.\scripts\audit-minimality.ps1
 .\scripts\audit-redundancy.ps1
 ```
 
@@ -57,6 +58,7 @@
 ```powershell
 .\scripts\audit-codex-capabilities.ps1
 .\scripts\audit-mcp-config.ps1
+.\scripts\check-agent-readiness.ps1
 ```
 
 新增 MCP 前生成评估记录：
@@ -88,6 +90,12 @@ Codex App 本地环境设置建议见 `docs/references/assistant/codex-app-setti
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\scripts\setup-codex-environment.ps1"
+```
+
+若需要检查 Python、Node、npm、npx、代理变量和 MCP 启动前置环境：
+
+```powershell
+.\scripts\test-codex-runtime.ps1
 ```
 
 ## 权限

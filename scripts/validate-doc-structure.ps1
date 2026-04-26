@@ -23,6 +23,7 @@ $required = @(
     "docs\references\assistant\codex-app-settings.md",
     "docs\references\assistant\plugin-mcp-availability.md",
     "docs\references\assistant\mcp-capability-plan.md",
+    "docs\references\assistant\agent-benchmark-integration.md",
     "docs\knowledge\system-improvement\harness-log.md",
     "docs\knowledge\system-improvement\skill-audit.md"
 )

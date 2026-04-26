@@ -14,21 +14,29 @@ if ([string]::IsNullOrWhiteSpace($UserProfilePath)) {
     $UserProfilePath = "C:\Users\mengde"
 }
 
-$defaults = @{
-    SystemRoot = "C:\Windows"
-    WINDIR = "C:\Windows"
-    ComSpec = "C:\Windows\System32\cmd.exe"
-    APPDATA = (Join-Path $UserProfilePath "AppData\Roaming")
-    LOCALAPPDATA = (Join-Path $UserProfilePath "AppData\Local")
-    ProgramData = "C:\ProgramData"
-    USERPROFILE = $UserProfilePath
-}
+$defaults = @(
+    @("SystemRoot", "C:\Windows"),
+    @("WINDIR", "C:\Windows"),
+    @("ComSpec", "C:\Windows\System32\cmd.exe"),
+    @("APPDATA", (Join-Path $UserProfilePath "AppData\Roaming")),
+    @("LOCALAPPDATA", (Join-Path $UserProfilePath "AppData\Local")),
+    @("ProgramData", "C:\ProgramData"),
+    @("USERPROFILE", $UserProfilePath),
+    @("HTTP_PROXY", $Proxy),
+    @("HTTPS_PROXY", $Proxy),
+    @("ALL_PROXY", $Proxy),
+    @("http_proxy", $Proxy),
+    @("https_proxy", $Proxy),
+    @("all_proxy", $Proxy),
+    @("NO_PROXY", "localhost,127.0.0.1,::1"),
+    @("no_proxy", "localhost,127.0.0.1,::1")
+)
 
 if (-not $SetUserEnvironment -and -not $SetGlobalGitProxy) {
     Write-Output "This script performs persistent user-level changes only when flags are provided."
     Write-Output "Planned user environment values:"
-    foreach ($name in ($defaults.Keys | Sort-Object)) {
-        Write-Output ("- {0}={1}" -f $name, $defaults[$name])
+    foreach ($entry in $defaults) {
+        Write-Output ("- {0}={1}" -f $entry[0], $entry[1])
     }
     Write-Output ("Planned global Git proxy: {0}" -f $Proxy)
     Write-Output "Run only after user confirmation:"
@@ -37,8 +45,10 @@ if (-not $SetUserEnvironment -and -not $SetGlobalGitProxy) {
 }
 
 if ($SetUserEnvironment) {
-    foreach ($name in ($defaults.Keys | Sort-Object)) {
-        [Environment]::SetEnvironmentVariable($name, $defaults[$name], "User")
+    foreach ($entry in $defaults) {
+        $name = $entry[0]
+        $value = $entry[1]
+        [Environment]::SetEnvironmentVariable($name, $value, "User")
         Write-Output ("Set user environment: {0}" -f $name)
     }
 }

@@ -16,7 +16,7 @@
 | Superpowers | 已缓存，存在多项流程技能 | 可用 | 保留 |
 | GitHub | 已缓存，存在 PR、CI、发布相关技能 | 可用 | 保留 |
 | Build Web Apps | 已缓存，存在 React、前端、Supabase、Stripe、shadcn 相关技能 | 可用性待前端任务验证 | 保留但按任务使用 |
-| Test Android Apps | 已缓存，存在 Android QA 和性能技能 | 当前仓库无 Android 任务 | 建议关闭，出现 Android 任务再启用 |
+| Test Android Apps | 已缓存，存在 Android QA 和性能技能 | 当前仓库无 Android 任务 | 已在用户级配置关闭，出现 Android 任务再启用 |
 | Life Science Research | 已缓存，存在 NCBI、UniProt、ChEMBL、ClinVar、AlphaFold 等生命科学技能 | 可用性待真实检索任务验证 | 保留 |
 | Plugin Eval | 已缓存，存在插件和 skill 评估技能 | 可用于评估第三方插件 | 保留 |
 
@@ -28,6 +28,7 @@
 
 - `context7`：第三方库和框架文档。
 - `openaiDeveloperDocs`：OpenAI 官方文档。
+- `sequentialThinking`：用于结构化拆解和复查复杂任务，不连接外部账号。
 
 下一阶段建议评估，但不建议直接批量启用：
 
@@ -36,6 +37,17 @@
 - 浏览器或 Playwright MCP：当前已有 Browser Use 和 Playwright 技能，除非需要跨会话稳定浏览器控制，否则不增加。
 
 具体接入流程见 `docs/references/assistant/mcp-capability-plan.md`。新增 MCP 前先生成评估记录，不直接修改用户级 Codex 配置。
+
+## 已补充的技能
+
+2026-04-26 已从 OpenAI skills curated 列表安装：
+
+- `security-best-practices`
+- `security-ownership-map`
+- `security-threat-model`
+- `jupyter-notebook`
+
+前三个技能补充第三方 MCP、agent、插件和脚本接入前的安全审查能力；`jupyter-notebook` 补充科研和数据分析中的 notebook 处理能力。未安装部署、Figma、Notion、语音、外部账号和平台发布类技能，因为当前任务没有对应账号和权限边界。
 
 暂不建议安装：
 
@@ -52,4 +64,8 @@
 
 ```powershell
 .\scripts\validate-system.ps1
+```
+
+```powershell
+.\scripts\check-agent-readiness.ps1
 ```

@@ -21,7 +21,9 @@
 
 `literature-zotero-workflow` 与 `video-source-workflow` 解决了新增能力入口问题，但目前只完成流程层建设，尚未经过真实 Zotero 库和真实视频链接验证。
 
-`personal-work-assistant` 是兼容性技能，后续应避免继续扩展；新能力应进入更窄的技能或工作流。
+`personal-work-assistant` 已从仓库同步副本删除，用户级同名技能已移入 `.codex\skills-disabled`。后续个人工作路由只保留 `assistant-router`。
+
+2026-04-26 新增用户级技能 `security-best-practices`、`security-ownership-map`、`security-threat-model` 与 `jupyter-notebook`。前三项用于 MCP、第三方 agent、插件和脚本接入前的安全审查；后一项用于科研和数据分析中的 notebook 处理。安装后需要重启 Codex 才能在新会话中自动进入可用技能列表。
 
 ## 后续要求
 

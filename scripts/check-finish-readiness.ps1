@@ -52,6 +52,14 @@ Write-Output "### Profile duplication"
 & (Join-Path $Root "scripts\audit-profile-duplication.ps1") -Root $Root
 
 Write-Output ""
+Write-Output "### Minimality"
+& (Join-Path $Root "scripts\audit-minimality.ps1") -Root $Root
+
+Write-Output ""
+Write-Output "### Agent readiness"
+& (Join-Path $Root "scripts\check-agent-readiness.ps1") -Root $Root
+
+Write-Output ""
 Write-Output "### Anti-sycophancy review"
 $active = Get-Content -LiteralPath (Join-Path $Root "docs\tasks\active.md") -Raw
 foreach ($marker in @("是否只完成字面要求", "是否检查真实目标", "是否把用户粗略判断当作事实", "是否用流畅语言掩盖未验证结论")) {
