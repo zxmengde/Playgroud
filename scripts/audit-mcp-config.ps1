@@ -1,5 +1,6 @@
 param(
-    [string]$ConfigPath = "$env:USERPROFILE\.codex\config.toml"
+    [string]$ConfigPath = "$env:USERPROFILE\.codex\config.toml",
+    [string]$AllowlistPath = (Join-Path (Resolve-Path "$PSScriptRoot\..").Path "docs\references\assistant\mcp-allowlist.json")
 )
 
 $ErrorActionPreference = "Stop"
@@ -14,12 +15,17 @@ if (-not (Test-Path -LiteralPath $ConfigPath)) {
 $content = Get-Content -LiteralPath $ConfigPath -Raw
 $pattern = '(?ms)^\[mcp_servers\.([^\]]+)\]\s*(.*?)(?=^\[|\z)'
 $matches = [regex]::Matches($content, $pattern)
+$allowlist = $null
+if (Test-Path -LiteralPath $AllowlistPath) {
+    $allowlist = Get-Content -LiteralPath $AllowlistPath -Raw | ConvertFrom-Json
+}
 
 if ($matches.Count -eq 0) {
     Write-Output "No MCP servers found."
     return
 }
 
+$unknown = @()
 foreach ($match in $matches) {
     $name = $match.Groups[1].Value.Trim('"')
     $body = $match.Groups[2].Value
@@ -44,4 +50,12 @@ foreach ($match in $matches) {
     } else {
         Write-Output ("- {0}: no url or command found" -f $name)
     }
+
+    if ($null -ne $allowlist -and ($allowlist.allowed -notcontains $name)) {
+        $unknown += $name
+    }
+}
+
+if ($unknown.Count -gt 0) {
+    throw ("MCP servers not in allowlist: " + (($unknown | Select-Object -Unique) -join ", "))
 }

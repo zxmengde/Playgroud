@@ -51,6 +51,8 @@
 ```powershell
 .\scripts\audit-minimality.ps1
 .\scripts\audit-redundancy.ps1
+.\scripts\audit-file-usage.ps1
+.\scripts\audit-active-references.ps1
 ```
 
 插件和 MCP 本地可见性审计：
@@ -65,6 +67,31 @@
 
 ```powershell
 .\scripts\new-mcp-adoption-review.ps1 -Name "zotero-readonly"
+```
+
+记录待确认的系统改进候选：
+
+```powershell
+.\scripts\new-system-improvement-proposal.ps1 -Name "zotero-readonly"
+.\scripts\audit-system-improvement-proposals.ps1
+```
+
+安装本仓库本地 Git 提交前检查：
+
+```powershell
+.\scripts\install-git-hooks.ps1
+```
+
+运行维护自动化同款检查：
+
+```powershell
+.\scripts\run-agent-maintenance.ps1
+```
+
+检查本机 Zotero 库基础状态：
+
+```powershell
+.\scripts\audit-zotero-library.ps1
 ```
 
 停止前检查：

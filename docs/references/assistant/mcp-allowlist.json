@@ -1,0 +1,22 @@
+{
+  "allowed": [
+    "context7",
+    "openaiDeveloperDocs",
+    "sequentialThinking"
+  ],
+  "reviewRequired": [
+    "zotero-readonly",
+    "local-document-index"
+  ],
+  "blockedByDefault": [
+    "filesystem",
+    "git",
+    "memory",
+    "mail",
+    "calendar",
+    "drive",
+    "crm",
+    "payment",
+    "finance"
+  ]
+}

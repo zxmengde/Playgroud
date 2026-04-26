@@ -18,6 +18,10 @@ Write-Output "## Minimality"
 & (Join-Path $Root "scripts\audit-minimality.ps1") -Root $Root
 
 Write-Output ""
+Write-Output "## Active references"
+& (Join-Path $Root "scripts\audit-active-references.ps1") -Root $Root
+
+Write-Output ""
 Write-Output "## MCP configuration"
 $mcpOutput = & (Join-Path $Root "scripts\audit-mcp-config.ps1")
 $mcpOutput | ForEach-Object { Write-Output $_ }

@@ -27,6 +27,7 @@ $required = @(
     "docs\knowledge\web-source\index.md",
     "docs\knowledge\system-improvement\index.md",
     "docs\references\assistant\external-capability-radar.md",
+    "docs\references\assistant\mcp-allowlist.json",
     "docs\validation\v2-acceptance\index.md",
     "docs\knowledge\items",
     "docs\tasks\active.md",
@@ -40,6 +41,7 @@ $required = @(
     "templates\web\source-note.md",
     "templates\assistant\automation-review.md",
     "templates\assistant\long-task-state.md",
+    "templates\assistant\system-improvement-proposal.md",
     "templates\assistant\skill-adoption-review.md",
     "templates\assistant\mcp-adoption-review.md",
     "scripts\scan-text-risk.ps1",
@@ -57,8 +59,15 @@ $required = @(
     "scripts\audit-codex-capabilities.ps1",
     "scripts\audit-mcp-config.ps1",
     "scripts\audit-minimality.ps1",
+    "scripts\audit-file-usage.ps1",
+    "scripts\audit-active-references.ps1",
+    "scripts\audit-system-improvement-proposals.ps1",
+    "scripts\audit-zotero-library.ps1",
     "scripts\audit-video-skill-readiness.ps1",
     "scripts\check-agent-readiness.ps1",
+    "scripts\pre-commit-check.ps1",
+    "scripts\install-git-hooks.ps1",
+    "scripts\run-agent-maintenance.ps1",
     "scripts\test-codex-runtime.ps1",
     "scripts\new-mcp-adoption-review.ps1",
     "scripts\git-safe.ps1",
@@ -67,6 +76,7 @@ $required = @(
     "scripts\test-git-network.ps1",
     "scripts\repair-git-network-env.ps1",
     "scripts\validate-skills.ps1",
+    "scripts\new-system-improvement-proposal.ps1",
     "docs\core\self-configuration.md",
     "docs\references\assistant\codex-app-settings.md",
     "docs\references\assistant\plugin-mcp-availability.md",
@@ -135,6 +145,9 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\audit-redundancy.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-profile-duplication.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-minimality.ps1") -Root $Root
+& (Join-Path $Root "scripts\audit-file-usage.ps1") -Root $Root
+& (Join-Path $Root "scripts\audit-active-references.ps1") -Root $Root
+& (Join-Path $Root "scripts\audit-system-improvement-proposals.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-video-skill-readiness.ps1")
 & (Join-Path $Root "scripts\audit-codex-capabilities.ps1") | Out-Null
 & (Join-Path $Root "scripts\audit-mcp-config.ps1") | Out-Null

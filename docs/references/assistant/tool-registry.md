@@ -11,6 +11,12 @@
 | MCP 配置审计脚本 | 列出现有 MCP 服务器名称和 URL 或命令 | 用户级 Codex 配置，文本输出 | 不输出密钥；只读检查 | `scripts/audit-mcp-config.ps1` | 手动查看 `config.toml` |
 | MCP 引入评估脚本 | 为候选 MCP 生成评估记录 | MCP 名称，Markdown 输出 | 不安装服务器，不修改配置 | `scripts/new-mcp-adoption-review.ps1` | 手动复制模板 |
 | 仓库最小化审计 | 检查版本化生成物、旧入口、大文件、重复小文件和本地输出目录 | Git 跟踪文件和本地目录，文本输出 | 只读检查 | `scripts/audit-minimality.ps1` | `git ls-files` 和人工审查 |
+| 文件使用审计 | 列出低引用文件，辅助判断冗余候选 | Git 跟踪文件和本地文本 | 只读检查；低引用不等于可删除 | `scripts/audit-file-usage.ps1` | 人工 `rg` 检查 |
+| 活动引用完整性审计 | 检查入口、核心协议、工作流、能力、引用资料、skills 和模板中的本地路径是否仍存在 | 本地 Markdown、PowerShell、YAML 文本 | 只读检查；历史归档不作为当前执行路径 | `scripts/audit-active-references.ps1` | 人工 `rg` 检查路径 |
+| 系统改进候选脚本 | 生成并检查待确认的系统改进提案，防止失败经验直接变成长期规则 | 提案名称、模板、Markdown 输出 | 不自动采纳，不执行高影响操作 | `scripts/new-system-improvement-proposal.ps1`、`scripts/audit-system-improvement-proposals.ps1` | 直接写入 harness 复盘记录 |
+| Git 提交前检查 | 在本地 Git pre-commit 阶段运行文本风险、技能、引用和知识结构检查 | 本地工作区，Git hook | 只阻止提交，不修改文件；可删除 `.git/hooks/pre-commit` 停用 | `scripts/install-git-hooks.ps1`、`scripts/pre-commit-check.ps1` | 手动运行 `scripts/pre-commit-check.ps1` |
+| 维护自动化检查 | 为 Codex automation 提供稳定、只读的维护检查入口 | 本仓库和本机工具状态 | 默认只读；不提交、不推送、不修改账号 | `scripts/run-agent-maintenance.ps1` | 手动运行各审计脚本 |
+| Zotero 本地库审计 | 检查用户授权的 Zotero 路径、SQLite 基础计数和 Better BibTeX 目录 | `C:\Users\mengde\Zotero` | 默认只读连接；写入或修改数据库前必须有备份和回退方案 | `scripts/audit-zotero-library.ps1` | 用户导出 BibTeX/RIS/CSL JSON |
 | 视频技能就绪审计 | 检查 Bilibili 视频技能安装文件、Python 依赖和可选转写工具 | 用户级 Codex skills、本机命令和 Python 模块 | 只读检查；不读取账号、不访问 Bilibili、不保存 cookie | `scripts/audit-video-skill-readiness.ps1` | 手动检查 `.codex\skills` 和依赖命令 |
 | Agent 就绪检查 | 汇总最小化、MCP 配置、运行时环境和任务状态标记 | 仓库、用户级 Codex 配置和运行时命令 | 只读检查；网络检查由单独脚本控制 | `scripts/check-agent-readiness.ps1` | 分别运行各审计脚本 |
 | Codex 运行时检查 | 检查 Windows 环境变量、代理变量、Git、Python、Node、npm、npx 和可选网络包访问 | 本机环境，文本输出 | 网络检查可能访问 npm 和 GitHub；不保存密钥 | `scripts/test-codex-runtime.ps1` | 手动运行版本命令 |

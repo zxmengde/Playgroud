@@ -19,6 +19,7 @@
 | Bilibili 外部技能候选 | 七个仓库已审查 | 全部安装会引入下载、发布、账号凭据和重依赖 | 只安装 `bilibili-video-evidence` 与 `video-note-writer`；其他候选保留为参考 |
 | `.codex/` 工作区目录 | Codex App 自动生成本地环境状态 | 提交后会把本机状态误当作仓库事实 | 加入 `.gitignore`，不版本化 |
 | `docs/archive/assistant-v1/` 空目录 | 旧归档正文已合并为摘要，目录为空 | 空目录无版本价值 | 从本地删除空目录 |
+| 低引用文件 | `scripts/audit-file-usage.ps1` 当前列出 32 个低引用候选 | 低引用不等于无用；skills 由 Codex 元数据触发，templates 可能只在特定任务中使用 | 暂不删除。优先观察真实任务；若连续无用，再逐项合并或删除并运行校验 |
 
 ## 执行门槛
 
@@ -36,4 +37,7 @@
 .\scripts\audit-minimality.ps1
 .\scripts\audit-redundancy.ps1
 .\scripts\audit-profile-duplication.ps1
+.\scripts\audit-file-usage.ps1
 ```
+
+2026-04-27 复查：文件使用审计列出低引用候选，其中包含 `docs/references/assistant/agent-capability-improvement.md`、`docs/references/assistant/intent-interview.md`、`docs/references/assistant/personal-agent-operating-model.md`、若干轻量模板和 skill 的 `agents/openai.yaml`。这些是下一轮精简候选，但不能仅凭引用计数删除；删除前需确认替代路径和实际任务影响。

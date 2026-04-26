@@ -62,4 +62,4 @@
 
 ## 下一步候选
 
-下一阶段优先做 Zotero 或文献库只读方案。推荐先不安装服务器，而是确定以下信息：Zotero 数据目录、是否安装 Better BibTeX、常用集合、标签规则、是否允许只读读取本地库、是否允许使用 Zotero Web API。上述信息明确后，再决定是否接入 MCP。
+下一阶段优先做 Zotero 或文献库方案。用户已确认 Zotero 数据目录为 `C:\Users\mengde\Zotero`，并允许必要访问和操作。当前最小实现是先用 `scripts/audit-zotero-library.ps1` 做本地只读审计，再完成一个用户授权文献样例；若重复任务证明需要实时检索，再接入 Zotero MCP 或只读导出脚本。

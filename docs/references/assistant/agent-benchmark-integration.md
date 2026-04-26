@@ -30,6 +30,16 @@
 | OpenClaw | skills 安装、检查和更新应可审计 | 安装安全技能后通过技能列表复验；后续安装继续记录来源和用途 |
 | OpenClaw 安全研究 | 能力、身份、知识任一维度被污染都会显著增加风险 | 停止前检查加入最小化、MCP 配置和任务状态标记；外部资料不得直接触发删除、提交或账号写入 |
 
+## 2026-04-26 复核补充
+
+本轮重新核对公开文档后，结论收敛为三点。
+
+第一，Hermes 的可迁移价值不是“自动学习一切”，而是把记忆分层、有容量边界，并把复杂任务后的工作方法沉淀为 skill。当前仓库已用 `docs/profile/`、`docs/tasks/active.md`、`docs/knowledge/` 和 `skills/` 承担这些职责；为避免 agent 自行扩大权限，本轮新增候选提案机制，要求高影响自我改进先写明证据、最小实现、验证和回退。
+
+第二，Hermes 的 MCP 工具过滤和 OpenClaw 的 skill allowlist 都说明，外部能力应按工具面和任务面收窄，而不是按可用能力全量暴露。当前仓库继续保留 `context7`、`openaiDeveloperDocs` 和 `sequentialThinking`，不启用通用 filesystem、memory、邮件、日程、网盘、支付或金融类 MCP。
+
+第三，OpenClaw 的 `doctor` 思路适合迁移为只读检查。当前仓库已有 `scripts/check-agent-readiness.ps1`，本轮新增 `scripts/audit-active-references.ps1` 和 `scripts/audit-system-improvement-proposals.ps1`，把旧路径、缺失引用和未成形改进候选纳入停止前检查。
+
 ## 不迁移的部分
 
 不安装 OpenClaw 或 Hermes 作为常驻代理。原因是二者都可能连接消息平台、文件系统、外部账号和本机命令，直接常驻会显著扩大执行面。当前只迁移其可机械验证的机制。

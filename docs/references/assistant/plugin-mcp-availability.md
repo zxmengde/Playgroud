@@ -32,7 +32,7 @@
 
 下一阶段建议评估，但不建议直接批量启用：
 
-- Zotero 或文献库只读 MCP：适合文献管理、引用核验和本地 PDF 元数据检索。启用前需明确 Zotero 数据目录、只读权限和是否允许访问 Web API。
+- Zotero 或文献库 MCP：适合文献管理、引用核验和本地 PDF 元数据检索。Zotero 数据目录已确认为 `C:\Users\mengde\Zotero`；启用 MCP 前仍需明确是否使用 Web API、是否允许写入 Zotero 配置和如何回退。
 - 本地检索 MCP：仅当需要跨目录检索大量个人文档且现有 shell、Office 插件和脚本不足时评估。
 - 浏览器或 Playwright MCP：当前已有 Browser Use 和 Playwright 技能，除非需要跨会话稳定浏览器控制，否则不增加。
 

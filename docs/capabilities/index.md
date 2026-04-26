@@ -16,8 +16,8 @@
 | 真实需求判断 | 可用 | 将用户粗略目标转化为产物、验证和风险边界 | 任务状态、最终产物、复盘记录 | 缺少失败样例库 |
 | 反迎合与伪需求识别 | 可用 | 指出不可靠前提并给出更合适路径 | 停止前检查、复盘记录 | 缺少可复用反例 |
 | 科研文献与引用核验 | 可用 | 文献检索、综述、正式文本引用检查 | DOI、出版社页、PubMed、IEEE、ACM、标准页面 | 真实任务样例不足 |
-| Zotero 与本地 PDF | 草稿 | Zotero 导出、PDF 阅读、BibTeX/RIS 整理 | 只读路径、导出文件、引用核验、`docs/validation/v2-acceptance/zotero-pdf.md` | 未确认 Zotero 数据目录和偏好 |
-| 视频资料 | 可用 | Bilibili、课程、会议视频字幕摘要 | URL、元数据、字幕、时间戳抽查、`scripts/audit-video-skill-readiness.ps1`、`docs/validation/v2-acceptance/video-source.md` | 未验证真实视频样例；用户对下载、截图和 ASR 的默认授权仍待采集 |
+| Zotero 与本地 PDF | 可用 | Zotero 导出、PDF 阅读、BibTeX/RIS 整理 | `scripts/audit-zotero-library.ps1`、导出文件、引用核验、`docs/validation/v2-acceptance/zotero-pdf.md` | 真实文献任务样例不足；常用集合、标签规则和 Web API 边界待确认 |
+| 视频资料 | 可用 | Bilibili、课程、会议视频字幕摘要 | URL、元数据、字幕、时间戳抽查、`scripts/audit-video-skill-readiness.ps1`、`docs/validation/v2-acceptance/video-source.md` | `yt-dlp` 与 `faster-whisper` 已可用；仍未验证真实视频样例 |
 | Office 文档 | 可用 | Word、PPT、Excel、PDF 可编辑产物 | 结构检查、渲染、截图、打开性检查 | 模板和审美偏好待采集 |
 | 编码工作 | 可用 | 项目地图、补丁、测试、审查 | `git status`、测试、构建、静态检查 | 提交风格和测试偏好待采集 |
 | 网页资料 | 可用 | 当前资料核对、网页摘录、截图 | URL、访问时间、交叉核对、截图 | 归档命名和截图偏好待采集 |
@@ -28,6 +28,7 @@
 | 安全审查 | 可用 | 低信任网页、MCP、第三方技能、隐藏字符检查 | 文本风险扫描、权限边界检查 | 语义级提示注入仍需人工判断 |
 | 长任务恢复 | 可用 | 多来源调研、多文件重构、跨会话继续 | 结构化 active 状态、恢复入口、停止前检查 | 仍需更多跨会话样例 |
 | 成本控制 | 可用 | 减少冗余输出和重复读取 | 最终回复、任务状态、产物路径 | 缺少可量化统计 |
+| 活动引用完整性 | 可用 | 避免当前执行路径继续引用已删除或误写路径 | `scripts/audit-active-references.ps1`、停止前检查 | 不能替代历史材料人工判断 |
 
 ## 关联文件
 
