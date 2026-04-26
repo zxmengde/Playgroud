@@ -52,6 +52,12 @@
 .\scripts\audit-redundancy.ps1
 ```
 
+插件和 MCP 本地可见性审计：
+
+```powershell
+.\scripts\audit-codex-capabilities.ps1
+```
+
 停止前检查：
 
 ```powershell

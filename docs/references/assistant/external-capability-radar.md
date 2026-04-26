@@ -22,11 +22,27 @@
 | 插件 | 来源 | 本地作用 | 使用原则 |
 | --- | --- | --- | --- |
 | Browser Use | OpenAI bundled | 检查本地浏览器、localhost、file 页面和交互流程 | 前端或网页交互任务优先使用 |
+| LaTeX Tectonic | OpenAI bundled | LaTeX 编译 | 论文、公式和 TeX 项目需要时使用 |
 | GitHub | OpenAI curated | PR、issue、CI 和发布前工作 | 外部写入前确认；网络失败时先诊断 |
 | Superpowers | OpenAI curated third-party bundle | 规划、调试、TDD、审查和分支收尾方法 | 用于复杂编码流程，不覆盖本仓库规则 |
+| Build Web Apps | OpenAI curated | 前端应用、React、Supabase、Stripe 和组件实践 | 前端项目需要时使用；普通仓库维护不常用 |
+| Test Android Apps | OpenAI curated | Android 模拟器 QA 和性能证据 | 当前不作为默认启用；Android 任务再打开 |
+| Life Science Research | OpenAI curated | NCBI、UniProt、ChEMBL、ClinVar 等生命科学资料技能 | 科研检索任务优先试用，保留来源边界 |
+| Plugin Eval | OpenAI curated | 评估插件、skills 和本地指标包 | 用于第三方能力引入前审查 |
 | Documents | OpenAI primary runtime | DOCX 创建、编辑、渲染和导出 | 文档任务优先使用 |
 | Presentations | OpenAI primary runtime | PPTX 创建、编辑、渲染和导出 | 演示文稿任务优先使用 |
 | Spreadsheets | OpenAI primary runtime | XLSX、CSV、TSV 创建、分析、渲染和导出 | 表格任务优先使用 |
+
+## MCP 候选
+
+| MCP | 当前判断 | 建议 |
+| --- | --- | --- |
+| Context7 | 已开启并已验证可解析文档库 | 保留 |
+| OpenAI Developer Docs | 界面显示已开启；当前会话未暴露同名工具命名空间 | 保留；OpenAI 文档任务可由 `openai-docs` skill 兜底 |
+| Zotero 或文献库只读 MCP | 与用户科研和引用核验需求相关 | 下一阶段优先评估，启用前确认数据目录和只读边界 |
+| Filesystem MCP | 与当前文件工具重复 | 暂不安装 |
+| Git MCP | 与 Git、GitHub 插件和 `git-safe` 重复 | 暂不安装 |
+| Memory MCP | 与本仓库知识记录重复，且可能产生多处记忆不一致 | 暂不安装 |
 
 ## GitHub 候选仓库
 

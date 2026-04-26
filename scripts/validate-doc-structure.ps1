@@ -21,6 +21,7 @@ $required = @(
     "docs\capabilities\pruning-review.md",
     "docs\references\assistant\external-capability-radar.md",
     "docs\references\assistant\codex-app-settings.md",
+    "docs\references\assistant\plugin-mcp-availability.md",
     "docs\knowledge\system-improvement\harness-log.md",
     "docs\knowledge\system-improvement\skill-audit.md"
 )

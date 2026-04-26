@@ -26,3 +26,4 @@ secrets/
 
 # Codex local transient files
 .codex-local/
+.codex/

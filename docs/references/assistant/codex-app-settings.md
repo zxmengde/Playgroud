@@ -121,6 +121,10 @@ if (Test-Path "$env:CODEX_WORKTREE_PATH\tmp") { Remove-Item -Recurse -Force "$en
 - Build Web Apps：前端应用任务频繁时启用；普通仓库维护不需要常开。
 - Plugin Eval：评估第三方插件或 MCP 能力时启用。
 
+建议关闭，出现任务时再启用：
+
+- Test Android Apps：当前个人工作系统没有 Android 项目。保留安装记录即可，日常不需要常开。
+
 按任务再启用，不建议长期全部打开：
 
 - Vercel、Netlify、Cloudflare、Render、Sentry 等开发平台类插件。
@@ -135,6 +139,8 @@ if (Test-Path "$env:CODEX_WORKTREE_PATH\tmp") { Remove-Item -Recurse -Force "$en
 - Atlassian Rovo、Linear、Monday.com、ClickUp 等组织协作类插件，除非已有明确项目需要。
 
 这些插件通常会读取或写入外部账号数据，可能涉及联系人、日程、邮件、会议记录、文件权限、财务或客户资料。启用前必须有明确任务、授权范围和输出边界。
+
+MCP 方面，当前不建议继续增加通用 Filesystem、Git 或 Memory MCP。当前仓库已有文件、Git、知识记录和 GitHub 能力，重复接入会增加权限面和维护成本。下一阶段优先评估 Zotero 或文献库只读 MCP，前提是用户确认数据目录和读取边界。
 
 ## 操作按钮
 
