@@ -23,9 +23,16 @@
 | 网页资料 | 可用 | 当前资料核对、网页摘录、截图 | URL、访问时间、交叉核对、截图 | 归档命名和截图偏好待采集 |
 | 知识沉淀 | 可用 | 研究资料、项目背景、系统复盘写入知识库 | 索引校验、来源、状态字段 | 分区索引需真实使用检验 |
 | Git 与环境诊断 | 可用 | GitHub 代理、Clash、Codex CLI、MCP 状态检查 | 诊断脚本、命令输出、阻塞记录 | 当前 GitHub 代理仍需外部修复 |
+| GitHub、Codex 插件与 MCP 治理 | 草稿 | 评估外部仓库、插件、skills 和 MCP server 是否值得引入 | 外部能力雷达、权限审查、只读试用记录 | GitHub API 当前受代理影响；缺少真实 MCP 接入样例 |
 | 安全审查 | 可用 | 低信任网页、MCP、第三方技能、隐藏字符检查 | 文本风险扫描、权限边界检查 | 语义级提示注入仍需人工判断 |
 | 长任务恢复 | 可用 | 多来源调研、多文件重构、跨会话继续 | 结构化 active 状态、恢复入口、停止前检查 | 仍需更多跨会话样例 |
 | 成本控制 | 可用 | 减少冗余输出和重复读取 | 最终回复、任务状态、产物路径 | 缺少可量化统计 |
+
+## 关联文件
+
+- `docs/capabilities/companion-roadmap.md`：小型综合个人工作代理能力路线。
+- `docs/capabilities/pruning-review.md`：精简候选项和执行门槛。
+- `docs/references/assistant/external-capability-radar.md`：Codex 插件、MCP、skills 和外部仓库候选。
 
 ## 后续要求
 

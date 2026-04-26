@@ -25,3 +25,5 @@
 | 2026-04-23 | 长任务、自动化维护与 Agent 评测调研 | web-source | active | `docs/knowledge/items/2026-04-23-long-task-automation-evaluation-research.md` |
 | 2026-04-23 | BOE MEMS 压力传感课题前期研究边界与文献核查 | research | active | `docs/knowledge/items/2026-04-23-boe-mems-pre-research-boundary-literature-check.md` |
 | 2026-04-25 | 个人 Agent 自我改进反馈与落地记录 | system-improvement | active | `docs/knowledge/items/2026-04-25-personal-agent-self-improvement-feedback.md` |
+| 2026-04-26 | 小型综合个人工作代理目标与外部能力雷达 | system-improvement | active | `docs/core/companion-target.md` |
+| 2026-04-26 | Assistant v1 历史摘要 | system-improvement | active | `docs/archive/assistant-v1-summary.md` |

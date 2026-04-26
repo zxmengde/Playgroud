@@ -6,6 +6,11 @@ param(
 
 $ErrorActionPreference = "Continue"
 
+$repairScript = Join-Path $PSScriptRoot "repair-git-network-env.ps1"
+if (Test-Path -LiteralPath $repairScript) {
+    & $repairScript -Quiet
+}
+
 function Write-Step {
     param([string]$Name)
     Write-Output ""

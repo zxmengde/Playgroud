@@ -2,7 +2,7 @@
 
 ## 当前目标
 
-实施 Playgroud v2 大改：把仓库从规则和流程文档集合重构为可执行、可恢复、可审计的个人工作系统。保留兼容入口，完成核心协议、能力清单、知识分区索引、结构化任务状态、旧规则迁移、代表性验收记录和停止前检查脚本。
+在 Playgroud v2 基础上进行面向“小型综合个人工作代理”的二次重构：明确用户应得到怎样的同伴，建立必须能力矩阵，精简重复入口，补充外部能力雷达、Codex 插件、skills、MCP 和 GitHub 候选仓库评估，并把结果接入本地校验。
 
 ## 已读来源
 
@@ -21,6 +21,10 @@
 - `skills/*/SKILL.md`
 - `scripts/*.ps1`
 - 用户确认的 v2 大改计划。
+- OpenAI Codex 官方 best practices、customization skills、plugin build 文档。
+- MCP 规范和安全原则资料。
+- 本机已启用 Codex 插件 manifest。
+- GitHub 候选仓库 URL 清单；实时数据因本地代理问题未可靠获取。
 
 ## 已执行命令
 
@@ -33,6 +37,16 @@
 - `scripts/validate-doc-structure.ps1`
 - `scripts/validate-acceptance-records.ps1`
 - `scripts/validate-system.ps1`
+- 本轮重新执行 `git status --short --branch` 和 `rg --files`。
+- 读取本机插件 manifest：Browser Use、GitHub、Superpowers、Documents、Presentations、Spreadsheets。
+- 查询 OpenAI 官方 Codex 文档和 MCP 相关资料。
+- 使用 `tool_search` 复核可发现的 Codex app 自动化工具。
+- 在用户确认后合并并删除旧兼容入口与 v1 归档候选。
+- 诊断 GitHub 代理，定位到 Codex shell 进程缺少 Windows 基础网络环境变量，并新增修复脚本。
+- `scripts/test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin`
+- `scripts/audit-redundancy.ps1`
+- `scripts/validate-system.ps1`
+- `scripts/check-finish-readiness.ps1`
 
 ## 产物
 
@@ -72,31 +86,40 @@
 - `templates/web/source-note.md`
 - 收敛后的 `skills/*/SKILL.md`
 - 更新后的 `AGENTS.md`、`README.md`、`docs/knowledge/index.md` 和 `scripts/validate-system.ps1`
+- `docs/core/companion-target.md`
+- `docs/references/assistant/external-capability-radar.md`
+- `docs/capabilities/companion-roadmap.md`
+- `docs/capabilities/pruning-review.md`
+- `scripts/audit-redundancy.ps1`
+- `docs/assistant/index.md`
+- `docs/archive/assistant-v1-summary.md`
+- `scripts/repair-git-network-env.ps1`
 
 ## 未验证判断
 
-- 新的核心入口能否显著减少未来任务的上下文负担，需要后续多轮真实任务继续验证。
+- 新增的个人工作代理目标能否减少未来任务的上下文负担，需要后续多轮真实任务继续验证。
 - 历史知识条目仍保留在 `docs/knowledge/items/`，后续是否实体迁移到分区目录需要在确认不破坏链接后再做。
 - Zotero 和视频能力已经完成流程与边界验收，但未读取个人库、观看历史或具体用户视频；真实样例仍需用户提供明确输入或授权路径。
 - `scripts/check-ppt-text-extract.ps1` 可运行，已发现现有 `output/ppt_text_extract.json` 中第 12 页文本项较多；该输出属于既有 PPT 文本抽取结果，不代表 v2 重构失败。
+- GitHub 热门仓库未获取到可靠实时 star 数；本轮只记录候选和引入标准。
+- 删除旧兼容入口后，历史旧路径不再可直接打开；当前入口已合并到 `docs/assistant/index.md` 和 `docs/archive/assistant-v1-summary.md`。
 
 ## 阻塞
 
-- 当前工作区已有大量未提交改动，不能执行 `git pull`。
-- GitHub 远程同步仍受网络问题影响；2026-04-26 诊断显示代理 TCP 端口可达，但 `curl` 和 `git ls-remote` 在 Schannel TLS 握手阶段失败。
-- 未提交、未推送、未创建远程 PR；是否提交和推送需要后续明确指令，远程推送前应先运行 Git 网络诊断。
+- `gh` 未安装，不能使用 GitHub CLI 创建 PR；本次按用户要求执行本地 Git 提交和远程同步。
+- 用户画像仍存在三个维护点，后续可单独合并：`docs/profile/user-model.md`、`docs/profile/preference-map.md`、`skills/personal-work-assistant/references/user-profile.md`。
 
 ## 下一步
 
-本轮 v2 仓库内部重构、旧规则迁移、验收记录和主校验已完成。后续可审阅 diff，决定是否提交；若要同步远程，应先运行 `scripts/test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin`。
+本轮本地重构、旧入口删除、GitHub 代理环境修复和校验已完成。当前 Git 操作将提交并推送到远程 `main`。
 
 ## 恢复入口
 
-从 `codex/playgroud-v2-rebuild` 分支恢复，先读取本文件、`AGENTS.md`、`docs/core/` 和 `docs/validation/v2-acceptance/index.md`。随后运行 `git status --short --branch`、`scripts/validate-system.ps1` 和 `scripts/check-finish-readiness.ps1`。
+从当前分支恢复，先读取本文件、`AGENTS.md`、`docs/core/companion-target.md`、`docs/capabilities/companion-roadmap.md`、`docs/capabilities/pruning-review.md` 和 `docs/references/assistant/external-capability-radar.md`。随后运行 `git status --short --branch`、`scripts/audit-redundancy.ps1`、`scripts/validate-system.ps1` 和 `scripts/check-finish-readiness.ps1`。
 
 ## 反迎合审查
 
-- 是否只完成字面要求：上一轮过早停止，只交付了结构和部分校验；本轮已继续完成旧规则迁移、验收记录、复盘记录和检查脚本集成。
-- 是否检查真实目标：真实目标是得到可执行、可恢复、可审计的个人工作系统，而不是堆叠更多规则。
-- 是否把用户粗略判断当作事实：用户目标已明确选择重新设计、全域均衡、更强扩展；具体实现仍需保留权限和验证边界。
+- 是否只完成字面要求：不能只回答“会怎么改”，本轮已把目标、路线、外部能力和精简审查写入仓库。
+- 是否检查真实目标：真实目标是得到小而全面、可执行、可恢复、可审计的个人工作代理，而不是堆叠更多规则。
+- 是否把用户粗略判断当作事实：用户提出“全部工具、全部能力”是强度要求，不代表应调用高风险或无关工具；本轮使用相关安全工具并记录边界。
 - 是否用流畅语言掩盖未验证结论：所有能力成熟度保持保守标注，真实效果等待代表性任务验证。

@@ -1,20 +1,20 @@
-# Playgroud v2：受控的个人智能工作系统
+# Playgroud：受控的小型综合个人工作代理
 
-本仓库用于把 Codex 组织为可执行、可恢复、可审计的个人工作系统，服务科研、文献、Zotero、视频资料、Office、网页、编码、知识沉淀和系统维护。
+本仓库用于把 Codex 组织为可执行、可恢复、可审计的小型综合个人工作代理，服务科研、文献、Zotero、视频资料、Office、网页、编码、知识沉淀、GitHub、MCP 和系统维护。
 
 用户通常只需要表达目标。Codex 负责读取上下文、判断真实需求、执行低风险工作、运行检查、记录状态，并在需要高影响操作时确认。
 
 ## 入口
 
 - `AGENTS.md`：仓库入口和默认启动顺序。
-- `docs/core/`：v2 的五个核心协议。
+- `docs/core/`：核心协议和个人工作代理目标。
 - `docs/profile/`：用户画像、偏好地图和偏好采集问题。
 - `docs/tasks/active.md`：当前任务状态和恢复入口。
 - `docs/workflows/`：科研、文献、办公、编码、网页、视频和知识沉淀流程。
 - `docs/capabilities/`：能力清单、成熟度和缺口。
 - `docs/knowledge/`：长期知识条目和分区索引。
 - `docs/references/`：按需读取的背景材料、工具说明和迁移原则。
-- `docs/archive/`：v1 规则正文归档；旧路径保留兼容入口。
+- `docs/archive/`：历史摘要。
 - `docs/validation/`：代表性任务验收记录。
 - `skills/`：Codex 技能定义的同步副本。
 - `scripts/`：校验、审计、网络诊断和停止前检查脚本。
@@ -44,6 +44,12 @@
 ```powershell
 .\scripts\validate-doc-structure.ps1
 .\scripts\validate-acceptance-records.ps1
+```
+
+重复和精简候选审计：
+
+```powershell
+.\scripts\audit-redundancy.ps1
 ```
 
 停止前检查：
