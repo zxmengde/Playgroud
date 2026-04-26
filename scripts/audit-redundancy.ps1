@@ -42,6 +42,13 @@ foreach ($rel in $profileCandidates) {
         $existingProfileCandidates += $rel
     }
 }
+$legacyProfile = Join-Path $Root "skills\personal-work-assistant\references\user-profile.md"
+$legacyProfileIsPointer = $false
+if (Test-Path -LiteralPath $legacyProfile) {
+    $legacyProfileText = Get-TextOrEmpty -Path $legacyProfile
+    $legacyProfileNonEmptyLines = @($legacyProfileText -split "`n" | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }).Count
+    $legacyProfileIsPointer = ($legacyProfileText -like "*兼容指针*") -and ($legacyProfileNonEmptyLines -le 25)
+}
 
 $validateSystem = Get-TextOrEmpty -Path (Join-Path $Root "scripts\validate-system.ps1")
 $validateDoc = Get-TextOrEmpty -Path (Join-Path $Root "scripts\validate-doc-structure.ps1")
@@ -66,11 +73,13 @@ if ($assistantReferences.Count -gt 0) {
     Write-Output "Validation still depends on legacy stubs. Do not delete them without updating scripts."
 }
 
-if ($existingProfileCandidates.Count -gt 1) {
+if (($existingProfileCandidates.Count -gt 1) -and (-not $legacyProfileIsPointer)) {
     Write-Output "Profile information may have duplicate maintenance points:"
     foreach ($rel in $existingProfileCandidates) {
         Write-Output ("- {0}" -f $rel)
     }
+} elseif ($legacyProfileIsPointer) {
+    Write-Output "Profile duplicate maintenance point reduced: legacy skill profile is a pointer."
 }
 
 Write-Output "No files were changed."

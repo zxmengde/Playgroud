@@ -11,6 +11,7 @@
 复杂任务默认读取以下核心协议：
 
 - `docs/core/companion-target.md`
+- `docs/core/self-configuration.md`
 - `docs/core/identity-and-goal.md`
 - `docs/core/permission-boundary.md`
 - `docs/core/execution-loop.md`
@@ -36,6 +37,7 @@
 - 成本控制和紧凑输出：`docs/references/assistant/cost-control.md`
 - 第三方 skills、插件、agent 模板或外部工具安装：`docs/references/assistant/third-party-skill-evaluation.md`
 - 外部能力、Codex 插件、MCP 和热门仓库评估：`docs/references/assistant/external-capability-radar.md`
+- Codex App、插件、MCP 和环境设置：`docs/references/assistant/codex-app-settings.md`
 - 小型综合个人工作代理能力路线：`docs/capabilities/companion-roadmap.md`
 - 精简或删除候选项：`docs/capabilities/pruning-review.md`
 

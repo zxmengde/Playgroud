@@ -21,6 +21,7 @@
 | 浏览器与网页交互 | 能检查网页、表单、本地 UI 和截图 | 用 Browser Use 或 Playwright 完成真实样例 | 截图、DOM 状态、控制台错误 |
 | GitHub 工作 | 能处理 PR、issue、CI 和发布前准备 | 先修复或绕开代理问题，再使用 GitHub 插件 | 远程命令、PR 状态、CI 日志 |
 | MCP 外部上下文 | 能安全连接必要外部系统 | 建立 MCP 试用审查记录和权限清单 | 工具清单、授权记录、失败日志 |
+| 自我设置 | 能把 Codex App 设置、插件、MCP、环境脚本和仓库规则对齐 | 维护 `docs/core/self-configuration.md` 与 `docs/references/assistant/codex-app-settings.md` | 系统校验、设置审查、Git 网络脚本 |
 | 自动化维护 | 能定期做低风险检查 | 先把稳定流程 skill 化，再提出 automation | 自动化审查表和运行记录 |
 | 知识库与恢复 | 能让任务跨会话恢复 | 保持 active、knowledge、validation 三类记录 | 校验脚本通过 |
 | 自我改进 | 能把重复错误转为结构改动 | 每次用户负反馈先修正任务，再记录规则或脚本改动 | harness 记录和系统校验 |

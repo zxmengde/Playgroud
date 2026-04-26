@@ -31,6 +31,29 @@ https.proxy=http://127.0.0.1:7897
 
 脚本会先修复当前进程缺失的 Windows 网络环境变量，再检查 Git 代理配置、远程地址、代理端口可达性、curl 代理访问和 `git ls-remote`。失败时根据具体阶段判断下一步。
 
+若诊断脚本成功，但直接运行 `git pull` 或 `git push` 失败，说明修复只在诊断脚本所在进程中生效。此时使用包装脚本：
+
+```powershell
+.\scripts\git-safe.ps1 pull --ff-only
+.\scripts\git-safe.ps1 push
+```
+
+Codex App 的 Windows 本地环境设置建议调用：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\scripts\setup-codex-environment.ps1"
+```
+
+这会修复进程环境并设置本仓库本地 Git 代理。它不会写入用户级环境变量，也不会修改全局 Git 代理。
+
+若需要让新启动的 Codex shell 长期继承完整 Windows 环境变量，并让所有仓库默认使用同一 Git 代理，可在确认后运行：
+
+```powershell
+.\scripts\install-codex-git-network-fix.ps1 -SetUserEnvironment -SetGlobalGitProxy
+```
+
+该命令会修改用户级环境变量和全局 Git 配置，执行前必须确认。执行后需要重启 Codex 再复测。
+
 ## 判断路径
 
 若代理端口不可达，先在普通 PowerShell 或终端中运行：

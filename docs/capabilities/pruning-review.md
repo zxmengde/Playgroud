@@ -13,7 +13,7 @@
 | `docs/assistant/*.md` 兼容入口 | 已合并为 `docs/assistant/index.md` | 旧路径不再可直接打开 | 已更新校验脚本；后续使用索引和当前路径 |
 | `docs/archive/assistant-v1/` | 已合并为 `docs/archive/assistant-v1-summary.md` | 旧正文细节不再逐文件保留 | 保留摘要作为历史说明 |
 | `output/v2-*` 样例 | 代表性验收输出 | 删除会减少验收证据 | 保留；后续迁移到 validation 附件区 |
-| 用户画像重复信息 | `docs/profile/` 与部分 skill references 有交叉 | 合并不当会丢失个人偏好 | 先列出重复段落，再确认合并 |
+| 用户画像重复信息 | `skills/personal-work-assistant/references/user-profile.md` 已改为指针 | 主画像仍有两个维护点 | 后续只在 `docs/profile/` 更新画像；运行 `scripts/audit-profile-duplication.ps1` |
 | 宽泛 skill | 部分 skill 仍承担较多路由职责 | 过度拆分会降低触发稳定性 | 只在真实任务显示重复或冲突时拆分 |
 | 外部工具候选 | GitHub、MCP、第三方 agent 项目很多 | 批量安装会增加权限和维护负担 | 先记录能力雷达，按任务试用 |
 
@@ -25,4 +25,4 @@
 
 ## 当前结论
 
-本轮已在用户确认后删除分散旧入口和 v1 归档正文。`scripts/audit-redundancy.ps1` 继续用于检查是否重新出现重复入口。
+本轮已在用户确认后删除分散旧入口和 v1 归档正文，并把旧技能中的重复用户画像收敛为指针。`scripts/audit-redundancy.ps1` 与 `scripts/audit-profile-duplication.ps1` 继续用于检查是否重新出现重复入口和重复画像。

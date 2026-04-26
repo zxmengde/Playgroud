@@ -64,6 +64,19 @@ GitHub 代理诊断：
 .\scripts\test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin
 ```
 
+Codex shell 中普通 Git 命令遇到 Windows 网络环境缺项时，使用包装脚本：
+
+```powershell
+.\scripts\git-safe.ps1 pull --ff-only
+.\scripts\git-safe.ps1 push
+```
+
+Codex App 本地环境设置建议见 `docs/references/assistant/codex-app-settings.md`。Windows 设置脚本可调用：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\scripts\setup-codex-environment.ps1"
+```
+
 ## 权限
 
 可直接执行：读取文件、检索公开资料、创建草稿和知识条目、运行非破坏性检查、截图、渲染和整理任务记录。

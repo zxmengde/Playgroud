@@ -52,9 +52,15 @@ $required = @(
     "scripts\check-ppt-text-extract.ps1",
     "scripts\audit-skills.ps1",
     "scripts\audit-redundancy.ps1",
+    "scripts\audit-profile-duplication.ps1",
+    "scripts\git-safe.ps1",
+    "scripts\setup-codex-environment.ps1",
+    "scripts\install-codex-git-network-fix.ps1",
     "scripts\test-git-network.ps1",
     "scripts\repair-git-network-env.ps1",
-    "scripts\validate-skills.ps1"
+    "scripts\validate-skills.ps1",
+    "docs\core\self-configuration.md",
+    "docs\references\assistant\codex-app-settings.md"
 )
 
 $missing = @()
@@ -115,6 +121,7 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\validate-skills.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-skills.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-redundancy.ps1") -Root $Root
+& (Join-Path $Root "scripts\audit-profile-duplication.ps1") -Root $Root
 & (Join-Path $Root "scripts\scan-text-risk.ps1") -Root $Root
 & (Join-Path $Root "scripts\check-task-state.ps1") -Root $Root
 & (Join-Path $Root "scripts\validate-knowledge-index.ps1") -Root $Root

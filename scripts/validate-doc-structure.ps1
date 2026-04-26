@@ -6,6 +6,7 @@ $ErrorActionPreference = "Stop"
 
 $required = @(
     "docs\core\companion-target.md",
+    "docs\core\self-configuration.md",
     "docs\core\identity-and-goal.md",
     "docs\core\permission-boundary.md",
     "docs\core\execution-loop.md",
@@ -19,6 +20,7 @@ $required = @(
     "docs\capabilities\companion-roadmap.md",
     "docs\capabilities\pruning-review.md",
     "docs\references\assistant\external-capability-radar.md",
+    "docs\references\assistant\codex-app-settings.md",
     "docs\knowledge\system-improvement\harness-log.md",
     "docs\knowledge\system-improvement\skill-audit.md"
 )

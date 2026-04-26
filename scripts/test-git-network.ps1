@@ -27,6 +27,16 @@ if ($gitProxyConfig) {
 $gitRemotes = & git remote -v 2>&1
 $gitRemotes | ForEach-Object { Write-Output $_ }
 
+Write-Step "Process environment"
+foreach ($name in @("SystemRoot", "WINDIR", "ComSpec", "APPDATA", "LOCALAPPDATA", "ProgramData", "USERPROFILE")) {
+    $value = [Environment]::GetEnvironmentVariable($name, "Process")
+    if ([string]::IsNullOrWhiteSpace($value)) {
+        Write-Output ("{0}=<missing>" -f $name)
+    } else {
+        Write-Output ("{0}={1}" -f $name, $value)
+    }
+}
+
 Write-Step "Proxy endpoint"
 try {
     $uri = [Uri]$Proxy
@@ -59,4 +69,4 @@ $gitRemoteOutput | ForEach-Object { Write-Output $_ }
 Write-Step "Interpretation"
 Write-Output "If proxy TCP is unreachable, check whether Clash/Mihomo is listening on the configured port."
 Write-Output "If proxy TCP works but git fails, check Git proxy config, credentials, DNS, and TLS backend."
-Write-Output "If a normal terminal works but Codex does not, check Windows loopback exemption for the Codex package."
+Write-Output "If direct git commands fail in Codex but this script succeeds, use scripts\git-safe.ps1 or configure the Codex environment setup script."

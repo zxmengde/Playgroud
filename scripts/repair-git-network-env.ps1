@@ -1,9 +1,20 @@
 param(
-    [string]$UserProfilePath = "C:\Users\mengde",
-    [switch]$Quiet
+    [string]$UserProfilePath = "",
+    [switch]$Quiet,
+    [switch]$PersistUser
 )
 
 $ErrorActionPreference = "Stop"
+
+if ([string]::IsNullOrWhiteSpace($UserProfilePath)) {
+    $UserProfilePath = [Environment]::GetEnvironmentVariable("USERPROFILE", "Process")
+}
+if ([string]::IsNullOrWhiteSpace($UserProfilePath)) {
+    $UserProfilePath = [Environment]::GetEnvironmentVariable("USERPROFILE", "User")
+}
+if ([string]::IsNullOrWhiteSpace($UserProfilePath)) {
+    $UserProfilePath = "C:\Users\mengde"
+}
 
 $defaults = @{
     SystemRoot = "C:\Windows"
@@ -23,8 +34,18 @@ foreach ($name in $defaults.Keys) {
             Write-Output ("Set missing process env: {0}" -f $name)
         }
     }
+    if ($PersistUser) {
+        [Environment]::SetEnvironmentVariable($name, $defaults[$name], "User")
+        if (-not $Quiet) {
+            Write-Output ("Set user env: {0}" -f $name)
+        }
+    }
 }
 
 if (-not $Quiet) {
-    Write-Output "Git network environment repair completed for this process."
+    if ($PersistUser) {
+        Write-Output "Git network environment repair completed for this process and user environment. Restart Codex before testing new shell sessions."
+    } else {
+        Write-Output "Git network environment repair completed for this process."
+    }
 }

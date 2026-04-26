@@ -2,124 +2,90 @@
 
 ## 当前目标
 
-在 Playgroud v2 基础上进行面向“小型综合个人工作代理”的二次重构：明确用户应得到怎样的同伴，建立必须能力矩阵，精简重复入口，补充外部能力雷达、Codex 插件、skills、MCP 和 GitHub 候选仓库评估，并把结果接入本地校验。
+按用户要求对 Playgroud 控制仓库进行进一步重构：明确 Codex 应成为怎样的同伴，补充自我设置协议，做减法减少重复画像和无效入口，做加法补齐 Codex App 设置、插件/MCP 选择规则和 Git 网络长期修复路径，并运行校验。
+
+用户已进一步确认：执行长期本机 Git 修复脚本，把本轮仓库改造提交并推送，并给出截图对应的 Codex App 选项设置和官方插件安装建议。
 
 ## 已读来源
 
 - `AGENTS.md`
 - `README.md`
+- `docs/core/*`
 - `docs/profile/user-model.md`
 - `docs/profile/preference-map.md`
-- `docs/assistant/*`
-- `docs/workflows/*`
-- `docs/knowledge/index.md`
-- `docs/knowledge/items/*`
-- `docs/core/*`
-- `docs/references/assistant/*`
-- `docs/archive/assistant-v1/*`
-- `docs/validation/v2-acceptance/*`
-- `skills/*/SKILL.md`
-- `scripts/*.ps1`
-- 用户确认的 v2 大改计划。
-- OpenAI Codex 官方 best practices、customization skills、plugin build 文档。
-- MCP 规范和安全原则资料。
-- 本机已启用 Codex 插件 manifest。
-- GitHub 候选仓库 URL 清单；实时数据因本地代理问题未可靠获取。
+- `docs/tasks/active.md`
+- `docs/capabilities/*`
+- `docs/references/assistant/git-network-troubleshooting.md`
+- `docs/references/assistant/external-capability-radar.md`
+- `docs/references/assistant/tool-registry.md`
+- `scripts/test-git-network.ps1`
+- `scripts/repair-git-network-env.ps1`
+- 用户提供的 Codex App 设置截图，包括 Git、环境、MCP 和插件列表。
 
 ## 已执行命令
 
 - `git status --short --branch`
-- `git switch -c codex/playgroud-v2-rebuild`
-- 使用 Node REPL 完成仓库清单、结构分析和 Git 状态读取。
-- 使用本地文件迁移脚本将旧 `docs/assistant` 正文迁移到 `docs/references/assistant/`、`docs/archive/assistant-v1/`、`docs/capabilities/` 和 `docs/knowledge/system-improvement/`，并在旧路径留下兼容入口。
-- `scripts/new-citation-checklist.ps1 -Title v2-research-literature-acceptance -OutputPath output/v2-research-literature-citation-checklist.md`
-- `scripts/new-web-source-note.ps1 -Url https://www.anthropic.com/engineering/building-effective-agents -Title v2-web-source-acceptance -OutputPath output/v2-web-source-acceptance-web-source.md`
-- `scripts/validate-doc-structure.ps1`
-- `scripts/validate-acceptance-records.ps1`
-- `scripts/validate-system.ps1`
-- 本轮重新执行 `git status --short --branch` 和 `rg --files`。
-- 读取本机插件 manifest：Browser Use、GitHub、Superpowers、Documents、Presentations、Spreadsheets。
-- 查询 OpenAI 官方 Codex 文档和 MCP 相关资料。
-- 使用 `tool_search` 复核可发现的 Codex app 自动化工具。
-- 在用户确认后合并并删除旧兼容入口与 v1 归档候选。
-- 诊断 GitHub 代理，定位到 Codex shell 进程缺少 Windows 基础网络环境变量，并新增修复脚本。
-- `scripts/test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin`
-- `scripts/audit-redundancy.ps1`
-- `scripts/validate-system.ps1`
-- `scripts/check-finish-readiness.ps1`
+- `Get-Content` 读取核心协议、能力路线、精简审查、Git 网络诊断、工具登记和现有脚本。
+- `scripts/test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin -TimeoutSeconds 20`
+- `git config --show-origin --get-regexp "^(http|https)\..*proxy|^http\.proxy|^https\.proxy"`
+- 直接 `git pull --ff-only` 复现 `Unknown error 10106`。
+- `scripts/repair-git-network-env.ps1; git pull --ff-only` 验证修复后可拉取。
+- `scripts/install-codex-git-network-fix.ps1 -SetUserEnvironment -SetGlobalGitProxy` 已执行，写入用户级 Windows 基础环境变量并设置全局 Git 代理为 `http://127.0.0.1:7897`。
 
 ## 产物
 
-- `docs/core/identity-and-goal.md`
-- `docs/core/permission-boundary.md`
-- `docs/core/execution-loop.md`
-- `docs/core/memory-state.md`
-- `docs/core/finish-readiness.md`
-- `docs/capabilities/index.md`
-- `docs/capabilities/gap-review.md`
-- `docs/references/assistant/*`
-- `docs/archive/assistant-v1/*`
-- `docs/validation/v2-acceptance/index.md`
-- `docs/validation/v2-acceptance/research-literature.md`
-- `docs/validation/v2-acceptance/zotero-pdf.md`
-- `docs/validation/v2-acceptance/video-source.md`
-- `docs/validation/v2-acceptance/office-document.md`
-- `docs/validation/v2-acceptance/code-change.md`
-- `docs/validation/v2-acceptance/web-source.md`
-- `docs/knowledge/system-improvement/harness-log.md`
-- `docs/knowledge/system-improvement/skill-audit.md`
-- `docs/knowledge/research/index.md`
-- `docs/knowledge/project/index.md`
-- `docs/knowledge/web-source/index.md`
-- `docs/knowledge/system-improvement/index.md`
-- `scripts/check-task-state.ps1`
-- `scripts/validate-knowledge-index.ps1`
-- `scripts/check-finish-readiness.ps1`
-- `scripts/validate-doc-structure.ps1`
-- `scripts/validate-acceptance-records.ps1`
-- `scripts/new-citation-checklist.ps1`
-- `scripts/new-web-source-note.ps1`
-- `scripts/check-ppt-text-extract.ps1`
-- `output/v2-research-literature-citation-checklist.md`
-- `output/v2-web-source-acceptance-web-source.md`
-- `templates/research/citation-checklist.md`
-- `templates/web/source-note.md`
-- 收敛后的 `skills/*/SKILL.md`
-- 更新后的 `AGENTS.md`、`README.md`、`docs/knowledge/index.md` 和 `scripts/validate-system.ps1`
-- `docs/core/companion-target.md`
-- `docs/references/assistant/external-capability-radar.md`
-- `docs/capabilities/companion-roadmap.md`
-- `docs/capabilities/pruning-review.md`
-- `scripts/audit-redundancy.ps1`
-- `docs/assistant/index.md`
-- `docs/archive/assistant-v1-summary.md`
-- `scripts/repair-git-network-env.ps1`
+- `docs/core/self-configuration.md`
+- `docs/references/assistant/codex-app-settings.md`
+- `scripts/git-safe.ps1`
+- `scripts/setup-codex-environment.ps1`
+- `scripts/install-codex-git-network-fix.ps1`
+- `scripts/audit-profile-duplication.ps1`
+- 更新 `scripts/repair-git-network-env.ps1`
+- 更新 `scripts/test-git-network.ps1`
+- 更新 `scripts/validate-system.ps1`
+- 更新 `scripts/check-finish-readiness.ps1`
+- 更新 `scripts/validate-doc-structure.ps1`
+- 更新 `AGENTS.md`
+- 更新 `README.md`
+- 更新 `skills/personal-work-assistant/references/user-profile.md`
+- 更新 `docs/capabilities/pruning-review.md`
+- 更新 `docs/capabilities/companion-roadmap.md`
+- 更新 `docs/capabilities/index.md`
+- 更新 `docs/references/assistant/tool-registry.md`
+- 更新 `docs/references/assistant/git-network-troubleshooting.md`
 
 ## 未验证判断
 
-- 新增的个人工作代理目标能否减少未来任务的上下文负担，需要后续多轮真实任务继续验证。
-- 历史知识条目仍保留在 `docs/knowledge/items/`，后续是否实体迁移到分区目录需要在确认不破坏链接后再做。
-- Zotero 和视频能力已经完成流程与边界验收，但未读取个人库、观看历史或具体用户视频；真实样例仍需用户提供明确输入或授权路径。
-- `scripts/check-ppt-text-extract.ps1` 可运行，已发现现有 `output/ppt_text_extract.json` 中第 12 页文本项较多；该输出属于既有 PPT 文本抽取结果，不代表 v2 重构失败。
-- GitHub 热门仓库未获取到可靠实时 star 数；本轮只记录候选和引入标准。
-- 删除旧兼容入口后，历史旧路径不再可直接打开；当前入口已合并到 `docs/assistant/index.md` 和 `docs/archive/assistant-v1-summary.md`。
+- Codex App 的本地环境脚本需要用户在设置界面中配置后，才能验证新工作树是否自动应用。
+- 长期 Git 修复脚本已执行，但新 Codex 进程是否继承用户环境变量需要重启 Codex 后再验证。
+- 插件清单基于用户截图和当前已启用插件记录，未逐个联网核验市场插件的最新权限说明。
+- 旧技能画像已收敛为指针，但 `docs/profile/user-model.md` 与 `docs/profile/preference-map.md` 仍需要继续作为两个主维护点并保持一致。
 
 ## 阻塞
 
-- `gh` 未安装，不能使用 GitHub CLI 创建 PR；本次按用户要求执行本地 Git 提交和远程同步。
-- 用户画像仍存在三个维护点，后续可单独合并：`docs/profile/user-model.md`、`docs/profile/preference-map.md`、`skills/personal-work-assistant/references/user-profile.md`。
+- 长期本机 Git 网络修复已经按用户确认执行。剩余限制是需要重启 Codex 后验证新进程中的直接 Git 命令。
+- 删除样例输出、旧文件或进一步合并画像属于本地数据删除或较大整理，执行前需要单独确认。
 
 ## 下一步
 
-本轮本地重构、旧入口删除、GitHub 代理环境修复和校验已完成。当前 Git 操作将提交并推送到远程 `main`。
+运行系统校验、Git 包装脚本验证、停止前检查，提交并推送本轮改造，并在最终回复中说明截图对应设置、插件建议、当前 Git 网络状态和仍需重启验证的事项。
 
 ## 恢复入口
 
-从当前分支恢复，先读取本文件、`AGENTS.md`、`docs/core/companion-target.md`、`docs/capabilities/companion-roadmap.md`、`docs/capabilities/pruning-review.md` 和 `docs/references/assistant/external-capability-radar.md`。随后运行 `git status --short --branch`、`scripts/audit-redundancy.ps1`、`scripts/validate-system.ps1` 和 `scripts/check-finish-readiness.ps1`。
+从 `D:\Code\Playgroud` 恢复，先运行：
+
+```powershell
+git status --short --branch
+.\scripts\git-safe.ps1 status --short --branch
+.\scripts\validate-system.ps1
+.\scripts\check-finish-readiness.ps1
+```
+
+继续阅读 `docs/core/self-configuration.md`、`docs/references/assistant/codex-app-settings.md` 和 `docs/references/assistant/git-network-troubleshooting.md`。
 
 ## 反迎合审查
 
-- 是否只完成字面要求：不能只回答“会怎么改”，本轮已把目标、路线、外部能力和精简审查写入仓库。
-- 是否检查真实目标：真实目标是得到小而全面、可执行、可恢复、可审计的个人工作代理，而不是堆叠更多规则。
-- 是否把用户粗略判断当作事实：用户提出“全部工具、全部能力”是强度要求，不代表应调用高风险或无关工具；本轮使用相关安全工具并记录边界。
-- 是否用流畅语言掩盖未验证结论：所有能力成熟度保持保守标注，真实效果等待代表性任务验证。
+- 是否只完成字面要求：本轮不只回答“会怎么改”，已新增协议、设置建议、脚本和校验入口。
+- 是否检查真实目标：真实目标是得到更可执行、可恢复、可审计的个人工作代理，而不是批量安装插件或堆叠规则。
+- 是否把用户粗略判断当作事实：用户要求长期解决 Git 网络问题，但系统级持久修改仍需确认；本轮先完成进程级修复和包装脚本。
+- 是否用流畅语言掩盖未验证结论：已复现直接 Git 失败，也验证修复后可拉取；长期设置已执行，但新进程继承效果需要重启 Codex 后验证。
