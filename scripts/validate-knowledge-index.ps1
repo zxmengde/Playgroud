@@ -45,5 +45,19 @@ if ($missingItems.Count -gt 0) {
     throw ("Knowledge items missing from indexes: " + ($missingItems -join ", "))
 }
 
+$missingReferencedPaths = @()
+foreach ($match in [regex]::Matches($combined, '`(docs[\/\\][^`]+|templates[\/\\][^`]+|scripts[\/\\][^`]+)`')) {
+    $candidate = $match.Groups[1].Value.Trim()
+    if ($candidate -match '^docs[\/\\]knowledge[\/\\]items[\/\\]YYYY') { continue }
+    $fsPath = Join-Path $Root ($candidate -replace '/', [System.IO.Path]::DirectorySeparatorChar)
+    if (-not (Test-Path -LiteralPath $fsPath)) {
+        $missingReferencedPaths += $candidate
+    }
+}
+
+if ($missingReferencedPaths.Count -gt 0) {
+    throw ("Knowledge indexes reference missing paths: " + (($missingReferencedPaths | Select-Object -Unique) -join ", "))
+}
+
 Write-Output "Knowledge index check passed."
 

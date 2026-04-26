@@ -29,6 +29,7 @@
 | 长任务恢复 | 可用 | 多来源调研、多文件重构、跨会话继续 | 结构化 active 状态、恢复入口、停止前检查 | 仍需更多跨会话样例 |
 | 成本控制 | 可用 | 减少冗余输出和重复读取 | 最终回复、任务状态、产物路径 | 缺少可量化统计 |
 | 活动引用完整性 | 可用 | 避免当前执行路径继续引用已删除或误写路径 | `scripts/audit-active-references.ps1`、停止前检查 | 不能替代历史材料人工判断 |
+| 受控自我改进 | 可用 | 从失败和重复操作生成分类提案，经验证后再进入规则、skill、hook、config 或 eval | `scripts/audit-system-improvement-proposals.ps1`、`scripts/audit-automations.ps1`、`docs/validation/v2-acceptance/self-improvement-loop.md` | 仍需真实失败样例继续检验分类是否足够 |
 
 ## 关联文件
 

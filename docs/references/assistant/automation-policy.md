@@ -66,7 +66,7 @@
 
 ## 当前自动化
 
-2026-04-27 已创建两个 Codex App cron 自动化：
+2026-04-27 复查后，仅保留两个 Codex App cron 自动化：
 
 | 名称 | ID | 频率 | 环境 | 权限边界 |
 | --- | --- | --- | --- | --- |
@@ -74,6 +74,8 @@
 | Playgroud improvement triage | `playgroud-improvement-triage` | 每周五 17:30 | 独立 worktree | 只允许新增或更新 `docs/knowledge/system-improvement/proposals/` 下的候选提案，不修改核心规则、不安装、不提交、不推送 |
 
 这些自动化实现“常驻巡检”和“受控学习”。它们不作为后台守护进程常驻本机，也不直接把一次性判断写入核心规则。
+
+同日删除了一个名为“自我优化”的每日 `local` 自动化。该自动化直接复用一次性完整授权提示，不符合受控改进流程边界。后续用 `scripts/audit-automations.ps1` 检查类似风险。
 
 ## 来源
 

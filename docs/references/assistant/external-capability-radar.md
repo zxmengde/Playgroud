@@ -70,6 +70,12 @@
 | https://github.com/openclaw/openclaw | 本地 agent、workspace、skills、doctor 和沙箱机制 | 迁移配置检查和失败状态思想，不安装常驻 agent |
 | https://github.com/NousResearch/hermes-agent | 记忆、skills、MCP、任务后学习和多终端后端 | 迁移技能治理和 MCP 环境过滤思想，不安装常驻 agent |
 
+## 2026-04-27 Hermes 与 OpenClaw 复查
+
+Hermes 的可迁移机制主要是有限记忆、任务后学习、技能作为过程记忆、MCP 工具面过滤、危险命令审批和定时任务隔离。本仓库采用对应的轻量实现：`docs/profile/`、`docs/tasks/active.md`、`docs/knowledge/`、`skills/`、`docs/references/assistant/mcp-allowlist.json`、`scripts/audit-system-improvement-proposals.ps1` 和 `scripts/audit-automations.ps1`。
+
+OpenClaw 的可迁移机制主要是工作区隔离、agent 级 skill allowlist、`doctor` 式检查、hook 和 task ledger。对应到本仓库，应保留一个控制仓库、少量本地 skills、Git pre-commit、停止前检查、任务状态和自动化审计。OpenClaw 的多 agent 常驻运行和完整沙箱框架暂不适合本仓库，因为当前目标是降低复杂度和权限面。
+
 ## 引入标准
 
 外部能力进入试用前，应回答六个问题：它解决哪个重复任务；是否已有本地插件或脚本可完成；需要哪些文件、网络或账号权限；失败时能否发现；如何记录来源和输出；如何停用或移除。

@@ -11,7 +11,7 @@
 | 2026-04-26 | 小型综合个人工作代理目标 | active | `docs/core/companion-target.md` |
 | 2026-04-26 | 外部能力雷达 | active | `docs/references/assistant/external-capability-radar.md` |
 | 2026-04-26 | 能力路线与精简审查 | active | `docs/capabilities/companion-roadmap.md` |
-| 2026-04-26 | Assistant v1 历史摘要 | active | `docs/archive/assistant-v1-summary.md` |
 | 2026-04-26 | 系统改进候选提案模板 | active | `templates/assistant/system-improvement-proposal.md` |
 | 2026-04-26 | Zotero 只读 MCP 候选提案 | needs-confirmation | `docs/knowledge/system-improvement/proposals/2026-04-26-zotero-readonly-mcp.md` |
 | 2026-04-27 | 批量技能安装 allowlist 候选提案 | needs-confirmation | `docs/knowledge/system-improvement/proposals/2026-04-27-batch-skill-install-allowlist.md` |
+| 2026-04-27 | 受控自我改进流程 | active | `docs/references/assistant/self-improvement-loop.md` |

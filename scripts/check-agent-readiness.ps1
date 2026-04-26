@@ -32,6 +32,10 @@ foreach ($name in @("context7", "openaiDeveloperDocs", "sequentialThinking")) {
 }
 
 Write-Output ""
+Write-Output "## Automations"
+& (Join-Path $Root "scripts\audit-automations.ps1") -Root $Root
+
+Write-Output ""
 Write-Output "## Runtime"
 & (Join-Path $Root "scripts\test-codex-runtime.ps1") -Root $Root -SkipNetwork
 

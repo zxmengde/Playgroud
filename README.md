@@ -14,7 +14,6 @@
 - `docs/capabilities/`：能力清单、成熟度和缺口。
 - `docs/knowledge/`：长期知识条目和分区索引。
 - `docs/references/`：按需读取的背景材料、工具说明和迁移原则。
-- `docs/archive/`：历史摘要。
 - `docs/validation/`：代表性任务验收记录。
 - `skills/`：Codex 技能定义的同步副本。
 - `scripts/`：校验、审计、网络诊断和停止前检查脚本。
@@ -60,6 +59,7 @@
 ```powershell
 .\scripts\audit-codex-capabilities.ps1
 .\scripts\audit-mcp-config.ps1
+.\scripts\audit-automations.ps1
 .\scripts\check-agent-readiness.ps1
 ```
 

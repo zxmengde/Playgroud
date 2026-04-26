@@ -33,15 +33,8 @@
 - 网页、浏览器、截图、资料提取：`docs/workflows/web.md`
 - Bilibili、课程、会议、字幕、视频摘要：`docs/workflows/video.md`
 - 知识沉淀和长期记录：`docs/workflows/knowledge.md`
-- GitHub 或代理网络问题：`docs/references/assistant/git-network-troubleshooting.md`
-- 成本控制和紧凑输出：`docs/references/assistant/cost-control.md`
-- 第三方 skills、插件、agent 模板或外部工具安装：`docs/references/assistant/third-party-skill-evaluation.md`
-- 外部能力、Codex 插件、MCP 和热门仓库评估：`docs/references/assistant/external-capability-radar.md`
-- Codex App、插件、MCP 和环境设置：`docs/references/assistant/codex-app-settings.md`
-- 插件与 MCP 可用性检查：`docs/references/assistant/plugin-mcp-availability.md`
-- MCP 能力补充方案：`docs/references/assistant/mcp-capability-plan.md`
-- 小型综合个人工作代理能力路线：`docs/capabilities/companion-roadmap.md`
-- 精简或删除候选项：`docs/capabilities/pruning-review.md`
+
+工具、MCP、插件、自动化、Git 网络、成本控制、外部能力和精简候选等按需从 `docs/references/assistant/index.md` 查找，不在启动入口中机械展开。
 
 仓库内 `skills/` 是本机技能组的同步副本。云端或本机用户级 `.codex` 不可读时，读取这里的同名技能定义。
 

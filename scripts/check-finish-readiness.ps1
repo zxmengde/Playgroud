@@ -68,6 +68,10 @@ Write-Output "### System improvement proposals"
 & (Join-Path $Root "scripts\audit-system-improvement-proposals.ps1") -Root $Root
 
 Write-Output ""
+Write-Output "### Automations"
+& (Join-Path $Root "scripts\audit-automations.ps1") -Root $Root
+
+Write-Output ""
 Write-Output "### Agent readiness"
 & (Join-Path $Root "scripts\check-agent-readiness.ps1") -Root $Root
 

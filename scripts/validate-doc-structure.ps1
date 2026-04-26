@@ -14,16 +14,13 @@ $required = @(
     "docs\core\finish-readiness.md",
     "docs\assistant\index.md",
     "docs\references\assistant",
-    "docs\archive\assistant-v1-summary.md",
+    "docs\references\assistant\index.md",
+    "docs\references\assistant\self-improvement-loop.md",
     "docs\capabilities\index.md",
     "docs\capabilities\gap-review.md",
     "docs\capabilities\companion-roadmap.md",
     "docs\capabilities\pruning-review.md",
     "docs\references\assistant\external-capability-radar.md",
-    "docs\references\assistant\codex-app-settings.md",
-    "docs\references\assistant\plugin-mcp-availability.md",
-    "docs\references\assistant\mcp-capability-plan.md",
-    "docs\references\assistant\agent-benchmark-integration.md",
     "docs\knowledge\system-improvement\harness-log.md",
     "docs\knowledge\system-improvement\skill-audit.md"
 )

@@ -17,7 +17,8 @@ $records = @(
     "video-source",
     "office-document",
     "code-change",
-    "web-source"
+    "web-source",
+    "self-improvement-loop"
 )
 
 $headings = @(

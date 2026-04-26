@@ -11,15 +11,15 @@
 | 对象 | 现状 | 风险 | 建议动作 |
 | --- | --- | --- | --- |
 | `docs/assistant/*.md` 兼容入口 | 已合并为 `docs/assistant/index.md` | 旧路径不再可直接打开 | 已更新校验脚本；后续使用索引和当前路径 |
-| `docs/archive/assistant-v1/` | 已合并为 `docs/archive/assistant-v1-summary.md` | 旧正文细节不再逐文件保留 | 保留摘要作为历史说明 |
 | `output/` 旧生成物 | 验收记录已保留结果摘要 | 直接依赖样例会增加仓库噪声 | 已删除并加入 `.gitignore`；新生成物默认不版本化 |
 | 旧 `personal-work-assistant` 技能 | 只是兼容入口，实际转交 `assistant-router` | 继续保留会扩大触发面 | 已从仓库同步副本删除；用户级副本已移入 `.codex\skills-disabled` |
 | 宽泛 skill | 部分 skill 仍承担较多路由职责 | 过度拆分会降低触发稳定性 | 只在真实任务显示重复或冲突时拆分 |
 | 外部工具候选 | GitHub、MCP、第三方 agent 项目很多 | 批量安装会增加权限和维护负担 | 先记录能力雷达，按任务试用 |
 | Bilibili 外部技能候选 | 七个仓库已审查 | 全部安装会引入下载、发布、账号凭据和重依赖 | 只安装 `bilibili-video-evidence` 与 `video-note-writer`；其他候选保留为参考 |
 | `.codex/` 工作区目录 | Codex App 自动生成本地环境状态 | 提交后会把本机状态误当作仓库事实 | 加入 `.gitignore`，不版本化 |
-| `docs/archive/assistant-v1/` 空目录 | 旧归档正文已合并为摘要，目录为空 | 空目录无版本价值 | 从本地删除空目录 |
-| 低引用文件 | `scripts/audit-file-usage.ps1` 当前列出 32 个低引用候选 | 低引用不等于无用；skills 由 Codex 元数据触发，templates 可能只在特定任务中使用 | 暂不删除。优先观察真实任务；若连续无用，再逐项合并或删除并运行校验 |
+| `docs/archive/assistant-v1-summary.md` | 已由前序精简删除，但校验和索引曾继续引用 | 删除不完整会导致停止前检查失败 | 本轮移除强制校验和索引引用，并增加知识索引路径校验 |
+| 低引用文件 | `scripts/audit-file-usage.ps1` 当前列出 29 个低引用候选 | 低引用不等于无用；skills 由 Codex 元数据触发，templates 可能只在特定任务中使用 | 暂不删除。优先观察真实任务；若连续无用，再逐项合并或删除并运行校验 |
+| 每日本地“自我优化”自动化 | 直接复用一次性完整授权提示，在本地 checkout 中长期运行 | 会把一次性授权误变成长期授权 | 已删除；保留两个 worktree 只读或 proposal-only 自动化，并由 `scripts/audit-automations.ps1` 审计 |
 
 ## 执行门槛
 
@@ -30,6 +30,8 @@
 ## 当前结论
 
 本轮已在用户确认后删除分散旧入口和 v1 归档正文，并把 `.codex/` 自动生成目录和 `output/` 生成物加入忽略规则，避免本机应用状态和一次性输出进入仓库。本次进一步删除旧 `personal-work-assistant` 技能同步副本，并把用户级同名技能移入禁用目录。
+
+2026-04-27 复查确认：历史摘要删除后，仓库应同步删除校验和索引中的强制引用，而不是恢复一个只为通过校验存在的历史文件。长期自动化也不能保留一次性完整授权提示。
 
 后续以脚本证据为准：
 

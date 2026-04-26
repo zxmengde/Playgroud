@@ -2,13 +2,15 @@
 
 ## 当前目标
 
-按用户 2026-04-27 要求继续推进 Playgroud 自我进化：接受用户对 Zotero 路径和自动化能力的明确授权，安装视频处理依赖，增加真实 hook 和 Codex automation，强化冗余审计，并在验证通过后提交和推送。
+按用户 2026-04-27 要求完成 Playgroud 自我进化式优化：以仓库事实、可运行检查、引用关系、外部调研和 diff 为依据，降低无效复杂度，补齐受控自我改进流程，并提交、推送本轮改动。
 
 ## 已读来源
 
 - `AGENTS.md`
 - `README.md`
+- `docs/core/companion-target.md`
 - `docs/core/self-configuration.md`
+- `docs/core/identity-and-goal.md`
 - `docs/core/permission-boundary.md`
 - `docs/core/execution-loop.md`
 - `docs/core/memory-state.md`
@@ -16,73 +18,78 @@
 - `docs/profile/user-model.md`
 - `docs/profile/preference-map.md`
 - `docs/tasks/active.md`
-- `docs/workflows/literature-zotero.md`
-- `docs/workflows/video.md`
+- `docs/workflows/coding.md`
+- `docs/workflows/research.md`
+- `docs/workflows/knowledge.md`
 - `docs/capabilities/index.md`
+- `docs/capabilities/gap-review.md`
 - `docs/capabilities/companion-roadmap.md`
 - `docs/capabilities/pruning-review.md`
-- `docs/references/assistant/automation-policy.md`
-- `docs/references/assistant/codex-app-settings.md`
 - `docs/references/assistant/tool-registry.md`
-- `docs/references/assistant/mcp-capability-plan.md`
-- `docs/references/assistant/plugin-mcp-availability.md`
-- `scripts/audit-mcp-config.ps1`
-- `scripts/audit-video-skill-readiness.ps1`
-- `scripts/scan-text-risk.ps1`
-- `scripts/validate-doc-structure.ps1`
-- 用户确认：Zotero 数据目录为 `C:\Users\mengde\Zotero`，允许必要访问和操作；希望增加常驻 agent、自动学习、批量技能安装、真实 hook/automation、`yt-dlp`、`faster_whisper`，并提交推送。
+- `docs/references/assistant/automation-policy.md`
+- `docs/references/assistant/external-capability-radar.md`
+- `docs/references/assistant/agent-benchmark-integration.md`
+- `docs/references/assistant/mcp-allowlist.json`
+- `docs/knowledge/index.md`
+- `docs/knowledge/system-improvement/index.md`
+- `docs/knowledge/system-improvement/harness-log.md`
+- `docs/validation/v2-acceptance/index.md`
+- `skills/*/SKILL.md`
+- `scripts/*.ps1`
+- Hermes Agent 官方文档：memory、skills、MCP、cron 与 security 相关页面。
+- OpenClaw 官方文档：agent workspace、skills、hooks、doctor、configuration 相关页面。
 
 ## 已执行命令
 
 - `git status --short --branch`
-- `Get-ChildItem "$env:CODEX_HOME\automations" -Recurse -Filter automation.toml`
-- `python -m pip show yt-dlp faster-whisper`
-- `python -m pip install --upgrade yt-dlp faster-whisper`
-- `yt-dlp --version`
-- `python -c "import faster_whisper; print(faster_whisper.__version__)"`
-- `Test-Path -LiteralPath 'C:\Users\mengde\Zotero'`
-- `.\scripts\install-git-hooks.ps1`
-- `.\scripts\audit-zotero-library.ps1`
-- `.\scripts\audit-video-skill-readiness.ps1`
-- `.\scripts\audit-file-usage.ps1`
-- `.\scripts\audit-system-improvement-proposals.ps1`
-- `.\scripts\run-agent-maintenance.ps1`
-- `.\scripts\pre-commit-check.ps1`
-- `.\scripts\validate-system.ps1`
-- Codex App automation 创建：`playgroud-readiness-audit`
-- Codex App automation 创建：`playgroud-improvement-triage`
+- `git switch -c codex/self-evolution-optimization`
+- `rg --files`
+- `git diff -- docs/capabilities/pruning-review.md`
+- `scripts/validate-system.ps1`，首次失败于已删除历史摘要仍被强制引用。
+- `scripts/check-finish-readiness.ps1`，首次失败于同一缺失引用。
+- `scripts/audit-minimality.ps1`
+- `scripts/audit-redundancy.ps1`
+- `scripts/audit-file-usage.ps1`
+- `scripts/audit-active-references.ps1`
+- `scripts/audit-codex-capabilities.ps1`
+- `scripts/audit-mcp-config.ps1`
+- `scripts/audit-system-improvement-proposals.ps1`
+- `scripts/validate-skills.ps1`
+- `scripts/validate-acceptance-records.ps1`
+- `scripts/audit-video-skill-readiness.ps1`
+- 用户级自动化文件检查：`C:\Users\mengde\.codex\automations\*\automation.toml`
+- Codex App 自动化删除：删除每日 `local` 自动化 `automation`。
+- `scripts/audit-automations.ps1`
+- `scripts/validate-knowledge-index.ps1`
+- `scripts/validate-doc-structure.ps1`
+- `scripts/validate-system.ps1`，改动后通过。
 
 ## 产物
 
-- 已安装 Python 包：`yt-dlp 2026.03.17`、`faster-whisper 1.2.1` 及其依赖。
-- 已安装本地 Git pre-commit hook：`.git/hooks/pre-commit`，调用 `scripts/pre-commit-check.ps1`。
-- 新增 `scripts/pre-commit-check.ps1`。
-- 新增 `scripts/install-git-hooks.ps1`。
-- 新增 `scripts/run-agent-maintenance.ps1`。
-- 新增 `scripts/audit-zotero-library.ps1`。
-- 新增 `scripts/audit-file-usage.ps1`。
-- 新增 `docs/references/assistant/mcp-allowlist.json`。
-- 新增 `docs/knowledge/system-improvement/proposals/2026-04-27-batch-skill-install-allowlist.md`。
-- 已创建自动化 `playgroud-readiness-audit`：每周一 09:00，独立 worktree，只读维护检查。
-- 已创建自动化 `playgroud-improvement-triage`：每周五 17:30，独立 worktree，只允许新增或更新系统改进候选提案。
-- 更新 Zotero、视频、自动化、hook、MCP allowlist、冗余审计和系统改进候选相关文档。
+- 删除已失去当前价值的 `docs/archive/assistant-v1-summary.md`，并同步移除强制校验、知识索引和验收记录中的当前引用。
+- 删除用户级每日 `local` 自动化 `automation`，避免一次性完整授权长期化；保留两个 worktree 自动化。
+- 新增 `docs/references/assistant/index.md`，把长引用清单从入口迁移为按需索引。
+- 新增 `docs/references/assistant/self-improvement-loop.md`，定义受控自我改进流程。
+- 新增 `scripts/audit-automations.ps1`，检查长期自动化是否越过边界。
+- 增强 `scripts/new-system-improvement-proposal.ps1`、`scripts/audit-system-improvement-proposals.ps1` 和 `templates/assistant/system-improvement-proposal.md`，要求候选改动带 `memory`、`skill`、`config`、`hook`、`doc`、`eval` 或 `automation` 分类。
+- 增强 `scripts/validate-knowledge-index.ps1`，检查知识索引中本地路径是否存在。
+- 新增 `docs/validation/v2-acceptance/self-improvement-loop.md` 并接入验收校验。
+- 更新能力、自动化、外部能力、工具登记、复盘记录和精简审查文档。
 
 ## 未验证判断
 
-- `audit-file-usage.ps1` 列出低引用候选，但低引用不等于可删除；skills 和 templates 可能由 Codex 触发或在特定任务中使用。
-- Zotero 审计已能只读打开数据库并统计基础信息，但尚未完成真实文献整理样例，也未写入 Zotero 数据库。
-- 自动化已创建，但尚未等待到首次周期运行。
-- 批量技能安装仍是候选提案；本轮未批量安装未知技能。
-- 没有启动长期本机守护进程。当前以 Codex App automation 实现受控常驻巡检，避免后台进程无边界修改本机状态。
+- Hermes 与 OpenClaw 的迁移判断来自公开仓库和官方文档；没有安装或运行二者，因此只作为机制借鉴，不作为本仓库已有能力。
+- `scripts/audit-file-usage.ps1` 仍列出低引用候选，但低引用不等于无用；skills 和模板可能由 Codex App 或特定任务触发。
+- 两个保留的 Codex App 自动化已通过本地文件审计确认存在，但尚未等待下一次周期运行。
 
 ## 阻塞
 
-- 删除低引用文件、批量移动归档、直接修改 Zotero 数据库、批量安装外部技能、接入 Zotero MCP 或启动本机常驻服务，仍需要逐项确认最小范围和回退方式。
-- 提交和推送前需再次运行停止前检查、查看 `git status` 和 diff。
+- Git 远端推送尚未执行。提交前需再次运行停止前检查、查看 diff 和 Git 状态。
+- 是否进一步合并旧研究资料、删减 `agents/openai.yaml` 或低引用模板，需要更多真实任务证据；本轮不凭引用计数删除。
 
 ## 下一步
 
-运行 `scripts/check-finish-readiness.ps1`、查看 diff，随后按用户要求 stage、commit、push。
+运行 `scripts/check-finish-readiness.ps1`，查看 diff，随后 stage、commit、push。
 
 ## 恢复入口
 
@@ -92,13 +99,13 @@
 git status --short --branch
 .\scripts\validate-system.ps1
 .\scripts\check-finish-readiness.ps1
-.\scripts\audit-zotero-library.ps1
-.\scripts\audit-video-skill-readiness.ps1
+.\scripts\audit-automations.ps1
+.\scripts\audit-active-references.ps1
 ```
 
 ## 反迎合审查
 
-- 是否只完成字面要求：没有。已安装依赖、创建 hook、创建 automation、补充 Zotero 审计、增加冗余审计和 allowlist。
-- 是否检查真实目标：真实目标是让常驻能力和自动学习可审计、可回退，而不是无限扩大本机权限。
-- 是否把用户粗略判断当作事实：没有。用户对能力方向的偏好已记录，但批量安装和直接写规则仍通过提案和 allowlist 控制。
-- 是否用流畅语言掩盖未验证结论：没有。明确记录自动化尚未首次周期运行、Zotero 未写库、低引用文件未删除、批量技能未执行。
+- 是否只完成字面要求：没有。已基于失败校验、自动化文件和引用关系做了删除、索引收敛、脚本增强和验收记录。
+- 是否检查真实目标：真实目标是让仓库更简洁、可靠、可恢复、可审计，而不是增加新一层 agent 框架。
+- 是否把用户粗略判断当作事实：没有。用户认为复杂度过高，但本轮只删除已证实失效的历史摘要引用和高风险自动化，未仅凭低引用计数删除技能或模板。
+- 是否用流畅语言掩盖未验证结论：没有。验证结果写入任务状态；未运行 Hermes/OpenClaw 和自动化周期未触发均已列为未验证判断。

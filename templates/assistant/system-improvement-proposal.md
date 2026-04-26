@@ -2,6 +2,7 @@
 
 - 日期：{{date}}
 - 状态：candidate
+- 分类：{{category}}
 
 ## 触发事实
 
@@ -10,6 +11,8 @@
 ## 候选改动
 
 说明拟修改的规则、脚本、技能、模板、MCP、hook、eval 或知识结构。
+
+分类只能使用 `memory`、`skill`、`config`、`hook`、`doc`、`eval` 或 `automation`。不清楚时先用 `doc`，不要把不成熟判断直接写入核心协议。
 
 ## 权限级别
 

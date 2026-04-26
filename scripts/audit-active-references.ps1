@@ -36,6 +36,8 @@ $skipPattern = '(\*|YYYY|<|>|\$|~|\{|\}|\[|\]|\.\.\.|^docs[\\/]knowledge[\\/]ite
 $retiredOrExternalLocalReferences = @(
     "docs/archive/assistant-v1/",
     "docs\archive\assistant-v1",
+    "docs/archive/assistant-v1-summary.md",
+    "docs\archive\assistant-v1-summary.md",
     "skills/personal-work-assistant",
     "skills\personal-work-assistant",
     "skills/bilibili-video-evidence",

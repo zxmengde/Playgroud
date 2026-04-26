@@ -1,6 +1,8 @@
 param(
     [Parameter(Mandatory = $true)]
     [string]$Name,
+    [ValidateSet("memory", "skill", "config", "hook", "doc", "eval", "automation")]
+    [string]$Category = "doc",
     [string]$Root = (Resolve-Path "$PSScriptRoot\..").Path
 )
 
@@ -26,7 +28,7 @@ if (Test-Path -LiteralPath $output) {
 }
 
 $content = Get-Content -LiteralPath $template -Raw
-$content = $content.Replace("{{date}}", $date).Replace("{{name}}", $Name)
+$content = $content.Replace("{{date}}", $date).Replace("{{name}}", $Name).Replace("{{category}}", $Category)
 Set-Content -LiteralPath $output -Value $content -Encoding UTF8
 
 Write-Output $output

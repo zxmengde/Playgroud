@@ -15,6 +15,7 @@ $requiredHeadings = @(
     "## 回退方式",
     "## 状态"
 )
+$allowedCategories = @("memory", "skill", "config", "hook", "doc", "eval", "automation")
 
 Write-Output "System improvement proposal audit"
 
@@ -33,6 +34,12 @@ foreach ($file in $files) {
         if ($content -notlike "*$heading*") {
             $errors += "$($file.Name) missing heading: $heading"
         }
+    }
+    $categoryMatch = [regex]::Match($content, '(?m)^-\s*分类：\s*([A-Za-z-]+)\s*$')
+    if (-not $categoryMatch.Success) {
+        $errors += "$($file.Name) missing category metadata."
+    } elseif ($allowedCategories -notcontains $categoryMatch.Groups[1].Value) {
+        $errors += "$($file.Name) invalid category: $($categoryMatch.Groups[1].Value)"
     }
 }
 

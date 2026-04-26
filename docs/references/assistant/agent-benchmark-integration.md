@@ -40,6 +40,14 @@
 
 第三，OpenClaw 的 `doctor` 思路适合迁移为只读检查。当前仓库已有 `scripts/check-agent-readiness.ps1`，本轮新增 `scripts/audit-active-references.ps1` 和 `scripts/audit-system-improvement-proposals.ps1`，把旧路径、缺失引用和未成形改进候选纳入停止前检查。
 
+## 2026-04-27 复查补充
+
+本轮再次复查 Hermes 与 OpenClaw 后，新增两个约束。
+
+第一，自动化不能继承一次性完整授权。用户级 Codex 自动化中曾存在每日运行的本地“自我优化”任务，直接复用一次性高影响授权提示。该任务已删除，后续由 `scripts/audit-automations.ps1` 检查 active cron 自动化是否包含完整授权语言、是否在本地 checkout 中运行非只读任务。
+
+第二，系统改进候选必须先分类再验证。Hermes 的任务后学习和 OpenClaw 的 task ledger 对本仓库有价值，但不能自动改写核心规则。本轮将 proposal 分类限定为 `memory`、`skill`、`config`、`hook`、`doc`、`eval` 和 `automation`，并由 `scripts/audit-system-improvement-proposals.ps1` 校验。
+
 ## 不迁移的部分
 
 不安装 OpenClaw 或 Hermes 作为常驻代理。原因是二者都可能连接消息平台、文件系统、外部账号和本机命令，直接常驻会显著扩大执行面。当前只迁移其可机械验证的机制。

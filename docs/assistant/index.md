@@ -12,6 +12,7 @@
 | 停止前检查 | `docs/core/finish-readiness.md` |
 | 能力清单和路线 | `docs/capabilities/index.md`、`docs/capabilities/companion-roadmap.md` |
 | 精简审查 | `docs/capabilities/pruning-review.md` |
+| 引用资料索引 | `docs/references/assistant/index.md` |
 | 外部能力雷达 | `docs/references/assistant/external-capability-radar.md` |
 | 工具登记 | `docs/references/assistant/tool-registry.md` |
 | 第三方技能评估 | `docs/references/assistant/third-party-skill-evaluation.md` |

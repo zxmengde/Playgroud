@@ -20,7 +20,6 @@ $required = @(
     "docs\profile\intake-questionnaire.md",
     "docs\assistant\index.md",
     "docs\assistant\forbidden-terms.json",
-    "docs\archive\assistant-v1-summary.md",
     "docs\knowledge\index.md",
     "docs\knowledge\research\index.md",
     "docs\knowledge\project\index.md",
@@ -35,6 +34,8 @@ $required = @(
     "docs\tasks\blocked.md",
     "docs\workflows\literature-zotero.md",
     "docs\workflows\video.md",
+    "docs\references\assistant\index.md",
+    "docs\references\assistant\self-improvement-loop.md",
     "templates\knowledge\knowledge-item.md",
     "templates\profile\preference-note.md",
     "templates\research\citation-checklist.md",
@@ -58,6 +59,7 @@ $required = @(
     "scripts\audit-profile-duplication.ps1",
     "scripts\audit-codex-capabilities.ps1",
     "scripts\audit-mcp-config.ps1",
+    "scripts\audit-automations.ps1",
     "scripts\audit-minimality.ps1",
     "scripts\audit-file-usage.ps1",
     "scripts\audit-active-references.ps1",
@@ -78,11 +80,7 @@ $required = @(
     "scripts\validate-skills.ps1",
     "scripts\new-system-improvement-proposal.ps1",
     "docs\core\self-configuration.md",
-    "docs\references\assistant\codex-app-settings.md",
-    "docs\references\assistant\plugin-mcp-availability.md",
-    "docs\references\assistant\mcp-capability-plan.md",
-    "docs\references\assistant\agent-benchmark-integration.md",
-    "docs\references\assistant\bilibili-skill-evaluation.md"
+    "docs\references\assistant\tool-registry.md"
 )
 
 $missing = @()
@@ -151,6 +149,7 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\audit-video-skill-readiness.ps1")
 & (Join-Path $Root "scripts\audit-codex-capabilities.ps1") | Out-Null
 & (Join-Path $Root "scripts\audit-mcp-config.ps1") | Out-Null
+& (Join-Path $Root "scripts\audit-automations.ps1") -Root $Root
 & (Join-Path $Root "scripts\check-agent-readiness.ps1") -Root $Root -Strict
 & (Join-Path $Root "scripts\scan-text-risk.ps1") -Root $Root
 & (Join-Path $Root "scripts\check-task-state.ps1") -Root $Root
