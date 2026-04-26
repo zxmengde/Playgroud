@@ -15,7 +15,7 @@
 - `docs/workflows/literature-zotero.md`
 - `skills/literature-zotero-workflow/SKILL.md`
 - `templates/research/citation-checklist.md`
-- `output/v2-research-literature-citation-checklist.md`
+- 历史引用核验清单样例，当前不再作为版本化文件保留。
 
 ## 验证
 

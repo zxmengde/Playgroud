@@ -1,0 +1,56 @@
+# MCP 能力补充方案
+
+记录时间：2026-04-26。
+
+本方案用于决定哪些 MCP 值得接入，以及如何接入。MCP 服务器可能读取本地文件、访问网络或连接外部账号，因此不能把“可安装”直接等同于“应启用”。
+
+## 资料来源
+
+- Model Context Protocol 安全最佳实践：`https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices`
+- Model Context Protocol 官方 servers 仓库：`https://github.com/modelcontextprotocol/servers`
+- 当前本机 Codex 配置：`C:\Users\mengde\.codex\config.toml`
+
+## 当前保留
+
+| MCP | 用途 | 当前处理 |
+| --- | --- | --- |
+| `context7` | 第三方库和框架文档查询 | 保留，已验证可解析 React 文档库 |
+| `openaiDeveloperDocs` | OpenAI 官方文档 | 保留；若当前会话未暴露工具，使用 `openai-docs` skill 和官方站点兜底 |
+
+## 优先补充
+
+| 候选 | 价值 | 接入条件 |
+| --- | --- | --- |
+| Zotero 或文献库只读 MCP | 支撑论文、引用核验、本地 PDF 元数据和文献集合检索 | 明确 Zotero 数据目录；默认只读；不保存密钥；先用导出文件或只读目录验证 |
+| 本地文档索引 MCP | 面向大量论文、笔记和 Office 文件的跨目录检索 | 只有在 `rg`、Office 插件、PDF 脚本不足时评估；必须限制目录 |
+| 专项数据库 MCP | 连接稳定科研数据库或机构资料库 | 只在具体科研任务需要时启用；需记录来源、账号、速率限制和停用方法 |
+
+## 暂不补充
+
+| MCP | 原因 |
+| --- | --- |
+| Filesystem | 与当前仓库文件读写工具重复，会扩大文件访问范围 |
+| Git | 与 Git、GitHub 插件和 `scripts\git-safe.ps1` 重复 |
+| Memory | 与本仓库知识记录重复，容易产生多处记忆不一致 |
+| 通用搜索 | 当前已有网页检索、Browser Use 和来源记录流程 |
+| 邮件、日程、网盘、CRM、支付或金融类 MCP | 外部账号和个人资料权限较高，必须等到具体任务再审查 |
+
+## 接入流程
+
+新增 MCP 前必须生成评估记录：
+
+```powershell
+.\scripts\new-mcp-adoption-review.ps1 -Name "zotero-readonly"
+```
+
+随后检查现有 MCP 配置：
+
+```powershell
+.\scripts\audit-mcp-config.ps1
+```
+
+评估记录至少写清楚来源 URL、读取范围、写入能力、账号或密钥需求、失败方式、停用方法、只读验证命令和回退路径。需要修改用户级 Codex 配置、安装本地服务器或接入外部账号时，应先取得用户确认。
+
+## 下一步候选
+
+下一阶段优先做 Zotero 或文献库只读方案。推荐先不安装服务器，而是确定以下信息：Zotero 数据目录、是否安装 Better BibTeX、常用集合、标签规则、是否允许只读读取本地库、是否允许使用 Zotero Web API。上述信息明确后，再决定是否接入 MCP。

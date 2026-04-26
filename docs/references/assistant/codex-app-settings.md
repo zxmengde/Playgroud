@@ -142,6 +142,8 @@ if (Test-Path "$env:CODEX_WORKTREE_PATH\tmp") { Remove-Item -Recurse -Force "$en
 
 MCP 方面，当前不建议继续增加通用 Filesystem、Git 或 Memory MCP。当前仓库已有文件、Git、知识记录和 GitHub 能力，重复接入会增加权限面和维护成本。下一阶段优先评估 Zotero 或文献库只读 MCP，前提是用户确认数据目录和读取边界。
 
+新增 MCP 前按 `docs/references/assistant/mcp-capability-plan.md` 执行：先生成评估记录，再确认读取范围、写入能力、账号需求、失败方式和停用方法。
+
 ## 操作按钮
 
 建议新增低风险操作：

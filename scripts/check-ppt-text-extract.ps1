@@ -1,5 +1,5 @@
 param(
-    [string]$Path = "output\ppt_text_extract.json",
+    [Parameter(Mandatory=$true)][string]$Path,
     [int]$MaxTextItemsPerSlide = 35
 )
 

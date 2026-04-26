@@ -7,7 +7,7 @@
 | 科研文献 | `docs/validation/v2-acceptance/research-literature.md` | 已记录 | 使用本地科研知识条目和引用核验模板验证流程。 |
 | Zotero/PDF | `docs/validation/v2-acceptance/zotero-pdf.md` | 已记录 | 验证边界和流程，不读取未授权个人 Zotero 库。 |
 | Bilibili/视频 | `docs/validation/v2-acceptance/video-source.md` | 已记录 | 验证视频资料处理流程和权限边界。 |
-| PPT/Word | `docs/validation/v2-acceptance/office-document.md` | 已记录 | 使用既有 PPT 文本抽取结果运行结构检查。 |
+| PPT/Word | `docs/validation/v2-acceptance/office-document.md` | 已记录 | 记录 PPT 文本结构检查方法和历史检查结论。 |
 | 代码修改 | `docs/validation/v2-acceptance/code-change.md` | 已记录 | 使用本轮仓库重构作为代码与脚本验收。 |
 | 网页资料 | `docs/validation/v2-acceptance/web-source.md` | 已记录 | 使用网页来源记录模板验证来源记录路径。 |
 

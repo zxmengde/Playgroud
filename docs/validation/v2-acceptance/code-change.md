@@ -14,7 +14,7 @@
 
 - `docs/core/`
 - `docs/references/assistant/`
-- `docs/archive/assistant-v1/`
+- `docs/archive/assistant-v1-summary.md`
 - `docs/capabilities/`
 - `docs/validation/v2-acceptance/`
 - `scripts/validate-doc-structure.ps1`

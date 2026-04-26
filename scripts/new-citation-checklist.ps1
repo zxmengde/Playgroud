@@ -22,6 +22,11 @@ if (Test-Path -LiteralPath $OutputPath) {
     throw "Output already exists: $OutputPath"
 }
 
+$parent = Split-Path -Parent $OutputPath
+if (-not [string]::IsNullOrWhiteSpace($parent)) {
+    New-Item -ItemType Directory -Force -Path $parent | Out-Null
+}
+
 $content = Get-Content -LiteralPath $templatePath -Raw
 $content = $content -replace "## 任务", "## 任务`n`n$Title"
 Set-Content -LiteralPath $OutputPath -Value $content -Encoding UTF8

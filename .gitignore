@@ -4,6 +4,7 @@
 tmp/
 logs/
 *.log
+output/
 
 # Python and Node artifacts
 __pycache__/

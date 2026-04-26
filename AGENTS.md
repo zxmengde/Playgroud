@@ -39,6 +39,7 @@
 - 外部能力、Codex 插件、MCP 和热门仓库评估：`docs/references/assistant/external-capability-radar.md`
 - Codex App、插件、MCP 和环境设置：`docs/references/assistant/codex-app-settings.md`
 - 插件与 MCP 可用性检查：`docs/references/assistant/plugin-mcp-availability.md`
+- MCP 能力补充方案：`docs/references/assistant/mcp-capability-plan.md`
 - 小型综合个人工作代理能力路线：`docs/capabilities/companion-roadmap.md`
 - 精简或删除候选项：`docs/capabilities/pruning-review.md`
 

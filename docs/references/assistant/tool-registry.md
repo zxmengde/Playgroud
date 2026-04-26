@@ -8,6 +8,8 @@
 | Git 安全包装脚本 | 在 Codex shell 中先修复进程环境变量，再执行 Git 命令 | Git 参数，Git 输出 | 仍遵守 Git 写入和推送确认边界 | `scripts/git-safe.ps1 status --short --branch`、`pull --ff-only` | 先手动运行 `scripts/repair-git-network-env.ps1` |
 | Codex 环境设置脚本 | 工作树创建后设置本仓库本地 Git 代理和进程环境 | Codex App 本地环境脚本 | 默认不改用户级环境、不改系统代理 | `scripts/setup-codex-environment.ps1` 输出 | 手动执行诊断脚本 |
 | Codex 能力审计脚本 | 检查本机插件缓存、用户级 skills 和工作区 `.codex` 状态 | 本机 Codex 目录，文本输出 | 只读检查；不验证外部账号权限 | `scripts/audit-codex-capabilities.ps1` | 手动查看插件缓存和技能列表 |
+| MCP 配置审计脚本 | 列出现有 MCP 服务器名称和 URL 或命令 | 用户级 Codex 配置，文本输出 | 不输出密钥；只读检查 | `scripts/audit-mcp-config.ps1` | 手动查看 `config.toml` |
+| MCP 引入评估脚本 | 为候选 MCP 生成评估记录 | MCP 名称，Markdown 输出 | 不安装服务器，不修改配置 | `scripts/new-mcp-adoption-review.ps1` | 手动复制模板 |
 | Python | 数据处理、文档解析、测试脚本 | 脚本、CSV、JSON、Office、PDF | 不保存密钥，不向外部写入 | 退出码、输出文件、单元检查 | PowerShell 或 Node |
 | Node | 前端、Playwright、脚本工具 | JS/TS 项目、网页测试 | 不执行未知安装脚本 | 退出码、测试输出 | Python 或内置运行时 |
 | Pandoc | Markdown、DOCX、HTML 等格式转换 | 文档文件 | 覆盖输出需确认 | 输出文件、格式检查 | Python 文档库 |

@@ -35,6 +35,8 @@
 - 本地检索 MCP：仅当需要跨目录检索大量个人文档且现有 shell、Office 插件和脚本不足时评估。
 - 浏览器或 Playwright MCP：当前已有 Browser Use 和 Playwright 技能，除非需要跨会话稳定浏览器控制，否则不增加。
 
+具体接入流程见 `docs/references/assistant/mcp-capability-plan.md`。新增 MCP 前先生成评估记录，不直接修改用户级 Codex 配置。
+
 暂不建议安装：
 
 - Filesystem MCP：当前已有仓库读写工具，额外接入会扩大文件访问面。

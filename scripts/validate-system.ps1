@@ -41,6 +41,7 @@ $required = @(
     "templates\assistant\automation-review.md",
     "templates\assistant\long-task-state.md",
     "templates\assistant\skill-adoption-review.md",
+    "templates\assistant\mcp-adoption-review.md",
     "scripts\scan-text-risk.ps1",
     "scripts\check-task-state.ps1",
     "scripts\validate-knowledge-index.ps1",
@@ -54,6 +55,8 @@ $required = @(
     "scripts\audit-redundancy.ps1",
     "scripts\audit-profile-duplication.ps1",
     "scripts\audit-codex-capabilities.ps1",
+    "scripts\audit-mcp-config.ps1",
+    "scripts\new-mcp-adoption-review.ps1",
     "scripts\git-safe.ps1",
     "scripts\setup-codex-environment.ps1",
     "scripts\install-codex-git-network-fix.ps1",
@@ -62,7 +65,8 @@ $required = @(
     "scripts\validate-skills.ps1",
     "docs\core\self-configuration.md",
     "docs\references\assistant\codex-app-settings.md",
-    "docs\references\assistant\plugin-mcp-availability.md"
+    "docs\references\assistant\plugin-mcp-availability.md",
+    "docs\references\assistant\mcp-capability-plan.md"
 )
 
 $missing = @()
@@ -125,6 +129,7 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\audit-redundancy.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-profile-duplication.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-codex-capabilities.ps1") | Out-Null
+& (Join-Path $Root "scripts\audit-mcp-config.ps1") | Out-Null
 & (Join-Path $Root "scripts\scan-text-risk.ps1") -Root $Root
 & (Join-Path $Root "scripts\check-task-state.ps1") -Root $Root
 & (Join-Path $Root "scripts\validate-knowledge-index.ps1") -Root $Root

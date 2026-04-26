@@ -14,12 +14,12 @@
 
 - `templates/research/citation-checklist.md`
 - `scripts/new-citation-checklist.ps1`
-- `output/v2-research-literature-citation-checklist.md`
+- 历史引用核验清单样例，原路径为 `output/v2-research-literature-citation-checklist.md`，当前不再作为版本化文件保留。
 - `docs/knowledge/research/index.md`
 
 ## 验证
 
-- `scripts/new-citation-checklist.ps1` 已生成核验清单输出。
+- `scripts/new-citation-checklist.ps1` 已验证可生成核验清单输出；新输出默认写入被忽略的 `output/` 目录。
 - `scripts/validate-acceptance-records.ps1` 检查本记录字段完整。
 - `scripts/validate-system.ps1` 纳入引用模板和知识索引检查。
 

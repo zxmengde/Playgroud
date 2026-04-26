@@ -8,7 +8,7 @@
 | 2026-04-22 | 修复 Codex CLI | 用户级 `codex.ps1` 与 `codex.cmd` 指向原生二进制 | `codex --version` 与 `codex mcp --help` 成功 |
 | 2026-04-22 | 配置 MCP | `openaiDeveloperDocs`、`context7` | `codex mcp list` 显示 enabled |
 | 2026-04-22 | 生成科研和网页知识条目 | `docs/knowledge/items/2026-04-22-*.md` | 知识索引已更新，风格扫描通过 |
-| 2026-04-22 | 生成办公验收文件 | `output/doc/controlled-personal-work-system.rtf` | RTF 可由 Word 打开编辑，内容结构已人工检查 |
+| 2026-04-22 | 生成办公验收文件 | 历史 RTF 样例已完成验收，后续生成物默认写入被忽略的 `output/` | RTF 曾由 Word 打开编辑，内容结构已人工检查 |
 | 2026-04-22 | 完成 Git 初始提交准备 | 当前控制仓库全部文件 | `git status` 将在提交前检查 |
 | 2026-04-22 | 增强无感化与自适应访谈机制 | `docs/user-guide.md`、`docs/assistant/execution-contract.md`、`docs/assistant/intent-interview.md`、`skills/intent-interviewer/` 和相关技能 | 系统校验通过，全部相关技能校验通过 |
 | 2026-04-22 | 重构为真实需求优先机制 | `AGENTS.md`、`docs/assistant/intent-interview.md`、`docs/user-guide.md`、`skills/*` | 系统校验通过，全部相关技能校验通过 |
@@ -21,3 +21,4 @@
 | 2026-04-25 | 针对迎合、伪需求、成本、Zotero、视频总结和 GitHub 网络问题进行系统改造 | `docs/assistant/cost-control.md`、`docs/assistant/git-network-troubleshooting.md`、`docs/workflows/literature-zotero.md`、`docs/workflows/video.md`、`skills/literature-zotero-workflow/`、`skills/video-source-workflow/`、`scripts/test-git-network.ps1` | `scripts/validate-system.ps1` 和 `scripts/validate-skills.ps1` 通过；Git 网络诊断复现代理端口不可达与 10106 错误 |
 | 2026-04-25 | 增加能力差距审查与技能审计 | `docs/assistant/capability-gap-review.md`、`docs/assistant/skill-audit.md`、`scripts/audit-skills.ps1`，并补齐多个技能的产物与验证段落 | `scripts/audit-skills.ps1` 无结构警告；`scripts/validate-system.ps1` 通过 |
 | 2026-04-26 | Playgroud v2 重构、旧规则迁移和代表性验收 | `docs/core/`、`docs/references/assistant/`、`docs/archive/assistant-v1/`、`docs/validation/v2-acceptance/`、新增结构与验收校验脚本 | `scripts/validate-system.ps1` 通过；停止前检查通过但提示工作区有未提交改动 |
+| 2026-04-26 | 精简生成物并补充 MCP 引入治理 | 删除版本化 `output/` 生成物；新增 `docs/references/assistant/mcp-capability-plan.md`、`templates/assistant/mcp-adoption-review.md`、`scripts/audit-mcp-config.ps1`、`scripts/new-mcp-adoption-review.ps1` | `scripts/validate-system.ps1`、`scripts/audit-mcp-config.ps1`、生成脚本最小验证和 Git 网络诊断通过 |

@@ -56,6 +56,13 @@
 
 ```powershell
 .\scripts\audit-codex-capabilities.ps1
+.\scripts\audit-mcp-config.ps1
+```
+
+新增 MCP 前生成评估记录：
+
+```powershell
+.\scripts\new-mcp-adoption-review.ps1 -Name "zotero-readonly"
 ```
 
 停止前检查：
