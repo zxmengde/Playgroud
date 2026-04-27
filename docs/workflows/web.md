@@ -8,9 +8,9 @@
 
 开始前读取 `docs/profile/user-model.md` 和 `docs/profile/preference-map.md`。若截图、下载、命名、归档或来源可靠性偏好未知且会影响任务，先使用 `preference-intake`。若用户暂时不想回答，采用 `preference-map.md` 中的网页与知识保守默认值。
 
-优先使用 Playwright 或浏览器工具获取页面内容、截图和链接。登录、提交表单、发送消息、购买、发布或外部写入前必须确认。
+优先使用 Playwright 或浏览器工具获取页面内容、截图和链接。登录、提交表单、发送消息、购买、发布或外部写入需要任务级授权或预授权；授权不清时先完成准备和验证，停在执行前。
 
-涉及 Bilibili、课程、会议、网页视频、字幕或转写摘要时，同时读取 `docs/workflows/video.md`，并使用 `video-source-workflow`。优先获取元数据和字幕；登录、cookies、会员内容、下载音频或完整视频前必须确认。
+涉及 Bilibili、课程、会议、网页视频、字幕或转写摘要时，同时读取 `docs/workflows/video.md`，并使用 `video-source-workflow`。优先获取元数据和字幕；登录、cookies、会员内容、下载音频或完整视频需要任务级授权或预授权。
 
 ## 产物
 

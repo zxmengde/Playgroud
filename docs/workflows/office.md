@@ -18,7 +18,7 @@ PPT 与 Word 任务不得只追求表面渲染。PPT 应尽量保留可编辑对
 
 正式 Word 任务应检查标题层级、目录、段落样式、引用、图表编号、页眉页脚和可编辑文本。正式 Excel 任务应检查公式、数据来源、表格结构、图表和必要的说明页。
 
-跨 Word、PPT、Excel、PDF 和网页的办公任务应保留源文件、输出文件、渲染或结构检查结果。若需要桌面界面操作，优先使用结构化文件处理；只有结构化路径不足时，才考虑 Power Automate Desktop、pywinauto 或 AutoHotkey，并遵守权限确认。
+跨 Word、PPT、Excel、PDF 和网页的办公任务应保留源文件、输出文件、渲染或结构检查结果。若需要桌面界面操作，优先使用结构化文件处理；只有结构化路径不足时，才考虑 Power Automate Desktop、pywinauto 或 AutoHotkey，并遵守任务级授权或预授权范围。
 
 ## 产物
 

@@ -26,7 +26,7 @@ links:
 next_actions:
   - 在真实 Zotero 任务中采集数据目录、集合、标签、Better BibTeX 状态和引用格式偏好。
   - 在真实 Bilibili 或课程视频任务中验证字幕提取、时间戳摘要和归档方式。
-  - 在用户确认后再处理系统级 loopback exemption 或全局 Git 代理配置。
+  - 在存在任务级授权或预授权后再处理系统级 loopback exemption 或全局 Git 代理配置。
 ---
 
 # 摘要

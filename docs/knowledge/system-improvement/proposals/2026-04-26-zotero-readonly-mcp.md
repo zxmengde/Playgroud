@@ -13,7 +13,7 @@
 
 ## 权限级别
 
-needs-confirmation。该候选可能读取本地 Zotero 数据目录、PDF 附件路径和文献元数据；不得写入 `zotero.sqlite`，不得保存 API key、账号密码或同步令牌。安装 MCP、修改用户级 Codex 配置或读取个人文献库前必须确认。
+needs-authorization。该候选可能读取本地 Zotero 数据目录、PDF 附件路径和文献元数据；不得写入 `zotero.sqlite`，不得保存 API key、账号密码或同步令牌。安装 MCP、修改用户级 Codex 配置或读取个人文献库前需要任务级授权或预授权。
 
 ## 证据
 

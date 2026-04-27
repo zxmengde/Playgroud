@@ -15,7 +15,7 @@
 | https://developers.openai.com/codex/learn/best-practices | Codex 应以 `AGENTS.md`、MCP、skills、automations 和验证流程逐步配置；不要一开始接入所有工具 | 保持入口短，重复流程先 skill 化，稳定后再自动化 |
 | https://developers.openai.com/codex/concepts/customization#skills | skill 使用渐进披露：先看元数据，需要时再读 `SKILL.md`、references 和 scripts | 本仓库 skills 应小而聚焦，把细节放到 references 和 scripts |
 | https://developers.openai.com/codex/plugins/build#plugin-structure | Codex plugin 可包含 `.codex-plugin/plugin.json`、`skills/`、`.mcp.json`、`.app.json` 和 assets | 外部能力可先以 skill 试用，再在需要分发时封装为 plugin |
-| https://modelcontextprotocol.io/specification/latest | MCP 以 consent、data privacy 和 tool safety 为核心原则 | MCP 接入必须显示权限、限制工具、记录用途，并保留人工确认边界 |
+| https://modelcontextprotocol.io/specification/latest | MCP 以 consent、data privacy 和 tool safety 为核心原则 | MCP 接入必须显示权限、限制工具、记录用途，并保留任务级授权或预授权边界 |
 
 ## 已启用 Codex 插件
 
@@ -23,7 +23,7 @@
 | --- | --- | --- | --- |
 | Browser Use | OpenAI bundled | 检查本地浏览器、localhost、file 页面和交互流程 | 前端或网页交互任务优先使用 |
 | LaTeX Tectonic | OpenAI bundled | LaTeX 编译 | 论文、公式和 TeX 项目需要时使用 |
-| GitHub | OpenAI curated | PR、issue、CI 和发布前工作 | 外部写入前确认；网络失败时先诊断 |
+| GitHub | OpenAI curated | PR、issue、CI 和发布前工作 | 外部写入使用任务级授权或预授权；网络失败时先诊断 |
 | Superpowers | OpenAI curated third-party bundle | 规划、调试、TDD、审查和分支收尾方法 | 用于复杂编码流程，不覆盖本仓库规则 |
 | Build Web Apps | OpenAI curated | 前端应用、React、Supabase、Stripe 和组件实践 | 前端项目需要时使用；普通仓库维护不常用 |
 | Test Android Apps | OpenAI curated | Android 模拟器 QA 和性能证据 | 当前不作为默认启用；Android 任务再打开 |
@@ -39,7 +39,7 @@
 | --- | --- | --- |
 | Context7 | 已开启并已验证可解析文档库 | 保留 |
 | OpenAI Developer Docs | 界面显示已开启；当前会话未暴露同名工具命名空间 | 保留；OpenAI 文档任务可由 `openai-docs` skill 兜底 |
-| Zotero 或文献库只读 MCP | 与用户科研和引用核验需求相关 | 下一阶段优先评估，启用前确认数据目录和只读边界 |
+| Zotero 或文献库只读 MCP | 与用户科研和引用核验需求相关 | 下一阶段优先评估，启用前明确数据目录和只读边界 |
 | Filesystem MCP | 与当前文件工具重复 | 暂不安装 |
 | Git MCP | 与 Git、GitHub 插件和 `git-safe` 重复 | 暂不安装 |
 | Memory MCP | 与本仓库知识记录重复，且可能产生多处记忆不一致 | 暂不安装 |

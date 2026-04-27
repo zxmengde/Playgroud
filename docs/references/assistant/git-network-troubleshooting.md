@@ -52,7 +52,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\sc
 .\scripts\install-codex-git-network-fix.ps1 -SetUserEnvironment -SetGlobalGitProxy
 ```
 
-该命令会修改用户级环境变量和全局 Git 配置，执行前必须确认。执行后需要重启 Codex 再复测。
+该命令会修改用户级环境变量和全局 Git 配置，执行前需要任务级授权或预授权。执行后需要重启 Codex 再复测。
 
 ## 判断路径
 
@@ -80,13 +80,13 @@ net start clash_verge_service
 
 若服务重启后仍无监听，检查 Clash Verge 的端口设置是否实际启用了 mixed port，或临时启用单独 HTTP 端口后把 Git 代理指向该端口。
 
-若普通 PowerShell 能连接代理，但 Codex 中不能连接，优先考虑 Windows 打包应用 loopback 限制。可在用户确认后，用管理员 PowerShell 尝试为 Codex 包增加 loopback exemption。包名通常可从安装路径推断为：
+若普通 PowerShell 能连接代理，但 Codex 中不能连接，优先考虑 Windows 打包应用 loopback 限制。可在任务级授权或预授权后，用管理员 PowerShell 尝试为 Codex 包增加 loopback exemption。包名通常可从安装路径推断为：
 
 ```powershell
 CheckNetIsolation LoopbackExempt -a -n=OpenAI.Codex_2p2nqsd0c76g0
 ```
 
-该操作会改变系统级网络访问配置，执行前必须确认。执行后重新运行诊断脚本。
+该操作会改变系统级网络访问配置，执行前需要任务级授权或预授权。执行后重新运行诊断脚本。
 
 若代理端口可达但 `curl` 或 Git 在 TLS 握手失败，先在普通 PowerShell 中复现：
 
@@ -110,7 +110,7 @@ git config http.proxy http://127.0.0.1:7897
 git config https.proxy http://127.0.0.1:7897
 ```
 
-若希望所有仓库都使用该代理，需经用户确认后再设置 `--global`。全局配置可能影响其他项目。
+若希望所有仓库都使用该代理，需要任务级授权或预授权后再设置 `--global`。全局配置可能影响其他项目。
 
 ## 替代路径
 
@@ -129,4 +129,4 @@ git push
 
 ## 权限边界
 
-Codex 可直接运行只读诊断和仓库本地 Git 配置检查。修改全局 Git 配置、系统 loopback exemption、Clash 配置、TUN 模式或长期网络服务前需要用户确认。
+Codex 可直接运行只读诊断和仓库本地 Git 配置检查。修改全局 Git 配置、系统 loopback exemption、Clash 配置、TUN 模式或长期网络服务前需要任务级授权或预授权。

@@ -10,7 +10,7 @@
 
 优先使用用户提供的 PDF、BibTeX/RIS/CSL JSON、DOI 列表和 Zotero 导出文件。用户已确认本机 Zotero 数据目录为 `C:\Users\mengde\Zotero`，并允许 Codex 在该目录内完成必要操作。默认仍应先使用只读连接或备份副本；任何会直接写入 `zotero.sqlite`、移动附件、改插件配置或影响 Zotero 同步状态的操作，都必须先说明备份、回退路径和验证方式。
 
-若使用 Zotero Web API、Better BibTeX 自动导出、浏览器登录或插件安装，必须先确认权限和范围。不得保存 Zotero API key、账号密码或同步令牌。
+若使用 Zotero Web API、Better BibTeX 自动导出、浏览器登录或插件安装，需要任务级授权或预授权，并写清权限和范围。不得保存 Zotero API key、账号密码或同步令牌。
 
 本机基础检查：
 

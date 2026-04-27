@@ -9,7 +9,7 @@
 
 视频任务应先记录 URL、标题、平台、访问日期、字幕来源和是否需要登录。若视频需要账号、验证码、付费或读取个人观看记录，应停止并确认。可公开访问的视频应优先提取字幕、时间戳和可核查片段，再形成摘要。
 
-Bilibili 默认走两阶段路径：先用用户级 `bilibili-video-evidence` 生成 `sectioned.md`、`subtitles.json` 和可选截图；再用 `video-note-writer` 从已有证据生成 Markdown 笔记。若字幕缺失，不能直接宣称已经理解视频内容；登录 cookie、音频提取、ASR 和完整视频下载均需确认。
+Bilibili 默认走两阶段路径：先用用户级 `bilibili-video-evidence` 生成 `sectioned.md`、`subtitles.json` 和可选截图；再用 `video-note-writer` 从已有证据生成 Markdown 笔记。若字幕缺失，不能直接宣称已经理解视频内容；登录 cookie、音频提取、ASR 和完整视频下载需要任务级授权或预授权。
 
 ## 产物
 
