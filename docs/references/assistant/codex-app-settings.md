@@ -20,6 +20,7 @@
 | 常规 | 代码审查 | 行内视图 |
 | 自定义 config.toml | 批准策略 | Never，仅用于 `D:\Code\Playgroud` 等可信仓库 |
 | 自定义 config.toml | 沙盒设置 | Full access，仅限可信仓库 |
+| 自定义 config.toml | Hooks 功能 | `[features] codex_hooks = true` |
 | 个性化 | 个性 | 务实 |
 | 记忆 | 启用记忆 | 开启 |
 | 记忆 | 跳过工具辅助对话 | 建议开启 |
@@ -41,6 +42,12 @@
 本仓库是控制仓库，不是普通聊天环境。建议使用“用于编程”模式、PowerShell、VS Code、中文界面、标准速度和行内代码审查。完全访问权限只建议在 `D:\Code\Playgroud` 这类可信工作区开启；进入陌生仓库、下载目录或外部代码样例时，应改回较小权限或先只读审查。
 
 `config.toml` 页面建议在 `D:\Code\Playgroud` 等可信仓库使用：批准策略 `Never`，沙盒设置 `Full access`。这与用户确认的高自主模式、本机设置脚本、Git 修复脚本和仓库校验配套。若处理陌生项目、外部仓库或高风险脚本，应临时降低权限或改回 `On request`。
+
+若当前项目依赖 `.codex/hooks.json` 进行风险拦截、会话恢复或停止前提示，还应在用户级 `config.toml` 的 `[features]` 下启用：
+
+```toml
+codex_hooks = true
+```
 
 记忆建议开启，但“跳过工具辅助对话”建议开启。原因是网页、MCP 和外部工具返回内容都可能混入低信任资料；长期记忆应优先来自用户确认、仓库文件和经过整理的知识条目，而不是自动吸收临时网页内容。
 

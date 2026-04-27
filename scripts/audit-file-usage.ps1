@@ -15,8 +15,13 @@ function Convert-ToRepoPath {
 }
 
 $tracked = @(& git -C $Root ls-files)
-$textFiles = @(Get-ChildItem -Path $Root -Recurse -File -Include *.md,*.ps1,*.json,*.yaml,*.yml -ErrorAction SilentlyContinue |
-    Where-Object { $_.FullName -notmatch "\\.git\\" })
+$trackedText = @($tracked | Where-Object { $_ -match '\.(md|ps1|json|yaml|yml)$' })
+$textFiles = foreach ($file in $trackedText) {
+    $full = Join-Path $Root ($file -replace "/", [System.IO.Path]::DirectorySeparatorChar)
+    if (Test-Path -LiteralPath $full) {
+        Get-Item -LiteralPath $full
+    }
+}
 
 $combined = ""
 foreach ($file in $textFiles) {
@@ -60,7 +65,7 @@ foreach ($file in $tracked) {
 }
 
 Write-Output "File usage audit"
-Write-Output ("tracked text files checked: {0}" -f (($tracked | Where-Object { $_ -match '\.(md|ps1|json|yaml|yml)$' }).Count))
+Write-Output ("tracked text files checked: {0}" -f $trackedText.Count)
 Write-Output ("low-reference candidates: {0}" -f $candidates.Count)
 foreach ($candidate in ($candidates | Sort-Object)) {
     Write-Output ("- {0}" -f $candidate)

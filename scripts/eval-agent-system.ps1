@@ -50,6 +50,14 @@ try {
     Add-Result "mcp_allowlist" $false $_.Exception.Message
 }
 
+$configPath = "$env:USERPROFILE\.codex\config.toml"
+$hooksEnabled = $false
+if (Test-Path -LiteralPath $configPath) {
+    $configContent = Get-Content -LiteralPath $configPath -Raw
+    $hooksEnabled = $configContent -match '(?m)^\s*codex_hooks\s*=\s*true\b'
+}
+Add-Result "codex_hooks_enabled" $hooksEnabled ("config_path=$configPath")
+
 $automationRoot = Join-Path $env:USERPROFILE ".codex\automations"
 $automationFiles = @()
 if (Test-Path -LiteralPath $automationRoot) {
@@ -59,6 +67,13 @@ $automationNames = ($automationFiles | ForEach-Object { $_.FullName }) -join ";"
 $hasReadiness = $automationNames -match "playgroud-readiness-audit"
 $hasTriage = $automationNames -match "playgroud-improvement-triage"
 Add-Result "automations_exist" ($hasReadiness -and $hasTriage) ("automation_files=$($automationFiles.Count)")
+
+try {
+    & (Join-Path $Root "scripts\audit-automation-config.ps1") -Root $Root | Out-Null
+    Add-Result "automation_prompts_valid" ($LASTEXITCODE -eq 0) "automation config audit completed"
+} catch {
+    Add-Result "automation_prompts_valid" $false $_.Exception.Message
+}
 
 $activePath = Join-Path $Root "docs\tasks\active.md"
 $active = ""

@@ -2,57 +2,76 @@
 
 ## Goal
 
-根据用户反馈，将 Playgroud 从偏保守的确认模式调整为可信工作区高自主模式，并引入任务级授权或预授权表达。目标是让 Codex 在本仓库内直接完成可审计、可回退的文件操作、提交、推送和分支整理；对外部账号、发布、购买、长期服务、仓库外文件和可能敏感信息，用范围清楚的授权减少重复确认。
+在 `D:\Code\Playgroud` 内完成一次证据驱动、可回滚的 Codex 自我改进优化：先建立仓库事实基线，再研究外部项目机制，随后用最小改动修复真正失效的 hooks、自动化、校验和恢复链路，同时压缩冗余入口和过时文档，并留下可恢复的研究报告与任务记录。
 
 ## Read Sources
 
 - `AGENTS.md`
-- `README.md`
 - `docs/core/index.md`
 - `docs/profile/user-model.md`
 - `docs/profile/preference-map.md`
-- `docs/references/assistant/codex-app-settings.md`
-- `docs/user-guide.md`
-- `scripts/codex-hook-risk-check.ps1`
-- 用户关于 YOLO 与开放更多权限的反馈
+- `docs/tasks/active.md`
+- `docs/capabilities/index.md`
+- `docs/workflows/coding.md`
+- `docs/workflows/research.md`
+- `.codex/hooks.json`
+- `scripts/validate-system.ps1`
+- `scripts/eval-agent-system.ps1`
+- `scripts/audit-file-usage.ps1`
+- `scripts/check-agent-readiness.ps1`
+- `docs/references/assistant/external-capability-radar.md`
+- `docs/references/assistant/external-mechanism-transfer.md`
+- `.cache/external-repos/*`
+- `C:\Users\mengde\.codex\config.toml`
+- `C:\Users\mengde\.codex\automations\playgroud-readiness-audit\automation.toml`
+- `C:\Users\mengde\.codex\automations\playgroud-improvement-triage\automation.toml`
 
 ## Commands
 
 - `git status --short --branch`
-- `rg -n "必须等待|均需确认|不执行高影响|需确认|仍需确认|必须确认|先确认|需要用户确认|用户确认后|前需要确认|前确认|确认边界|确认要求" AGENTS.md README.md docs scripts templates -S`
-- Hook sample checks:
-  - `Remove-Item -Recurse .\tmp` -> continue true
-  - `Remove-Item -Recurse C:\Users\mengde\Desktop` -> blocked
-  - `git reset --hard` -> blocked
-- `pwsh.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-system.ps1`
+- `git pull --ff-only`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\audit-file-usage.ps1`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\audit-automation-config.ps1`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-agent-readiness.ps1 -Strict`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-agent-maintenance.ps1 -Full`
 - `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-system.ps1`
 - `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\eval-agent-system.ps1`
-- `git diff --check`
+- `git rev-parse HEAD`
+- 外部仓库源码读取与必要的 `git clone --depth 1`
 
 ## Artifacts
 
-- 更新 `AGENTS.md`、`docs/core/index.md`、`README.md`、`docs/user-guide.md`
-- 更新 `docs/profile/user-model.md` 与 `docs/profile/preference-map.md`
-- 更新 `docs/references/assistant/codex-app-settings.md`
-- 调整 `scripts/codex-hook-risk-check.ps1`，允许可信工作区内相对路径或显式路径的删除命令，继续阻止仓库外危险命令
-- 将高影响事项从“永久禁止放开”调整为“可任务级授权或预授权，但必须有对象、范围、预算或影响边界、有效期、验证和回退方式”
+- 更新 `.codex/hooks.json`
+- 新增 `scripts/codex-hook-session-start.ps1`
+- 新增 `scripts/audit-automation-config.ps1`
+- 修复 `scripts/codex-hook-risk-check.ps1`、`scripts/codex-hook-stop-check.ps1`
+- 修复 `scripts/validate-system.ps1`、`scripts/audit-file-usage.ps1`、`scripts/audit-minimality.ps1`、`scripts/check-agent-readiness.ps1`、`scripts/eval-agent-system.ps1`、`scripts/run-agent-maintenance.ps1`
+- 更新 `AGENTS.md`
+- 更新 `docs/capabilities/index.md`
+- 更新 `docs/references/assistant/external-capability-radar.md`
+- 更新 `docs/references/assistant/external-mechanism-transfer.md`
+- 更新 `docs/knowledge/system-improvement/skill-audit.md`
+- 更新 `docs/workflows/knowledge.md`
+- 更新 `docs/knowledge/system-improvement/harness-log.md`
+- 新增 `docs/knowledge/system-improvement/2026-04-27-codex-self-improvement-report.md`
+- 更新 `C:\Users\mengde\.codex\config.toml`
+- 更新 `C:\Users\mengde\.codex\automations\playgroud-improvement-triage\automation.toml`
 
 ## Unverified
 
-- 仍需运行最终完成度检查、提交和推送。
+- 仍需完成文档压缩、零引用文件清理、最终系统校验、完成度检查与 Git 提交。
+- 尚未安装 Serena 或 Zotero 只读 MCP，只完成适配评估与优先级判断。
 
 ## Blockers
 
-当前无阻塞。若 GitHub 推送失败，将先使用 `scripts/git-safe.ps1` 和 Git 网络诊断脚本定位。
+当前无硬阻塞。若后续 `validate-system.ps1`、`check-finish-readiness.ps1` 或 Git 推送失败，先按脚本输出定位，再决定是否收缩本轮改动范围。
 
 ## Next
 
-提交前运行最终完成度检查，然后提交和推送：
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-finish-readiness.ps1 -Strict
-git status --short --branch
-```
+1. 清理零引用且已被核心协议吸收的文档。
+2. 完成外部机制矩阵与最终报告。
+3. 运行 `validate-system.ps1`、`eval-agent-system.ps1`、`check-finish-readiness.ps1 -Strict`。
+4. 审阅 diff，确认只包含本任务相关文件后提交。
 
 ## Recovery
 
@@ -60,12 +79,17 @@ git status --short --branch
 
 ```powershell
 git status --short --branch
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-agent-readiness.ps1 -Strict
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-system.ps1
 ```
 
+报告入口：
+
+- `docs/knowledge/system-improvement/2026-04-27-codex-self-improvement-report.md`
+
 ## Anti-Sycophancy
 
-- Literal-only: 不只回应“我相信 Codex”，而是把偏好写入规则、偏好和 hook。
-- Real-goal: 真实目标是减少用户介入，同时保持可审计和可恢复。
-- User-premise: 用户认为限制过多；此判断与此前规则中多处硬确认文本一致，已改为预授权机制。
-- Unverified-claims: 不声称可以保存或复述密钥、令牌、账号密码；不把对象、预算、影响范围或回退方式不清的外部影响动作写成默认自动执行。
+- Literal-only: 不把“自我改进”理解为堆框架，而是优先修复已有失效机制。
+- Real-goal: 真实目标是让 Codex 更少重复犯错、更会恢复、更会复用证据，而不是让仓库看起来更复杂。
+- User-premise: 用户要求研究外部项目，但明确禁止照搬结构和大规模复制；因此采用机制筛选而非整包安装。
+- Unverified-claims: 不声称 hooks、自动化、MCP 已可用，除非已有脚本输出或配置证据支持。

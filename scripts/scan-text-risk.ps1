@@ -4,8 +4,16 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$textFiles = Get-ChildItem -Path $Root -Recurse -File -Include *.md,*.yaml,*.yml,*.ps1,*.json -ErrorAction SilentlyContinue |
-    Where-Object { $_.FullName -notmatch "\\.git\\" }
+$trackedAndUntracked = @(& git -C $Root ls-files --cached --others --exclude-standard)
+$textFiles = foreach ($path in $trackedAndUntracked) {
+    if ($path -notmatch '\.(md|yaml|yml|ps1|json)$') {
+        continue
+    }
+    $full = Join-Path $Root ($path -replace "/", [System.IO.Path]::DirectorySeparatorChar)
+    if (Test-Path -LiteralPath $full) {
+        Get-Item -LiteralPath $full
+    }
+}
 
 $hiddenPattern = "[\u200B-\u200F\u202A-\u202E\u2060-\u206F\uFEFF]"
 $controlPattern = "[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]"

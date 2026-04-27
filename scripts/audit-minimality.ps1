@@ -48,7 +48,7 @@ $archiveLegacyPath = Join-Path $Root "docs\archive\assistant-v1"
 $outputPath = Join-Path $Root "output"
 $skillFiles = @(Get-ChildItem -Path (Join-Path $Root ".agents\skills") -Recurse -Filter "SKILL.md" -File -ErrorAction SilentlyContinue)
 $scriptFiles = @(Get-ChildItem -Path (Join-Path $Root "scripts") -Filter "*.ps1" -File -ErrorAction SilentlyContinue)
-$markdownFiles = @(Get-ChildItem -Path $Root -Recurse -Filter "*.md" -File -ErrorAction SilentlyContinue | Where-Object { $_.FullName -notmatch "\\.git\\" })
+$trackedMarkdownFiles = @($tracked | Where-Object { $_ -match '\.md$' })
 
 $largeTracked = @()
 foreach ($file in $tracked) {
@@ -76,7 +76,7 @@ if (Test-Path -LiteralPath $archiveLegacyPath) {
 
 Write-Output "Minimality audit"
 Write-Output ("tracked files: {0}" -f $tracked.Count)
-Write-Output ("markdown files: {0}" -f $markdownFiles.Count)
+Write-Output ("tracked markdown files: {0}" -f $trackedMarkdownFiles.Count)
 Write-Output ("repository skill definitions: {0}" -f $skillFiles.Count)
 Write-Output ("PowerShell scripts: {0}" -f $scriptFiles.Count)
 Write-Output ("tracked generated/local-only/legacy files: {0}" -f $trackedGenerated.Count)

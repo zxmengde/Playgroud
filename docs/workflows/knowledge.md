@@ -10,6 +10,12 @@
 
 知识条目应使用 `templates/knowledge/knowledge-item.md`。稳定事实写入本地文件，不能只依赖对话记忆。
 
+优先使用：
+
+```powershell
+.\scripts\new-knowledge-item.ps1 -Title "short title" -Type "note"
+```
+
 每个条目应包含来源、状态和后续可执行事项。过期或不确定内容应标注。
 
 Zotero、视频字幕、网页摘录和外部工具输出都应保留来源路径或 URL。来自视频或网页的观点不能直接写成稳定科研结论；用于正式文本前应再找论文、官方文档、标准或机构资料支撑。

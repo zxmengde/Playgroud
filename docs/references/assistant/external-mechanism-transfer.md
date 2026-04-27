@@ -1,38 +1,23 @@
 # 外部机制迁移记录
 
-本文件记录 Hermes、OpenClaw 和 everything-claude-code 对 Playgroud 的可迁移机制。结论只作为本仓库实现依据，不把外部项目宣传、目录结构或代码当作可直接使用能力。
+本文件只保留当前已经采用或明确延后的迁移结论。详细的逐项目适配矩阵、评分和验证方式见：
 
-## 资料来源
+- `docs/knowledge/system-improvement/2026-04-27-codex-self-improvement-report.md`
 
-- Codex Skills: `https://developers.openai.com/codex/skills`
-- Codex Hooks: `https://developers.openai.com/codex/hooks`
-- Codex Automations: `https://developers.openai.com/codex/app/automations`
-- Codex MCP: `https://developers.openai.com/codex/mcp`
-- MCP security: `https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices`
-- Hermes: `https://github.com/NousResearch/hermes-agent`
-- OpenClaw: `https://github.com/openclaw/openclaw`
-- everything-claude-code: `https://github.com/affaan-m/everything-claude-code`
+## 已采用
 
-## 可迁移机制
+- `everything-claude-code`：只迁移“先定义验证，再声明完成”的 eval / verification 心态，不迁移其全量技能包。
+- `Trellis`：只迁移“会话启动时注入当前任务与恢复上下文”的最小 SessionStart 机制，不迁移 `.trellis/` 目录体系。
+- `claude-scholar`：只迁移“入口压缩、知识库按需绑定、研究与知识工作分层”的思路，不迁移整套研究工作台。
 
-Hermes 的价值在于技能按需加载、MCP 工具面过滤、任务后学习和记忆分层。迁移为本仓库的做法是：只保留一个仓库级维护技能，把用户级技能作为运行时能力审计对象；失败经验先进入复盘或候选提案，再经过验证进入长期规则。
+## 已延后
 
-OpenClaw 的价值在于 workspace、doctor、sandbox 和可恢复状态。迁移为本仓库的做法是：新增 `scripts/eval-agent-system.ps1`，检查入口、MCP、hook、自动化、任务状态和低引用候选；不安装常驻 agent。
+- `Serena`：保留为高优先 MCP 候选。价值明确，但当前控制仓库主要工作负载仍是文档、脚本和治理，不急于新增运行层。
+- `obsidian-skills`：保留为 Obsidian 显式联动候选，默认不开。
+- `ui-ux-pro-max-skill`：只吸收其检查清单思路；若真实前端任务频繁，再评估是否需要外部技能。
 
-everything-claude-code 的价值在于 hooks、commands、agents、settings 的组织经验。迁移为本仓库的做法是：新增轻量 `.codex/hooks.json`，只做风险命令拦截和停止前提示；不复制全量命令、代理模板或大规模规则包。
+## 已拒绝
 
-## 不迁移内容
-
-- 常驻后台 agent 或本机守护进程。
-- 全量 slash command、hook、agent、prompt 集合。
-- 通用 filesystem、git、memory、mail、calendar、drive、payment 或 finance MCP。
-- 没有真实任务、权限边界、验证方式和回退路径的外部 skill 或插件。
-
-## 本地落点
-
-- 核心入口：`docs/core/index.md`
-- 能力和精简门槛：`docs/capabilities/index.md`
-- 仓库级 skill：`.agents/skills/playgroud-maintenance/SKILL.md`
-- Hook 配置：`.codex/hooks.json`
-- 评估脚本：`scripts/eval-agent-system.ps1`
-- MCP allowlist：`docs/references/assistant/mcp-allowlist.json`
+- `vibe-kanban`、`claudecodeui`、`cc-connect`：远程 UI、移动端和工作台能力与当前仓库目标不匹配。
+- `context-mode`：上下文数据库、MCP 和多类 hooks 过重；只保留“think in code”原则。
+- `AI-Research-SKILLs`、`Auto-claude-code-research-in-sleep`、`oh-my-codex` 全量：自治 loop、海量技能和 runtime 维护面过大。

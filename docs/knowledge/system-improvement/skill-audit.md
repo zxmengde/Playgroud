@@ -1,38 +1,28 @@
 # 技能审计记录
 
-本文件记录仓库内 skills 的结构和成熟度审查。它不替代真实任务验证。
+本文件记录 Playgroud 当前的技能治理策略。重点不在“技能数量”，而在触发是否准确、是否减少重复说明、是否真正改善验证质量。
 
-## 审查标准
+## 当前结构
 
-每个技能至少应满足：
-
-- 触发描述清楚，能区分适用场景和不适用场景。
-- 正文说明需要读取的上下文或工作流。
-- 说明产物是什么。
-- 说明如何验证。
-- 涉及账号、外部写入、删除、覆盖、下载或长期运行时说明任务级授权或预授权边界。
-- 无模板占位和无过度冗长正文。
+- 仓库级只保留一个技能：`.agents/skills/playgroud-maintenance/SKILL.md`。它负责本仓库结构、hook、自动化、任务恢复和精简治理。
+- 任务型能力主要放在用户级 `~/.codex/skills/`，例如 `coding-workflow`、`research-workflow`、`office-workflow`、`web-workflow`、`literature-zotero-workflow`、`video-source-workflow`。
+- 本仓库不再维护用户级技能的同步副本，避免出现双份入口、误触发和版本漂移。
 
 ## 当前判断
 
-`assistant-router`、`execution-governor`、`style-governor` 是横向控制技能，触发范围较宽但有必要；风险是过度触发和上下文负担，需要保持正文简洁。
+- 仓库级技能已经足够小，但要靠 `scripts/audit-codex-capabilities.ps1` 和 `scripts/audit-skills.ps1` 持续观察用户级技能面是否膨胀。
+- 高价值技能应满足三个条件：触发边界清楚、能产生产物、能给出验证方式。否则宁可把规则写进 workflow 或脚本。
+- 技能格式和边界要求继续以 `docs/references/assistant/skill-quality-standard.md` 为准。
+- `ui-ux-pro-max`、`AI-Research-SKILLs`、`claude-scholar` 这一类外部技能包，默认只提取方法，不整包安装进本仓库。
 
-`research-workflow`、`coding-workflow`、`office-workflow`、`web-workflow` 是主流程技能。它们能覆盖常见任务，但还需要真实任务样例来证明触发准确性和产物质量。
+## 结论
 
-`literature-zotero-workflow` 与 `video-source-workflow` 解决了新增能力入口问题，但目前只完成流程层建设，尚未经过真实 Zotero 库和真实视频链接验证。
-
-`personal-work-assistant` 已从仓库同步副本删除，用户级同名技能已移入 `.codex\skills-disabled`。后续个人工作路由只保留 `assistant-router`。
-
-2026-04-26 新增用户级技能 `security-best-practices`、`security-ownership-map`、`security-threat-model` 与 `jupyter-notebook`。前三项用于 MCP、第三方 agent、插件和脚本接入前的安全审查；后一项用于科研和数据分析中的 notebook 处理。安装后需要重启 Codex 才能在新会话中自动进入可用技能列表。
-
-## 后续要求
-
-每次新增或修改技能后，运行：
+- 继续保持“仓库级极小、用户级按需”的结构。
+- 只有当某类失败在真实任务中反复出现，且现有 workflow 或脚本无法约束时，才考虑新增仓库级技能。
+- 新增或修改技能后，必须运行：
 
 ```powershell
 .\scripts\validate-skills.ps1
 .\scripts\audit-skills.ps1
 ```
-
-若审计发现缺少产物、验证或授权边界，应优先补齐。若一个技能只增加提示长度而不能减少重复说明或提高验证质量，应简化或合并。
 

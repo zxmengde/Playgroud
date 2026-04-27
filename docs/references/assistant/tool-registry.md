@@ -11,9 +11,10 @@
 | MCP 配置审计脚本 | 列出现有 MCP 服务器名称和 URL 或命令 | 用户级 Codex 配置，文本输出 | 不输出密钥；只读检查 | `scripts/audit-mcp-config.ps1` | 手动查看 `config.toml` |
 | MCP 引入评估脚本 | 为候选 MCP 生成评估记录 | MCP 名称，Markdown 输出 | 不安装服务器，不修改配置 | `scripts/new-mcp-adoption-review.ps1` | 手动复制模板 |
 | 仓库最小化审计 | 检查版本化生成物、旧入口、大文件、重复小文件和本地输出目录 | Git 跟踪文件和本地目录，文本输出 | 只读检查 | `scripts/audit-minimality.ps1` | `git ls-files` 和人工审查 |
-| 文件使用审计 | 列出低引用文件，辅助判断冗余候选 | Git 跟踪文件和本地文本 | 只读检查；低引用不等于可删除 | `scripts/audit-file-usage.ps1` | 人工 `rg` 检查 |
+| 文件使用审计 | 列出低引用文件，辅助判断冗余候选 | Git 跟踪文本文件，文本报告 | 只读检查；低引用不等于可删除 | `scripts/audit-file-usage.ps1` | 人工 `rg` 检查 |
 | 活动引用完整性审计 | 检查入口、核心协议、工作流、能力、引用资料、skills 和模板中的本地路径是否仍存在 | 本地 Markdown、PowerShell、YAML 文本 | 只读检查；历史归档不作为当前执行路径 | `scripts/audit-active-references.ps1` | 人工 `rg` 检查路径 |
 | 系统改进候选脚本 | 生成并检查系统改进提案，防止失败经验直接变成长期规则 | 提案名称、模板、Markdown 输出 | 不自动采纳；高影响操作需要任务级授权或预授权 | `scripts/new-system-improvement-proposal.ps1`、`scripts/audit-system-improvement-proposals.ps1` | 直接写入 harness 复盘记录 |
+| 自动化配置审计 | 检查用户级 Codex 自动化是否仍引用当前仓库有效路径 | 用户级 `automation.toml` 与仓库路径，文本报告 | 只读检查；只覆盖与本仓库相关的自动化 | `scripts/audit-automation-config.ps1` | 手动检查用户级自动化文件 |
 | Git 提交前检查 | 在本地 Git pre-commit 阶段运行文本风险、技能、引用和知识结构检查 | 本地工作区，Git hook | 只阻止提交，不修改文件；可删除 `.git/hooks/pre-commit` 停用 | `scripts/install-git-hooks.ps1`、`scripts/pre-commit-check.ps1` | 手动运行 `scripts/pre-commit-check.ps1` |
 | 维护自动化检查 | 为 Codex automation 提供稳定、只读的维护检查入口 | 本仓库和本机工具状态 | 默认只读；不提交、不推送、不修改账号 | `scripts/run-agent-maintenance.ps1` | 手动运行各审计脚本 |
 | Zotero 本地库审计 | 检查用户授权的 Zotero 路径、SQLite 基础计数和 Better BibTeX 目录 | `C:\Users\mengde\Zotero` | 默认只读连接；写入或修改数据库需要任务级授权、备份和回退方案 | `scripts/audit-zotero-library.ps1` | 用户导出 BibTeX/RIS/CSL JSON |

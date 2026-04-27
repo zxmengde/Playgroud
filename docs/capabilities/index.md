@@ -1,82 +1,48 @@
 # 能力清单、路线与精简门槛
 
-本文件记录 Playgroud 当前能力、成熟度、主要缺口和精简判断。它不是能力宣传，只作为后续改进、验证和删除决策的依据。
+本文件记录当前真正生效的能力、仍然存在的缺口，以及“足够最简”的判断标准。结论以仓库文件、脚本运行结果和用户级运行时配置为依据，不把愿景当作已实现能力。
 
-## 成熟度定义
+## 当前能力
 
-- 草稿：有规则或入口，但缺少真实任务验证。
-- 可用：能指导任务，并有产物和验证方式。
-- 稳定：经过多个真实任务验证，能减少重复说明和返工。
-- 自动化候选：流程稳定、输入输出清楚、失败可发现，可考虑周期性运行。
-
-## 能力表
-
-| 能力 | 当前成熟度 | 验证方式 | 主要缺口 |
+| 能力 | 当前成熟度 | 当前证据 | 主要缺口 |
 | --- | --- | --- | --- |
-| 真实需求判断 | 可用 | 任务状态、最终产物、复盘记录 | 缺少失败样例库 |
-| 反迎合与伪需求识别 | 可用 | 停止前检查、复盘记录 | 缺少可复用反例 |
-| 科研文献与引用核验 | 可用 | DOI、出版社页、PubMed、IEEE、ACM、标准页面 | 真实任务样例不足 |
-| Zotero 与本地 PDF | 可用 | `scripts/audit-zotero-library.ps1`、导出文件、引用核验 | 常用集合、标签规则和 Web API 边界待确认 |
-| 视频资料 | 可用 | URL、元数据、字幕、时间戳抽查、`scripts/audit-video-skill-readiness.ps1` | 仍未验证真实公开视频样例 |
-| Office 文档 | 可用 | 结构检查、渲染、截图、打开性检查 | 模板和审美偏好待采集 |
-| 编码工作 | 可用 | `git status`、测试、构建、静态检查 | 提交风格和测试偏好待采集 |
-| 网页资料 | 可用 | URL、访问时间、交叉核对、截图 | 归档命名和截图偏好待采集 |
-| 知识沉淀 | 可用 | 索引校验、来源、状态字段 | 分区索引需真实使用检验 |
-| Git 与环境诊断 | 可用 | `scripts/git-safe.ps1`、`scripts/test-git-network.ps1` | 普通 Git 网络仍依赖进程环境修复 |
-| Codex 自我设置 | 可用 | `docs/core/index.md`、`docs/references/assistant/codex-app-settings.md`、系统校验 | 用户级配置可能与文档漂移 |
-| GitHub、插件与 MCP 治理 | 草稿 | 外部能力雷达、MCP allowlist、权限审查 | 缺少真实 MCP 接入样例 |
-| 安全审查 | 可用 | 文本风险扫描、权限边界检查 | 语义级提示注入仍需人工判断 |
-| 长任务恢复 | 可用 | `docs/tasks/active.md`、恢复入口、停止前检查 | 需要更多跨会话样例 |
-| 成本控制 | 可用 | 最终回复、任务状态、产物路径 | 缺少可量化统计 |
-| 活动引用完整性 | 可用 | `scripts/audit-active-references.ps1` | 不能替代历史材料人工判断 |
-| Hook 与 eval | 草稿 | `.codex/hooks.json`、`scripts/eval-agent-system.ps1` | 需真实运行后复盘误报和漏报 |
+| 任务恢复 | 可用 | `docs/tasks/active.md`、`scripts/check-task-state.ps1`、SessionStart hook 上下文注入 | 仍依赖人工维护任务状态 |
+| 结构校验与完成度检查 | 可用 | `scripts/validate-system.ps1`、`scripts/check-finish-readiness.ps1`、`scripts/eval-agent-system.ps1` | 仍缺 CI 层自动执行 |
+| Hook 风险拦截 | 可用 | `.codex/hooks.json`、`scripts/codex-hook-risk-check.ps1`、用户级 `codex_hooks = true` | 尚未覆盖更细的文件写入风险 |
+| 自动化漂移检测 | 可用 | `scripts/audit-automation-config.ps1`、`playgroud-readiness-audit`、`playgroud-improvement-triage` | 只覆盖本仓库相关自动化 |
+| 文档/知识最小化审计 | 可用 | `scripts/audit-minimality.ps1`、`scripts/audit-file-usage.ps1`、`scripts/audit-active-references.ps1` | 低引用仍需人工裁决 |
+| 外部能力治理 | 可用 | `docs/references/assistant/external-capability-radar.md`、`mcp-allowlist.json`、自我改进报告 | 仍缺真实 Serena/Zotero MCP 接入样例 |
+| Git / 环境诊断 | 可用 | `scripts/git-safe.ps1`、`scripts/test-git-network.ps1`、`scripts/setup-codex-environment.ps1` | Git 网络仍依赖本机代理环境 |
+| 科研 / Zotero / 视频 / Office 路由 | 可用 | 现有用户级 skills、`scripts/audit-zotero-library.ps1`、`scripts/audit-video-skill-readiness.ps1` | 缺少更多真实项目验收记录 |
 
-## 近期路线
+## 当前缺口
 
-当前优先级按恢复成本和失败可见性排序：
-
-1. 保持 `AGENTS.md`、`docs/core/index.md`、任务状态和知识索引一致。
-2. 用 `scripts/eval-agent-system.ps1` 检查入口路径、MCP 配置漂移、hook、自动化和任务状态新鲜度。
-3. 补齐真实样例：Zotero、视频、GitHub、浏览器、Office 和编码任务各保留至少一个可复核验收记录。
-4. 只在重复任务证明必要时新增 MCP、外部技能或自动化。
-5. 持续删除或合并无法证明各自必要的旧入口、备份副本和模板。
+| 缺口 | 现状 | 当前判断 |
+| --- | --- | --- |
+| 语义代码工具 | 尚未安装 Serena 或同类语义 MCP | 高价值，但对控制仓库本身不是立即必需，保留为高优先评估项 |
+| UI/UX 能力 | 主要依赖全局前端指令和通用 workflow | 需要在真实前端任务中验证是否还需引入更明确的检查清单 |
+| 研究实验 loop | 只有知识与报告结构，没有自治实验调度层 | 默认不引入长周期自动研究机制 |
+| CI / 机器级回归 | 当前依赖本地 PowerShell 校验 | 对控制仓库有价值，但优先级低于现有脚本闭环和 hooks |
 
 ## 精简门槛
 
-精简目标是降低上下文负担和维护点，同时保留验证能力。删除、合并或归档前应满足：
+“足够最简”以以下标准判断：
 
-- 有替代路径。
-- 相关校验脚本已更新。
-- 当前引用不失效。
-- 删除后能通过 `scripts/validate-system.ps1` 与 `scripts/check-finish-readiness.ps1`。
+- `AGENTS.md` 只保留启动顺序、权限边界、恢复入口和自我改进原则。
+- 仓库级 skill 维持单一入口；任务型能力留在用户级 skills 或 workflow。
+- 校验脚本只统计受版本控制或明确相关的文件，不把 `.cache` 等运行时垃圾计入仓库复杂度。
+- 自动化、hook、MCP 必须有明确用途、验证方法和停用路径。
+- 0 引用且已被核心协议吸收的文档应删除或合并。
 
-当前已确认的精简方向：
+## 当前保留的复杂度
 
-- `docs/core/` 只保留 `index.md`。
-- `docs/capabilities/` 只保留本文件。
-- 仓库级技能只保留 `.agents/skills/playgroud-maintenance/`。
-- 用户级技能只通过 `scripts/audit-codex-capabilities.ps1` 和专项审计查看，不在本仓库同步同名副本。
-- 0 引用且无生成脚本支撑的模板删除；由 `new-*` 脚本或工作流使用的模板保留。
+- `docs/core/index.md`：作为唯一核心协议入口保留。
+- `docs/profile/`、`docs/tasks/active.md`、`docs/knowledge/system-improvement/`：这是恢复和长期经验复用的最小集合。
+- `scripts/` 下的审计脚本：数量偏多，但大多承担硬验证，不是纯说明文本。
+- 用户级 skills、plugins、automations：保留在用户目录，不在仓库中复制。
 
-## 外部机制取舍
+## 当前不保留的方向
 
-Hermes、OpenClaw 和 everything-claude-code 的可迁移价值是机制，不是目录规模或全量配置：
-
-- 迁移 doctor/eval 思路：用脚本检查真实配置漂移和失败信号。
-- 迁移 skill 按需加载思路：仓库只保留一个维护技能，具体任务仍用用户级技能。
-- 迁移 MCP 工具过滤思路：按 required、recommended、blocked 管理，不暴露通用高权限 MCP。
-- 迁移 hook 思路：只做轻量风险拦截和停止前提示，不让 hook 代替判断。
-- 迁移受控学习思路：失败经验先进入复盘或候选提案，再经验证进入规则。
-
-不迁移：
-
-- 常驻本机 agent 守护进程。
-- 全量 hook、slash command、agent 模板包。
-- 通用 filesystem、git、memory、邮件、日程、网盘、支付或金融类 MCP。
-- 没有真实任务、权限边界和回退路径的外部技能。
-
-## 后续要求
-
-每个复杂任务结束前检查是否有能力成熟度变化。只有经过真实任务验证并有产物、验证和复盘记录时，才能提升成熟度。
-
-低引用不是删除依据，只是审查入口。删除前以当前引用、用户级能力、脚本生成路径和验证结果共同判断。
+- 常驻 agent、远程 UI、移动端工作台、kanban 平台、通用 memory/filesystem/git MCP。
+- 没有真实收益证明的批量技能安装和自治研究 loop。
+- 只会增加文档层数、不会提升验证或恢复能力的“体系化”扩展。

@@ -21,13 +21,11 @@ if (($gitStatus | Where-Object { $_ -match '^\?\?|^ M|^M |^A |^ D|^D ' }).Count 
 }
 
 if ($messages.Count -eq 0) {
-    Write-Output '{"continue":true}'
     exit 0
 }
 
-$result = @{
+@{
     continue = $true
-    additional_context = ($messages -join " ")
+    systemMessage = ($messages -join " ")
 } | ConvertTo-Json -Compress
-Write-Output $result
 exit 0

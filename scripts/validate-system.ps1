@@ -59,6 +59,7 @@ $required = @(
     "scripts\audit-file-usage.ps1",
     "scripts\audit-active-references.ps1",
     "scripts\audit-system-improvement-proposals.ps1",
+    "scripts\audit-automation-config.ps1",
     "scripts\audit-zotero-library.ps1",
     "scripts\audit-video-skill-readiness.ps1",
     "scripts\check-agent-readiness.ps1",
@@ -76,6 +77,7 @@ $required = @(
     "scripts\new-system-improvement-proposal.ps1",
     "scripts\archive-task-state.ps1",
     "scripts\codex-hook-risk-check.ps1",
+    "scripts\codex-hook-session-start.ps1",
     "scripts\codex-hook-stop-check.ps1",
     "scripts\eval-agent-system.ps1",
     "docs\references\assistant\codex-app-settings.md",
@@ -102,8 +104,16 @@ $forbidden = @()
 if (Test-Path -LiteralPath $forbiddenPath) {
     $forbidden = (Get-Content -LiteralPath $forbiddenPath -Raw | ConvertFrom-Json).terms
 }
-$textFiles = Get-ChildItem -Path $Root -Recurse -File -Include *.md,*.yaml,*.yml,*.ps1,*.json -ErrorAction SilentlyContinue |
-    Where-Object { $_.FullName -notmatch "\\.git\\" }
+$trackedAndUntracked = @(& git -C $Root ls-files --cached --others --exclude-standard)
+$textFiles = foreach ($path in $trackedAndUntracked) {
+    if ($path -notmatch '\.(md|yaml|yml|ps1|json)$') {
+        continue
+    }
+    $full = Join-Path $Root ($path -replace "/", [System.IO.Path]::DirectorySeparatorChar)
+    if (Test-Path -LiteralPath $full) {
+        Get-Item -LiteralPath $full
+    }
+}
 
 $hits = @()
 foreach ($file in $textFiles) {
@@ -148,6 +158,7 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\audit-file-usage.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-active-references.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-system-improvement-proposals.ps1") -Root $Root
+& (Join-Path $Root "scripts\audit-automation-config.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-video-skill-readiness.ps1")
 & (Join-Path $Root "scripts\audit-codex-capabilities.ps1") | Out-Null
 & (Join-Path $Root "scripts\audit-mcp-config.ps1") | Out-Null
