@@ -28,7 +28,6 @@
 - `docs/references/assistant/tool-registry.md`
 - `docs/references/assistant/automation-policy.md`
 - `docs/references/assistant/external-capability-radar.md`
-- `docs/references/assistant/agent-benchmark-integration.md`
 - `docs/references/assistant/mcp-allowlist.json`
 - `docs/knowledge/index.md`
 - `docs/knowledge/system-improvement/index.md`
@@ -60,6 +59,9 @@
 - 用户级自动化文件检查：`C:\Users\mengde\.codex\automations\*\automation.toml`
 - Codex App 自动化删除：删除每日 `local` 自动化 `automation`。
 - `scripts/audit-automations.ps1`
+- `scripts/audit-skill-sync.ps1`，首次发现 13 个仓库 skills 中多数用户级副本不同步或缺失。
+- `scripts/sync-user-skills.ps1`，已同步 13 个仓库自有 skills 到用户级 `.codex\skills`。
+- `scripts/eval-agent-system.ps1`
 - `scripts/validate-knowledge-index.ps1`
 - `scripts/validate-doc-structure.ps1`
 - `scripts/validate-system.ps1`，改动后通过。
@@ -71,16 +73,20 @@
 - 新增 `docs/references/assistant/index.md`，把长引用清单从入口迁移为按需索引。
 - 新增 `docs/references/assistant/self-improvement-loop.md`，定义受控自我改进流程。
 - 新增 `scripts/audit-automations.ps1`，检查长期自动化是否越过边界。
+- 新增 `scripts/audit-skill-sync.ps1` 和 `scripts/sync-user-skills.ps1`，检查并修复仓库 skills 与用户级 skills 漂移。
+- 新增 `scripts/eval-agent-system.ps1`，作为系统回归 eval，检查旧负担删除、关键机制存在和核心审计可运行。
 - 增强 `scripts/new-system-improvement-proposal.ps1`、`scripts/audit-system-improvement-proposals.ps1` 和 `templates/assistant/system-improvement-proposal.md`，要求候选改动带 `memory`、`skill`、`config`、`hook`、`doc`、`eval` 或 `automation` 分类。
 - 增强 `scripts/validate-knowledge-index.ps1`，检查知识索引中本地路径是否存在。
 - 新增 `docs/validation/v2-acceptance/self-improvement-loop.md` 并接入验收校验。
 - 更新能力、自动化、外部能力、工具登记、复盘记录和精简审查文档。
+- 删除早期 agent 调研流水、旧参考文档和旧用户教程，压缩 `docs/tasks/done.md`。
 
 ## 未验证判断
 
 - Hermes 与 OpenClaw 的迁移判断来自公开仓库和官方文档；没有安装或运行二者，因此只作为机制借鉴，不作为本仓库已有能力。
 - `scripts/audit-file-usage.ps1` 仍列出低引用候选，但低引用不等于无用；skills 和模板可能由 Codex App 或特定任务触发。
 - 两个保留的 Codex App 自动化已通过本地文件审计确认存在，但尚未等待下一次周期运行。
+- 用户级 skills 已按当前仓库同步，但当前会话已加载的 skill 描述可能仍来自同步前状态；新的会话会读取更新后的文件。
 
 ## 阻塞
 
@@ -89,7 +95,7 @@
 
 ## 下一步
 
-运行 `scripts/check-finish-readiness.ps1`，查看 diff，随后 stage、commit、push。
+运行 `scripts/validate-system.ps1`、`scripts/check-finish-readiness.ps1`，查看 diff，随后 stage、commit、push。
 
 ## 恢复入口
 

@@ -25,6 +25,7 @@
 | Git 与环境诊断 | 可用 | GitHub 代理、Clash、Codex CLI、MCP 状态检查 | 诊断脚本、命令输出、阻塞记录 | 当前 GitHub 代理仍需外部修复 |
 | Codex 自我设置 | 可用 | Git、环境脚本、MCP、插件和任务退出标准统一配置 | `docs/core/self-configuration.md`、`docs/references/assistant/codex-app-settings.md`、系统校验 | 长期本机设置需用户确认后执行 |
 | GitHub、Codex 插件与 MCP 治理 | 草稿 | 评估外部仓库、插件、skills 和 MCP server 是否值得引入 | 外部能力雷达、权限审查、只读试用记录 | GitHub API 当前受代理影响；缺少真实 MCP 接入样例 |
+| Skill 同步 | 可用 | 确保仓库技能同步副本与用户级 Codex 实际加载的 skills 一致 | `scripts/audit-skill-sync.ps1`、`scripts/sync-user-skills.ps1` | 只覆盖本仓库自有 skills，不处理第三方技能更新 |
 | 安全审查 | 可用 | 低信任网页、MCP、第三方技能、隐藏字符检查 | 文本风险扫描、权限边界检查 | 语义级提示注入仍需人工判断 |
 | 长任务恢复 | 可用 | 多来源调研、多文件重构、跨会话继续 | 结构化 active 状态、恢复入口、停止前检查 | 仍需更多跨会话样例 |
 | 成本控制 | 可用 | 减少冗余输出和重复读取 | 最终回复、任务状态、产物路径 | 缺少可量化统计 |

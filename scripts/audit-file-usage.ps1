@@ -39,6 +39,7 @@ $candidates = @()
 foreach ($file in $tracked) {
     if ($excluded -contains $file) { continue }
     if ($file -notmatch '\.(md|ps1|json|yaml|yml)$') { continue }
+    if (-not (Test-Path -LiteralPath (Join-Path $Root ($file -replace '/', [System.IO.Path]::DirectorySeparatorChar)))) { continue }
     if ($file -match '^docs/knowledge/items/') { continue }
     if ($file -match '^docs/archive/') { continue }
 

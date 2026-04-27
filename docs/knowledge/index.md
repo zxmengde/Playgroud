@@ -1,6 +1,6 @@
 # 知识库索引
 
-本目录存放科研、项目、网页资料和系统改进记录。Playgroud v2 将知识库分为四类索引；历史知识条目保留在 `docs/knowledge/items/`，系统运行日志和审计记录迁移到对应分区。
+本目录存放科研、项目、网页资料和系统改进记录。Playgroud v2 将知识库分为四类索引；只保留仍有恢复价值的知识条目，早期外部 agent 调研流水已收敛到 `docs/references/assistant/external-capability-radar.md`。
 
 ## 分区索引
 
@@ -17,12 +17,6 @@
 | --- | --- | --- | --- | --- |
 | 2026-04-22 | MEMS 可靠性研究总纲摘要 | research | active | `docs/knowledge/items/2026-04-22-mems-reliability-research-outline.md` |
 | 2026-04-22 | MEMS 最小研究链路项目地图 | project | active | `docs/knowledge/items/2026-04-22-mems-code-project-map.md` |
-| 2026-04-22 | Harness Engineering 与个人工作系统 | web-source | active | `docs/knowledge/items/2026-04-22-harness-engineering-personal-system.md` |
-| 2026-04-23 | AI agent harness、skills 与个人工作系统调研 | web-source | active | `docs/knowledge/items/2026-04-23-agent-harness-skills-research.md` |
-| 2026-04-23 | Agent 工具、Windows 自动化与办公科研能力迁移调研 | web-source | active | `docs/knowledge/items/2026-04-23-agent-tool-landscape-windows-automation.md` |
-| 2026-04-23 | 个人化 Agent 运行模型调研 | web-source | active | `docs/knowledge/items/2026-04-23-personalized-agent-operating-model-research.md` |
-| 2026-04-23 | Agent 安全模型与文本风险扫描调研 | web-source | active | `docs/knowledge/items/2026-04-23-agent-security-model-research.md` |
-| 2026-04-23 | 长任务、自动化维护与 Agent 评测调研 | web-source | active | `docs/knowledge/items/2026-04-23-long-task-automation-evaluation-research.md` |
 | 2026-04-23 | BOE MEMS 压力传感课题前期研究边界与文献核查 | research | active | `docs/knowledge/items/2026-04-23-boe-mems-pre-research-boundary-literature-check.md` |
 | 2026-04-25 | 个人 Agent 自我改进反馈与落地记录 | system-improvement | active | `docs/knowledge/items/2026-04-25-personal-agent-self-improvement-feedback.md` |
 | 2026-04-26 | 小型综合个人工作代理目标与外部能力雷达 | system-improvement | active | `docs/core/companion-target.md` |

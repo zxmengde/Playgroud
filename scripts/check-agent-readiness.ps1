@@ -36,6 +36,10 @@ Write-Output "## Automations"
 & (Join-Path $Root "scripts\audit-automations.ps1") -Root $Root
 
 Write-Output ""
+Write-Output "## Skill sync"
+& (Join-Path $Root "scripts\audit-skill-sync.ps1") -Root $Root
+
+Write-Output ""
 Write-Output "## Runtime"
 & (Join-Path $Root "scripts\test-codex-runtime.ps1") -Root $Root -SkipNetwork
 

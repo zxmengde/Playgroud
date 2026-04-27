@@ -72,6 +72,10 @@ Write-Output "### Automations"
 & (Join-Path $Root "scripts\audit-automations.ps1") -Root $Root
 
 Write-Output ""
+Write-Output "### Skill sync"
+& (Join-Path $Root "scripts\audit-skill-sync.ps1") -Root $Root
+
+Write-Output ""
 Write-Output "### Agent readiness"
 & (Join-Path $Root "scripts\check-agent-readiness.ps1") -Root $Root
 

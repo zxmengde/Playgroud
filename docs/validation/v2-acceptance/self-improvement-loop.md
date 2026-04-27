@@ -14,14 +14,19 @@
 - 新增 `docs/references/assistant/self-improvement-loop.md`。
 - 新增 `scripts/audit-automations.ps1`。
 - 增强 `scripts/new-system-improvement-proposal.ps1` 和 `scripts/audit-system-improvement-proposals.ps1`，要求系统改进候选带分类。
+- 新增 `scripts/audit-skill-sync.ps1` 和 `scripts/sync-user-skills.ps1`，并用同步脚本修复用户级 skill 漂移。
+- 新增 `scripts/eval-agent-system.ps1`，检查旧负担删除、关键机制存在和核心审计可运行。
 - 从校验、索引和验收记录中移除已删除历史摘要的强制引用。
 - 删除用户级高风险自动化 `automation`，保留两个 worktree 边界的巡检自动化。
+- 删除早期 agent 调研流水、旧参考文档和旧用户教程，压缩任务历史记录。
 
 ## 验证
 
 - `scripts/audit-system-improvement-proposals.ps1` 检查 proposal 字段完整性和分类。
 - `scripts/audit-automations.ps1` 检查长期自动化是否含一次性完整授权或在本地 checkout 中执行高风险任务。
+- `scripts/audit-skill-sync.ps1` 检查仓库 skills 与用户级 skills 是否一致。
 - `scripts/audit-active-references.ps1` 检查当前执行路径中的本地引用。
+- `scripts/eval-agent-system.ps1` 检查本轮减法和机制补强是否仍成立。
 - `scripts/validate-system.ps1` 集成结构、索引、技能、引用、提案和自动化审计。
 
 ## 复盘

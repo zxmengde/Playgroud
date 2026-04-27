@@ -60,7 +60,14 @@
 .\scripts\audit-codex-capabilities.ps1
 .\scripts\audit-mcp-config.ps1
 .\scripts\audit-automations.ps1
+.\scripts\audit-skill-sync.ps1
 .\scripts\check-agent-readiness.ps1
+```
+
+同步仓库 skills 到用户级 Codex skills：
+
+```powershell
+.\scripts\sync-user-skills.ps1
 ```
 
 新增 MCP 前生成评估记录：
@@ -74,6 +81,12 @@
 ```powershell
 .\scripts\new-system-improvement-proposal.ps1 -Name "zotero-readonly"
 .\scripts\audit-system-improvement-proposals.ps1
+```
+
+运行个人工作系统回归 eval：
+
+```powershell
+.\scripts\eval-agent-system.ps1
 ```
 
 安装本仓库本地 Git 提交前检查：

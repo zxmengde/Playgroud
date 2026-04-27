@@ -60,6 +60,9 @@ $required = @(
     "scripts\audit-codex-capabilities.ps1",
     "scripts\audit-mcp-config.ps1",
     "scripts\audit-automations.ps1",
+    "scripts\audit-skill-sync.ps1",
+    "scripts\sync-user-skills.ps1",
+    "scripts\eval-agent-system.ps1",
     "scripts\audit-minimality.ps1",
     "scripts\audit-file-usage.ps1",
     "scripts\audit-active-references.ps1",
@@ -150,11 +153,13 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\audit-codex-capabilities.ps1") | Out-Null
 & (Join-Path $Root "scripts\audit-mcp-config.ps1") | Out-Null
 & (Join-Path $Root "scripts\audit-automations.ps1") -Root $Root
+& (Join-Path $Root "scripts\audit-skill-sync.ps1") -Root $Root
 & (Join-Path $Root "scripts\check-agent-readiness.ps1") -Root $Root -Strict
 & (Join-Path $Root "scripts\scan-text-risk.ps1") -Root $Root
 & (Join-Path $Root "scripts\check-task-state.ps1") -Root $Root
 & (Join-Path $Root "scripts\validate-knowledge-index.ps1") -Root $Root
 & (Join-Path $Root "scripts\validate-doc-structure.ps1") -Root $Root
 & (Join-Path $Root "scripts\validate-acceptance-records.ps1") -Root $Root
+& (Join-Path $Root "scripts\eval-agent-system.ps1") -Root $Root
 
 Write-Output "System validation passed."
