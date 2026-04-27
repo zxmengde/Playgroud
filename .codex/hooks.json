@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\codex-hook-risk-check.ps1"
+      }
+    ],
+    "Stop": [
+      {
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\codex-hook-stop-check.ps1"
+      }
+    ]
+  }
+}

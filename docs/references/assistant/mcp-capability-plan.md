@@ -14,9 +14,9 @@
 
 | MCP | 用途 | 当前处理 |
 | --- | --- | --- |
-| `context7` | 第三方库和框架文档查询 | 保留，已验证可解析 React 文档库 |
-| `openaiDeveloperDocs` | OpenAI 官方文档 | 保留；若当前会话未暴露工具，使用 `openai-docs` skill 和官方站点兜底 |
-| `sequentialThinking` | 结构化拆解、复查和多步推理过程约束 | 已新增到用户级 Codex 配置；评估记录见 `docs/references/assistant/mcp-reviews/2026-04-26-sequentialThinking.md` |
+| `sequentialThinking` | 结构化拆解、复查和多步推理过程约束 | required；评估记录见 `docs/references/assistant/mcp-reviews/2026-04-26-sequentialThinking.md` |
+| `context7` | 第三方库和框架文档查询 | recommended；缺失时用官方文档或网页核验兜底 |
+| `openaiDeveloperDocs` | OpenAI 官方文档 | recommended；缺失时使用 `openai-docs` skill 和官方站点兜底 |
 
 ## 优先补充
 

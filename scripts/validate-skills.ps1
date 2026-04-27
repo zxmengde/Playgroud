@@ -5,28 +5,29 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$skillsRoot = Join-Path $Root "skills"
-if (-not (Test-Path -LiteralPath $skillsRoot)) {
-    Write-Output "No skills directory found."
-    exit 0
+$skillRoots = @(
+    (Join-Path $Root ".agents\skills")
+)
+
+$skillFiles = @()
+foreach ($skillRoot in $skillRoots) {
+    if (Test-Path -LiteralPath $skillRoot) {
+        $skillFiles += Get-ChildItem -Path $skillRoot -Recurse -Filter "SKILL.md" -File -ErrorAction SilentlyContinue
+    }
+}
+
+if ($skillFiles.Count -eq 0) {
+    throw "No repository skills found under .agents/skills."
 }
 
 if ([string]::IsNullOrWhiteSpace($ValidatorPath)) {
-    $candidates = @(
-        (Join-Path $env:USERPROFILE ".codex\skills\.system\skill-creator\scripts\quick_validate.py"),
-        (Join-Path $Root "scripts\quick_validate.py")
-    )
-    foreach ($candidate in $candidates) {
-        if (Test-Path -LiteralPath $candidate) {
-            $ValidatorPath = $candidate
-            break
-        }
+    $candidate = Join-Path $env:USERPROFILE ".codex\skills\.system\skill-creator\scripts\quick_validate.py"
+    if (Test-Path -LiteralPath $candidate) {
+        $ValidatorPath = $candidate
     }
 }
 
 $errors = @()
-$skillFiles = Get-ChildItem -Path $skillsRoot -Recurse -Filter "SKILL.md" -File -ErrorAction SilentlyContinue
-
 foreach ($file in $skillFiles) {
     $lines = Get-Content -LiteralPath $file.FullName
     if ($lines.Count -lt 4 -or $lines[0] -ne "---") {
@@ -93,4 +94,4 @@ if (-not [string]::IsNullOrWhiteSpace($ValidatorPath) -and (Test-Path -LiteralPa
     Write-Warning "quick_validate.py not found; skipped external skill validation."
 }
 
-Write-Output "Skill validation passed."
+Write-Output "Repository skill validation passed."

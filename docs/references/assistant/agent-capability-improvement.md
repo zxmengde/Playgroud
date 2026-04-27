@@ -6,7 +6,7 @@
 
 当前系统的主要不足不在于缺少更多文件，而在于用户画像仍较薄、偏好采集偏任务字段化、自我评估不够独立、长期任务的状态保存不够细、第三方 skills 的评估准则不足。改进方向应围绕“更理解用户、更主动扩展、更可验证、更低用户负担”展开。
 
-补充调研表明，长期个人工作系统还需要三个固定能力：分层记忆、停止前检查和技能质量门槛。对应规则分别见 `docs/core/memory-state.md`、`docs/core/finish-readiness.md` 和 `docs/references/assistant/skill-quality-standard.md`。
+补充调研表明，长期个人工作系统还需要三个固定能力：分层记忆、停止前检查和技能质量门槛。对应规则见 `docs/core/index.md` 和 `docs/references/assistant/skill-quality-standard.md`。
 
 外部 agent 工具、编码代理、Windows 自动化和评测资料的持续调研见 `docs/references/assistant/agent-tool-landscape.md`。该文件用于判断哪些外部能力可以转化为本地规则、脚本、模板或检查项。
 

@@ -6,7 +6,12 @@ $ErrorActionPreference = "Stop"
 
 function Convert-ToRepoPath {
     param([string]$Path)
-    return ([System.IO.Path]::GetRelativePath($Root, $Path) -replace "\\", "/")
+    $fullRoot = (Resolve-Path $Root).Path.TrimEnd('\')
+    $fullPath = (Resolve-Path $Path).Path
+    if ($fullPath.StartsWith($fullRoot)) {
+        return ($fullPath.Substring($fullRoot.Length + 1) -replace "\\", "/")
+    }
+    return ($fullPath -replace "\\", "/")
 }
 
 $tracked = @(& git -C $Root ls-files)
@@ -24,6 +29,7 @@ $excluded = @(
     "AGENTS.md",
     "README.md",
     ".gitignore",
+    ".codex/hooks.json",
     "docs/tasks/active.md",
     "docs/tasks/done.md",
     "docs/tasks/blocked.md",
@@ -37,6 +43,8 @@ $excluded = @(
 
 $candidates = @()
 foreach ($file in $tracked) {
+    $full = Join-Path $Root ($file -replace "/", [System.IO.Path]::DirectorySeparatorChar)
+    if (-not (Test-Path -LiteralPath $full)) { continue }
     if ($excluded -contains $file) { continue }
     if ($file -notmatch '\.(md|ps1|json|yaml|yml)$') { continue }
     if ($file -match '^docs/knowledge/items/') { continue }

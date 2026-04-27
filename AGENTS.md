@@ -8,15 +8,9 @@
 
 本机工作开始前，先检查 Git 状态。仅在工作区干净且同步不会覆盖用户改动时执行 `git pull`。若存在未提交改动、Git 网络失败、合并风险或当前处于计划模式，应说明状态并继续安全的只读或低风险工作。
 
-复杂任务默认读取以下核心协议：
+复杂任务默认读取核心协议：
 
-- `docs/core/companion-target.md`
-- `docs/core/self-configuration.md`
-- `docs/core/identity-and-goal.md`
-- `docs/core/permission-boundary.md`
-- `docs/core/execution-loop.md`
-- `docs/core/memory-state.md`
-- `docs/core/finish-readiness.md`
+- `docs/core/index.md`
 
 同时读取：
 
@@ -40,10 +34,9 @@
 - Codex App、插件、MCP 和环境设置：`docs/references/assistant/codex-app-settings.md`
 - 插件与 MCP 可用性检查：`docs/references/assistant/plugin-mcp-availability.md`
 - MCP 能力补充方案：`docs/references/assistant/mcp-capability-plan.md`
-- 小型综合个人工作代理能力路线：`docs/capabilities/companion-roadmap.md`
-- 精简或删除候选项：`docs/capabilities/pruning-review.md`
+- 能力成熟度、路线和精简门槛：`docs/capabilities/index.md`
 
-仓库内 `skills/` 是本机技能组的同步副本。云端或本机用户级 `.codex` 不可读时，读取这里的同名技能定义。
+仓库级技能只保留在 `.agents/skills/`。用户级技能位于本机 `.codex/skills`，本仓库不再维护同名同步副本，避免把备份目录误判为 Codex 自动发现路径。
 
 ## 执行原则
 
@@ -55,7 +48,7 @@
 
 不得把用户字面指令当作任务上限。用户前提不可靠、范围过窄或存在伪需求时，应直接指出，并在低风险范围内采用更合适路径。
 
-任务结束前按 `docs/core/finish-readiness.md`、`scripts/check-finish-readiness.ps1` 和必要的专项审计脚本检查。若仍可继续执行、验证、记录或同步，不应把工作交回给用户。
+任务结束前按 `docs/core/index.md`、`scripts/check-finish-readiness.ps1` 和必要的专项审计脚本检查。若仍可继续执行、验证、记录或同步，不应把工作交回给用户。
 
 ## 安全边界
 

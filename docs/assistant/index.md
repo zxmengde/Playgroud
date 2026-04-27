@@ -4,14 +4,8 @@
 
 | 主题 | 当前路径 |
 | --- | --- |
-| 运行目标和同伴定义 | `docs/core/companion-target.md` |
-| 核心身份与目标 | `docs/core/identity-and-goal.md` |
-| 权限边界 | `docs/core/permission-boundary.md` |
-| 执行循环 | `docs/core/execution-loop.md` |
-| 记忆与状态 | `docs/core/memory-state.md` |
-| 停止前检查 | `docs/core/finish-readiness.md` |
-| 能力清单和路线 | `docs/capabilities/index.md`、`docs/capabilities/companion-roadmap.md` |
-| 精简审查 | `docs/capabilities/pruning-review.md` |
+| 核心协议、目标、权限、执行、记忆与停止前检查 | `docs/core/index.md` |
+| 能力清单、路线、缺口和精简审查 | `docs/capabilities/index.md` |
 | 外部能力雷达 | `docs/references/assistant/external-capability-radar.md` |
 | 工具登记 | `docs/references/assistant/tool-registry.md` |
 | 第三方技能评估 | `docs/references/assistant/third-party-skill-evaluation.md` |

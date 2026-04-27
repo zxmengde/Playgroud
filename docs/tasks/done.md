@@ -1,24 +1,16 @@
-# 已完成任务
+# Archived Tasks
 
-| 日期 | 任务 | 产物 | 验证 |
-| --- | --- | --- | --- |
-| 2026-04-22 | 建立控制仓库结构 | `AGENTS.md`、`docs/assistant/`、`docs/workflows/`、`docs/knowledge/`、`docs/tasks/`、`scripts/`、`templates/` | `scripts/validate-system.ps1` 通过 |
-| 2026-04-22 | 建立技能组 | `assistant-router`、`style-governor`、`execution-governor`、`research-workflow`、`coding-workflow`、`office-workflow`、`web-workflow`、`knowledge-capture`、`harness-capture` | 全部通过 `quick_validate.py` |
-| 2026-04-22 | 同步技能定义到控制仓库 | `skills/` | 仓库内技能全部通过 `quick_validate.py` |
-| 2026-04-22 | 修复 Codex CLI | 用户级 `codex.ps1` 与 `codex.cmd` 指向原生二进制 | `codex --version` 与 `codex mcp --help` 成功 |
-| 2026-04-22 | 配置 MCP | `openaiDeveloperDocs`、`context7` | `codex mcp list` 显示 enabled |
-| 2026-04-22 | 生成科研和网页知识条目 | `docs/knowledge/items/2026-04-22-*.md` | 知识索引已更新，风格扫描通过 |
-| 2026-04-22 | 生成办公验收文件 | 历史 RTF 样例已完成验收，后续生成物默认写入被忽略的 `output/` | RTF 曾由 Word 打开编辑，内容结构已人工检查 |
-| 2026-04-22 | 完成 Git 初始提交准备 | 当前控制仓库全部文件 | `git status` 将在提交前检查 |
-| 2026-04-22 | 增强无感化与自适应访谈机制 | `docs/user-guide.md`、`docs/assistant/execution-contract.md`、`docs/assistant/intent-interview.md`、`skills/intent-interviewer/` 和相关技能 | 系统校验通过，全部相关技能校验通过 |
-| 2026-04-22 | 重构为真实需求优先机制 | `AGENTS.md`、`docs/assistant/intent-interview.md`、`docs/user-guide.md`、`skills/*` | 系统校验通过，全部相关技能校验通过 |
-| 2026-04-22 | 建立用户画像与偏好采集机制 | `docs/profile/user-model.md`、`docs/profile/intake-questionnaire.md`、`skills/preference-intake/`、`docs/assistant/alignment-audit.md` | 系统校验通过，全部相关技能校验通过 |
-| 2026-04-23 | 第一轮广域 agent 能力调研与系统改进落地 | `docs/knowledge/items/2026-04-23-agent-harness-skills-research.md`、`docs/assistant/agent-capability-improvement.md`、用户画像和执行规则更新 | 系统校验通过，相关技能校验通过 |
-| 2026-04-23 | 增强分层记忆、停止前检查和技能质量校验 | `docs/assistant/memory-model.md`、`docs/assistant/pre-finish-check.md`、`docs/assistant/skill-quality-standard.md`、`scripts/validate-skills.ps1` | `scripts/validate-system.ps1` 和 `scripts/validate-skills.ps1` 通过 |
-| 2026-04-23 | 增加 agent 工具图谱、Windows 自动化边界和个人化运行模型 | `docs/assistant/agent-tool-landscape.md`、`docs/assistant/personal-agent-operating-model.md`、相关知识条目和工作流更新 | 系统校验通过，远程同步完成 |
-| 2026-04-23 | 增加 agent 安全模型与文本风险扫描 | `docs/assistant/security-model.md`、`scripts/scan-text-risk.ps1`、相关知识条目和校验集成 | `scripts/validate-system.ps1` 通过，远程同步完成 |
-| 2026-04-23 | 增加长任务质量标准和自动化策略 | `docs/assistant/long-task-quality.md`、`docs/assistant/automation-policy.md`、相关模板和知识条目 | `scripts/validate-system.ps1` 通过，远程同步完成 |
-| 2026-04-25 | 针对迎合、伪需求、成本、Zotero、视频总结和 GitHub 网络问题进行系统改造 | `docs/assistant/cost-control.md`、`docs/assistant/git-network-troubleshooting.md`、`docs/workflows/literature-zotero.md`、`docs/workflows/video.md`、`skills/literature-zotero-workflow/`、`skills/video-source-workflow/`、`scripts/test-git-network.ps1` | `scripts/validate-system.ps1` 和 `scripts/validate-skills.ps1` 通过；Git 网络诊断复现代理端口不可达与 10106 错误 |
-| 2026-04-25 | 增加能力差距审查与技能审计 | `docs/assistant/capability-gap-review.md`、`docs/assistant/skill-audit.md`、`scripts/audit-skills.ps1`，并补齐多个技能的产物与验证段落 | `scripts/audit-skills.ps1` 无结构警告；`scripts/validate-system.ps1` 通过 |
-| 2026-04-26 | Playgroud v2 重构、旧规则迁移和代表性验收 | `docs/core/`、`docs/references/assistant/`、`docs/archive/assistant-v1/`、`docs/validation/v2-acceptance/`、新增结构与验收校验脚本 | `scripts/validate-system.ps1` 通过；停止前检查通过但提示工作区有未提交改动 |
-| 2026-04-26 | 精简生成物并补充 MCP 引入治理 | 删除版本化 `output/` 生成物；新增 `docs/references/assistant/mcp-capability-plan.md`、`templates/assistant/mcp-adoption-review.md`、`scripts/audit-mcp-config.ps1`、`scripts/new-mcp-adoption-review.ps1` | `scripts/validate-system.ps1`、`scripts/audit-mcp-config.ps1`、生成脚本最小验证和 Git 网络诊断通过 |
+本文件只保留任务归档摘要，避免旧路径、旧目录和旧判断继续影响当前执行。详细历史以 Git 提交记录、`docs/knowledge/system-improvement/harness-log.md`、`docs/archive/assistant-v1-summary.md` 和代表性验收记录为准。
+
+## Summary
+
+- 2026-04-22 至 2026-04-23：建立控制仓库、用户画像、偏好采集、知识库、任务记录、早期技能组和校验脚本。
+- 2026-04-25：补充反迎合、成本控制、Zotero、视频资料、Git 网络诊断和技能审计。
+- 2026-04-26：完成 v2 重构，迁移旧 `docs/assistant` 正文，新增核心协议、能力记录、验收记录、MCP 治理和精简审计。
+- 2026-04-27：创建受控自动化、Git pre-commit hook、Zotero 审计、视频技能就绪审计、文件使用审计和 MCP allowlist。
+
+新增归档应使用：
+
+```powershell
+.\scripts\archive-task-state.ps1 -Title "short task title"
+```

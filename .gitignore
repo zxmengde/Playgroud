@@ -27,4 +27,5 @@ secrets/
 
 # Codex local transient files
 .codex-local/
-.codex/
+.codex/*
+!.codex/hooks.json

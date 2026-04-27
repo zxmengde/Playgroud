@@ -5,12 +5,11 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$warnings = @()
 function Add-WarningLine {
     param([string]$Message)
     $script:warnings += $Message
 }
-
-$warnings = @()
 
 Write-Output "## Finish readiness checks"
 
@@ -43,7 +42,7 @@ Write-Output "### Text risk scan"
 & (Join-Path $Root "scripts\scan-text-risk.ps1") -Root $Root
 
 Write-Output ""
-Write-Output "### Skill validation"
+Write-Output "### Repository skills"
 & (Join-Path $Root "scripts\validate-skills.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-skills.ps1") -Root $Root
 
@@ -72,9 +71,11 @@ Write-Output "### Agent readiness"
 & (Join-Path $Root "scripts\check-agent-readiness.ps1") -Root $Root
 
 Write-Output ""
-Write-Output "### Anti-sycophancy review"
+Write-Output "### Agent eval"
+& (Join-Path $Root "scripts\eval-agent-system.ps1") -Root $Root
+
 $active = Get-Content -LiteralPath (Join-Path $Root "docs\tasks\active.md") -Raw
-foreach ($marker in @("是否只完成字面要求", "是否检查真实目标", "是否把用户粗略判断当作事实", "是否用流畅语言掩盖未验证结论")) {
+foreach ($marker in @("Literal-only", "Real-goal", "User-premise", "Unverified-claims")) {
     if ($active -notlike "*$marker*") {
         Add-WarningLine "Active task state does not mention anti-sycophancy marker: $marker"
     }

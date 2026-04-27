@@ -20,15 +20,14 @@
 | Life Science Research | 已缓存，存在 NCBI、UniProt、ChEMBL、ClinVar、AlphaFold 等生命科学技能 | 可用性待真实检索任务验证 | 保留 |
 | Plugin Eval | 已缓存，存在插件和 skill 评估技能 | 可用于评估第三方插件 | 保留 |
 
-当前会话中已直接验证 `context7` MCP 能解析 React 文档库。`openaiDeveloperDocs` 在界面中显示已开启，但当前会话未暴露可直接调用的同名工具命名空间；OpenAI 文档任务仍应优先使用本地 `openai-docs` skill，必要时只检索 OpenAI 官方站点。
+历史会话中曾验证 `context7` MCP 能解析 React 文档库。当前本机配置审计显示实际可见 MCP 只有 `sequentialThinking`。因此 `context7` 与 `openaiDeveloperDocs` 改为 recommended，缺失时只警告；OpenAI 文档任务仍应优先使用本地 `openai-docs` skill，必要时只检索 OpenAI 官方站点。
 
 ## MCP 安装建议
 
-当前应保留：
+当前 allowlist：
 
-- `context7`：第三方库和框架文档。
-- `openaiDeveloperDocs`：OpenAI 官方文档。
-- `sequentialThinking`：用于结构化拆解和复查复杂任务，不连接外部账号。
+- required：`sequentialThinking`，用于结构化拆解和复查复杂任务，不连接外部账号。
+- recommended：`context7`、`openaiDeveloperDocs`，缺失不阻断系统校验。
 
 下一阶段建议评估，但不建议直接批量启用：
 

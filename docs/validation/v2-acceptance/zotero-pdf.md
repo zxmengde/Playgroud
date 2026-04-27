@@ -3,7 +3,7 @@
 ## 输入
 
 - `docs/workflows/literature-zotero.md`
-- `skills/literature-zotero-workflow/SKILL.md`
+- 用户级 `literature-zotero-workflow` skill
 - `templates/research/citation-checklist.md`
 
 ## 执行路径
@@ -13,7 +13,7 @@
 ## 产物
 
 - `docs/workflows/literature-zotero.md`
-- `skills/literature-zotero-workflow/SKILL.md`
+- 用户级 `literature-zotero-workflow` skill
 - `templates/research/citation-checklist.md`
 - 历史引用核验清单样例，当前不再作为版本化文件保留。
 

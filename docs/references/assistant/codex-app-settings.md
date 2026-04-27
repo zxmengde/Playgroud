@@ -32,9 +32,9 @@
 | 环境 | 名称 | `Playgroud` |
 | 环境 | Windows 设置脚本 | 使用本文下方脚本 |
 | 环境 | Windows 清理脚本 | 使用本文下方低风险脚本 |
-| MCP | `context7` | 开启 |
-| MCP | `openaiDeveloperDocs` | 开启 |
-| MCP | `sequentialThinking` | 开启 |
+| MCP | `sequentialThinking` | required |
+| MCP | `context7` | recommended |
+| MCP | `openaiDeveloperDocs` | recommended |
 
 ## 常规与记忆
 
@@ -116,11 +116,10 @@ if (Test-Path "$env:CODEX_WORKTREE_PATH\tmp") { Remove-Item -Recurse -Force "$en
 
 ## MCP
 
-当前保留：
+当前 MCP allowlist：
 
-- `context7`：用于查询第三方库和框架文档。
-- `openaiDeveloperDocs`：用于查询 OpenAI 官方文档。
-- `sequentialThinking`：用于复杂任务的结构化拆解和复查；不连接外部账号。
+- required：`sequentialThinking`，用于复杂任务的结构化拆解和复查；不连接外部账号。
+- recommended：`context7` 与 `openaiDeveloperDocs`。缺失时只警告，不使系统校验失败。
 
 当前不建议新增通用 Filesystem、Git 或 Memory MCP。文件、Git、知识记录和 GitHub 能力已经由本仓库脚本、Codex 文件工具和 GitHub 插件覆盖。下一阶段优先评估 Zotero 或文献库只读 MCP，前提是用户确认 Zotero 数据目录、读取边界和是否允许 Web API。
 

@@ -4,7 +4,7 @@
 
 - 用户批准的 Playgroud v2 大改计划。
 - 当前分支 `codex/playgroud-v2-rebuild`。
-- 仓库内 `AGENTS.md`、`docs/`、`skills/`、`scripts/` 和 `templates/`。
+- 仓库内 `AGENTS.md`、`docs/`、`.agents/skills/`、`scripts/` 和 `templates/`。
 
 ## 执行路径
 

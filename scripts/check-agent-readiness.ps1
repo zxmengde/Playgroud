@@ -23,34 +23,28 @@ Write-Output "## Active references"
 
 Write-Output ""
 Write-Output "## MCP configuration"
-$mcpOutput = & (Join-Path $Root "scripts\audit-mcp-config.ps1")
-$mcpOutput | ForEach-Object { Write-Output $_ }
-foreach ($name in @("context7", "openaiDeveloperDocs", "sequentialThinking")) {
-    if (($mcpOutput | Where-Object { $_ -like "*$name*" }).Count -eq 0) {
-        Add-WarningLine ("MCP server not found in config: {0}" -f $name)
-    }
-}
+& (Join-Path $Root "scripts\audit-mcp-config.ps1")
 
 Write-Output ""
 Write-Output "## Runtime"
 & (Join-Path $Root "scripts\test-codex-runtime.ps1") -Root $Root -SkipNetwork
 
 Write-Output ""
+Write-Output "## Repository skills"
+& (Join-Path $Root "scripts\validate-skills.ps1") -Root $Root
+& (Join-Path $Root "scripts\audit-skills.ps1") -Root $Root
+
+Write-Output ""
 Write-Output "## Video skills"
 & (Join-Path $Root "scripts\audit-video-skill-readiness.ps1")
 
 Write-Output ""
-Write-Output "## Task state markers"
-$activePath = Join-Path $Root "docs\tasks\active.md"
-if (Test-Path -LiteralPath $activePath) {
-    $active = Get-Content -LiteralPath $activePath -Raw
-    foreach ($marker in @("当前目标", "已读来源", "已执行命令", "产物", "未验证判断", "阻塞", "反迎合审查")) {
-        if ($active -notlike "*$marker*") {
-            Add-WarningLine ("Active task state is missing marker: {0}" -f $marker)
-        }
-    }
-} else {
-    Add-WarningLine "docs/tasks/active.md is missing."
+Write-Output "## Task state"
+& (Join-Path $Root "scripts\check-task-state.ps1") -Root $Root
+
+$hookPath = Join-Path $Root ".codex\hooks.json"
+if (-not (Test-Path -LiteralPath $hookPath)) {
+    Add-WarningLine "Project hooks file is missing."
 }
 
 if ($warnings.Count -gt 0) {

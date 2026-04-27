@@ -4,7 +4,7 @@
 
 - 历史 PPT 文本抽取结果，原路径为 `output/ppt_text_extract.json`，当前不再作为版本化文件保留。
 - `docs/workflows/office.md`
-- `skills/office-workflow/SKILL.md`
+- 用户级 `office-workflow` skill
 
 ## 执行路径
 

@@ -10,7 +10,12 @@ function Get-RelativePathSafe {
         [string]$Path
     )
     try {
-        return [System.IO.Path]::GetRelativePath($Base, $Path)
+        $fullBase = (Resolve-Path $Base).Path.TrimEnd('\')
+        $fullPath = (Resolve-Path $Path).Path
+        if ($fullPath.StartsWith($fullBase)) {
+            return $fullPath.Substring($fullBase.Length + 1)
+        }
+        return $fullPath
     } catch {
         return $Path
     }

@@ -7,16 +7,16 @@
 ## 入口
 
 - `AGENTS.md`：仓库入口和默认启动顺序。
-- `docs/core/`：核心协议和个人工作代理目标。
+- `docs/core/index.md`：核心协议、权限边界、执行循环、记忆恢复和停止前检查。
 - `docs/profile/`：用户画像、偏好地图和偏好采集问题。
 - `docs/tasks/active.md`：当前任务状态和恢复入口。
 - `docs/workflows/`：科研、文献、办公、编码、网页、视频和知识沉淀流程。
-- `docs/capabilities/`：能力清单、成熟度和缺口。
+- `docs/capabilities/index.md`：能力清单、成熟度、路线、缺口和精简门槛。
 - `docs/knowledge/`：长期知识条目和分区索引。
 - `docs/references/`：按需读取的背景材料、工具说明和迁移原则。
 - `docs/archive/`：历史摘要。
 - `docs/validation/`：代表性任务验收记录。
-- `skills/`：Codex 技能定义的同步副本。
+- `.agents/skills/`：仓库级 Codex 技能。
 - `scripts/`：校验、审计、网络诊断和停止前检查脚本。
 - `templates/`：知识、科研、办公、任务状态和复盘模板。
 
@@ -25,7 +25,7 @@
 复杂任务默认遵循：
 
 1. 检查 Git 状态和任务状态。
-2. 读取五个核心协议、用户画像和任务相关工作流。
+2. 读取核心协议、用户画像和任务相关工作流。
 3. 建立真实目标、成功标准、输入、输出、风险和验证方式。
 4. 直接执行低风险工作，必要时只询问关键问题。
 5. 产生产物、验证、知识记录或明确阻塞。
@@ -53,6 +53,12 @@
 .\scripts\audit-redundancy.ps1
 .\scripts\audit-file-usage.ps1
 .\scripts\audit-active-references.ps1
+```
+
+综合自检与 agent eval：
+
+```powershell
+.\scripts\eval-agent-system.ps1
 ```
 
 插件和 MCP 本地可见性审计：

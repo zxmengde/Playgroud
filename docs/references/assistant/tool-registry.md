@@ -47,11 +47,12 @@
 
 PowerShell 中 `codex` CLI 曾因 npm 包装脚本启动 Node 而触发 CSPRNG 断言失败。已将用户级 `codex.ps1` 和 `codex.cmd` 改为直接调用 npm 包内原生 Codex 二进制。验收结果：`codex --version` 与 `codex mcp --help` 均可运行。
 
-已配置 MCP：
+当前 MCP allowlist：
 
-- `openaiDeveloperDocs`: `https://developers.openai.com/mcp`
-- `context7`: `https://mcp.context7.com/mcp`
-- `sequentialThinking`: `npx -y @modelcontextprotocol/server-sequential-thinking`
+- required：`sequentialThinking`
+- recommended：`context7`、`openaiDeveloperDocs`
+
+推荐项缺失不应让系统校验失败；未知或 blocked MCP 仍应失败。
 
 当前会话可能需要重启后才能直接枚举新 MCP 资源。
 

@@ -6,15 +6,11 @@ $ErrorActionPreference = "Stop"
 
 $required = @(
     "AGENTS.md",
-    "docs\core\companion-target.md",
-    "docs\core\identity-and-goal.md",
-    "docs\core\permission-boundary.md",
-    "docs\core\execution-loop.md",
-    "docs\core\memory-state.md",
-    "docs\core\finish-readiness.md",
+    "README.md",
+    ".agents\skills\playgroud-maintenance\SKILL.md",
+    ".codex\hooks.json",
+    "docs\core\index.md",
     "docs\capabilities\index.md",
-    "docs\capabilities\companion-roadmap.md",
-    "docs\capabilities\pruning-review.md",
     "docs\profile\user-model.md",
     "docs\profile\preference-map.md",
     "docs\profile\intake-questionnaire.md",
@@ -27,6 +23,7 @@ $required = @(
     "docs\knowledge\web-source\index.md",
     "docs\knowledge\system-improvement\index.md",
     "docs\references\assistant\external-capability-radar.md",
+    "docs\references\assistant\external-mechanism-transfer.md",
     "docs\references\assistant\mcp-allowlist.json",
     "docs\validation\v2-acceptance\index.md",
     "docs\knowledge\items",
@@ -77,7 +74,10 @@ $required = @(
     "scripts\repair-git-network-env.ps1",
     "scripts\validate-skills.ps1",
     "scripts\new-system-improvement-proposal.ps1",
-    "docs\core\self-configuration.md",
+    "scripts\archive-task-state.ps1",
+    "scripts\codex-hook-risk-check.ps1",
+    "scripts\codex-hook-stop-check.ps1",
+    "scripts\eval-agent-system.ps1",
     "docs\references\assistant\codex-app-settings.md",
     "docs\references\assistant\plugin-mcp-availability.md",
     "docs\references\assistant\mcp-capability-plan.md",
@@ -102,7 +102,7 @@ $forbidden = @()
 if (Test-Path -LiteralPath $forbiddenPath) {
     $forbidden = (Get-Content -LiteralPath $forbiddenPath -Raw | ConvertFrom-Json).terms
 }
-$textFiles = Get-ChildItem -Path $Root -Recurse -File -Include *.md,*.yaml,*.yml,*.ps1 -ErrorAction SilentlyContinue |
+$textFiles = Get-ChildItem -Path $Root -Recurse -File -Include *.md,*.yaml,*.yml,*.ps1,*.json -ErrorAction SilentlyContinue |
     Where-Object { $_.FullName -notmatch "\\.git\\" }
 
 $hits = @()
@@ -157,5 +157,6 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\validate-knowledge-index.ps1") -Root $Root
 & (Join-Path $Root "scripts\validate-doc-structure.ps1") -Root $Root
 & (Join-Path $Root "scripts\validate-acceptance-records.ps1") -Root $Root
+& (Join-Path $Root "scripts\eval-agent-system.ps1") -Root $Root | Out-Null
 
 Write-Output "System validation passed."

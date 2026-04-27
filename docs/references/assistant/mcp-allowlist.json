@@ -1,14 +1,16 @@
 {
-  "allowed": [
-    "context7",
-    "openaiDeveloperDocs",
+  "required": [
     "sequentialThinking"
+  ],
+  "recommended": [
+    "context7",
+    "openaiDeveloperDocs"
   ],
   "reviewRequired": [
     "zotero-readonly",
     "local-document-index"
   ],
-  "blockedByDefault": [
+  "blocked": [
     "filesystem",
     "git",
     "memory",

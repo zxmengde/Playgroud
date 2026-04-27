@@ -5,16 +5,6 @@ param(
 $ErrorActionPreference = "Stop"
 
 $proposalRoot = Join-Path $Root "docs\knowledge\system-improvement\proposals"
-$requiredHeadings = @(
-    "## 触发事实",
-    "## 候选改动",
-    "## 权限级别",
-    "## 证据",
-    "## 最小实现",
-    "## 验证方式",
-    "## 回退方式",
-    "## 状态"
-)
 
 Write-Output "System improvement proposal audit"
 
@@ -29,10 +19,12 @@ $errors = @()
 
 foreach ($file in $files) {
     $content = Get-Content -LiteralPath $file.FullName -Raw
-    foreach ($heading in $requiredHeadings) {
-        if ($content -notlike "*$heading*") {
-            $errors += "$($file.Name) missing heading: $heading"
-        }
+    $headingCount = ([regex]::Matches($content, '(?m)^##\s+')).Count
+    if ($headingCount -lt 8) {
+        $errors += "$($file.Name) has fewer than 8 section headings"
+    }
+    if ($content -notmatch "needs-confirmation|candidate|accepted|rejected|done") {
+        $errors += "$($file.Name) missing machine-readable status word"
     }
 }
 

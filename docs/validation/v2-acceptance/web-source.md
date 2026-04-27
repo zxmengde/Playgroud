@@ -3,7 +3,7 @@
 ## 输入
 
 - `docs/workflows/web.md`
-- `skills/web-workflow/SKILL.md`
+- 用户级 `web-workflow` skill
 - `templates/web/source-note.md`
 - `https://www.anthropic.com/engineering/building-effective-agents`
 

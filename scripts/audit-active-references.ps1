@@ -7,6 +7,8 @@ $ErrorActionPreference = "Stop"
 $includeRoots = @(
     "AGENTS.md",
     "README.md",
+    ".agents",
+    ".codex\hooks.json",
     "docs\assistant",
     "docs\capabilities",
     "docs\core",
@@ -15,7 +17,6 @@ $includeRoots = @(
     "docs\tasks\active.md",
     "docs\validation",
     "docs\workflows",
-    "skills",
     "templates"
 )
 
@@ -25,15 +26,15 @@ foreach ($rel in $includeRoots) {
     if (-not (Test-Path -LiteralPath $path)) { continue }
     $item = Get-Item -LiteralPath $path
     if ($item.PSIsContainer) {
-        $files += Get-ChildItem -Path $item.FullName -Recurse -File -Include *.md,*.ps1,*.yaml,*.yml -ErrorAction SilentlyContinue
+        $files += Get-ChildItem -Path $item.FullName -Recurse -File -Include *.md,*.ps1,*.json,*.yaml,*.yml -ErrorAction SilentlyContinue
     } else {
         $files += $item
     }
 }
 
-$prefixPattern = '(AGENTS\.md|README\.md|docs[\\/][A-Za-z0-9_.\\/\-]+|scripts[\\/][A-Za-z0-9_.\\/\-]+|skills[\\/][A-Za-z0-9_.\\/\-]+|templates[\\/][A-Za-z0-9_.\\/\-]+)'
+$prefixPattern = '(AGENTS\.md|README\.md|\.agents[\\/][A-Za-z0-9_.\\/\-]+|\.codex[\\/]hooks\.json|docs[\\/][A-Za-z0-9_.\\/\-]+|scripts[\\/][A-Za-z0-9_.\\/\-]+|templates[\\/][A-Za-z0-9_.\\/\-]+)'
 $skipPattern = '(\*|YYYY|<|>|\$|~|\{|\}|\[|\]|\.\.\.|^docs[\\/]knowledge[\\/]items[\\/]YYYY)'
-$retiredOrExternalLocalReferences = @(
+$historicalReferences = @(
     "docs/archive/assistant-v1/",
     "docs\archive\assistant-v1",
     "skills/personal-work-assistant",
@@ -43,6 +44,7 @@ $retiredOrExternalLocalReferences = @(
     "skills/video-note-writer",
     "skills\video-note-writer"
 )
+
 $missing = @()
 $checked = New-Object System.Collections.Generic.HashSet[string]
 
@@ -61,7 +63,7 @@ foreach ($file in ($files | Sort-Object FullName -Unique)) {
         $candidate = ($candidate -split '#')[0]
         if ([string]::IsNullOrWhiteSpace($candidate)) { continue }
         if ($candidate -match $skipPattern) { continue }
-        if ($retiredOrExternalLocalReferences -contains $candidate) { continue }
+        if ($historicalReferences -contains $candidate) { continue }
         if (-not $checked.Add(("{0}|{1}" -f $file.FullName, $candidate))) { continue }
 
         $fsPath = Join-Path $Root ($candidate -replace '/', [System.IO.Path]::DirectorySeparatorChar)

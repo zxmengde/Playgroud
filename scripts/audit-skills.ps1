@@ -4,10 +4,9 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$skillsRoot = Join-Path $Root "skills"
+$skillsRoot = Join-Path $Root ".agents\skills"
 if (-not (Test-Path -LiteralPath $skillsRoot)) {
-    Write-Output "No skills directory found."
-    exit 0
+    throw "Missing repository skills directory: .agents/skills"
 }
 
 $rows = @()
@@ -25,10 +24,10 @@ foreach ($file in $skillFiles) {
         Skill = Split-Path -Leaf (Split-Path -Parent $file.FullName)
         Lines = $lines
         DescriptionLength = $description.Length
-        HasContext = [bool]($content -match '(?mi)(^##\s*(Context|上下文)|读取|read\s+)')
-        HasOutput = [bool]($content -match '(?mi)(^##\s*(Output|产物)|产出|create or update)')
-        HasVerification = [bool]($content -match '(?mi)(^##\s*(Verification|验证)|verify|检查)')
-        HasPermissionBoundary = [bool]($content -match '(?mi)(确认|permission|ask before|external|账号|写入|删除|覆盖|download|cookies|login)')
+        HasRead = [bool]($content -match '(?mi)^##\s*Read')
+        HasOutput = [bool]($content -match '(?mi)^##\s*Output')
+        HasVerify = [bool]($content -match '(?mi)^##\s*Verify')
+        HasPermissionBoundary = [bool]($content -match '(?mi)(ask before|external account|sensitive|delete|overwrite|permission|MCP)')
         HasTodo = [bool]($content -match 'TODO|\[TODO')
         TooLong = [bool]($lines -gt 500)
     }
@@ -40,9 +39,9 @@ $issues = @()
 foreach ($row in $rows) {
     if ($row.HasTodo) { $issues += "$($row.Skill): contains TODO placeholder" }
     if ($row.TooLong) { $issues += "$($row.Skill): exceeds 500 lines" }
-    if (-not $row.HasContext) { $issues += "$($row.Skill): missing explicit context/read guidance" }
-    if (-not $row.HasOutput) { $issues += "$($row.Skill): missing output guidance" }
-    if (-not $row.HasVerification) { $issues += "$($row.Skill): missing verification guidance" }
+    if (-not $row.HasRead) { $issues += "$($row.Skill): missing Read guidance" }
+    if (-not $row.HasOutput) { $issues += "$($row.Skill): missing Output guidance" }
+    if (-not $row.HasVerify) { $issues += "$($row.Skill): missing Verify guidance" }
 }
 
 if ($issues.Count -gt 0) {
