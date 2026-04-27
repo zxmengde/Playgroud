@@ -10,13 +10,15 @@
 - Model Context Protocol 官方 servers 仓库：`https://github.com/modelcontextprotocol/servers`
 - 当前本机 Codex 配置：`C:\Users\mengde\.codex\config.toml`
 
-## 当前保留
+## 当前 allowlist
+
+本表说明允许或推荐的 MCP，不等同于当前用户级配置都已启用。实际可见状态以 `scripts/audit-mcp-config.ps1` 为准。
 
 | MCP | 用途 | 当前处理 |
 | --- | --- | --- |
-| `context7` | 第三方库和框架文档查询 | 保留，已验证可解析 React 文档库 |
-| `openaiDeveloperDocs` | OpenAI 官方文档 | 保留；若当前会话未暴露工具，使用 `openai-docs` skill 和官方站点兜底 |
-| `sequentialThinking` | 结构化拆解、复查和多步推理过程约束 | 已新增到用户级 Codex 配置；评估记录见 `docs/references/assistant/mcp-reviews/2026-04-26-sequentialThinking.md` |
+| `context7` | 第三方库和框架文档查询 | allowlist；当前配置不可见时按需启用 |
+| `openaiDeveloperDocs` | OpenAI 官方文档 | allowlist；若当前会话未暴露工具，使用 `openai-docs` skill 和官方站点兜底 |
+| `sequentialThinking` | 结构化拆解、复查和多步推理过程约束 | 当前本机配置审计可见；评估记录见 `docs/references/assistant/mcp-reviews/2026-04-26-sequentialThinking.md` |
 
 ## 优先补充
 

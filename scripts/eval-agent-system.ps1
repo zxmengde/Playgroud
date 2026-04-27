@@ -31,7 +31,7 @@ $requiredMechanisms = @(
     "scripts\pre-commit-check.ps1",
     "scripts\sync-user-skills.ps1",
     "docs\references\assistant\self-improvement-loop.md",
-    "docs\validation\v2-acceptance\self-improvement-loop.md",
+    "docs\validation\v2-acceptance.md",
     "docs\references\assistant\mcp-allowlist.json"
 )
 

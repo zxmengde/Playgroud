@@ -2,19 +2,13 @@
 
 ## 当前目标
 
-按用户 2026-04-27 要求完成 Playgroud 自我进化式优化：以仓库事实、可运行检查、引用关系、外部调研和 diff 为依据，降低无效复杂度，补齐受控自我改进流程，并提交、推送本轮改动。
+按用户 2026-04-27 要求继续对 Playgroud 做仓库级精简：不仅处理脚本，也处理所有文件和结构。判断标准改为：除非文件能证明支撑当前执行、验证、恢复、知识沉淀、权限边界或专项任务，否则应合并、删除或收敛到索引。
 
 ## 已读来源
 
 - `AGENTS.md`
 - `README.md`
-- `docs/core/companion-target.md`
-- `docs/core/self-configuration.md`
-- `docs/core/identity-and-goal.md`
-- `docs/core/permission-boundary.md`
-- `docs/core/execution-loop.md`
-- `docs/core/memory-state.md`
-- `docs/core/finish-readiness.md`
+- `docs/core/index.md`
 - `docs/profile/user-model.md`
 - `docs/profile/preference-map.md`
 - `docs/tasks/active.md`
@@ -22,17 +16,14 @@
 - `docs/workflows/research.md`
 - `docs/workflows/knowledge.md`
 - `docs/capabilities/index.md`
-- `docs/capabilities/gap-review.md`
-- `docs/capabilities/companion-roadmap.md`
-- `docs/capabilities/pruning-review.md`
+- `docs/references/assistant/index.md`
 - `docs/references/assistant/tool-registry.md`
 - `docs/references/assistant/automation-policy.md`
 - `docs/references/assistant/external-capability-radar.md`
 - `docs/references/assistant/mcp-allowlist.json`
 - `docs/knowledge/index.md`
-- `docs/knowledge/system-improvement/index.md`
 - `docs/knowledge/system-improvement/harness-log.md`
-- `docs/validation/v2-acceptance/index.md`
+- `docs/validation/v2-acceptance.md`
 - `skills/*/SKILL.md`
 - `scripts/*.ps1`
 - Hermes Agent 官方文档：memory、skills、MCP、cron 与 security 相关页面。
@@ -41,11 +32,9 @@
 ## 已执行命令
 
 - `git status --short --branch`
-- `git switch -c codex/self-evolution-optimization`
+- `git pull --ff-only`
 - `rg --files`
-- `git diff -- docs/capabilities/pruning-review.md`
-- `scripts/validate-system.ps1`，首次失败于已删除历史摘要仍被强制引用。
-- `scripts/check-finish-readiness.ps1`，首次失败于同一缺失引用。
+- `git ls-files`
 - `scripts/audit-minimality.ps1`
 - `scripts/audit-redundancy.ps1`
 - `scripts/audit-file-usage.ps1`
@@ -53,58 +42,50 @@
 - `scripts/audit-codex-capabilities.ps1`
 - `scripts/audit-mcp-config.ps1`
 - `scripts/audit-system-improvement-proposals.ps1`
-- `scripts/validate-skills.ps1`
-- `scripts/validate-acceptance-records.ps1`
-- `scripts/audit-video-skill-readiness.ps1`
-- 用户级自动化文件检查：`C:\Users\mengde\.codex\automations\*\automation.toml`
-- Codex App 自动化删除：删除每日 `local` 自动化 `automation`。
 - `scripts/audit-automations.ps1`
-- `scripts/audit-skill-sync.ps1`，首次发现 13 个仓库 skills 中多数用户级副本不同步或缺失。
-- `scripts/sync-user-skills.ps1`，已同步 13 个仓库自有 skills 到用户级 `.codex\skills`。
+- `scripts/audit-skill-sync.ps1`
+- `scripts/sync-user-skills.ps1`
 - `scripts/eval-agent-system.ps1`
 - `scripts/validate-knowledge-index.ps1`
 - `scripts/validate-doc-structure.ps1`
-- `scripts/validate-system.ps1`，改动后通过。
-- `git pull --ff-only`，远端已是最新。
-- 脚本精简复查：读取五个旧模板生成脚本、旧画像重复审计脚本、`audit-redundancy.ps1`、主校验和停止前检查脚本。
-- `scripts/new-artifact.ps1` 五类产物临时生成测试：knowledge item、citation checklist、web source note、MCP adoption review、system improvement proposal 均生成成功，临时文件已清理。
-- `scripts/validate-system.ps1`，脚本精简后通过，最小化审计显示 PowerShell 脚本为 34 个。
+- `scripts/validate-acceptance-records.ps1`
+- `scripts/validate-system.ps1`
+- `scripts/check-finish-readiness.ps1`
+- `scripts/pre-commit-check.ps1`
+- `scripts/new-artifact.ps1` 五类产物临时生成测试，临时文件已清理。
+- `scripts/sync-user-skills.ps1`，删除用户级已退休横向 skills，当前同步 10 个仓库 skills。
+- `rg` 旧路径检查，未发现已删除核心协议、能力分文件、验收分文件、分区知识索引、低调用模板或 agent YAML 的当前引用。
+- `scripts/validate-system.ps1`，仓库级精简后通过；审计显示 skill 定义 10 个、Markdown 53 个、低引用候选 8 个且均为实际 `SKILL.md`。
 - `scripts/check-finish-readiness.ps1`，通过；仅提示当前有待提交改动。
 - `scripts/pre-commit-check.ps1`，通过。
 
 ## 产物
 
-- 删除已失去当前价值的 `docs/archive/assistant-v1-summary.md`，并同步移除强制校验、知识索引和验收记录中的当前引用。
-- 删除用户级每日 `local` 自动化 `automation`，避免一次性完整授权长期化；保留两个 worktree 自动化。
-- 新增 `docs/references/assistant/index.md`，把长引用清单从入口迁移为按需索引。
-- 新增 `docs/references/assistant/self-improvement-loop.md`，定义受控自我改进流程。
-- 新增 `scripts/audit-automations.ps1`，检查长期自动化是否越过边界。
-- 新增 `scripts/audit-skill-sync.ps1` 和 `scripts/sync-user-skills.ps1`，检查并修复仓库 skills 与用户级 skills 漂移。
-- 新增 `scripts/eval-agent-system.ps1`，作为系统回归 eval，检查旧负担删除、关键机制存在和核心审计可运行。
-- 增强系统改进候选生成和审计，要求候选改动带 `memory`、`skill`、`config`、`hook`、`doc`、`eval` 或 `automation` 分类。
-- 增强 `scripts/validate-knowledge-index.ps1`，检查知识索引中本地路径是否存在。
-- 新增 `docs/validation/v2-acceptance/self-improvement-loop.md` 并接入验收校验。
-- 更新能力、自动化、外部能力、工具登记、复盘记录和精简审查文档。
-- 删除早期 agent 调研流水、旧参考文档和旧用户教程，压缩 `docs/tasks/done.md`。
+- 核心协议合并为 `docs/core/index.md`，删除七个分散核心短文档。
+- 能力差距、能力路线和精简审查合并到 `docs/capabilities/index.md`，删除分散能力文档。
+- 代表性验收记录合并为 `docs/validation/v2-acceptance.md`，删除旧分散验收目录文件。
+- 知识索引收敛为 `docs/knowledge/index.md`，删除四个分区索引。
+- 删除旧 assistant 索引、空阻塞任务文件和已完成任务摘要文件。
+- 删除 13 个 skill 附带的 agent YAML，保留 `SKILL.md` 作为仓库同步副本的唯一 skill 定义。
+- 删除 `assistant-router`、`execution-governor` 和 `style-governor` 三个横向控制 skills；对应行为已由 `AGENTS.md`、`docs/core/index.md`、用户画像和会话规则承担。
+- 删除未被脚本或工作流调用的低价值模板，仅保留仍被生成器或工作流使用的模板。
 - 合并模板生成脚本为 `scripts/new-artifact.ps1`，删除五个旧 `new-*` 脚本。
 - 将画像重复检查并入 `scripts/audit-redundancy.ps1`，删除旧画像重复审计脚本。
-- 更新 README、核心协议、引用资料、验收记录、工具登记和复盘记录中的脚本路径。
+- 更新校验脚本、skill 同步脚本、README、引用索引、复盘记录和相关文档路径。
 
 ## 未验证判断
 
 - Hermes 与 OpenClaw 的迁移判断来自公开仓库和官方文档；没有安装或运行二者，因此只作为机制借鉴，不作为本仓库已有能力。
-- `scripts/audit-file-usage.ps1` 仍列出低引用候选，但低引用不等于无用；skills 和模板可能由 Codex App 或特定任务触发。
 - 两个保留的 Codex App 自动化已通过本地文件审计确认存在，但尚未等待下一次周期运行。
-- 用户级 skills 已按当前仓库同步，但当前会话已加载的 skill 描述可能仍来自同步前状态；新的会话会读取更新后的文件。
+- 当前会话加载的 skill 元数据可能仍来自同步前状态；运行 `scripts/sync-user-skills.ps1` 后，新会话会读取更新后的用户级副本。
 
 ## 阻塞
 
-- 脚本精简改动已完成验证，提交和推送尚未执行。提交前需再次查看 Git 状态和差异。
-- 是否进一步合并旧研究资料、删减 `agents/openai.yaml` 或低引用模板，需要更多真实任务证据；本轮不凭引用计数删除。
+- 当前仓库级精简改动已通过系统校验、停止前检查和提交前检查，尚未提交和推送。
 
 ## 下一步
 
-查看 diff，随后 stage、commit、push，并更新草稿 PR 说明。
+查看 diff，随后提交、推送并更新草稿 PR。
 
 ## 恢复入口
 
@@ -114,13 +95,12 @@
 git status --short --branch
 .\scripts\validate-system.ps1
 .\scripts\check-finish-readiness.ps1
-.\scripts\audit-automations.ps1
 .\scripts\audit-active-references.ps1
 ```
 
 ## 反迎合审查
 
-- 是否只完成字面要求：没有。已基于失败校验、自动化文件和引用关系做了删除、索引收敛、脚本增强和验收记录。
-- 是否检查真实目标：真实目标是让仓库更简洁、可靠、可恢复、可审计，而不是增加新一层 agent 框架。
-- 是否把用户粗略判断当作事实：没有。用户认为复杂度过高，但本轮只删除已证实失效的历史摘要引用和高风险自动化，未仅凭低引用计数删除技能或模板。
-- 是否用流畅语言掩盖未验证结论：没有。验证结果写入任务状态；未运行 Hermes/OpenClaw 和自动化周期未触发均已列为未验证判断。
+- 是否只完成字面要求：没有。用户指出不应只处理脚本后，本轮转为仓库级结构精简。
+- 是否检查真实目标：真实目标是让仓库默认更简洁、更可靠、更可恢复、更可审计，而不是维护所有历史文件。
+- 是否把用户粗略判断当作事实：没有。删除对象基于低引用、无调用路径、内容重复、空文件或可合并结构，而不是只基于用户判断。
+- 是否用流畅语言掩盖未验证结论：没有。后续必须以校验脚本、diff、文件数量变化和旧路径引用检查作为完成证据。

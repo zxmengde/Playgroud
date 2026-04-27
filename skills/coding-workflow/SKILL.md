@@ -11,7 +11,7 @@ Use for codebase reading, implementation, debugging, tests, refactors, reviews, 
 
 ## Read
 
-Read `docs/core/execution-loop.md`, `docs/workflows/coding.md`, `docs/profile/user-model.md`, and `docs/profile/preference-map.md`. For unfamiliar projects, read local `AGENTS.md`, README, manifests, test config, and relevant source files.
+Read `docs/core/index.md`, `docs/workflows/coding.md`, `docs/profile/user-model.md`, and `docs/profile/preference-map.md`. For unfamiliar projects, read local `AGENTS.md`, README, manifests, test config, and relevant source files.
 
 ## Act
 

@@ -7,7 +7,8 @@ $ErrorActionPreference = "Stop"
 
 Write-Output "Skill sync audit"
 
-$repoSkills = @(Get-ChildItem -Path (Join-Path $Root "skills") -Directory -ErrorAction SilentlyContinue)
+$repoSkills = @(Get-ChildItem -Path (Join-Path $Root "skills") -Directory -ErrorAction SilentlyContinue |
+    Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName "SKILL.md") })
 if ($repoSkills.Count -eq 0) {
     Write-Output "repo skills: 0"
     Write-Output "Skill sync audit passed."
@@ -21,6 +22,17 @@ if (-not (Test-Path -LiteralPath $UserSkills)) {
 }
 
 $errors = @()
+$retiredRepoSkills = @(
+    "assistant-router",
+    "execution-governor",
+    "style-governor"
+)
+foreach ($name in $retiredRepoSkills) {
+    if (Test-Path -LiteralPath (Join-Path $UserSkills $name)) {
+        $errors += "$name exists in user skills but has been retired from repository skills."
+    }
+}
+
 foreach ($repoSkill in $repoSkills) {
     $name = $repoSkill.Name
     $userSkill = Join-Path $UserSkills $name
@@ -29,7 +41,7 @@ foreach ($repoSkill in $repoSkills) {
         continue
     }
 
-    $repoFiles = @(Get-ChildItem -Path $repoSkill.FullName -Recurse -File -Include "SKILL.md", "*.yaml", "*.yml" -ErrorAction SilentlyContinue)
+    $repoFiles = @(Get-ChildItem -Path $repoSkill.FullName -Recurse -File -Include "SKILL.md" -ErrorAction SilentlyContinue)
     foreach ($repoFile in $repoFiles) {
         $relative = [System.IO.Path]::GetRelativePath($repoSkill.FullName, $repoFile.FullName)
         $userFile = Join-Path $userSkill $relative
@@ -42,6 +54,12 @@ foreach ($repoSkill in $repoSkills) {
         if ($repoHash -ne $userHash) {
             $errors += "$name/$relative differs from repository copy."
         }
+    }
+
+    $staleYaml = @(Get-ChildItem -Path $userSkill -Recurse -File -Include "*.yaml", "*.yml" -ErrorAction SilentlyContinue)
+    foreach ($file in $staleYaml) {
+        $relative = [System.IO.Path]::GetRelativePath($userSkill, $file.FullName)
+        $errors += "$name/$relative exists in user skills but is no longer repository-managed."
     }
 }
 

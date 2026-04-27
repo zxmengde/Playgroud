@@ -6,7 +6,7 @@
 
 ## 触发事实
 
-用户多次要求加强 Zotero、文献库、论文写作和引用核验能力。当前仓库已有 `docs/workflows/literature-zotero.md`、`skills/literature-zotero-workflow/SKILL.md` 和 `docs/validation/v2-acceptance/zotero-pdf.md`，但仍未确认 Zotero 数据目录、Better BibTeX 状态、常用集合、标签规则和是否允许只读读取本地库。
+用户多次要求加强 Zotero、文献库、论文写作和引用核验能力。当前仓库已有 `docs/workflows/literature-zotero.md`、`skills/literature-zotero-workflow/SKILL.md` 和 `docs/validation/v2-acceptance.md`，但仍未确认 Better BibTeX 状态、常用集合、标签规则和是否允许使用 Zotero Web API。
 
 ## 候选改动
 

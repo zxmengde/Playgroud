@@ -7,17 +7,17 @@
 ## 入口
 
 - `AGENTS.md`：仓库入口和默认启动顺序。
-- `docs/core/`：核心协议和个人工作代理目标。
+- `docs/core/index.md`：核心协议和个人工作代理目标。
 - `docs/profile/`：用户画像、偏好地图和偏好采集问题。
 - `docs/tasks/active.md`：当前任务状态和恢复入口。
 - `docs/workflows/`：科研、文献、办公、编码、网页、视频和知识沉淀流程。
-- `docs/capabilities/`：能力清单、成熟度和缺口。
-- `docs/knowledge/`：长期知识条目和分区索引。
+- `docs/capabilities/index.md`：能力清单、路线和精简审查。
+- `docs/knowledge/index.md`：长期知识索引。
 - `docs/references/`：按需读取的背景材料、工具说明和迁移原则。
-- `docs/validation/`：代表性任务验收记录。
+- `docs/validation/v2-acceptance.md`：代表性任务验收记录。
 - `skills/`：Codex 技能定义的同步副本。
 - `scripts/`：校验、审计、网络诊断和停止前检查脚本。
-- `templates/`：知识、科研、办公、任务状态和复盘模板。
+- `templates/`：仍被脚本或工作流调用的少量模板。
 
 ## 默认工作方式
 

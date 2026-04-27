@@ -11,7 +11,7 @@ Use for complex, ambiguous, high-impact, preference-dependent, formal, multi-fil
 
 ## Read
 
-Before asking, inspect available context: `docs/core/execution-loop.md`, `docs/profile/user-model.md`, `docs/profile/preference-map.md`, `docs/profile/intake-questionnaire.md`, and relevant task files.
+Before asking, inspect available context: `docs/core/index.md`, `docs/profile/user-model.md`, `docs/profile/preference-map.md`, `docs/profile/intake-questionnaire.md`, and relevant task files.
 
 ## Act
 

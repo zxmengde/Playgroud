@@ -32,9 +32,9 @@
 | 环境 | 名称 | `Playgroud` |
 | 环境 | Windows 设置脚本 | 使用本文下方脚本 |
 | 环境 | Windows 清理脚本 | 使用本文下方低风险脚本 |
-| MCP | `context7` | 开启 |
-| MCP | `openaiDeveloperDocs` | 开启 |
-| MCP | `sequentialThinking` | 开启 |
+| MCP | `context7` | allowlist；按当前配置审计确认 |
+| MCP | `openaiDeveloperDocs` | allowlist；按当前配置审计确认 |
+| MCP | `sequentialThinking` | 当前配置审计可见 |
 
 ## 常规与记忆
 
@@ -116,7 +116,7 @@ if (Test-Path "$env:CODEX_WORKTREE_PATH\tmp") { Remove-Item -Recurse -Force "$en
 
 ## MCP
 
-当前保留：
+当前 MCP allowlist：
 
 - `context7`：用于查询第三方库和框架文档。
 - `openaiDeveloperDocs`：用于查询 OpenAI 官方文档。

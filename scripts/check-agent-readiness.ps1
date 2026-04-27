@@ -25,10 +25,8 @@ Write-Output ""
 Write-Output "## MCP configuration"
 $mcpOutput = & (Join-Path $Root "scripts\audit-mcp-config.ps1")
 $mcpOutput | ForEach-Object { Write-Output $_ }
-foreach ($name in @("context7", "openaiDeveloperDocs", "sequentialThinking")) {
-    if (($mcpOutput | Where-Object { $_ -like "*$name*" }).Count -eq 0) {
-        Add-WarningLine ("MCP server not found in config: {0}" -f $name)
-    }
+if (($mcpOutput | Where-Object { $_ -like "No MCP servers found*" -or $_ -like "Config not found*" }).Count -gt 0) {
+    Add-WarningLine "No MCP server is visible in the current user config."
 }
 
 Write-Output ""

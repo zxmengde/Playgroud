@@ -1,4 +1,0 @@
-interface:
-  display_name: "Style Governor"
-  short_description: "Keep responses aligned with the user's writing style."
-  default_prompt: "Use $style-governor to keep this response aligned with my style rules."

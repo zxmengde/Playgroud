@@ -11,7 +11,7 @@ Use when feedback or failure suggests future behavior should change: missed cont
 
 ## Read
 
-Read `docs/knowledge/system-improvement/harness-log.md`, `docs/core/execution-loop.md`, `docs/core/finish-readiness.md`, and the workflow or skill that failed.
+Read `docs/knowledge/system-improvement/harness-log.md`, `docs/core/index.md`, and the workflow or skill that failed.
 
 ## Act
 

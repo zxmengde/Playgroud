@@ -1,4 +1,0 @@
-interface:
-  display_name: "Execution Governor"
-  short_description: "Push concrete tasks to artifacts or clear blockers."
-  default_prompt: "Use $execution-governor to complete this task with verification."

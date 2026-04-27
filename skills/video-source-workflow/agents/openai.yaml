@@ -1,4 +1,0 @@
-interface:
-  display_name: "Video Source Workflow"
-  short_description: "Extract and summarize video sources with evidence boundaries."
-  default_prompt: "Use $video-source-workflow to summarize this video from subtitles, metadata, or verified page evidence."

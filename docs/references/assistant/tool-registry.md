@@ -17,7 +17,7 @@
 | Git 提交前检查 | 在本地 Git pre-commit 阶段运行文本风险、技能、引用和知识结构检查 | 本地工作区，Git hook | 只阻止提交，不修改文件；可删除 `.git/hooks/pre-commit` 停用 | `scripts/install-git-hooks.ps1`、`scripts/pre-commit-check.ps1` | 手动运行 `scripts/pre-commit-check.ps1` |
 | 维护自动化检查 | 为 Codex automation 提供稳定、只读的维护检查入口 | 本仓库和本机工具状态 | 默认只读；不提交、不推送、不修改账号 | `scripts/run-agent-maintenance.ps1` | 手动运行各审计脚本 |
 | 自动化边界审计 | 检查用户级 Codex 自动化是否把一次性完整授权或高风险本地 cron 长期化 | 用户级 `automation.toml`，文本输出 | 只读检查；发现风险时阻止系统校验通过 | `scripts/audit-automations.ps1` | 人工查看 `$env:USERPROFILE\.codex\automations` |
-| Skill 同步审计与同步脚本 | 检查并同步仓库 `skills/` 与用户级 `.codex\skills`，防止 Codex 实际加载旧 skill | 仓库 skills、用户级 skills | 只同步 `SKILL.md` 和 `agents/*.yaml`；不安装第三方技能 | `scripts/audit-skill-sync.ps1`、`scripts/sync-user-skills.ps1` | 手动复制单个 skill |
+| Skill 同步审计与同步脚本 | 检查并同步仓库 `skills/` 与用户级 `.codex\skills`，防止 Codex 实际加载旧 skill | 仓库 skills、用户级 skills | 只同步当前仓库仍保留的 `SKILL.md`；不安装第三方技能 | `scripts/audit-skill-sync.ps1`、`scripts/sync-user-skills.ps1` | 手动复制单个 skill |
 | Zotero 本地库审计 | 检查用户授权的 Zotero 路径、SQLite 基础计数和 Better BibTeX 目录 | `C:\Users\mengde\Zotero` | 默认只读连接；写入或修改数据库前必须有备份和回退方案 | `scripts/audit-zotero-library.ps1` | 用户导出 BibTeX/RIS/CSL JSON |
 | 视频技能就绪审计 | 检查 Bilibili 视频技能安装文件、Python 依赖和可选转写工具 | 用户级 Codex skills、本机命令和 Python 模块 | 只读检查；不读取账号、不访问 Bilibili、不保存 cookie | `scripts/audit-video-skill-readiness.ps1` | 手动检查 `.codex\skills` 和依赖命令 |
 | Agent 就绪检查 | 汇总最小化、MCP 配置、运行时环境和任务状态标记 | 仓库、用户级 Codex 配置和运行时命令 | 只读检查；网络检查由单独脚本控制 | `scripts/check-agent-readiness.ps1` | 分别运行各审计脚本 |
@@ -49,13 +49,13 @@
 
 PowerShell 中 `codex` CLI 曾因 npm 包装脚本启动 Node 而触发 CSPRNG 断言失败。已将用户级 `codex.ps1` 和 `codex.cmd` 改为直接调用 npm 包内原生 Codex 二进制。验收结果：`codex --version` 与 `codex mcp --help` 均可运行。
 
-已配置 MCP：
+MCP 配置按脚本审计为准，不把推荐项写成已启用事实。当前 allowlist 保留：
 
-- `openaiDeveloperDocs`: `https://developers.openai.com/mcp`
-- `context7`: `https://mcp.context7.com/mcp`
-- `sequentialThinking`: `npx -y @modelcontextprotocol/server-sequential-thinking`
+- `openaiDeveloperDocs`: OpenAI 官方文档，若当前会话未暴露工具则用官方站点兜底。
+- `context7`: 第三方库和框架文档，若当前配置不可见则按需再启用。
+- `sequentialThinking`: `npx -y @modelcontextprotocol/server-sequential-thinking`，当前本机配置审计可见。
 
-当前会话可能需要重启后才能直接枚举新 MCP 资源。
+当前会话和用户级配置可能不同；执行前以 `scripts/audit-mcp-config.ps1` 输出为准。
 
 ## GitHub 网络与 Clash 代理
 

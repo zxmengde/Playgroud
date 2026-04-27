@@ -11,7 +11,7 @@ Use when information will reduce future repetition, improve task quality, preser
 
 ## Read
 
-Read `docs/core/memory-state.md`, `docs/workflows/knowledge.md`, `docs/knowledge/index.md`, and `templates/knowledge/knowledge-item.md`.
+Read `docs/core/index.md`, `docs/workflows/knowledge.md`, `docs/knowledge/index.md`, and `templates/knowledge/knowledge-item.md`.
 
 ## Act
 

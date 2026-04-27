@@ -15,13 +15,13 @@
 
 ## 当前判断
 
-`assistant-router`、`execution-governor`、`style-governor` 是横向控制技能，触发范围较宽但有必要；风险是过度触发和上下文负担，需要保持正文简洁。
+横向控制技能已重新评估。路由、执行到底和回答风格已由 `AGENTS.md`、`docs/core/index.md`、用户画像和全局会话规则承担，不再保留为单独 skill，以减少触发面和维护点。
 
 `research-workflow`、`coding-workflow`、`office-workflow`、`web-workflow` 是主流程技能。它们能覆盖常见任务，但还需要真实任务样例来证明触发准确性和产物质量。
 
 `literature-zotero-workflow` 与 `video-source-workflow` 解决了新增能力入口问题，但目前只完成流程层建设，尚未经过真实 Zotero 库和真实视频链接验证。
 
-`personal-work-assistant` 已从仓库同步副本删除，用户级同名技能已移入 `.codex\skills-disabled`。后续个人工作路由只保留 `assistant-router`。
+`personal-work-assistant` 已从仓库同步副本删除，用户级同名技能已移入 `.codex\skills-disabled`。本轮继续删除旧横向控制 skills，后续由项目入口和核心协议承担默认行为。
 
 2026-04-26 新增用户级技能 `security-best-practices`、`security-ownership-map`、`security-threat-model` 与 `jupyter-notebook`。前三项用于 MCP、第三方 agent、插件和脚本接入前的安全审查；后一项用于科研和数据分析中的 notebook 处理。安装后需要重启 Codex 才能在新会话中自动进入可用技能列表。
 

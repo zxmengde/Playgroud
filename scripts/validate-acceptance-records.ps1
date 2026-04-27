@@ -4,50 +4,39 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$base = Join-Path $Root "docs\validation\v2-acceptance"
-$index = Join-Path $base "index.md"
+$recordPath = Join-Path $Root "docs\validation\v2-acceptance.md"
 
-if (-not (Test-Path -LiteralPath $index)) {
-    throw "Missing acceptance index: docs\validation\v2-acceptance\index.md"
+if (-not (Test-Path -LiteralPath $recordPath)) {
+    throw "Missing acceptance record: docs\validation\v2-acceptance.md"
 }
 
-$records = @(
-    "research-literature",
-    "zotero-pdf",
-    "video-source",
-    "office-document",
-    "code-change",
-    "web-source",
-    "self-improvement-loop"
+$types = @(
+    "科研文献",
+    "Zotero/PDF",
+    "视频资料",
+    "Office 文档",
+    "代码修改",
+    "网页资料",
+    "受控自我改进"
 )
 
 $headings = @(
-    "## 输入",
-    "## 执行路径",
-    "## 产物",
-    "## 验证",
-    "## 复盘",
-    "## 边界"
+    "# 代表性验收记录",
+    "## 验证"
 )
 
-$indexContent = Get-Content -LiteralPath $index -Raw
+$content = Get-Content -LiteralPath $recordPath -Raw
 $errors = @()
 
-foreach ($record in $records) {
-    $relative = "docs/validation/v2-acceptance/$record.md"
-    $path = Join-Path $base "$record.md"
-    if (-not (Test-Path -LiteralPath $path)) {
-        $errors += "Missing acceptance record: $relative"
-        continue
+foreach ($heading in $headings) {
+    if ($content -notlike "*$heading*") {
+        $errors += "Acceptance record missing heading: $heading"
     }
-    if ($indexContent -notlike "*$relative*") {
-        $errors += "Acceptance index does not include: $relative"
-    }
-    $content = Get-Content -LiteralPath $path -Raw
-    foreach ($heading in $headings) {
-        if ($content -notlike "*$heading*") {
-            $errors += "$relative missing heading: $heading"
-        }
+}
+
+foreach ($type in $types) {
+    if ($content -notlike "*| $type |*") {
+        $errors += "Acceptance record missing type row: $type"
     }
 }
 

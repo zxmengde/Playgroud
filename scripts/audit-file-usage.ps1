@@ -25,13 +25,7 @@ $excluded = @(
     "README.md",
     ".gitignore",
     "docs/tasks/active.md",
-    "docs/tasks/done.md",
-    "docs/tasks/blocked.md",
     "docs/knowledge/index.md",
-    "docs/knowledge/system-improvement/index.md",
-    "docs/knowledge/research/index.md",
-    "docs/knowledge/project/index.md",
-    "docs/knowledge/web-source/index.md",
     "docs/assistant/forbidden-terms.json"
 )
 
