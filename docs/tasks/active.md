@@ -65,6 +65,12 @@
 - `scripts/validate-knowledge-index.ps1`
 - `scripts/validate-doc-structure.ps1`
 - `scripts/validate-system.ps1`，改动后通过。
+- `git pull --ff-only`，远端已是最新。
+- 脚本精简复查：读取五个旧模板生成脚本、旧画像重复审计脚本、`audit-redundancy.ps1`、主校验和停止前检查脚本。
+- `scripts/new-artifact.ps1` 五类产物临时生成测试：knowledge item、citation checklist、web source note、MCP adoption review、system improvement proposal 均生成成功，临时文件已清理。
+- `scripts/validate-system.ps1`，脚本精简后通过，最小化审计显示 PowerShell 脚本为 34 个。
+- `scripts/check-finish-readiness.ps1`，通过；仅提示当前有待提交改动。
+- `scripts/pre-commit-check.ps1`，通过。
 
 ## 产物
 
@@ -75,11 +81,14 @@
 - 新增 `scripts/audit-automations.ps1`，检查长期自动化是否越过边界。
 - 新增 `scripts/audit-skill-sync.ps1` 和 `scripts/sync-user-skills.ps1`，检查并修复仓库 skills 与用户级 skills 漂移。
 - 新增 `scripts/eval-agent-system.ps1`，作为系统回归 eval，检查旧负担删除、关键机制存在和核心审计可运行。
-- 增强 `scripts/new-system-improvement-proposal.ps1`、`scripts/audit-system-improvement-proposals.ps1` 和 `templates/assistant/system-improvement-proposal.md`，要求候选改动带 `memory`、`skill`、`config`、`hook`、`doc`、`eval` 或 `automation` 分类。
+- 增强系统改进候选生成和审计，要求候选改动带 `memory`、`skill`、`config`、`hook`、`doc`、`eval` 或 `automation` 分类。
 - 增强 `scripts/validate-knowledge-index.ps1`，检查知识索引中本地路径是否存在。
 - 新增 `docs/validation/v2-acceptance/self-improvement-loop.md` 并接入验收校验。
 - 更新能力、自动化、外部能力、工具登记、复盘记录和精简审查文档。
 - 删除早期 agent 调研流水、旧参考文档和旧用户教程，压缩 `docs/tasks/done.md`。
+- 合并模板生成脚本为 `scripts/new-artifact.ps1`，删除五个旧 `new-*` 脚本。
+- 将画像重复检查并入 `scripts/audit-redundancy.ps1`，删除旧画像重复审计脚本。
+- 更新 README、核心协议、引用资料、验收记录、工具登记和复盘记录中的脚本路径。
 
 ## 未验证判断
 
@@ -90,12 +99,12 @@
 
 ## 阻塞
 
-- Git 远端推送尚未执行。提交前需再次运行停止前检查、查看 diff 和 Git 状态。
+- 脚本精简改动已完成验证，提交和推送尚未执行。提交前需再次查看 Git 状态和差异。
 - 是否进一步合并旧研究资料、删减 `agents/openai.yaml` 或低引用模板，需要更多真实任务证据；本轮不凭引用计数删除。
 
 ## 下一步
 
-运行 `scripts/validate-system.ps1`、`scripts/check-finish-readiness.ps1`，查看 diff，随后 stage、commit、push。
+查看 diff，随后 stage、commit、push，并更新草稿 PR 说明。
 
 ## 恢复入口
 

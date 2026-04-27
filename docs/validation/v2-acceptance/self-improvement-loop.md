@@ -13,7 +13,7 @@
 
 - 新增 `docs/references/assistant/self-improvement-loop.md`。
 - 新增 `scripts/audit-automations.ps1`。
-- 增强 `scripts/new-system-improvement-proposal.ps1` 和 `scripts/audit-system-improvement-proposals.ps1`，要求系统改进候选带分类。
+- 增强 `scripts/new-artifact.ps1 -Type system-improvement-proposal` 和 `scripts/audit-system-improvement-proposals.ps1`，要求系统改进候选带分类。
 - 新增 `scripts/audit-skill-sync.ps1` 和 `scripts/sync-user-skills.ps1`，并用同步脚本修复用户级 skill 漂移。
 - 新增 `scripts/eval-agent-system.ps1`，检查旧负担删除、关键机制存在和核心审计可运行。
 - 从校验、索引和验收记录中移除已删除历史摘要的强制引用。

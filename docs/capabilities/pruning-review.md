@@ -42,8 +42,9 @@
 ```powershell
 .\scripts\audit-minimality.ps1
 .\scripts\audit-redundancy.ps1
-.\scripts\audit-profile-duplication.ps1
 .\scripts\audit-file-usage.ps1
 ```
 
 2026-04-27 复查：文件使用审计仍会列出若干轻量模板和 skill 的 `agents/openai.yaml`。这些文件可能由 Codex App 或特定任务使用，暂不凭引用计数删除。
+
+2026-04-27 脚本复查：五个同构模板生成脚本已合并为 `scripts/new-artifact.ps1`，画像重复检查已并入 `scripts/audit-redundancy.ps1`。脚本数量从 39 降至 34，保留细粒度校验脚本以便定位失败来源。

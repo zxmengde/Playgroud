@@ -51,12 +51,10 @@ $required = @(
     "scripts\check-finish-readiness.ps1",
     "scripts\validate-doc-structure.ps1",
     "scripts\validate-acceptance-records.ps1",
-    "scripts\new-citation-checklist.ps1",
-    "scripts\new-web-source-note.ps1",
+    "scripts\new-artifact.ps1",
     "scripts\check-ppt-text-extract.ps1",
     "scripts\audit-skills.ps1",
     "scripts\audit-redundancy.ps1",
-    "scripts\audit-profile-duplication.ps1",
     "scripts\audit-codex-capabilities.ps1",
     "scripts\audit-mcp-config.ps1",
     "scripts\audit-automations.ps1",
@@ -74,14 +72,12 @@ $required = @(
     "scripts\install-git-hooks.ps1",
     "scripts\run-agent-maintenance.ps1",
     "scripts\test-codex-runtime.ps1",
-    "scripts\new-mcp-adoption-review.ps1",
     "scripts\git-safe.ps1",
     "scripts\setup-codex-environment.ps1",
     "scripts\install-codex-git-network-fix.ps1",
     "scripts\test-git-network.ps1",
     "scripts\repair-git-network-env.ps1",
     "scripts\validate-skills.ps1",
-    "scripts\new-system-improvement-proposal.ps1",
     "docs\core\self-configuration.md",
     "docs\references\assistant\tool-registry.md"
 )
@@ -144,7 +140,6 @@ if ($secretHits.Count -gt 0) {
 & (Join-Path $Root "scripts\validate-skills.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-skills.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-redundancy.ps1") -Root $Root
-& (Join-Path $Root "scripts\audit-profile-duplication.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-minimality.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-file-usage.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-active-references.ps1") -Root $Root

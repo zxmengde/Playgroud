@@ -36,6 +36,25 @@ $profileCandidates = @(
     "docs\profile\user-model.md",
     "docs\profile\preference-map.md"
 )
+$primaryProfileFiles = $profileCandidates
+$missingProfileFiles = @()
+foreach ($rel in $primaryProfileFiles) {
+    if (-not (Test-Path -LiteralPath (Join-Path $Root $rel))) {
+        $missingProfileFiles += $rel
+    }
+}
+
+$legacyProfileCandidates = @(
+    "skills\personal-work-assistant\references\user-profile.md",
+    "skills\personal-work-assistant\SKILL.md"
+)
+$existingLegacyProfiles = @()
+foreach ($rel in $legacyProfileCandidates) {
+    if (Test-Path -LiteralPath (Join-Path $Root $rel)) {
+        $existingLegacyProfiles += $rel
+    }
+}
+
 $existingProfileCandidates = @()
 foreach ($rel in $profileCandidates) {
     if (Test-Path -LiteralPath (Join-Path $Root $rel)) {
@@ -61,9 +80,19 @@ Write-Output ("output files: {0}" -f $outputFiles.Count)
 Write-Output ("skill definitions: {0}" -f $skillFiles.Count)
 Write-Output ("profile/preference candidate files: {0}" -f $existingProfileCandidates.Count)
 Write-Output ("legacy personal-work-assistant skill exists: {0}" -f (Test-Path -LiteralPath $legacySkillDir))
+Write-Output ("missing primary profile files: {0}" -f $missingProfileFiles.Count)
+Write-Output ("legacy profile files: {0}" -f $existingLegacyProfiles.Count)
 
 if ($assistantReferences.Count -gt 0) {
     Write-Output "Validation still depends on legacy stubs. Do not delete them without updating scripts."
+}
+
+if ($missingProfileFiles.Count -gt 0) {
+    throw ("Missing profile files: " + ($missingProfileFiles -join ", "))
+}
+
+if ($existingLegacyProfiles.Count -gt 0) {
+    throw ("Legacy profile or skill files still exist: " + ($existingLegacyProfiles -join ", "))
 }
 
 if ($existingProfileCandidates.Count -gt 2) {

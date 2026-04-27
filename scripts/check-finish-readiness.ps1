@@ -48,8 +48,8 @@ Write-Output "### Skill validation"
 & (Join-Path $Root "scripts\audit-skills.ps1") -Root $Root
 
 Write-Output ""
-Write-Output "### Profile duplication"
-& (Join-Path $Root "scripts\audit-profile-duplication.ps1") -Root $Root
+Write-Output "### Redundancy and profile duplication"
+& (Join-Path $Root "scripts\audit-redundancy.ps1") -Root $Root
 
 Write-Output ""
 Write-Output "### Minimality"

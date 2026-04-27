@@ -42,7 +42,7 @@
 新增 MCP 前必须生成评估记录：
 
 ```powershell
-.\scripts\new-mcp-adoption-review.ps1 -Name "zotero-readonly"
+.\scripts\new-artifact.ps1 -Type mcp-adoption-review -Name "zotero-readonly"
 ```
 
 随后检查现有 MCP 配置：

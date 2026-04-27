@@ -45,7 +45,7 @@ Codex 至少应具备以下能力：
 
 不得把“增加工具数量”当作能力提高。工具只有在能降低协调成本、提高验证质量或改善恢复能力时才进入默认路径。
 
-失败经验进入长期规则前，应先形成候选提案或复盘记录。可直接修复的低风险问题可以立即修改；涉及删除、覆盖、提交、推送、长期安装、外部账号、敏感信息或扩大工具权限的改动，应使用 `scripts/new-system-improvement-proposal.ps1` 生成候选提案，并通过 `scripts/audit-system-improvement-proposals.ps1` 保持字段完整，等待用户确认后再执行。
+失败经验进入长期规则前，应先形成候选提案或复盘记录。可直接修复的低风险问题可以立即修改；涉及删除、覆盖、提交、推送、长期安装、外部账号、敏感信息或扩大工具权限的改动，应使用 `scripts/new-artifact.ps1 -Type system-improvement-proposal` 生成候选提案，并通过 `scripts/audit-system-improvement-proposals.ps1` 保持字段完整，等待用户确认后再执行。
 
 ## 减法
 

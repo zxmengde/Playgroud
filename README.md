@@ -73,13 +73,13 @@
 新增 MCP 前生成评估记录：
 
 ```powershell
-.\scripts\new-mcp-adoption-review.ps1 -Name "zotero-readonly"
+.\scripts\new-artifact.ps1 -Type mcp-adoption-review -Name "zotero-readonly"
 ```
 
 记录待确认的系统改进候选：
 
 ```powershell
-.\scripts\new-system-improvement-proposal.ps1 -Name "zotero-readonly"
+.\scripts\new-artifact.ps1 -Type system-improvement-proposal -Name "zotero-readonly"
 .\scripts\audit-system-improvement-proposals.ps1
 ```
 

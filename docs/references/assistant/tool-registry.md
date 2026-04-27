@@ -9,11 +9,11 @@
 | Codex 环境设置脚本 | 工作树创建后设置本仓库本地 Git 代理和进程环境 | Codex App 本地环境脚本 | 默认不改用户级环境、不改系统代理 | `scripts/setup-codex-environment.ps1` 输出 | 手动执行诊断脚本 |
 | Codex 能力审计脚本 | 检查本机插件缓存、用户级 skills 和工作区 `.codex` 状态 | 本机 Codex 目录，文本输出 | 只读检查；不验证外部账号权限 | `scripts/audit-codex-capabilities.ps1` | 手动查看插件缓存和技能列表 |
 | MCP 配置审计脚本 | 列出现有 MCP 服务器名称和 URL 或命令 | 用户级 Codex 配置，文本输出 | 不输出密钥；只读检查 | `scripts/audit-mcp-config.ps1` | 手动查看 `config.toml` |
-| MCP 引入评估脚本 | 为候选 MCP 生成评估记录 | MCP 名称，Markdown 输出 | 不安装服务器，不修改配置 | `scripts/new-mcp-adoption-review.ps1` | 手动复制模板 |
+| Artifact 生成脚本 | 生成知识条目、引用核验清单、网页来源记录、MCP 评估记录和系统改进候选 | 类型、名称或标题、Markdown 输出 | 不安装服务器，不修改配置，不自动采纳候选 | `scripts/new-artifact.ps1` | 手动复制模板 |
 | 仓库最小化审计 | 检查版本化生成物、旧入口、大文件、重复小文件和本地输出目录 | Git 跟踪文件和本地目录，文本输出 | 只读检查 | `scripts/audit-minimality.ps1` | `git ls-files` 和人工审查 |
 | 文件使用审计 | 列出低引用文件，辅助判断冗余候选 | Git 跟踪文件和本地文本 | 只读检查；低引用不等于可删除 | `scripts/audit-file-usage.ps1` | 人工 `rg` 检查 |
 | 活动引用完整性审计 | 检查入口、核心协议、工作流、能力、引用资料、skills 和模板中的本地路径是否仍存在 | 本地 Markdown、PowerShell、YAML 文本 | 只读检查；历史归档不作为当前执行路径 | `scripts/audit-active-references.ps1` | 人工 `rg` 检查路径 |
-| 系统改进候选脚本 | 生成并检查待确认的系统改进提案，防止失败经验直接变成长期规则 | 提案名称、模板、Markdown 输出 | 不自动采纳，不执行高影响操作 | `scripts/new-system-improvement-proposal.ps1`、`scripts/audit-system-improvement-proposals.ps1` | 直接写入 harness 复盘记录 |
+| 系统改进候选审计 | 检查待确认的系统改进提案，防止失败经验直接变成长期规则 | 提案 Markdown | 不自动采纳，不执行高影响操作 | `scripts/audit-system-improvement-proposals.ps1` | 直接写入 harness 复盘记录 |
 | Git 提交前检查 | 在本地 Git pre-commit 阶段运行文本风险、技能、引用和知识结构检查 | 本地工作区，Git hook | 只阻止提交，不修改文件；可删除 `.git/hooks/pre-commit` 停用 | `scripts/install-git-hooks.ps1`、`scripts/pre-commit-check.ps1` | 手动运行 `scripts/pre-commit-check.ps1` |
 | 维护自动化检查 | 为 Codex automation 提供稳定、只读的维护检查入口 | 本仓库和本机工具状态 | 默认只读；不提交、不推送、不修改账号 | `scripts/run-agent-maintenance.ps1` | 手动运行各审计脚本 |
 | 自动化边界审计 | 检查用户级 Codex 自动化是否把一次性完整授权或高风险本地 cron 长期化 | 用户级 `automation.toml`，文本输出 | 只读检查；发现风险时阻止系统校验通过 | `scripts/audit-automations.ps1` | 人工查看 `$env:USERPROFILE\.codex\automations` |

@@ -9,7 +9,7 @@
 1. 先修正当前任务，避免用记录替代实际完成。
 2. 在 `docs/knowledge/system-improvement/harness-log.md` 记录可复核事实、原因、修正动作、验证方式和状态。
 3. 将候选改动分类为 `memory`、`skill`、`config`、`hook`、`doc`、`eval` 或 `automation`。
-4. 需要长期改变默认行为时，用 `scripts/new-system-improvement-proposal.ps1 -Name "<name>" -Category "<category>"` 生成候选提案。
+4. 需要长期改变默认行为时，用 `scripts/new-artifact.ps1 -Type system-improvement-proposal -Name "<name>" -Category "<category>"` 生成候选提案。
 5. 提案必须写清触发事实、证据、最小实现、验证方式和回退方式。
 6. 运行 `scripts/audit-system-improvement-proposals.ps1`、相关专项脚本和停止前检查。
 7. 由人工 review 后再合并到核心协议、技能、配置、hook、自动化或校验脚本。
