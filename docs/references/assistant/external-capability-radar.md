@@ -16,10 +16,13 @@
 - 来自 `claude-skills self-improving-agent` 的 failure -> lesson -> mechanism 思路
 - 来自 `ui-ux-pro-max-skill` 的 checklist 思路
 
-## 当前 pilot candidate
+## 当前已接通
 
-- Serena：语义代码导航、引用查找、跨文件重构。当前没有本机工具暴露，先按只读 pilot 进入 routing 与 eval。
-- Obsidian：当前未确认 vault 路径与写权限，先本地 knowledge-first。
+- Serena：语义代码导航、引用查找、跨文件重构。已安装并写入用户级 Codex MCP 配置。
+- Obsidian：已通过官方 CLI 接入，支持真实 vault 搜索、读取和写入。
+
+## 当前仍未接通的重能力
+
 - remote / long-running：当前只保留接口规范、来源记录和权限边界。
 
 ## 当前拒绝完整安装

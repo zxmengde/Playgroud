@@ -14,24 +14,26 @@
 | 产品工程 | 可用 | `product-engineering-closer`、`product.md`、`eval-product-engineering-closeout.ps1` |
 | UI/UX 评审 | 可用 | `uiux-reviewer`、`uiux.md`、`uiux-review-sample.md`、`eval-uiux-review-quality.ps1` |
 | 本地 knowledge-first 沉淀 | 可用 | `knowledge-curator`、`knowledge.md`、`validate-knowledge-index.ps1` |
+| Obsidian 外部 vault 接入 | 可用 | `obsidian` CLI、`audit-serena-obsidian-readiness.ps1`、真实读写 smoke |
+| Serena 语义代码能力 | 可用 | 用户级 `config.toml`、`serena` 安装、`audit-serena-obsidian-readiness.ps1` |
 | finish gate | 可用 | `finish-verifier`、Stop hook、`check-finish-readiness.ps1 -Strict` |
 
 ## 当前 MCP 结论
 
 | 方向 | 当前处理 | 理由 |
 | --- | --- | --- |
-| Serena | pilot candidate | 当前线程无 Serena 工具暴露；先落地只读 pilot 和路由边界 |
+| Serena | 已可用 | 已安装并写入用户级 Codex MCP 配置；新会话可直接加载 |
 | GitHub | 已可用 | 当前已有 GitHub 连接器和插件能力 |
 | Browser / Web | 已可用 | 当前已有 Browser Use、web-workflow 和截图能力 |
-| Obsidian | candidate | 当前未确认 vault 路径与写权限；先本地 knowledge-first |
+| Obsidian | 已可用 | 已确认 vault、CLI 和读写 smoke；当前通过官方 CLI 接入 |
 | Remote / long-running | interface-only | 已有来源记录与权限规则，但不默认引入重 runtime |
 
 ## 当前缺口
 
 | 缺口 | 当前判断 |
 | --- | --- |
-| Serena 真实 pilot 数据 | 仍需在真实代码仓库里做只读对比试验 |
-| Obsidian 外部写入 | 仍需确认 vault 路径、回退方式和 human-confirmed 边界 |
+| Serena 真实收益数据 | 仍需在真实代码仓库里积累更多跨文件重构对比样例 |
+| Obsidian 精细 patch | 当前走官方 CLI；如未来需要 heading/frontmatter 级 patch，再评估 REST API 或 MCP |
 | remote/chat runtime | 当前只实现接口规范和权限边界，没有安装完整 runtime |
 
 ## 必要复杂度

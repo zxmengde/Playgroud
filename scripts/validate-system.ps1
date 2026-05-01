@@ -106,6 +106,7 @@ $required = @(
     "scripts\audit-automation-config.ps1",
     "scripts\audit-zotero-library.ps1",
     "scripts\audit-video-skill-readiness.ps1",
+    "scripts\audit-serena-obsidian-readiness.ps1",
     "scripts\check-agent-readiness.ps1",
     "scripts\pre-commit-check.ps1",
     "scripts\run-agent-maintenance.ps1",
@@ -211,6 +212,7 @@ Invoke-ExitAwareCheck -Label "validate-skill-contracts" -ScriptPath (Join-Path $
 & (Join-Path $Root "scripts\audit-system-improvement-proposals.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-automation-config.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-video-skill-readiness.ps1")
+& (Join-Path $Root "scripts\audit-serena-obsidian-readiness.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-codex-capabilities.ps1") | Out-Null
 & (Join-Path $Root "scripts\audit-mcp-config.ps1") | Out-Null
 & (Join-Path $Root "scripts\check-agent-readiness.ps1") -Root $Root

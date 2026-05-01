@@ -73,6 +73,27 @@ $lines += ""
 $lines += "Retrieval only:"
 $lines += @($activeLoad.retrieval_only | ForEach-Object { "- $_" })
 
+try {
+    $serenaConfigured = $false
+    $codexConfigPath = "$env:USERPROFILE\.codex\config.toml"
+    if (Test-Path -LiteralPath $codexConfigPath) {
+        $codexConfig = Get-Content -LiteralPath $codexConfigPath -Raw -Encoding UTF8
+        $serenaConfigured = $codexConfig -match '(?ms)^\[mcp_servers\.serena\]'
+    }
+    $obsidianReady = [bool](Get-Command obsidian -ErrorAction SilentlyContinue)
+    if ($serenaConfigured -or $obsidianReady) {
+        $lines += ""
+        $lines += "External knowledge and code tools:"
+        if ($serenaConfigured) {
+            $lines += "- Serena configured. For code tasks, activate the current directory as project using Serena."
+        }
+        if ($obsidianReady) {
+            $lines += "- Obsidian CLI available. Use vault ids or names for read/search/write operations."
+        }
+    }
+} catch {
+}
+
 if (-not [string]::IsNullOrWhiteSpace($recovery)) {
     $lines += ""
     $lines += "Recovery entry:"

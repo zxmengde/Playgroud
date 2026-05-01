@@ -30,6 +30,7 @@
 
 | 日期 | 标题 | 类型 | 状态 | 路径 |
 | --- | --- | --- | --- | --- |
+| 2026-05-01 | Serena 与 Obsidian 接通记录 | system-improvement | active | `docs/knowledge/system-improvement/2026-05-01-serena-obsidian-integration.md` |
 | 2026-04-28 | Codex 自我改进最终报告 | system-improvement | active | `docs/knowledge/system-improvement/2026-04-28-codex-self-improvement-final-report.md` |
 | 2026-04-27 | Codex 自我改进阶段报告 | system-improvement | historical | `docs/knowledge/system-improvement/2026-04-27-codex-self-improvement-report.md` |
 | 2026-04-26 | Assistant v1 历史摘要 | system-improvement | archived | `docs/archive/assistant-v1-summary.md` |

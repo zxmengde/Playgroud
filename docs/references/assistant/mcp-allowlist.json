@@ -1,6 +1,7 @@
 {
   "required": [
-    "sequentialThinking"
+    "sequentialThinking",
+    "serena"
   ],
   "recommended": [
     "context7",

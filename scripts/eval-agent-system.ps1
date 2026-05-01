@@ -92,6 +92,13 @@ try {
     Add-Result "automation_prompts_valid" $false $_.Exception.Message
 }
 
+try {
+    & (Join-Path $Root "scripts\audit-serena-obsidian-readiness.ps1") -Root $Root | Out-Null
+    Add-Result "serena_obsidian_readiness" ($LASTEXITCODE -eq 0) "Serena/Obsidian readiness audit completed"
+} catch {
+    Add-Result "serena_obsidian_readiness" $false $_.Exception.Message
+}
+
 $usageOutput = & (Join-Path $Root "scripts\audit-file-usage.ps1") -Root $Root
 $usageText = ($usageOutput -join "`n")
 $lowCount = 999

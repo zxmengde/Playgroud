@@ -11,12 +11,16 @@
 - `ui-ux-pro-max-skill`：UI/UX checklist 思路
 - `ARIS / Auto-claude-code-research-in-sleep`：review gate 和 artifact-first 研究流程
 
+## 已转为真实接入
+
+- Serena：已按官方方式安装到本机，并写入用户级 Codex MCP 配置
+- Obsidian：已按官方 CLI 方式接入，真实 vault 读、搜、写 smoke 已通过
+
 ## 仅保留机制，不完整安装
 
-- Serena：只保留 semantic code pilot 与只读/编辑分阶段边界
 - `context-mode`：只保留 context routing 与 think-in-code 原则
 - `vibe-kanban`、`claudecodeui`、`cc-connect`：只保留 remote、workspace、PR review、来源记录和权限边界思路
-- `obsidian-skills`：只保留 vault-first、adapter 和 CLI 接口思路
+- `obsidian-skills`：只保留 vault-first 与 adapter 设计思路；实际接入改用官方 CLI
 
 ## 完整安装拒绝
 

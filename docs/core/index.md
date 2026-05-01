@@ -80,10 +80,10 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 
 ## MCP 边界
 
-- Serena：高优先 candidate。当前进入只读 pilot，未通过 pilot 前不默认启用编辑阶段。
+- Serena：已接通用户级 Codex MCP。默认先用符号导航和引用查找；编辑能力只在真实代码任务中启用。
 - GitHub：已可用于 issue、PR、repo metadata 和外部项目 review。
 - Browser / Web：已可用于外部项目、研究工程和 UI 验证。
-- Obsidian：当前走 knowledge-first。本地 knowledge 先落地到仓库；只有在路径和权限明确后才允许 vault adapter 写入。
+- Obsidian：已接通官方 CLI。当前可直接读、搜、写已注册 vault；仓库 knowledge 仍保留为默认落点。
 - Remote / long-running：当前只实现接口规范、来源记录和权限边界，不默认安装重 runtime。
 
 ## Hooks 与 Evals

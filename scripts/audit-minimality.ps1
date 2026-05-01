@@ -7,6 +7,7 @@ $ErrorActionPreference = "Stop"
 $tracked = @(& git -C $Root ls-files)
 $generatedRules = @(
     @{ Name = "workspace Codex generated state"; Pattern = '^\.codex/(?!hooks\.json$)' },
+    @{ Name = "Serena project state"; Pattern = '^\.serena/' },
     @{ Name = "local cache"; Pattern = '^\.cache/' },
     @{ Name = "temporary files"; Pattern = '(^tmp/|/tmp/|\.tmp$)' },
     @{ Name = "runtime logs"; Pattern = '(^logs/|\.log$)' },

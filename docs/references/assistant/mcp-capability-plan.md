@@ -1,32 +1,39 @@
 # MCP 能力方案
 
-本文件记录当前 MCP 的最终处理状态：已启用、pilot、candidate 和拒绝。
+本文件记录当前 MCP 与外部知识工具的最终处理状态：已启用、仍候选、拒绝。
 
 ## 已启用
 
 - `sequentialThinking`：required
+- `serena`：required
 - GitHub：已可用于 issue、PR、repo metadata 和 review
 - Browser Use：已可用于网页调研和 UI 验证
 
-## 当前 pilot
+## 已启用 MCP
 
 ### Serena
 
-- 状态：pilot candidate
+- 状态：enabled
 - 目标：语义代码导航、引用查找、跨文件重构
-- 当前处理：写入 `routing-v1.yaml` 与 `eval-routing-selection.ps1`
+- 当前处理：已安装 `serena-agent`，并写入 `C:\Users\mengde\.codex\config.toml`
 - 分阶段边界：
-  - 阶段 1：只读导航
-  - 阶段 2：pilot 通过后再评估编辑能力
-- 验证：在真实代码仓库里对比 `rg + read` 与 Serena 的步数、错误率和回滚次数
+  - 阶段 1：优先使用符号导航、引用查找和上下文定位
+  - 阶段 2：在真实代码任务中启用符号级编辑
+- 验证：`scripts/audit-serena-obsidian-readiness.ps1`
 
-## 当前 candidate
+## 已启用的非 MCP 外部能力
 
 ### Obsidian
 
-- 状态：knowledge-first candidate
-- 当前处理：先写仓库内 knowledge，再保留 Obsidian adapter 规范
-- 前提：vault 路径明确、写入范围明确、回退方式明确、human-confirmed
+- 状态：enabled
+- 当前处理：使用官方 Obsidian CLI，经 `obsidian` 命令接入
+- 当前能力：vault 列表、全文搜索、文件读取、文件创建、文件追加
+- 验证：
+  - 真实 vault 文件计数
+  - 真实 vault 搜索
+  - sandbox vault 中 `Codex/obsidian-cli-smoke.md` 的创建、读取与追加
+
+## 当前 candidate
 
 ### remote / long-running
 

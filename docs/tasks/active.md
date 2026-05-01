@@ -2,7 +2,7 @@
 
 ## Goal
 
-在 `D:\Code\Playgroud` 内一次性落地最终版 Codex 自我改进系统：完成 failure、lesson、routing、active load、skills、validators、hooks、evals、核心入口、知识沉淀、MCP 结论和旧复杂度清理，并留下可回滚、可审计、可验证的最终结果。
+在 `D:\Code\Playgroud` 内把 Serena 与 Obsidian 从 candidate 能力提升为真实可用能力：完成 Serena 用户级 MCP 接通、Obsidian 官方 CLI 接通、仓库路由与能力登记同步，并留下可验证的接通记录。
 
 ## Read Sources
 
@@ -20,6 +20,8 @@
 - `docs/workflows/product.md`
 - `docs/workflows/uiux.md`
 - `.codex/hooks.json`
+- `docs/references/assistant/mcp-capability-plan.md`
+- `docs/references/assistant/external-capability-radar.md`
 - `scripts/validate-system.ps1`
 - `scripts/eval-agent-system.ps1`
 - `scripts/check-finish-readiness.ps1`
@@ -31,6 +33,14 @@
 
 - `git status --short --branch`
 - `git rev-parse HEAD`
+- `uv tool install -p 3.13 serena-agent@latest --prerelease=allow`
+- `serena --help`
+- `serena start-mcp-server --help`
+- `Obsidian.com version`
+- `obsidian vaults total`
+- `obsidian vault=790d1fd6473f4a93 search query="Zotero" total`
+- `obsidian vault=530512f0c6c3c99b read path="Codex/obsidian-cli-smoke.md"`
+- `scripts/audit-serena-obsidian-readiness.ps1`
 - `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-failure-log.ps1`
 - `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-lessons.ps1`
 - `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-routing-v1.ps1`
@@ -45,6 +55,7 @@
 - `docs/knowledge/system-improvement/failures/`
 - `docs/knowledge/system-improvement/lessons/`
 - `docs/knowledge/system-improvement/routing-v1.yaml`
+- `docs/knowledge/system-improvement/2026-05-01-serena-obsidian-integration.md`
 - `.agents/skills/failure-promoter/SKILL.md`
 - `.agents/skills/external-mechanism-researcher/SKILL.md`
 - `.agents/skills/research-engineering-loop/SKILL.md`
@@ -58,6 +69,7 @@
 - `scripts/validate-routing-v1.ps1`
 - `scripts/validate-skill-contracts.ps1`
 - `scripts/validate-active-load.ps1`
+- `scripts/audit-serena-obsidian-readiness.ps1`
 - `scripts/eval-repeat-failure-capture.ps1`
 - `scripts/eval-lesson-promotion.ps1`
 - `scripts/eval-routing-selection.ps1`
@@ -81,13 +93,13 @@
 
 ## Blockers
 
-- 当前线程未暴露 Serena 工具；因此只能落地 pilot 与边界，不能在本轮仓库内做真实 Serena MCP 安装验收。
+当前线程的可用工具集不会自动热更新，因此 Serena 即使已写入用户级 Codex 配置，也需要新会话才能直接出现在工具面板中。当前可通过本地安装、配置和 smoke test 验证接通状态。
 
 ## Next
 
-1. 在真实代码仓库中执行 Serena 只读 pilot。
-2. 在真实知识沉淀任务中验证 Obsidian candidate 是否需要转正。
-3. 在真实产品、研究和 UI 任务中观察新 skills 的误报率与收益。
+1. 在真实代码仓库中开始使用 Serena 做符号导航、引用查找和跨文件重构。
+2. 在真实科研任务中直接使用 Obsidian CLI 写入阅读笔记、研究 memo 和知识条目。
+3. 若未来需要 heading/frontmatter 级 patch，再评估 Obsidian REST API 或 MCP。
 
 ## Recovery
 
@@ -105,6 +117,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-agent-re
 - `docs/knowledge/system-improvement/routing-v1.yaml`
 - `docs/knowledge/system-improvement/failures/`
 - `docs/knowledge/system-improvement/lessons/`
+- `docs/knowledge/system-improvement/2026-05-01-serena-obsidian-integration.md`
 
 ## Anti-Sycophancy
 

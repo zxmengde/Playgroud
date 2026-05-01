@@ -15,6 +15,7 @@
 
 | 日期 | 标题 | 状态 | 路径 |
 | --- | --- | --- | --- |
+| 2026-05-01 | Serena 与 Obsidian 接通记录 | active | `docs/knowledge/system-improvement/2026-05-01-serena-obsidian-integration.md` |
 | 2026-04-28 | Codex 自我改进最终报告 | active | `docs/knowledge/system-improvement/2026-04-28-codex-self-improvement-final-report.md` |
 | 2026-04-26 | 技能审计记录 | active | `docs/knowledge/system-improvement/skill-audit.md` |
 | 2026-04-27 | Codex 自我改进阶段报告 | historical | `docs/knowledge/system-improvement/2026-04-27-codex-self-improvement-report.md` |

@@ -80,11 +80,11 @@
   },
   "mcp_profiles": {
     "Serena": {
-      "mode": "pilot",
-      "status": "candidate",
+      "mode": "enabled",
+      "status": "available",
       "stages": [
         "readonly-symbol-navigation",
-        "edit-after-pilot-pass"
+        "symbol-aware-editing"
       ]
     },
     "GitHub": {
@@ -104,11 +104,12 @@
       ]
     },
     "Obsidian": {
-      "mode": "knowledge-first",
-      "status": "candidate",
+      "mode": "enabled",
+      "status": "available",
       "stages": [
-        "local-repo-knowledge",
-        "vault-adapter-after-path-confirmed"
+        "cli-read",
+        "cli-search",
+        "cli-write"
       ]
     },
     "RemoteLongRunning": {
@@ -316,7 +317,7 @@
         "product-engineering-closer"
       ],
       "recommended_mcps": [
-        "Serena(candidate-readonly)",
+        "Serena(enabled)",
         "GitHub"
       ],
       "forbidden_tools": [
@@ -333,8 +334,8 @@
         "为什么需要语义工具的证据"
       ],
       "verification": [
-        "未安装 Serena 时先有 pilot plan",
-        "安装后必须区分只读阶段与编辑阶段"
+        "Serena 命令存在并可由 Codex MCP 配置启动",
+        "使用前先激活当前项目，编辑阶段只在真实代码任务中启用"
       ],
       "counterexamples": [
         "单文件小改",
@@ -399,7 +400,7 @@
         "knowledge-curator"
       ],
       "recommended_mcps": [
-        "Obsidian(candidate)"
+        "ObsidianCLI(enabled)"
       ],
       "forbidden_tools": [
         "未验证就写长期知识",
@@ -415,7 +416,7 @@
       ],
       "required_outputs": [
         "knowledge item 或本地知识更新",
-        "可选的 Obsidian 候选写入说明"
+        "可选的 Obsidian 写入说明或实际写入"
       ],
       "verification": [
         "来源齐全",

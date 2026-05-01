@@ -29,3 +29,4 @@ secrets/
 .codex-local/
 .codex/*
 !.codex/hooks.json
+.serena/
