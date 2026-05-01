@@ -1,23 +1,27 @@
 # 外部机制迁移记录
 
-本文件只保留当前已经采用或明确延后的迁移结论。详细的逐项目适配矩阵、评分和验证方式见：
+本文件只保留已经吸收进本仓库的机制，以及没有完整安装但保留的 candidate 机制。
 
-- `docs/knowledge/system-improvement/2026-04-27-codex-self-improvement-report.md`
+## 已吸收
 
-## 已采用
+- `everything-claude-code`：完成前先验证，再声明完成
+- `Trellis`：SessionStart 恢复摘要、workspace 恢复习惯
+- `claude-scholar`：研究与知识分层、claim 与 citation 纪律
+- `claude-skills / self-improving-agent`：failure -> lesson -> mechanism 升级链路
+- `ui-ux-pro-max-skill`：UI/UX checklist 思路
+- `ARIS / Auto-claude-code-research-in-sleep`：review gate 和 artifact-first 研究流程
 
-- `everything-claude-code`：只迁移“先定义验证，再声明完成”的 eval / verification 心态，不迁移其全量技能包。
-- `Trellis`：只迁移“会话启动时注入当前任务与恢复上下文”的最小 SessionStart 机制，不迁移 `.trellis/` 目录体系。
-- `claude-scholar`：只迁移“入口压缩、知识库按需绑定、研究与知识工作分层”的思路，不迁移整套研究工作台。
+## 仅保留机制，不完整安装
 
-## 已延后
+- Serena：只保留 semantic code pilot 与只读/编辑分阶段边界
+- `context-mode`：只保留 context routing 与 think-in-code 原则
+- `vibe-kanban`、`claudecodeui`、`cc-connect`：只保留 remote、workspace、PR review、来源记录和权限边界思路
+- `obsidian-skills`：只保留 vault-first、adapter 和 CLI 接口思路
 
-- `Serena`：保留为高优先 MCP 候选。价值明确，但当前控制仓库主要工作负载仍是文档、脚本和治理，不急于新增运行层。
-- `obsidian-skills`：保留为 Obsidian 显式联动候选，默认不开。
-- `ui-ux-pro-max-skill`：只吸收其检查清单思路；若真实前端任务频繁，再评估是否需要外部技能。
+## 完整安装拒绝
 
-## 已拒绝
+- 不安装多 agent runtime
+- 不安装移动端工作台
+- 不安装通用 memory/filesystem/git MCP
 
-- `vibe-kanban`、`claudecodeui`、`cc-connect`：远程 UI、移动端和工作台能力与当前仓库目标不匹配。
-- `context-mode`：上下文数据库、MCP 和多类 hooks 过重；只保留“think in code”原则。
-- `AI-Research-SKILLs`、`Auto-claude-code-research-in-sleep`、`oh-my-codex` 全量：自治 loop、海量技能和 runtime 维护面过大。
+理由是：这些 runtime 会增加权限面、维护面和默认上下文噪声，但当前真实任务还没有证明它们的净收益。

@@ -4,11 +4,31 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot "self-improvement-object-lib.ps1")
 
 $warnings = @()
 function Add-WarningLine {
     param([string]$Message)
     $script:warnings += $Message
+}
+
+function Invoke-ExitAwareCheck {
+    param(
+        [Parameter(Mandatory = $true)][string]$Label,
+        [Parameter(Mandatory = $true)][string]$ScriptPath,
+        [hashtable]$Arguments = @{}
+    )
+
+    Write-Output ""
+    Write-Output ("### {0}" -f $Label)
+    & $ScriptPath @Arguments
+    $exitCode = $LASTEXITCODE
+    if ($exitCode -eq 1) {
+        throw "$Label failed."
+    }
+    if ($exitCode -eq 2) {
+        Add-WarningLine "$Label reported warnings."
+    }
 }
 
 Write-Output "## Finish readiness checks"
@@ -18,7 +38,7 @@ Write-Output "### Git status"
 $gitStatus = & git -C $Root status --short --branch 2>&1
 $gitStatus | ForEach-Object { Write-Output $_ }
 if (($gitStatus | Where-Object { $_ -match '^\?\?|^ M|^M |^A |^ D|^D ' }).Count -gt 0) {
-    Add-WarningLine "Working tree has local changes; final response must mention this."
+    Add-WarningLine "Working tree has local changes; final response must mention validation status."
 }
 
 Write-Output ""
@@ -44,6 +64,7 @@ Write-Output "### Text risk scan"
 Write-Output ""
 Write-Output "### Repository skills"
 & (Join-Path $Root "scripts\validate-skills.ps1") -Root $Root
+& (Join-Path $Root "scripts\validate-skill-contracts.ps1") -Root $Root
 & (Join-Path $Root "scripts\audit-skills.ps1") -Root $Root
 
 Write-Output ""
@@ -65,6 +86,27 @@ Write-Output "### Active references"
 Write-Output ""
 Write-Output "### System improvement proposals"
 & (Join-Path $Root "scripts\audit-system-improvement-proposals.ps1") -Root $Root
+
+Invoke-ExitAwareCheck -Label "Failure objects" -ScriptPath (Join-Path $Root "scripts\validate-failure-log.ps1") -Arguments @{ Root = $Root }
+Invoke-ExitAwareCheck -Label "Lesson objects" -ScriptPath (Join-Path $Root "scripts\validate-lessons.ps1") -Arguments @{ Root = $Root }
+Invoke-ExitAwareCheck -Label "Routing" -ScriptPath (Join-Path $Root "scripts\validate-routing-v1.ps1") -Arguments @{ Root = $Root }
+Invoke-ExitAwareCheck -Label "Active load" -ScriptPath (Join-Path $Root "scripts\validate-active-load.ps1") -Arguments @{ Root = $Root }
+
+Write-Output ""
+Write-Output "### Open failures and active lessons"
+$openHighImpact = @(
+    Get-FailureObjects -Root $Root |
+    Where-Object {
+        @("captured", "triaged", "candidate") -contains $_.Data.status -and
+        $_.Data.impact -eq "high"
+    }
+)
+Write-Output ("open_high_impact_failures: {0}" -f $openHighImpact.Count)
+if ($openHighImpact.Count -gt 0) {
+    Add-WarningLine "Open high-impact failures remain."
+}
+$activeLessons = @(Get-ActiveLessonSummaries -Root $Root)
+Write-Output ("active_lessons: {0}" -f $activeLessons.Count)
 
 Write-Output ""
 Write-Output "### Agent readiness"

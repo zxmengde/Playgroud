@@ -6,39 +6,7 @@ $ErrorActionPreference = "Stop"
 $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
 [Console]::OutputEncoding = $utf8NoBom
 $OutputEncoding = $utf8NoBom
-
-function Get-MarkdownSection {
-    param(
-        [string]$Content,
-        [string]$Heading
-    )
-
-    $pattern = "(?ms)^##\s+$([regex]::Escape($Heading))\s*\r?\n(.*?)(?=^##\s+|\z)"
-    $match = [regex]::Match($Content, $pattern)
-    if ($match.Success) {
-        return $match.Groups[1].Value.Trim()
-    }
-    return ""
-}
-
-function Get-RecentHarnessLines {
-    param([string]$Path)
-
-    if (-not (Test-Path -LiteralPath $Path)) {
-        return @()
-    }
-
-    $rows = @(Get-Content -LiteralPath $Path -Encoding UTF8 | Where-Object { $_ -match '^\|\s*\d{4}-\d{2}-\d{2}\s*\|' })
-    $items = @()
-    foreach ($row in ($rows | Select-Object -Last 3)) {
-        $parts = $row -split '\|'
-        if ($parts.Count -lt 7) {
-            continue
-        }
-        $items += ("- {0}: {1} -> {2} [{3}]" -f $parts[1].Trim(), $parts[2].Trim(), $parts[4].Trim(), $parts[6].Trim())
-    }
-    return $items
-}
+. (Join-Path $PSScriptRoot "self-improvement-object-lib.ps1")
 
 $gitSummary = (& git -C $Root status --short --branch 2>$null) -join "`n"
 if ([string]::IsNullOrWhiteSpace($gitSummary)) {
@@ -56,24 +24,18 @@ if (Test-Path -LiteralPath $activePath) {
     $recovery = Get-MarkdownSection -Content $active -Heading "Recovery"
 }
 
-$proposalRoot = Join-Path $Root "docs\knowledge\system-improvement\proposals"
-$proposalSummary = @()
-if (Test-Path -LiteralPath $proposalRoot) {
-    $proposalSummary = @(Get-ChildItem -Path $proposalRoot -Filter "*.md" -File -ErrorAction SilentlyContinue |
-        Sort-Object LastWriteTime -Descending |
-        Select-Object -First 3 |
-        ForEach-Object { "- $($_.BaseName)" })
-}
-
-$harnessPath = Join-Path $Root "docs\knowledge\system-improvement\harness-log.md"
-$harnessSummary = Get-RecentHarnessLines -Path $harnessPath
-
+$activeLoad = Get-ActiveLoadSummary -Root $Root
 $lines = @(
     "Playgroud session context",
     "",
     "Git snapshot:",
-    $gitSummary
+    $gitSummary,
+    "",
+    "Always load:"
 )
+foreach ($entry in @($activeLoad.always)) {
+    $lines += "- $entry"
+}
 
 if (-not [string]::IsNullOrWhiteSpace($goal)) {
     $lines += ""
@@ -87,17 +49,29 @@ if (-not [string]::IsNullOrWhiteSpace($next)) {
     $lines += $next
 }
 
-if ($harnessSummary.Count -gt 0) {
-    $lines += ""
-    $lines += "Recent system lessons:"
-    $lines += $harnessSummary
+$lines += ""
+$lines += "Recent open failures:"
+if (@($activeLoad.open_failures).Count -eq 0) {
+    $lines += "- none"
+} else {
+    $lines += @($activeLoad.open_failures | ForEach-Object {
+            "- {0} [{1}/{2}] {3}" -f $_.id, $_.impact, $_.status, $_.summary
+        })
 }
 
-if ($proposalSummary.Count -gt 0) {
-    $lines += ""
-    $lines += "Open system proposals:"
-    $lines += $proposalSummary
+$lines += ""
+$lines += "Active lessons:"
+if (@($activeLoad.active_lessons).Count -eq 0) {
+    $lines += "- none"
+} else {
+    $lines += @($activeLoad.active_lessons | ForEach-Object {
+            "- {0} [{1}] {2}" -f $_.id, $_.status, $_.title
+        })
 }
+
+$lines += ""
+$lines += "Retrieval only:"
+$lines += @($activeLoad.retrieval_only | ForEach-Object { "- $_" })
 
 if (-not [string]::IsNullOrWhiteSpace($recovery)) {
     $lines += ""
@@ -110,4 +84,4 @@ if (-not [string]::IsNullOrWhiteSpace($recovery)) {
         hookEventName = "SessionStart"
         additionalContext = ($lines -join "`n").Trim()
     }
-} | ConvertTo-Json -Compress -Depth 6
+} | ConvertTo-Json -Compress -Depth 8

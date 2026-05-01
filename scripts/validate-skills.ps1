@@ -85,7 +85,10 @@ if ($errors.Count -gt 0) {
 if (-not [string]::IsNullOrWhiteSpace($ValidatorPath) -and (Test-Path -LiteralPath $ValidatorPath)) {
     foreach ($file in $skillFiles) {
         $skillDir = Split-Path -Parent $file.FullName
-        python $ValidatorPath $skillDir | Out-Host
+        $previousPythonUtf8 = $env:PYTHONUTF8
+        $env:PYTHONUTF8 = "1"
+        python -X utf8 $ValidatorPath $skillDir | Out-Host
+        $env:PYTHONUTF8 = $previousPythonUtf8
         if ($LASTEXITCODE -ne 0) {
             throw "quick_validate.py failed for $skillDir"
         }

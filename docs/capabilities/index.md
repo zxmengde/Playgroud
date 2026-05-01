@@ -1,48 +1,52 @@
-# 能力清单、路线与精简门槛
+# 能力清单、当前缺口与必要复杂度
 
-本文件记录当前真正生效的能力、仍然存在的缺口，以及“足够最简”的判断标准。结论以仓库文件、脚本运行结果和用户级运行时配置为依据，不把愿景当作已实现能力。
+本文件只记录当前真正落地并可校验的能力，不把愿景当作能力。
 
 ## 当前能力
 
-| 能力 | 当前成熟度 | 当前证据 | 主要缺口 |
-| --- | --- | --- | --- |
-| 任务恢复 | 可用 | `docs/tasks/active.md`、`scripts/check-task-state.ps1`、SessionStart hook 上下文注入 | 仍依赖人工维护任务状态 |
-| 结构校验与完成度检查 | 可用 | `scripts/validate-system.ps1`、`scripts/check-finish-readiness.ps1`、`scripts/eval-agent-system.ps1` | 仍缺 CI 层自动执行 |
-| Hook 风险拦截 | 可用 | `.codex/hooks.json`、`scripts/codex-hook-risk-check.ps1`、用户级 `codex_hooks = true` | 尚未覆盖更细的文件写入风险 |
-| 自动化漂移检测 | 可用 | `scripts/audit-automation-config.ps1`、`playgroud-readiness-audit`、`playgroud-improvement-triage` | 只覆盖本仓库相关自动化 |
-| 文档/知识最小化审计 | 可用 | `scripts/audit-minimality.ps1`、`scripts/audit-file-usage.ps1`、`scripts/audit-active-references.ps1` | 低引用仍需人工裁决 |
-| 外部能力治理 | 可用 | `docs/references/assistant/external-capability-radar.md`、`mcp-allowlist.json`、自我改进报告 | 仍缺真实 Serena/Zotero MCP 接入样例 |
-| Git / 环境诊断 | 可用 | `scripts/git-safe.ps1`、`scripts/test-git-network.ps1`、`scripts/setup-codex-environment.ps1` | Git 网络仍依赖本机代理环境 |
-| 科研 / Zotero / 视频 / Office 路由 | 可用 | 现有用户级 skills、`scripts/audit-zotero-library.ps1`、`scripts/audit-video-skill-readiness.ps1` | 缺少更多真实项目验收记录 |
+| 能力 | 当前状态 | 当前证据 |
+| --- | --- | --- |
+| active load 恢复 | 可用 | `routing-v1.yaml`、SessionStart hook、`validate-active-load.ps1`、`eval-session-recovery.ps1` |
+| failure / lesson 对象系统 | 可用 | `failures/`、`lessons/`、两个历史样例、对应 validators |
+| skill 路由 | 可用 | `routing-v1.yaml`、`tool-router`、`validate-routing-v1.ps1`、`eval-routing-selection.ps1` |
+| 自我改进闭环 | 可用 | `failure-promoter`、`harness-log.md`、`eval-lesson-promotion.ps1` |
+| 研究工程 | 可用 | `research-engineering-loop`、`research-memo-sample.md`、`eval-research-memo-quality.ps1` |
+| 产品工程 | 可用 | `product-engineering-closer`、`product.md`、`eval-product-engineering-closeout.ps1` |
+| UI/UX 评审 | 可用 | `uiux-reviewer`、`uiux.md`、`uiux-review-sample.md`、`eval-uiux-review-quality.ps1` |
+| 本地 knowledge-first 沉淀 | 可用 | `knowledge-curator`、`knowledge.md`、`validate-knowledge-index.ps1` |
+| finish gate | 可用 | `finish-verifier`、Stop hook、`check-finish-readiness.ps1 -Strict` |
+
+## 当前 MCP 结论
+
+| 方向 | 当前处理 | 理由 |
+| --- | --- | --- |
+| Serena | pilot candidate | 当前线程无 Serena 工具暴露；先落地只读 pilot 和路由边界 |
+| GitHub | 已可用 | 当前已有 GitHub 连接器和插件能力 |
+| Browser / Web | 已可用 | 当前已有 Browser Use、web-workflow 和截图能力 |
+| Obsidian | candidate | 当前未确认 vault 路径与写权限；先本地 knowledge-first |
+| Remote / long-running | interface-only | 已有来源记录与权限规则，但不默认引入重 runtime |
 
 ## 当前缺口
 
-| 缺口 | 现状 | 当前判断 |
-| --- | --- | --- |
-| 语义代码工具 | 尚未安装 Serena 或同类语义 MCP | 高价值，但对控制仓库本身不是立即必需，保留为高优先评估项 |
-| UI/UX 能力 | 主要依赖全局前端指令和通用 workflow | 需要在真实前端任务中验证是否还需引入更明确的检查清单 |
-| 研究实验 loop | 只有知识与报告结构，没有自治实验调度层 | 默认不引入长周期自动研究机制 |
-| CI / 机器级回归 | 当前依赖本地 PowerShell 校验 | 对控制仓库有价值，但优先级低于现有脚本闭环和 hooks |
+| 缺口 | 当前判断 |
+| --- | --- |
+| Serena 真实 pilot 数据 | 仍需在真实代码仓库里做只读对比试验 |
+| Obsidian 外部写入 | 仍需确认 vault 路径、回退方式和 human-confirmed 边界 |
+| remote/chat runtime | 当前只实现接口规范和权限边界，没有安装完整 runtime |
 
-## 精简门槛
+## 必要复杂度
 
-“足够最简”以以下标准判断：
+以下复杂度被保留，因为它们直接提供验证、恢复或防错：
 
-- `AGENTS.md` 只保留启动顺序、权限边界、恢复入口和自我改进原则。
-- 仓库级 skill 维持单一入口；任务型能力留在用户级 skills 或 workflow。
-- 校验脚本只统计受版本控制或明确相关的文件，不把 `.cache` 等运行时垃圾计入仓库复杂度。
-- 自动化、hook、MCP 必须有明确用途、验证方法和停用路径。
-- 0 引用且已被核心协议吸收的文档应删除或合并。
+- `routing-v1.yaml`
+- `failures/` 与 `lessons/`
+- 9 个仓库级 skills
+- 5 个 validators
+- 8 个 eval 脚本
+- 4 个 hooks 阶段
 
-## 当前保留的复杂度
+以下复杂度仍然不保留：
 
-- `docs/core/index.md`：作为唯一核心协议入口保留。
-- `docs/profile/`、`docs/tasks/active.md`、`docs/knowledge/system-improvement/`：这是恢复和长期经验复用的最小集合。
-- `scripts/` 下的审计脚本：数量偏多，但大多承担硬验证，不是纯说明文本。
-- 用户级 skills、plugins、automations：保留在用户目录，不在仓库中复制。
-
-## 当前不保留的方向
-
-- 常驻 agent、远程 UI、移动端工作台、kanban 平台、通用 memory/filesystem/git MCP。
-- 没有真实收益证明的批量技能安装和自治研究 loop。
-- 只会增加文档层数、不会提升验证或恢复能力的“体系化”扩展。
+- 通用 filesystem、git、memory 类 MCP
+- 远程 UI、移动端工作台、kanban 平台的完整 runtime
+- 没有真实任务支撑的批量外部 skill 安装

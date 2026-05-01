@@ -17,8 +17,23 @@ $required = @(
     "docs\references\assistant\mcp-capability-plan.md",
     "docs\references\assistant\agent-benchmark-integration.md",
     "docs\knowledge\system-improvement\harness-log.md",
+    "docs\knowledge\system-improvement\2026-04-28-codex-self-improvement-final-report.md",
+    "docs\knowledge\system-improvement\routing-v1.yaml",
+    "docs\knowledge\system-improvement\failures",
+    "docs\knowledge\system-improvement\lessons",
     "docs\knowledge\system-improvement\skill-audit.md",
     ".agents\skills\playgroud-maintenance\SKILL.md",
+    ".agents\skills\failure-promoter\SKILL.md",
+    ".agents\skills\external-mechanism-researcher\SKILL.md",
+    ".agents\skills\research-engineering-loop\SKILL.md",
+    ".agents\skills\product-engineering-closer\SKILL.md",
+    ".agents\skills\uiux-reviewer\SKILL.md",
+    ".agents\skills\knowledge-curator\SKILL.md",
+    ".agents\skills\tool-router\SKILL.md",
+    ".agents\skills\finish-verifier\SKILL.md",
+    "docs\workflows\self-improvement.md",
+    "docs\workflows\product.md",
+    "docs\workflows\uiux.md",
     ".codex\hooks.json"
 )
 

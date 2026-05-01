@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "id": "LESSON-self-improvement-not-just-hygiene",
+  "created_at": "2026-04-27T21:20:00+08:00",
+  "updated_at": "2026-04-28T09:35:00+08:00",
+  "title": "自我改进任务必须先对齐目标画像与对象模型",
+  "problem_statement": "自我改进类任务被误路由到仓库维护模式，导致只修基础卫生，不设计核心对象模型。",
+  "source_failures": [
+    "FAIL-20260427-210500-a1c201"
+  ],
+  "evidence_summary": "高影响；直接导致 Phase 0 被误当成系统设计完成，后续讨论反复围绕 hooks 和文档清理打转。",
+  "recurrence": 1,
+  "impact": "high",
+  "candidate_rule": "任何“自我改进”任务在实施前都必须先完成目标画像、对象模型和验收标准。",
+  "why_not_one_off": "playgroud-maintenance 的默认倾向会把系统设计任务拉向维护与清理，具有结构性复发风险。",
+  "recommended_target": "workflow",
+  "status": "promoted",
+  "owner": "codex",
+  "review": {
+    "reviewed_at": "2026-04-28T09:20:00+08:00",
+    "reviewer": "codex",
+    "decision": "accept",
+    "rationale": "核心问题是阶段顺序错误。最小修复应落到 workflow gate 和 active load，而不是继续堆叠宽泛规则文本。",
+    "target": "workflow",
+    "verification_plan": {
+      "checks": [
+        "自我改进任务在实施前必须显式写出目标画像。",
+        "自我改进任务在实施前必须显式写出 failure、lesson、routing、memory 对象模型。",
+        "自我改进任务在实施前必须显式写出可执行验收标准。"
+      ]
+    },
+    "rollback_plan": "若该 gate 在真实任务中连续两次只增加形式负担而没有改善结果，则降级为 finish verifier 中的提示检查。",
+    "expiry_review_at": "2026-10-28T00:00:00+08:00"
+  },
+  "promotion": {
+    "target": "workflow",
+    "target_path": "docs/workflows/self-improvement.md",
+    "applied_by": "codex",
+    "applied_at": "2026-04-28T09:35:00+08:00"
+  }
+}

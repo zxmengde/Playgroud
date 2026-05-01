@@ -13,6 +13,12 @@
         "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex-hook-session-start.ps1')\""
       }
     ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex-hook-post-tool-capture.ps1')\""
+      }
+    ],
     "Stop": [
       {
         "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex-hook-stop-check.ps1')\""

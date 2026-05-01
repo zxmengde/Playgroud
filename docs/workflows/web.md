@@ -12,6 +12,8 @@
 
 涉及 Bilibili、课程、会议、网页视频、字幕或转写摘要时，同时读取 `docs/workflows/video.md`，并使用 `video-source-workflow`。优先获取元数据和字幕；登录、cookies、会员内容、下载音频或完整视频需要任务级授权或预授权。
 
+若网页任务同时影响界面、交互或响应式，按 `routing-v1.yaml` 调用 `uiux-reviewer`，并保留桌面与移动端证据，而不是只依赖 DOM 文本或 lint 结果。
+
 ## 产物
 
 产物包括来源 URL、提取文本、截图路径、下载文件路径、时间戳和不确定性说明。

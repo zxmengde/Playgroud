@@ -1,21 +1,33 @@
 # 知识沉淀流程
 
+适用于长期有价值、已验证、可复用的信息。默认顺序是：判断层级、写本地 knowledge-first 记录、标注来源和状态、必要时准备 Obsidian 候选写入。
+
 ## 触发场景
 
-适用于长期有价值的结论、路径、模板、术语、项目背景、科研资料和复盘结果。
+- 研究结论、架构事实、verified conclusion
+- 失败教训和 lesson 摘要
+- 可复用模板、术语、路径和验证方法
 
 ## 执行要求
 
-开始前读取 `docs/profile/user-model.md` 和 `docs/profile/preference-map.md`。若命名、标签、归档深度或外部知识工具联动偏好未知，先采用保守默认值，并把待采集项写入任务记录。
+开始前读取 `docs/profile/user-model.md`、`docs/profile/preference-map.md` 和 `docs/tasks/active.md`。若命名、归档深度或 Obsidian 联动偏好未知，采用本地 knowledge-first 保守默认值。
 
-知识条目应使用 `templates/knowledge/knowledge-item.md`。稳定事实写入本地文件，不能只依赖对话记忆。
+写入前先判断层级：
 
-优先使用：
+- preference：进入 `docs/profile/*`
+- lesson：进入 `docs/knowledge/system-improvement/lessons/` 和 `harness-log.md`
+- research direction / architecture fact / verified conclusion：进入 `docs/knowledge/items/*`
+- todo：进入 `docs/tasks/*`
+- obsolete / archived：原地降级或移入 `docs/archive/`
 
-```powershell
-.\scripts\new-knowledge-item.ps1 -Title "short title" -Type "note"
-```
+不要把 raw failure、临时调试输出或未验证网页观点写成长期 knowledge。
 
-每个条目应包含来源、状态和后续可执行事项。过期或不确定内容应标注。
+## 产物
 
-Zotero、视频字幕、网页摘录和外部工具输出都应保留来源路径或 URL。来自视频或网页的观点不能直接写成稳定科研结论；用于正式文本前应再找论文、官方文档、标准或机构资料支撑。
+- `docs/knowledge/items/YYYY-MM-DD-title.md`
+- `docs/knowledge/system-improvement/harness-log.md`
+- 可选的 Obsidian 候选写入说明
+
+## Obsidian 边界
+
+当前默认只写仓库内知识。只有在 vault 路径、写入范围、回退方式和 human-confirmed 权限明确时，才允许把仓库内已验证条目同步到外部 Obsidian。

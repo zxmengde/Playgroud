@@ -9,7 +9,7 @@ if ([string]::IsNullOrWhiteSpace($rawInput)) {
 
 $commandText = $rawInput
 try {
-    $payload = $rawInput | ConvertFrom-Json -Depth 10
+    $payload = $rawInput | ConvertFrom-Json
     if ($null -ne $payload.tool_input -and $null -ne $payload.tool_input.command) {
         $commandText = [string]$payload.tool_input.command
     }
@@ -49,6 +49,7 @@ foreach ($pattern in $alwaysBlocked) {
 }
 
 $destructive = $lower.Contains("remove-item -recurse") -or $lower.Contains("rm -rf")
+$externalWrite = $lower.Contains("set-content ") -or $lower.Contains("out-file ") -or $lower.Contains("copy-item ") -or $lower.Contains("move-item ")
 $trustedWorkspace = $lower.Contains("d:\code\playgroud") -or $lower.Contains(".\") -or $lower.Contains("./")
 $outsideWorkspaceHints = @(
     "c:\users\",
@@ -86,6 +87,29 @@ if ($destructive) {
             }
         } | ConvertTo-Json -Compress
         exit 0
+    }
+}
+
+if ($externalWrite) {
+    foreach ($hint in @(
+            ".codex\\config.toml",
+            ".codex\\automations",
+            "obsidian",
+            "vault",
+            "c:\\users\\",
+            "$($env:USERPROFILE)".ToLowerInvariant()
+        )) {
+        if ($lower.Contains($hint) -and -not $lower.Contains("d:\code\playgroud")) {
+            $reason = "Blocked by Playgroud hook: external write needs an explicit trusted target, permission boundary, and rollback path."
+            @{
+                hookSpecificOutput = @{
+                    hookEventName = "PreToolUse"
+                    permissionDecision = "deny"
+                    permissionDecisionReason = $reason
+                }
+            } | ConvertTo-Json -Compress
+            exit 0
+        }
     }
 }
 exit 0

@@ -1,30 +1,35 @@
 # 外部能力雷达
 
-本文件只保留当前仍有行动价值的外部能力短名单。详细证据、14 个项目的适配矩阵和最终取舍见：
+本文件只保留对当前系统仍有行动价值的外部能力结论，不把“可安装”当作“应安装”。
 
-- `docs/knowledge/system-improvement/2026-04-27-codex-self-improvement-report.md`
+## 已直接纳入路由
 
-## 当前保留
+- GitHub：用于 issue、PR、repo metadata 和外部项目 review
+- Browser Use / web 体系：用于外部调研、网页验证和 UI 证据
+- Documents / Presentations / Spreadsheets：用于 Office 相关任务
 
-| 类别 | 当前状态 | 说明 |
-| --- | --- | --- |
-| Browser Use / GitHub / Documents / Presentations / Spreadsheets | 已启用 | 已能覆盖网页检查、GitHub、Office 文档和表格任务，不需要额外同类 MCP。 |
-| `sequentialThinking` | 已启用 | 当前唯一实际配置的 MCP，继续保留为复杂任务拆解工具。 |
-| `coding-workflow` / `research-workflow` / `web-workflow` / `office-workflow` 等用户级技能 | 已启用 | 继续按需调用，不在仓库内维护同步副本。 |
+## 已落地为本地机制
 
-## 下一阶段可评估
+- 来自 `everything-claude-code` 的 verification-first 心态
+- 来自 `Trellis` 的 SessionStart 恢复摘要
+- 来自 `claude-scholar` 的知识与研究分层
+- 来自 `claude-skills self-improving-agent` 的 failure -> lesson -> mechanism 思路
+- 来自 `ui-ux-pro-max-skill` 的 checklist 思路
 
-| 候选 | 解决的问题 | 当前判断 |
-| --- | --- | --- |
-| Serena | 符号级代码导航、跨文件重构、语义删除 | 高价值候选，但当前控制仓库以文档和脚本为主，先保留为“高优先评估”，不立即安装。 |
-| Zotero 或文献库只读 MCP | 本地文献集合检索、引用核验 | 与用户需求强相关，但需先完成只读边界、目录和回退方式评估。 |
-| Obsidian CLI / obsidian-skills | 受控写入 Obsidian 项目知识库 | 只在用户明确需要 vault 联动时启用，不作为控制仓库默认能力。 |
+## 当前 pilot candidate
 
-## 当前拒绝
+- Serena：语义代码导航、引用查找、跨文件重构。当前没有本机工具暴露，先按只读 pilot 进入 routing 与 eval。
+- Obsidian：当前未确认 vault 路径与写权限，先本地 knowledge-first。
+- remote / long-running：当前只保留接口规范、来源记录和权限边界。
 
-| 候选 | 拒绝原因 |
-| --- | --- |
-| context-mode | 需要额外 MCP、hooks 和 SQLite/FTS 运行层，不符合当前“默认极小”原则。 |
-| vibe-kanban / claudecodeui / cc-connect | 以远程 UI、移动端和工作台为中心，维护面和外部暴露面过大。 |
-| AI-Research-SKILLs / Auto-claude-code-research-in-sleep / oh-my-codex 全量安装 | 技能包、长任务 loop 和 runtime 层过重，默认收益低于引入成本。 |
-| 通用 filesystem / git / memory MCP | 与当前文件工具、Git 流程和本地知识结构重复，会扩大权限面。 |
+## 当前拒绝完整安装
+
+- `context-mode`
+- `vibe-kanban`
+- `claudecodeui`
+- `cc-connect`
+- `AI-Research-SKILLs` 全量
+- `Auto-claude-code-research-in-sleep` 全量
+- `oh-my-codex` 全量
+
+拒绝理由一致：runtime 维护面、外部暴露面和默认复杂度高于当前收益。

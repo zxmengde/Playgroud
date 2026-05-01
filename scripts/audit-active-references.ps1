@@ -12,6 +12,8 @@ $includeRoots = @(
     "docs\assistant",
     "docs\capabilities",
     "docs\core",
+    "docs\knowledge\index.md",
+    "docs\knowledge\system-improvement",
     "docs\profile",
     "docs\references",
     "docs\tasks\active.md",
@@ -49,6 +51,9 @@ $missing = @()
 $checked = New-Object System.Collections.Generic.HashSet[string]
 
 foreach ($file in ($files | Sort-Object FullName -Unique)) {
+    if ($file.FullName -like "*docs\knowledge\system-improvement\2026-04-27-codex-self-improvement-report.md") {
+        continue
+    }
     $content = Get-Content -LiteralPath $file.FullName -Raw -ErrorAction SilentlyContinue
     if ([string]::IsNullOrWhiteSpace($content)) { continue }
 

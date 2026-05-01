@@ -11,6 +11,25 @@ function Add-WarningLine {
     $script:warnings += $Message
 }
 
+function Invoke-ExitAwareCheck {
+    param(
+        [Parameter(Mandatory = $true)][string]$Label,
+        [Parameter(Mandatory = $true)][string]$ScriptPath,
+        [hashtable]$Arguments = @{}
+    )
+
+    Write-Output ""
+    Write-Output ("## {0}" -f $Label)
+    & $ScriptPath @Arguments
+    $exitCode = $LASTEXITCODE
+    if ($exitCode -eq 1) {
+        throw "$Label failed."
+    }
+    if ($exitCode -eq 2) {
+        Add-WarningLine "$Label reported warnings."
+    }
+}
+
 Write-Output "Agent readiness checks"
 
 Write-Output ""
@@ -20,6 +39,12 @@ Write-Output "## Minimality"
 Write-Output ""
 Write-Output "## Active references"
 & (Join-Path $Root "scripts\audit-active-references.ps1") -Root $Root
+
+Invoke-ExitAwareCheck -Label "Object validators" -ScriptPath (Join-Path $Root "scripts\validate-failure-log.ps1") -Arguments @{ Root = $Root }
+Invoke-ExitAwareCheck -Label "Lesson validators" -ScriptPath (Join-Path $Root "scripts\validate-lessons.ps1") -Arguments @{ Root = $Root }
+Invoke-ExitAwareCheck -Label "Routing validators" -ScriptPath (Join-Path $Root "scripts\validate-routing-v1.ps1") -Arguments @{ Root = $Root }
+Invoke-ExitAwareCheck -Label "Skill contracts" -ScriptPath (Join-Path $Root "scripts\validate-skill-contracts.ps1") -Arguments @{ Root = $Root }
+Invoke-ExitAwareCheck -Label "Active load" -ScriptPath (Join-Path $Root "scripts\validate-active-load.ps1") -Arguments @{ Root = $Root }
 
 Write-Output ""
 Write-Output "## MCP configuration"
@@ -40,6 +65,13 @@ if (-not $hooksEnabled) {
 $hookPath = Join-Path $Root ".codex\hooks.json"
 if (-not (Test-Path -LiteralPath $hookPath)) {
     Add-WarningLine "Project hooks file is missing."
+} else {
+    $hookContent = Get-Content -LiteralPath $hookPath -Raw
+    foreach ($requiredHook in @("PreToolUse", "SessionStart", "PostToolUse", "Stop")) {
+        if ($hookContent -notlike "*$requiredHook*") {
+            Add-WarningLine "Project hooks file does not mention $requiredHook."
+        }
+    }
 }
 
 Write-Output ""
