@@ -40,9 +40,9 @@ function Invoke-EvalScript {
 
 $results = @()
 
-$tracked = @(& git -C $Root ls-files)
-$deleted = @(& git -C $Root ls-files --deleted)
-$others = @(& git -C $Root ls-files --others --exclude-standard)
+$tracked = @(& git -C $Root -c core.quotePath=false ls-files)
+$deleted = @(& git -C $Root -c core.quotePath=false ls-files --deleted)
+$others = @(& git -C $Root -c core.quotePath=false ls-files --others --exclude-standard)
 $currentCount = ($tracked.Count - $deleted.Count + $others.Count)
 Add-Result "tracked_file_count" ($currentCount -le 175) ("current_files=$currentCount; target_max=175")
 

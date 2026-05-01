@@ -4,7 +4,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$tracked = @(& git -C $Root ls-files)
+$tracked = @(& git -C $Root -c core.quotePath=false ls-files)
 $generatedRules = @(
     @{ Name = "workspace Codex generated state"; Pattern = '^\.codex/(?!hooks\.json$)' },
     @{ Name = "Serena project state"; Pattern = '^\.serena/' },

@@ -14,7 +14,7 @@ function Convert-ToRepoPath {
     return ($fullPath -replace "\\", "/")
 }
 
-$tracked = @(& git -C $Root ls-files)
+$tracked = @(& git -C $Root -c core.quotePath=false ls-files)
 $trackedText = @($tracked | Where-Object { $_ -match '\.(md|ps1|json|yaml|yml)$' })
 $textFiles = foreach ($file in $trackedText) {
     $full = Join-Path $Root ($file -replace "/", [System.IO.Path]::DirectorySeparatorChar)
@@ -38,6 +38,7 @@ $excluded = @(
     "docs/tasks/active.md",
     "docs/tasks/done.md",
     "docs/tasks/blocked.md",
+    "docs/Codex 自我改进报告.md",
     "docs/knowledge/index.md",
     "docs/knowledge/system-improvement/index.md",
     "docs/knowledge/research/index.md",
@@ -51,6 +52,7 @@ foreach ($file in $tracked) {
     $full = Join-Path $Root ($file -replace "/", [System.IO.Path]::DirectorySeparatorChar)
     if (-not (Test-Path -LiteralPath $full)) { continue }
     if ($excluded -contains $file) { continue }
+    if ($file -match '^docs/Codex .+\.md$') { continue }
     if ($file -notmatch '\.(md|ps1|json|yaml|yml)$') { continue }
     if ($file -match '^docs/knowledge/items/') { continue }
     if ($file -match '^docs/archive/') { continue }

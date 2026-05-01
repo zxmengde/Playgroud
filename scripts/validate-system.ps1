@@ -155,7 +155,7 @@ if (Test-Path -LiteralPath $forbiddenPath) {
     $forbidden = (Get-Content -LiteralPath $forbiddenPath -Raw | ConvertFrom-Json).terms
 }
 
-$trackedAndUntracked = @(& git -C $Root ls-files --cached --others --exclude-standard)
+$trackedAndUntracked = @(& git -C $Root -c core.quotePath=false ls-files --cached --others --exclude-standard)
 $textFiles = foreach ($path in $trackedAndUntracked) {
     if ($path -notmatch '\.(md|yaml|yml|ps1|json)$') {
         continue
