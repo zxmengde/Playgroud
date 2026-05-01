@@ -37,7 +37,7 @@ Write-Output ""
 Write-Output "### Git status"
 $gitStatus = & git -C $Root status --short --branch 2>&1
 $gitStatus | ForEach-Object { Write-Output $_ }
-if (($gitStatus | Where-Object { $_ -match '^\?\?|^ M|^M |^A |^ D|^D ' }).Count -gt 0) {
+if (@($gitStatus | Where-Object { $_ -match '^\?\?|^ M|^M |^A |^ D|^D ' }).Count -gt 0) {
     Add-WarningLine "Working tree has local changes; final response must mention validation status."
 }
 
