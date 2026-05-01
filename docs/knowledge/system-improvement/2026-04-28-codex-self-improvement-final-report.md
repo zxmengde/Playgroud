@@ -79,11 +79,11 @@
 - PreToolUse hook smoke
 - PostToolUse hook smoke（临时目录）
 - Stop hook smoke
+- clean-tree `check-finish-readiness.ps1 -Strict`
 
 额外说明：
 
 - `check-finish-readiness.ps1` 在脏工作区的非严格模式下仅剩“工作区有本地改动”这一条预期警告。
-- clean-tree 的 `check-finish-readiness.ps1 -Strict` 在提交后执行。
 
 ## 5. 外部项目机制吸收结果
 
