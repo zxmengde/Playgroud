@@ -60,6 +60,32 @@ foreach ($pathValue in $always) {
     }
 }
 
+$activeLoadLines = 0
+$activeLoadBytes = 0
+foreach ($pathValue in $always) {
+    $resolved = Join-Path $Root ($pathValue -replace '/', [System.IO.Path]::DirectorySeparatorChar)
+    if (-not (Test-Path -LiteralPath $resolved)) {
+        Fail "active_load.always path missing: $pathValue"
+        continue
+    }
+
+    $text = Get-Content -LiteralPath $resolved -Raw -Encoding UTF8
+    $lineCount = ($text -split "\r?\n").Count
+    $byteCount = [System.Text.Encoding]::UTF8.GetByteCount($text)
+    $activeLoadLines += $lineCount
+    $activeLoadBytes += $byteCount
+    if ($lineCount -gt 260) {
+        Warn "active_load file is large: $pathValue lines=$lineCount"
+    }
+}
+
+if ($activeLoadLines -gt 700) {
+    Fail "active_load total lines exceed budget: $activeLoadLines > 700"
+}
+if ($activeLoadBytes -gt 120000) {
+    Fail "active_load total bytes exceed budget: $activeLoadBytes > 120000"
+}
+
 foreach ($failure in @($summary.open_failures)) {
     if (@($routing.active_load.exclude_statuses.failures) -contains $failure.status) {
         Fail "open failure summary includes excluded status $($failure.status)"
@@ -82,7 +108,7 @@ $retrievalOnly = @($summary.retrieval_only)
 if ($retrievalOnly -notcontains "docs/archive/") { Fail "active_load retrieval_only_prefixes must include docs/archive/" }
 if ($retrievalOnly -notcontains "docs/knowledge/items/") { Warn "active_load retrieval_only_prefixes does not include docs/knowledge/items/" }
 
-Pass ("active_load always={0} open_failures={1} active_lessons={2}" -f $always.Count, @($summary.open_failures).Count, @($summary.active_lessons).Count)
+Pass ("active_load always={0} lines={1} bytes={2} open_failures={3} active_lessons={4}" -f $always.Count, $activeLoadLines, $activeLoadBytes, @($summary.open_failures).Count, @($summary.active_lessons).Count)
 $results | ForEach-Object { Write-Output $_ }
 if ($hasFailure) { exit 1 }
 if ($hasWarning) { exit 2 }

@@ -26,4 +26,10 @@ if ($content -notlike "*Desktop*" -or $content -notlike "*Mobile*") {
     throw "uiux-review-quality: sample must mention both desktop and mobile evidence."
 }
 
+foreach ($term in @("Interaction", "Accessibility", "Responsive")) {
+    if ($content -notlike "*$term*") {
+        throw "uiux-review-quality: sample must mention $term evidence."
+    }
+}
+
 Write-Output "uiux-review-quality: pass"

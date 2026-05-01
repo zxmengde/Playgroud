@@ -15,9 +15,11 @@
 
 ## Evidence
 
-- Desktop screenshot: available
-- Mobile screenshot: available
-- Interaction notes: available
+- Desktop screenshot: `artifacts/uiux/settings-desktop.png`, viewport 1440x900
+- Mobile screenshot: `artifacts/uiux/settings-mobile.png`, viewport 390x844
+- Interaction notes: primary action, empty state, error state, loading state checked
+- Accessibility notes: focus order and text contrast checked
+- Responsive notes: card wrapping and toolbar overflow checked
 
 ## Findings
 

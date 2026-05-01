@@ -11,6 +11,14 @@
 
 ## 已启用 MCP
 
+### sequentialThinking
+
+- 状态：enabled
+- 目标：复杂任务拆解、分支检查和中间判断记录
+- 权限边界：不读取或写入文件，不替代事实核验
+- 验证：`scripts/audit-mcp-config.ps1`
+- 回退：删除用户级 Codex 配置中的 `[mcp_servers.sequentialThinking]` 后重启 Codex；回退后使用 `docs/tasks/active.md` 和普通任务计划
+
 ### Serena
 
 - 状态：enabled

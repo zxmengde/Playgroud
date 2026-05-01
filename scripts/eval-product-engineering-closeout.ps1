@@ -14,10 +14,13 @@ foreach ($heading in @(
         "## Goal",
         "## Users",
         "## Constraints",
+        "## Success Criteria",
         "## PRD Summary",
         "## Implementation Plan",
         "## Verification",
-        "## Release Risk"
+        "## Release Risk",
+        "## Rollback",
+        "## Stop Condition"
     )) {
     if ($content -notlike "*$heading*") {
         throw "product-engineering-closeout: missing heading $heading."

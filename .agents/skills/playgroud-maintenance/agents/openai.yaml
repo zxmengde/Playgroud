@@ -1,4 +1,0 @@
-interface:
-  display_name: "Playgroud Maintenance"
-  short_description: "Maintain Playgroud system rules, audits, hooks, and recovery state."
-  default_prompt: "Use $playgroud-maintenance to maintain this controlled personal work system."

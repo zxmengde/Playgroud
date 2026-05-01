@@ -12,15 +12,25 @@ if (-not (Test-Path -LiteralPath $path)) {
 $content = Get-Content -LiteralPath $path -Raw -Encoding UTF8
 foreach ($heading in @(
         "## Question",
-        "## Candidate",
+        "## Candidates",
         "## Mechanisms",
-        "## Evidence",
+        "## Source Evidence",
+        "## Fit Decision",
         "## Minimum Implementation",
+        "## Risks",
         "## Re-evaluation"
     )) {
     if ($content -notlike "*$heading*") {
         throw "external-mechanism-review-check: missing heading $heading."
     }
+}
+
+if ($content -match "假定|assume|assumed") {
+    throw "external-mechanism-review-check: evidence cannot be hypothetical."
+}
+
+if ($content -notmatch "commit" -or $content -notmatch "path" -or $content -notmatch "line") {
+    throw "external-mechanism-review-check: source evidence must include commit, path, and line references."
 }
 
 Write-Output "external-mechanism-review-check: pass"

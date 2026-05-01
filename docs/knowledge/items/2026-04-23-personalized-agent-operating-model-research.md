@@ -37,7 +37,7 @@ SWE-Skills-Bench 与 SkillsBench 共同说明，skills 的收益取决于任务�
 - `docs/assistant/personal-agent-operating-model.md`
 - `docs/assistant/execution-contract.md`
 - `docs/assistant/memory-model.md`
-- `docs/assistant/skill-quality-standard.md`
+- 历史 skill 质量入口已由 `scripts/validate-skill-contracts.ps1` 和 `docs/references/assistant/third-party-skill-evaluation.md` 取代
 - `docs/profile/user-model.md`
 
 # links

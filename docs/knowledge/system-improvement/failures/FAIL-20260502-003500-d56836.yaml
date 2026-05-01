@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "FAIL-20260502-003500-d56836",
+  "created_at": "2026-05-02T00:35:00+08:00",
+  "task_ref": "2026-05-02-codex-self-improvement",
+  "phase": "verify",
+  "domain": "self-improvement",
+  "summary": "运行配置与能力登记失配",
+  "symptom": "系统验证显示 Codex 配置缺少 hooks 开关且 Serena readiness 审计不通过，但任务状态仍记录上一轮接通已完成。",
+  "impact": "high",
+  "root_cause_type": "verification-gap",
+  "fingerprint": "d5683680",
+  "status": "closed",
+  "source": {
+    "writer": "codex",
+    "trigger": "validate-system"
+  },
+  "evidence": {
+    "files": [
+      "docs/tasks/active.md",
+      "scripts/audit-serena-obsidian-readiness.ps1",
+      "C:/Users/mengde/.codex/config.toml"
+    ],
+    "commands": [
+      "scripts/validate-system.ps1",
+      "scripts/eval-agent-system.ps1"
+    ],
+    "outputs": [
+      "codex_hooks_enabled: fail",
+      "serena_obsidian_readiness: fail",
+      "active task still described previous Serena/Obsidian task"
+    ]
+  },
+  "occurrences": 1,
+  "related_failures": [],
+  "tool": "powershell",
+  "primary_path": "C:/Users/mengde/.codex/config.toml",
+  "triage_note": "能力接通必须以用户级配置和 readiness audit 为准，不能只看历史报告。",
+  "proposed_lesson": "涉及运行能力的完成声明必须由配置审计、readiness 脚本和 active task 同时验证。",
+  "proposed_target": "eval",
+  "do_not_promote": false,
+  "close_reason": "promoted",
+  "closed_at": "2026-05-02T00:58:00+08:00"
+}
