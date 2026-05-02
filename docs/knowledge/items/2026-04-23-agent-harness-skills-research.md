@@ -51,7 +51,7 @@ active
 - `docs/assistant/agent-capability-improvement.md`
 - `docs/assistant/memory-model.md`
 - `docs/assistant/pre-finish-check.md`
-- 历史 skill 质量入口已由 `scripts/validate-skill-contracts.ps1` 和 `docs/references/assistant/third-party-skill-evaluation.md` 取代
+- 历史 skill 质量入口已由 `scripts/lib/commands/validate-skill-contracts.ps1` 和 `docs/references/assistant/third-party-skill-evaluation.md` 取代
 - `docs/profile/user-model.md`
 - `docs/assistant/intent-interview.md`
 - `skills/preference-intake/SKILL.md`

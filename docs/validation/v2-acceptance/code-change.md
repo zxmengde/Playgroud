@@ -17,15 +17,15 @@
 - `docs/archive/assistant-v1-summary.md`
 - `docs/capabilities/`
 - `docs/validation/v2-acceptance/`
-- `scripts/validate-doc-structure.ps1`
-- `scripts/validate-acceptance-records.ps1`
+- `scripts/lib/commands/validate-doc-structure.ps1`
+- `scripts/lib/commands/validate-acceptance-records.ps1`
 
 ## 验证
 
-- `scripts/validate-doc-structure.ps1` 检查核心结构和兼容入口。
-- `scripts/validate-acceptance-records.ps1` 检查六类验收记录。
-- `scripts/validate-system.ps1` 集成上述检查。
-- `scripts/check-finish-readiness.ps1` 在停止前统一运行。
+- `scripts/lib/commands/validate-doc-structure.ps1` 检查核心结构和兼容入口。
+- `scripts/lib/commands/validate-acceptance-records.ps1` 检查六类验收记录。
+- `scripts/lib/commands/validate-system.ps1` 集成上述检查。
+- `scripts/lib/commands/check-finish-readiness.ps1` 在停止前统一运行。
 
 ## 复盘
 
@@ -34,4 +34,3 @@
 ## 边界
 
 没有执行 `git pull`，因为工作区存在未提交改动。没有提交、推送或创建远程 PR。远程同步仍需按 Git 网络诊断结果处理。
-

@@ -11,7 +11,7 @@
 
 - Git 基线：`git status --short --branch` 显示位于 `main...origin/main`。
 - 直接 `git pull --ff-only` 失败：GitHub Schannel TLS 握手失败。
-- Git 网络诊断：`scripts/test-git-network.ps1 -Remote origin` 中代理可达，`git ls-remote` 返回 `964e631... refs/heads/main`。
+- Git 网络诊断：`scripts/lib/commands/test-git-network.ps1 -Remote origin` 中代理可达，`git ls-remote` 返回 `964e631... refs/heads/main`。
 - 文件基线：`git ls-files` 为 156 个跟踪文件；`audit-minimality.ps1` 通过，低引用审计初始候选为 4 个。
 - 验证基线：`validate-system.ps1` 和 `eval-agent-system.ps1` 初始失败，原因是用户级 Codex 配置缺少 `codex_hooks = true`，且 Serena readiness 脚本未识别当前 Serena MCP 入口。
 
@@ -19,22 +19,22 @@
 
 - 备份并修正 `C:\Users\mengde\.codex\config.toml`：新增 `codex_hooks = true`，将 Serena MCP 从 `uvx git+https://github.com/oraios/serena` 改为本机 `serena start-mcp-server --project-from-cwd --context=codex`。
 - 重写 `docs/tasks/active.md` 为当前任务状态，新增 `Status` 和 `Last Updated`，解决中断恢复入口停留在上一轮 Serena/Obsidian 任务的问题。
-- 更新 `scripts/check-task-state.ps1`，要求 active task 必须包含 `Status`、`Last Updated` 和 ISO 日期。
-- 更新 `scripts/archive-task-state.ps1`，默认只写摘要归档；完整 active 原文需要显式 `-IncludeFull`。
-- 更新 `scripts/validate-active-load.ps1`，增加 active load 行数和字节预算，当前为 488 行、27844 字节。
-- 强化 `scripts/eval-external-mechanism-review-check.ps1`，外部机制评估必须包含 commit、path、line 证据，禁止假定式证据。
-- 强化 `scripts/eval-uiux-review-quality.ps1`，UI/UX 样例必须覆盖桌面、移动、交互、无障碍和响应式证据。
-- 强化 `scripts/eval-product-engineering-closeout.ps1`，产品工程样例必须包含成功标准、回滚和停止条件。
+- 更新 `scripts/lib/commands/check-task-state.ps1`，要求 active task 必须包含 `Status`、`Last Updated` 和 ISO 日期。
+- 更新 `scripts/lib/commands/archive-task-state.ps1`，默认只写摘要归档；完整 active 原文需要显式 `-IncludeFull`。
+- 更新 `scripts/lib/commands/validate-active-load.ps1`，增加 active load 行数和字节预算，当前为 488 行、27844 字节。
+- 强化 `scripts/lib/commands/eval-external-mechanism-review-check.ps1`，外部机制评估必须包含 commit、path、line 证据，禁止假定式证据。
+- 强化 `scripts/lib/commands/eval-uiux-review-quality.ps1`，UI/UX 样例必须覆盖桌面、移动、交互、无障碍和响应式证据。
+- 强化 `scripts/lib/commands/eval-product-engineering-closeout.ps1`，产品工程样例必须包含成功标准、回滚和停止条件。
 - 更新 validation samples，使样例与当前 Serena 已接通事实一致。
 - 更新 `docs/workflows/coding.md`，把 Serena 从 candidate 改为已接通的只读导航优先工具。
-- 更新 `docs/workflows/knowledge.md`，登记 `scripts/new-knowledge-item.ps1` 作为本地 knowledge item 生成入口。
+- 更新 `docs/workflows/knowledge.md`，登记 `scripts/lib/commands/new-knowledge-item.ps1` 作为本地 knowledge item 生成入口。
 - 更新外部机制迁移记录、能力雷达、MCP 方案和工具登记。
 
 ## 删除 / 合并 / 归档
 
 - 删除 `.agents/skills/playgroud-maintenance/agents/openai.yaml`：未被当前 Codex skill 加载机制使用，且低引用。
 - 删除 `docs/references/assistant/mcp-reviews/2026-04-26-sequentialThinking.md`：结论已合并到 `docs/references/assistant/mcp-capability-plan.md`。
-- 删除 `docs/references/assistant/skill-quality-standard.md`：职责已由 `scripts/validate-skill-contracts.ps1` 和 `docs/references/assistant/third-party-skill-evaluation.md` 覆盖。
+- 删除 `docs/references/assistant/skill-quality-standard.md`：职责已由 `scripts/lib/commands/validate-skill-contracts.ps1` 和 `docs/references/assistant/third-party-skill-evaluation.md` 覆盖。
 - 修正两个历史 knowledge item 中对旧 `docs/assistant/skill-quality-standard.md` 的引用。
 - 更新 `docs/tasks/done.md`，补充 2026-04-28 和 2026-05-01 归档摘要。
 
@@ -77,17 +77,17 @@
 
 ## 验证结果
 
-- `scripts/audit-file-usage.ps1`：通过，低引用候选从 4 降为 0。
-- `scripts/audit-minimality.ps1`：通过，无版本化生成物、旧入口或大文件。
-- `scripts/check-task-state.ps1`：通过。
-- `scripts/validate-active-load.ps1`：通过，always=5，lines=488，bytes=27844。
-- `scripts/validate-failure-log.ps1`：通过，3 个 failure 对象。
-- `scripts/validate-lessons.ps1`：通过，3 个 lesson 对象。
-- `scripts/validate-routing-v1.ps1`：通过。
-- `scripts/validate-skill-contracts.ps1`：通过。
-- `scripts/eval-agent-system.ps1`：通过，tracked_file_count=156，low_reference_candidates=0，codex_hooks_enabled=pass，serena_obsidian_readiness=pass。
-- `scripts/validate-system.ps1`：报告写入后复跑通过。
-- `scripts/pre-commit-check.ps1`：报告写入后复跑通过。
+- `scripts/lib/commands/audit-file-usage.ps1`：通过，低引用候选从 4 降为 0。
+- `scripts/lib/commands/audit-minimality.ps1`：通过，无版本化生成物、旧入口或大文件。
+- `scripts/lib/commands/check-task-state.ps1`：通过。
+- `scripts/lib/commands/validate-active-load.ps1`：通过，always=5，lines=488，bytes=27844。
+- `scripts/lib/commands/validate-failure-log.ps1`：通过，3 个 failure 对象。
+- `scripts/lib/commands/validate-lessons.ps1`：通过，3 个 lesson 对象。
+- `scripts/lib/commands/validate-routing-v1.ps1`：通过。
+- `scripts/lib/commands/validate-skill-contracts.ps1`：通过。
+- `scripts/lib/commands/eval-agent-system.ps1`：通过，tracked_file_count=156，low_reference_candidates=0，codex_hooks_enabled=pass，serena_obsidian_readiness=pass。
+- `scripts/lib/commands/validate-system.ps1`：报告写入后复跑通过。
+- `scripts/lib/commands/pre-commit-check.ps1`：报告写入后复跑通过。
 - `git diff --check`：通过，仅有换行符提示，无空白错误。
 
 `check-finish-readiness.ps1 -Strict` 需要在提交后工作区干净时运行；未提交 diff 会触发严格模式 warning。

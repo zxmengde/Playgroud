@@ -29,4 +29,4 @@
 
 - failure 放在 `docs/knowledge/system-improvement/failures/`，lesson 放在 `docs/knowledge/system-improvement/lessons/`，routing 放在 `docs/knowledge/system-improvement/routing-v1.yaml`。
 - 失败经验优先转化为最小机制：memory、skill、hook、eval、workflow 或 MCP；只有机制无法承载时才补规则文本。
-- 复杂任务收尾前运行 `scripts/validate-system.ps1`、`scripts/eval-agent-system.ps1`、`scripts/check-finish-readiness.ps1 -Strict`。
+- 复杂任务收尾前优先运行 `scripts/codex.ps1 validate`、`scripts/codex.ps1 eval`，最终门仍可直接运行私有实现 `scripts/lib/commands/check-finish-readiness.ps1 -Strict`。

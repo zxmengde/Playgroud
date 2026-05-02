@@ -69,9 +69,9 @@ Required files:
 
 ## Verify
 
-- `scripts/eval-product-engineering-closeout.ps1`
+- `scripts/codex.ps1 eval product-engineering-closeout`
 - 相关测试或静态检查
-- `scripts/check-finish-readiness.ps1 -Strict`
+- `scripts/lib/commands/check-finish-readiness.ps1 -Strict`
 
 ## Pass Criteria
 

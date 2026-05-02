@@ -15,9 +15,9 @@
 - 技能变更后必须运行：
 
 ```powershell
-.\scripts\validate-skills.ps1
-.\scripts\validate-skill-contracts.ps1
-.\scripts\audit-skills.ps1
+.\scripts\lib\commands\validate-skills.ps1
+.\scripts\lib\commands\validate-skill-contracts.ps1
+.\scripts\lib\commands\audit-skills.ps1
 ```
 
 ## 保留原则

@@ -5,7 +5,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$repairScript = Join-Path $PSScriptRoot "repair-git-network-env.ps1"
+$repairScript = Join-Path $PSScriptRoot "lib\commands\repair-git-network-env.ps1"
 if (Test-Path -LiteralPath $repairScript) {
     & $repairScript -Quiet
 }

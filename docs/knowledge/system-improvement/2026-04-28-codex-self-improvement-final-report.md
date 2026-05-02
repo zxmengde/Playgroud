@@ -26,22 +26,22 @@
 - `.agents/skills/{failure-promoter,external-mechanism-researcher,research-engineering-loop,product-engineering-closer,uiux-reviewer,knowledge-curator,tool-router,finish-verifier}/SKILL.md`
 - `docs/workflows/{self-improvement,product,uiux}.md`
 - `docs/validation/system-improvement/*.md`
-- `scripts/self-improvement-object-lib.ps1`
-- `scripts/validate-failure-log.ps1`
-- `scripts/validate-lessons.ps1`
-- `scripts/validate-routing-v1.ps1`
-- `scripts/validate-skill-contracts.ps1`
-- `scripts/validate-active-load.ps1`
-- `scripts/eval-repeat-failure-capture.ps1`
-- `scripts/eval-lesson-promotion.ps1`
-- `scripts/eval-routing-selection.ps1`
-- `scripts/eval-external-mechanism-review-check.ps1`
-- `scripts/eval-research-memo-quality.ps1`
-- `scripts/eval-uiux-review-quality.ps1`
-- `scripts/eval-session-recovery.ps1`
-- `scripts/eval-unverified-closeout-block.ps1`
-- `scripts/eval-product-engineering-closeout.ps1`
-- `scripts/codex-hook-post-tool-capture.ps1`
+- `scripts/lib/self-improvement-object-lib.ps1`
+- `scripts/lib/commands/validate-failure-log.ps1`
+- `scripts/lib/commands/validate-lessons.ps1`
+- `scripts/lib/commands/validate-routing-v1.ps1`
+- `scripts/lib/commands/validate-skill-contracts.ps1`
+- `scripts/lib/commands/validate-active-load.ps1`
+- `scripts/lib/commands/eval-repeat-failure-capture.ps1`
+- `scripts/lib/commands/eval-lesson-promotion.ps1`
+- `scripts/lib/commands/eval-routing-selection.ps1`
+- `scripts/lib/commands/eval-external-mechanism-review-check.ps1`
+- `scripts/lib/commands/eval-research-memo-quality.ps1`
+- `scripts/lib/commands/eval-uiux-review-quality.ps1`
+- `scripts/lib/commands/eval-session-recovery.ps1`
+- `scripts/lib/commands/eval-unverified-closeout-block.ps1`
+- `scripts/lib/commands/eval-product-engineering-closeout.ps1`
+- `scripts/lib/commands/codex-hook-post-tool-capture.ps1`
 
 修改：
 
@@ -122,7 +122,7 @@
 ## 7. 自我改进闭环演示
 
 - `FAIL-20260427-210500-a1c201` 被提升为 `LESSON-self-improvement-not-just-hygiene`，并 promotion 到 `docs/workflows/self-improvement.md`
-- `FAIL-20260427-213000-b77d42` 被提升为 `LESSON-external-scoring-needs-mechanism-evidence`，并 promotion 到 `scripts/eval-external-mechanism-review-check.ps1`
+- `FAIL-20260427-213000-b77d42` 被提升为 `LESSON-external-scoring-needs-mechanism-evidence`，并 promotion 到 `scripts/lib/commands/eval-external-mechanism-review-check.ps1`
 - `routing-v1.yaml` 把 self-improvement、research、product、coding、uiux、knowledge、finish、remote 路由到最小 skill / MCP 组合
 - `finish-verifier` 与 Stop hook 共同阻止未验证收尾
 

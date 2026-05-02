@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-05-02",
+  "policy": "one capability layer; external projects contribute mechanisms, not parallel runtimes",
+  "capabilities": [
+    {
+      "id": "doctor-readiness",
+      "problem": "Prevent installed capability drift and unverified completion claims.",
+      "source_projects": ["everything-claude-code", "oh-my-codex"],
+      "implementation": "Unified readiness command over existing local validators and runtime checks.",
+      "entry_command": "scripts/codex.ps1 doctor",
+      "default_load": true,
+      "duplicates": ["check-agent-readiness", "finish readiness"],
+      "status": "active",
+      "verification": "scripts/codex.ps1 doctor"
+    },
+    {
+      "id": "system-audit-validate-eval",
+      "problem": "Reduce duplicated audit, validate and eval entrypoints.",
+      "source_projects": ["everything-claude-code", "oh-my-codex"],
+      "implementation": "scripts/codex.ps1 dispatches audit, validate and eval commands; private scripts live under scripts/lib/commands.",
+      "entry_command": "scripts/codex.ps1 audit | validate | eval",
+      "default_load": true,
+      "duplicates": ["audit-*", "validate-*", "eval-*", "check-*"],
+      "status": "active",
+      "verification": "scripts/codex.ps1 audit; scripts/codex.ps1 validate; scripts/codex.ps1 eval"
+    },
+    {
+      "id": "uiux-review",
+      "problem": "UI/UX review must include desktop, mobile, interaction, accessibility and responsive evidence.",
+      "source_projects": ["ui-ux-pro-max-skill"],
+      "implementation": "Keep a local evidence-first UI/UX sample and smoke command; avoid importing a large style database.",
+      "entry_command": "scripts/codex.ps1 uiux smoke",
+      "default_load": false,
+      "duplicates": [],
+      "status": "active",
+      "verification": "scripts/codex.ps1 uiux smoke"
+    },
+    {
+      "id": "obsidian-knowledge-adapter",
+      "problem": "Knowledge capture needs a single repository-first path and an optional Obsidian adapter.",
+      "source_projects": ["obsidian-skills", "claude-scholar"],
+      "implementation": "Repository knowledge items remain canonical; Obsidian CLI is checked by dry-run search before external vault writes.",
+      "entry_command": "scripts/codex.ps1 knowledge check | obsidian-dry-run",
+      "default_load": false,
+      "duplicates": ["Obsidian MCP", "obsidian-skills full import"],
+      "status": "active",
+      "verification": "scripts/codex.ps1 knowledge obsidian-dry-run"
+    },
+    {
+      "id": "task-workspace-session-recovery",
+      "problem": "Long tasks need restartable state without a separate kanban runtime.",
+      "source_projects": ["vibe-kanban", "Trellis"],
+      "implementation": "docs/tasks/active.md remains the task store; SessionStart and scripts/codex.ps1 task recover expose resumable state.",
+      "entry_command": "scripts/codex.ps1 task recover",
+      "default_load": true,
+      "duplicates": ["full kanban workspace", "Trellis CLI task store"],
+      "status": "active",
+      "verification": "scripts/codex.ps1 task recover"
+    },
+    {
+      "id": "context-management",
+      "problem": "Long sessions need context budget and compact recovery packs.",
+      "source_projects": ["context-mode"],
+      "implementation": "Active load budget stays in routing-v1; scripts/codex.ps1 context budget validates it and context pack prints a compact recovery view.",
+      "entry_command": "scripts/codex.ps1 context budget | pack",
+      "default_load": true,
+      "duplicates": ["context-mode runtime", "SQLite context store"],
+      "status": "active",
+      "verification": "scripts/codex.ps1 context budget"
+    },
+    {
+      "id": "skill-capability-routing",
+      "problem": "Skill, MCP and capability choice must be explicit and auditable.",
+      "source_projects": ["oh-my-codex", "everything-claude-code"],
+      "implementation": "routing-v1 remains canonical; capability map records status and verification; scripts/codex.ps1 capability route shows the selected route.",
+      "entry_command": "scripts/codex.ps1 capability map | route <id>",
+      "default_load": true,
+      "duplicates": ["parallel catalog systems", "full external skill marketplace"],
+      "status": "active",
+      "verification": "scripts/codex.ps1 capability map; scripts/codex.ps1 capability route uiux-review"
+    },
+    {
+      "id": "research-state-and-run-log",
+      "problem": "Research needs recoverable questions, hypotheses, experiments and evidence gaps.",
+      "source_projects": ["AI-Research-SKILLs", "Auto-claude-code-research-in-sleep", "claude-scholar"],
+      "implementation": "A local JSON-subset research-state file and run log provide a small research workflow without importing a large agent runtime.",
+      "entry_command": "scripts/codex.ps1 research smoke",
+      "default_load": false,
+      "duplicates": ["full autoresearch runtime", "remote review queue"],
+      "status": "active",
+      "verification": "scripts/codex.ps1 research smoke"
+    },
+    {
+      "id": "long-running-research-queue",
+      "problem": "Slow research should record queued experiments and review gates.",
+      "source_projects": ["Auto-claude-code-research-in-sleep", "AI-Research-SKILLs"],
+      "implementation": "Use local run log entries and explicit next_review; no autonomous remote execution by default.",
+      "entry_command": "scripts/codex.ps1 research run-log",
+      "default_load": false,
+      "duplicates": ["sleep research daemon", "external notification loop"],
+      "status": "experimental",
+      "verification": "scripts/codex.ps1 research smoke"
+    },
+    {
+      "id": "failure-lesson-mechanism-loop",
+      "problem": "Repeated failures must become lessons and then a verified mechanism.",
+      "source_projects": ["everything-claude-code", "Trellis"],
+      "implementation": "Existing failure and lesson objects are validated; scripts/codex.ps1 eval failure-loop runs the example promotion checks.",
+      "entry_command": "scripts/codex.ps1 eval failure-loop",
+      "default_load": true,
+      "duplicates": [],
+      "status": "active",
+      "verification": "scripts/codex.ps1 eval failure-loop"
+    }
+  ],
+  "rejected": [
+    {
+      "source_project": "vibe-kanban",
+      "mechanism": "Full kanban server and workspace runtime",
+      "reason": "Adds a second task system and external service surface.",
+      "replacement": "docs/tasks/active.md plus scripts/codex.ps1 task recover"
+    },
+    {
+      "source_project": "context-mode",
+      "mechanism": "Full context sandbox runtime and SQLite store",
+      "reason": "Current repository needs budget enforcement more than a new context database.",
+      "replacement": "routing-v1 active load budget plus scripts/codex.ps1 context pack"
+    },
+    {
+      "source_project": "AI-Research-SKILLs",
+      "mechanism": "Full research skill bundle",
+      "reason": "Large skill surface would duplicate existing research workflow.",
+      "replacement": "local research-state and run-log"
+    },
+    {
+      "source_project": "obsidian-skills",
+      "mechanism": "Full Obsidian skill pack",
+      "reason": "Official Obsidian CLI already covers required dry-run and controlled write path.",
+      "replacement": "scripts/codex.ps1 knowledge obsidian-dry-run"
+    }
+  ]
+}

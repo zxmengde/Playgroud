@@ -69,8 +69,8 @@ Required files:
 
 ## Verify
 
-- `scripts/validate-knowledge-index.ps1`
-- `scripts/validate-active-load.ps1`
+- `scripts/codex.ps1 knowledge check`
+- `scripts/codex.ps1 context budget`
 - knowledge 条目结构检查
 
 ## Pass Criteria

@@ -23,7 +23,7 @@ args = ["start-mcp-server", "--project-from-cwd", "--context=codex"]
 - 验证：
   - `serena --help`
   - `serena start-mcp-server --help`
-  - `scripts/audit-serena-obsidian-readiness.ps1` 启动 streamable-http 模式并检查端口
+  - `scripts/lib/commands/audit-serena-obsidian-readiness.ps1` 启动 streamable-http 模式并检查端口
   - `project_serena_folder_location` 已改为用户目录下的集中位置，避免在仓库根目录生成 `.serena/`
 
 ## Obsidian

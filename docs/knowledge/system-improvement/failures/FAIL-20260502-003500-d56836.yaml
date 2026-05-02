@@ -18,12 +18,12 @@
   "evidence": {
     "files": [
       "docs/tasks/active.md",
-      "scripts/audit-serena-obsidian-readiness.ps1",
+      "scripts/lib/commands/audit-serena-obsidian-readiness.ps1",
       "C:/Users/mengde/.codex/config.toml"
     ],
     "commands": [
-      "scripts/validate-system.ps1",
-      "scripts/eval-agent-system.ps1"
+      "scripts/lib/commands/validate-system.ps1",
+      "scripts/lib/commands/eval-agent-system.ps1"
     ],
     "outputs": [
       "codex_hooks_enabled: fail",

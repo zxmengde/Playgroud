@@ -15,6 +15,6 @@
 
 - 结构化 failure 或 lesson
 - 对应的 workflow、skill、hook、eval、validator、memory 或 MCP 变更
-- `scripts/validate-system.ps1`、`scripts/eval-agent-system.ps1`、`scripts/check-finish-readiness.ps1 -Strict` 的结果
+- `scripts/codex.ps1 validate`、`scripts/codex.ps1 eval` 和 `scripts/lib/commands/check-finish-readiness.ps1 -Strict` 的结果
 
 不要把自我改进误缩成仓库卫生。清理、压缩和脚本修复只有在服务于 failure、lesson、routing、memory、hook、eval 或 skill 时才算完成。

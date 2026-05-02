@@ -58,7 +58,7 @@
 验证命令：
 
 ```powershell
-.\scripts\audit-video-skill-readiness.ps1
+.\scripts\lib\commands\audit-video-skill-readiness.ps1
 ```
 
 暂不建议安装：
@@ -71,13 +71,13 @@
 ## 检查命令
 
 ```powershell
-.\scripts\audit-codex-capabilities.ps1
+.\scripts\lib\commands\audit-codex-capabilities.ps1
 ```
 
 ```powershell
-.\scripts\validate-system.ps1
+.\scripts\lib\commands\validate-system.ps1
 ```
 
 ```powershell
-.\scripts\check-agent-readiness.ps1
+.\scripts\lib\commands\check-agent-readiness.ps1
 ```

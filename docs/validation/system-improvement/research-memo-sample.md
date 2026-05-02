@@ -17,7 +17,7 @@ Serena 接通后是否能降低真实代码库中的跨文件定位成本。
 ## Facts
 
 - 当前用户级 Codex 配置已有 Serena MCP 条目，入口为本机 `serena` 命令。
-- `scripts/audit-serena-obsidian-readiness.ps1` 能验证 `serena --version` 和本地 MCP smoke。
+- `scripts/lib/commands/audit-serena-obsidian-readiness.ps1` 能验证 `serena --version` 和本地 MCP smoke。
 - `routing-v1.yaml` 已把 Serena 标为 enabled，并要求先使用只读导航。
 
 ## Inferences

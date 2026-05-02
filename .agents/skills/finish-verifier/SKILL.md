@@ -25,7 +25,7 @@ Required files:
 - `docs/knowledge/system-improvement/failures/`
 - `docs/knowledge/system-improvement/lessons/`
 - `docs/knowledge/system-improvement/routing-v1.yaml`
-- `scripts/check-finish-readiness.ps1`
+- `scripts/lib/commands/check-finish-readiness.ps1`
 
 ## Inputs
 
@@ -68,9 +68,9 @@ Required files:
 
 ## Verify
 
-- `scripts/check-finish-readiness.ps1 -Strict`
-- `scripts/validate-system.ps1`
-- `scripts/eval-agent-system.ps1`
+- `scripts/lib/commands/check-finish-readiness.ps1 -Strict`
+- `scripts/codex.ps1 validate`
+- `scripts/codex.ps1 eval`
 
 ## Pass Criteria
 

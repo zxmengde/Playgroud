@@ -15,7 +15,7 @@
 本机基础检查：
 
 ```powershell
-.\scripts\audit-zotero-library.ps1
+.\scripts\lib\commands\audit-zotero-library.ps1
 ```
 
 ## 处理顺序
@@ -39,4 +39,3 @@
 - Zotero Web API 文档：https://www.zotero.org/support/dev/web_api/v3/start
 - Zotero 数据目录说明：https://www.zotero.org/support/zotero_data
 - Better BibTeX 导出说明：https://retorque.re/zotero-better-bibtex/exporting/
-

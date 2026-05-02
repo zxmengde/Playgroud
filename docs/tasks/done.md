@@ -14,5 +14,5 @@
 新增归档应使用：
 
 ```powershell
-.\scripts\archive-task-state.ps1 -Title "short task title"
+.\scripts\lib\commands\archive-task-state.ps1 -Title "short task title"
 ```

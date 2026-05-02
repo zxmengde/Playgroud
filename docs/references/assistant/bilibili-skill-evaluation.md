@@ -31,7 +31,7 @@
 - 已对 `video-summary` 的主脚本执行 `python -m py_compile`，失败于语法错误。
 - 已安装 `bilibili-video-evidence` 和 `video-note-writer` 到用户级 `C:\Users\mengde\.codex\skills`。
 - 已运行 Codex 技能结构校验，两个技能均通过。
-- 已新增 `scripts/audit-video-skill-readiness.ps1`，用于检查安装文件和本机依赖。
+- 已新增 `scripts/lib/commands/audit-video-skill-readiness.ps1`，用于检查安装文件和本机依赖。
 
 ## 候选评估
 
@@ -88,7 +88,7 @@
 验证命令：
 
 ```powershell
-.\scripts\audit-video-skill-readiness.ps1
+.\scripts\lib\commands\audit-video-skill-readiness.ps1
 ```
 
 若需要课程讲义级产物，再按任务评估 `lecture-to-notes`，不作为默认安装项。

@@ -2,21 +2,23 @@
 
 本文件只记录当前真正落地并可校验的能力，不把愿景当作能力。
 
+统一能力地图见 `docs/capabilities/capability-map.yaml`。默认只保留一套本仓库能力层；外部项目只贡献机制，不引入平行 runtime。统一入口为 `scripts/codex.ps1`。
+
 ## 当前能力
 
 | 能力 | 当前状态 | 当前证据 |
 | --- | --- | --- |
-| active load 恢复 | 可用 | `routing-v1.yaml`、SessionStart hook、`validate-active-load.ps1`、`eval-session-recovery.ps1` |
+| active load 恢复 | 可用 | `routing-v1.yaml`、SessionStart hook、`scripts/codex.ps1 context budget`、`scripts/codex.ps1 task recover` |
 | failure / lesson 对象系统 | 可用 | `failures/`、`lessons/`、两个历史样例、对应 validators |
-| skill 路由 | 可用 | `routing-v1.yaml`、`tool-router`、`validate-routing-v1.ps1`、`eval-routing-selection.ps1` |
-| 自我改进闭环 | 可用 | `failure-promoter`、`harness-log.md`、`eval-lesson-promotion.ps1` |
-| 研究工程 | 可用 | `research-engineering-loop`、`research-memo-sample.md`、`eval-research-memo-quality.ps1` |
-| 产品工程 | 可用 | `product-engineering-closer`、`product.md`、`eval-product-engineering-closeout.ps1` |
-| UI/UX 评审 | 可用 | `uiux-reviewer`、`uiux.md`、`uiux-review-sample.md`、`eval-uiux-review-quality.ps1` |
-| 本地 knowledge-first 沉淀 | 可用 | `knowledge-curator`、`knowledge.md`、`validate-knowledge-index.ps1` |
-| Obsidian 外部 vault 接入 | 可用 | `obsidian` CLI、`audit-serena-obsidian-readiness.ps1`、真实读写 smoke |
+| skill 路由 | 可用 | `routing-v1.yaml`、`tool-router`、`scripts/codex.ps1 capability route <id>` |
+| 自我改进闭环 | 可用 | `failure-promoter`、`harness-log.md`、`scripts/codex.ps1 eval failure-loop` |
+| 研究工程 | 可用 | `research-engineering-loop`、`research-memo-sample.md`、`docs/knowledge/research/research-state.yaml`、`scripts/codex.ps1 research smoke` |
+| 产品工程 | 可用 | `product-engineering-closer`、`product.md`、`scripts/codex.ps1 eval product-engineering-closeout` |
+| UI/UX 评审 | 可用 | `uiux-reviewer`、`uiux.md`、`uiux-review-sample.md`、`scripts/codex.ps1 uiux smoke` |
+| 本地 knowledge-first 沉淀 | 可用 | `knowledge-curator`、`knowledge.md`、`scripts/codex.ps1 knowledge check` |
+| Obsidian 外部 vault 接入 | 可用 | `obsidian` CLI、`scripts/codex.ps1 knowledge obsidian-dry-run` |
 | Serena 语义代码能力 | 可用 | 用户级 `config.toml`、`serena` 安装、`audit-serena-obsidian-readiness.ps1` |
-| finish gate | 可用 | `finish-verifier`、Stop hook、`check-finish-readiness.ps1 -Strict` |
+| finish gate | 可用 | `finish-verifier`、Stop hook、`scripts/lib/commands/check-finish-readiness.ps1 -Strict` |
 
 ## 当前 MCP 结论
 
@@ -43,8 +45,8 @@
 - `routing-v1.yaml`
 - `failures/` 与 `lessons/`
 - 9 个仓库级 skills
-- 5 个 validators
-- 8 个 eval 脚本
+- 统一 `scripts/codex.ps1` 入口
+- `scripts/lib/commands/` 下的私有命令实现
 - 4 个 hooks 阶段
 
 以下复杂度仍然不保留：

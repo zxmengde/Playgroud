@@ -16,7 +16,7 @@
 - 状态：enabled
 - 目标：复杂任务拆解、分支检查和中间判断记录
 - 权限边界：不读取或写入文件，不替代事实核验
-- 验证：`scripts/audit-mcp-config.ps1`
+- 验证：`scripts/lib/commands/audit-mcp-config.ps1`
 - 回退：删除用户级 Codex 配置中的 `[mcp_servers.sequentialThinking]` 后重启 Codex；回退后使用 `docs/tasks/active.md` 和普通任务计划
 
 ### Serena
@@ -27,7 +27,7 @@
 - 分阶段边界：
   - 阶段 1：优先使用符号导航、引用查找和上下文定位
   - 阶段 2：在真实代码任务中启用符号级编辑
-- 验证：`scripts/audit-serena-obsidian-readiness.ps1`
+- 验证：`scripts/lib/commands/audit-serena-obsidian-readiness.ps1`
 
 ## 已启用的非 MCP 外部能力
 

@@ -71,8 +71,8 @@ Required files:
 
 ## Verify
 
-- `scripts/eval-external-mechanism-review-check.ps1`
-- `scripts/validate-routing-v1.ps1`
+- `scripts/codex.ps1 eval external-mechanism-review-check`
+- `scripts/codex.ps1 capability map`
 - 相关引用路径存在性检查
 
 ## Pass Criteria

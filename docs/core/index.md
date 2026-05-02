@@ -93,13 +93,7 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 - PostToolUse：对命令失败和关键验证失败创建或更新 failure 草稿
 - Stop：阻止未验证收尾，不做复杂语义判断
 
-必须维持的 validators：
-
-- `scripts/validate-failure-log.ps1`
-- `scripts/validate-lessons.ps1`
-- `scripts/validate-routing-v1.ps1`
-- `scripts/validate-skill-contracts.ps1`
-- `scripts/validate-active-load.ps1`
+必须维持的 validator 能力由 `scripts/codex.ps1 validate` 统一调度；私有实现位于 `scripts/lib/commands/`。
 
 必须维持的 eval：
 
@@ -130,8 +124,8 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 复杂任务结束前必须确认：
 
 - failure、lesson、routing、skill、validator、hook、MCP 和文档状态一致
-- 已运行 `scripts/validate-system.ps1`
-- 已运行 `scripts/eval-agent-system.ps1`
-- 已运行 `scripts/check-finish-readiness.ps1 -Strict`
+- 已运行 `scripts/codex.ps1 validate`
+- 已运行 `scripts/codex.ps1 eval`
+- 已运行 `scripts/lib/commands/check-finish-readiness.ps1 -Strict`
 - active task、knowledge 和 harness 摘要已更新
 - 没有把低信任输出当作系统事实

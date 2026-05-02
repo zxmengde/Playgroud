@@ -39,11 +39,10 @@ yt-dlp --skip-download --write-info-json --write-subs --write-auto-subs --sub-la
 本机能力检查：
 
 ```powershell
-.\scripts\audit-video-skill-readiness.ps1
+.\scripts\codex.ps1 audit
 ```
 
 ## 参考来源
 
 - yt-dlp 项目：https://github.com/yt-dlp/yt-dlp
 - yt-dlp 支持站点列表：https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md
-

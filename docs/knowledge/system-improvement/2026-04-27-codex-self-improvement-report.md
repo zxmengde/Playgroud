@@ -10,12 +10,12 @@
 
 | 能力 | 证据 | 判断 |
 | --- | --- | --- |
-| 入口与恢复 | `AGENTS.md`、`docs/core/index.md`、`docs/tasks/active.md`、`scripts/check-task-state.ps1` | 有结构，但恢复依赖人工读取和维护 |
-| 硬校验 | `scripts/validate-system.ps1`、`scripts/eval-agent-system.ps1`、`scripts/check-finish-readiness.ps1` | 存在，但在本轮修复前有误报和超时 |
-| Hook | `.codex/hooks.json`、`scripts/codex-hook-risk-check.ps1`、`scripts/codex-hook-stop-check.ps1` | 文件存在，但修复前输出格式不符合官方 hooks 协议，且用户级 `codex_hooks` 未开启 |
+| 入口与恢复 | `AGENTS.md`、`docs/core/index.md`、`docs/tasks/active.md`、`scripts/lib/commands/check-task-state.ps1` | 有结构，但恢复依赖人工读取和维护 |
+| 硬校验 | `scripts/lib/commands/validate-system.ps1`、`scripts/lib/commands/eval-agent-system.ps1`、`scripts/lib/commands/check-finish-readiness.ps1` | 存在，但在本轮修复前有误报和超时 |
+| Hook | `.codex/hooks.json`、`scripts/lib/commands/codex-hook-risk-check.ps1`、`scripts/lib/commands/codex-hook-stop-check.ps1` | 文件存在，但修复前输出格式不符合官方 hooks 协议，且用户级 `codex_hooks` 未开启 |
 | 自动化 | `C:\Users\mengde\.codex\automations\playgroud-readiness-audit\automation.toml`、`playgroud-improvement-triage\automation.toml` | 自动化存在，但修复前至少一个 prompt 指向已不存在路径 |
-| 技能治理 | `.agents/skills/playgroud-maintenance/SKILL.md`、`scripts/audit-skills.ps1`、`scripts/audit-codex-capabilities.ps1` | 仓库级技能极小，用户级技能可审计 |
-| MCP 治理 | `docs/references/assistant/mcp-allowlist.json`、`scripts/audit-mcp-config.ps1` | allowlist 存在；实际配置只有 `sequentialThinking` |
+| 技能治理 | `.agents/skills/playgroud-maintenance/SKILL.md`、`scripts/lib/commands/audit-skills.ps1`、`scripts/lib/commands/audit-codex-capabilities.ps1` | 仓库级技能极小，用户级技能可审计 |
+| MCP 治理 | `docs/references/assistant/mcp-allowlist.json`、`scripts/lib/commands/audit-mcp-config.ps1` | allowlist 存在；实际配置只有 `sequentialThinking` |
 | 知识与复盘 | `docs/knowledge/`、`docs/knowledge/system-improvement/harness-log.md` | 有长期记录面，但部分条目与旧路径历史混杂 |
 
 ### 文档声明但没有机制支撑的地方
@@ -23,15 +23,15 @@
 | 现象 | 证据 | 结论 |
 | --- | --- | --- |
 | Hook 被写入仓库但不生效 | 用户级 `C:\Users\mengde\.codex\config.toml` 原本没有 `codex_hooks = true`；OpenAI 官方 hooks 文档要求在 `[features]` 中显式开启 | 修复前 hook 更像愿景，不是约束 |
-| Hook 脚本输出协议不对 | 原 `scripts/codex-hook-risk-check.ps1` 输出 `continue/block_reason`；OpenAI 官方 hooks 文档要求 `decision/reason` 或 `hookSpecificOutput.permissionDecision` | 修复前即使 hooks 启用，也可能无法按预期阻断 |
+| Hook 脚本输出协议不对 | 原 `scripts/lib/commands/codex-hook-risk-check.ps1` 输出 `continue/block_reason`；OpenAI 官方 hooks 文档要求 `decision/reason` 或 `hookSpecificOutput.permissionDecision` | 修复前即使 hooks 启用，也可能无法按预期阻断 |
 | 自动化存在，但 prompt 已漂移 | `playgroud-improvement-triage` 原 prompt 指向 `docs/core/self-configuration.md` 与 `docs/capabilities/pruning-review.md`，这两个路径不存在 | 修复前自动化只能“看起来存在” |
-| `external-capability-radar.md` 说法与实际配置不一致 | 文档声称 Context7 已开启；`scripts/audit-mcp-config.ps1` 显示当前实际只配置了 `sequentialThinking` | 文档比运行时更乐观 |
+| `external-capability-radar.md` 说法与实际配置不一致 | 文档声称 Context7 已开启；`scripts/lib/commands/audit-mcp-config.ps1` 显示当前实际只配置了 `sequentialThinking` | 文档比运行时更乐观 |
 
 ### 疑似过时、重复、无引用或维护成本过高的内容
 
 | 路径 | 证据 | 当前处理 |
 | --- | --- | --- |
-| `docs/references/assistant/agent-capability-improvement.md` | `scripts/audit-file-usage.ps1` 低引用候选，且内容已被 `docs/core/index.md`、`AGENTS.md`、`docs/profile/*` 吸收 | 删除 |
+| `docs/references/assistant/agent-capability-improvement.md` | `scripts/lib/commands/audit-file-usage.ps1` 低引用候选，且内容已被 `docs/core/index.md`、`AGENTS.md`、`docs/profile/*` 吸收 | 删除 |
 | `docs/references/assistant/intent-interview.md` | 同上；核心思想已由 `intent-interviewer` 技能和工作流承载 | 删除 |
 | `docs/references/assistant/personal-agent-operating-model.md` | 同上；核心思想已进入 `docs/core/index.md` 与用户画像 | 删除 |
 | `docs/user-guide.md` | 与 `README.md`、`AGENTS.md` 高度重叠，实际引用只出现在旧 `active.md` | 删除 |
@@ -115,9 +115,9 @@
 ## 五、实际完成的改动
 
 - 修复 `.cache` 对 `validate-system.ps1`、`audit-file-usage.ps1`、`audit-minimality.ps1` 的干扰。
-- 新增 `scripts/audit-automation-config.ps1`，把用户级自动化 prompt 也纳入仓库校验。
-- 新增 `scripts/codex-hook-session-start.ps1`，为新会话提供任务与恢复上下文。
-- 把 `scripts/codex-hook-risk-check.ps1`、`scripts/codex-hook-stop-check.ps1` 的输出改为符合 Codex hooks 官方协议。
+- 新增 `scripts/lib/commands/audit-automation-config.ps1`，把用户级自动化 prompt 也纳入仓库校验。
+- 新增 `scripts/lib/commands/codex-hook-session-start.ps1`，为新会话提供任务与恢复上下文。
+- 把 `scripts/lib/commands/codex-hook-risk-check.ps1`、`scripts/lib/commands/codex-hook-stop-check.ps1` 的输出改为符合 Codex hooks 官方协议。
 - 在用户级 `C:\Users\mengde\.codex\config.toml` 开启 `codex_hooks = true`。
 - 修复 `playgroud-improvement-triage` 自动化里的旧路径引用。
 - 压缩 `AGENTS.md`。
@@ -128,9 +128,9 @@
 
 ### 已执行
 
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\audit-file-usage.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\audit-automation-config.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-agent-readiness.ps1 -Strict`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\lib\commands\audit-file-usage.ps1`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\lib\commands\audit-automation-config.ps1`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\lib\commands\check-agent-readiness.ps1 -Strict`
 
 ### 已确认现象
 
@@ -140,9 +140,9 @@
 
 ### 仍待本轮末尾再跑
 
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-system.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\eval-agent-system.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-finish-readiness.ps1 -Strict`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\lib\commands\validate-system.ps1`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\lib\commands\eval-agent-system.ps1`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\lib\commands\check-finish-readiness.ps1 -Strict`
 
 ## 七、后续最小建议
 

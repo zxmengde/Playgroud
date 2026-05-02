@@ -71,7 +71,7 @@ Required files:
 
 ## Verify
 
-- `scripts/eval-research-memo-quality.ps1`
+- `scripts/codex.ps1 research smoke`
 - 来源可追溯性检查
 - knowledge 写入层级检查
 

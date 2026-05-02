@@ -31,85 +31,33 @@
 5. 产生产物、验证、知识记录或明确阻塞。
 6. 运行停止前检查并记录剩余风险。
 
-## 校验
+## 统一入口
 
-常规系统校验：
-
-```powershell
-.\scripts\validate-system.ps1
-```
-
-结构与验收校验：
+常规任务优先使用统一入口，不直接调用 `scripts/lib/commands/` 下的私有实现：
 
 ```powershell
-.\scripts\validate-doc-structure.ps1
-.\scripts\validate-acceptance-records.ps1
-```
-
-重复和精简候选审计：
-
-```powershell
-.\scripts\audit-minimality.ps1
-.\scripts\audit-redundancy.ps1
-.\scripts\audit-file-usage.ps1
-.\scripts\audit-active-references.ps1
-```
-
-综合自检与 agent eval：
-
-```powershell
-.\scripts\eval-agent-system.ps1
-```
-
-插件和 MCP 本地可见性审计：
-
-```powershell
-.\scripts\audit-codex-capabilities.ps1
-.\scripts\audit-mcp-config.ps1
-.\scripts\check-agent-readiness.ps1
-```
-
-新增 MCP 前生成评估记录：
-
-```powershell
-.\scripts\new-mcp-adoption-review.ps1 -Name "zotero-readonly"
-```
-
-记录待确认的系统改进候选：
-
-```powershell
-.\scripts\new-system-improvement-proposal.ps1 -Name "zotero-readonly"
-.\scripts\audit-system-improvement-proposals.ps1
+.\scripts\codex.ps1 doctor
+.\scripts\codex.ps1 audit
+.\scripts\codex.ps1 validate
+.\scripts\codex.ps1 eval
+.\scripts\codex.ps1 task recover
+.\scripts\codex.ps1 context budget
+.\scripts\codex.ps1 research smoke
+.\scripts\codex.ps1 uiux smoke
+.\scripts\codex.ps1 knowledge obsidian-dry-run
+.\scripts\codex.ps1 capability map
 ```
 
 安装本仓库本地 Git 提交前检查：
 
 ```powershell
-.\scripts\install-git-hooks.ps1
-```
-
-运行维护自动化同款检查：
-
-```powershell
-.\scripts\run-agent-maintenance.ps1
-```
-
-检查本机 Zotero 库基础状态：
-
-```powershell
-.\scripts\audit-zotero-library.ps1
-```
-
-停止前检查：
-
-```powershell
-.\scripts\check-finish-readiness.ps1
+.\scripts\codex.ps1 setup git-hooks
 ```
 
 GitHub 代理诊断：
 
 ```powershell
-.\scripts\test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin
+.\scripts\codex.ps1 git ls-remote --heads origin main
 ```
 
 Codex shell 中普通 Git 命令遇到 Windows 网络环境缺项时，使用包装脚本：
@@ -122,13 +70,13 @@ Codex shell 中普通 Git 命令遇到 Windows 网络环境缺项时，使用包
 Codex App 本地环境设置建议见 `docs/references/assistant/codex-app-settings.md`。Windows 设置脚本可调用：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\scripts\setup-codex-environment.ps1"
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\scripts\codex.ps1" setup environment
 ```
 
 若需要检查 Python、Node、npm、npx、代理变量和 MCP 启动前置环境：
 
 ```powershell
-.\scripts\test-codex-runtime.ps1
+.\scripts\codex.ps1 doctor
 ```
 
 ## 权限

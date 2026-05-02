@@ -19,9 +19,9 @@
 
 ## 验证
 
-- `scripts/validate-skills.ps1` 验证 Zotero/PDF 技能结构。
-- `scripts/audit-skills.ps1` 检查技能是否包含触发、读取、执行、产物和验证。
-- `scripts/validate-acceptance-records.ps1` 检查本验收记录完整。
+- `scripts/lib/commands/validate-skills.ps1` 验证 Zotero/PDF 技能结构。
+- `scripts/lib/commands/audit-skills.ps1` 检查技能是否包含触发、读取、执行、产物和验证。
+- `scripts/lib/commands/validate-acceptance-records.ps1` 检查本验收记录完整。
 
 ## 复盘
 
@@ -30,4 +30,3 @@ Zotero/PDF 能力的关键不是默认读取更多本地资料，而是在得到
 ## 边界
 
 个人 Zotero 库和本地 PDF 集合可能包含个人资料或未公开研究材料，未经明确路径和目的授权不得扫描。该能力当前成熟度仍应保持为草稿或边界已明确的可用状态。
-

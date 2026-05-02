@@ -15,8 +15,8 @@ paths:
   - docs/workflows/video.md
   - skills/literature-zotero-workflow/SKILL.md
   - skills/video-source-workflow/SKILL.md
-  - scripts/audit-skills.ps1
-  - scripts/test-git-network.ps1
+  - scripts/lib/commands/audit-skills.ps1
+  - scripts/lib/commands/test-git-network.ps1
 links:
   - https://www.zotero.org/support/dev/web_api/v3/start
   - https://www.zotero.org/support/zotero_data
@@ -43,7 +43,7 @@ GitHub 网络诊断：本仓库本地 Git 配置已经设置 `http.proxy` 和 `h
 
 # 事实、推断与不确定性
 
-事实：已新增 `docs/assistant/cost-control.md`、`docs/assistant/git-network-troubleshooting.md`、`docs/assistant/capability-gap-review.md`、`docs/assistant/skill-audit.md`、`docs/workflows/literature-zotero.md`、`docs/workflows/video.md`、`skills/literature-zotero-workflow/`、`skills/video-source-workflow/`、`scripts/audit-skills.ps1` 和 `scripts/test-git-network.ps1`。
+事实：已新增 `docs/assistant/cost-control.md`、`docs/assistant/git-network-troubleshooting.md`、`docs/assistant/capability-gap-review.md`、`docs/assistant/skill-audit.md`、`docs/workflows/literature-zotero.md`、`docs/workflows/video.md`、`skills/literature-zotero-workflow/`、`skills/video-source-workflow/`、`scripts/lib/commands/audit-skills.ps1` 和 `scripts/lib/commands/test-git-network.ps1`。
 
 推断：GitHub 网络失败更可能与代理端口监听、Codex 打包应用 loopback 访问或当前 shell 网络栈有关，而不是单纯缺少 Git 代理配置。
 

@@ -67,7 +67,7 @@ Required files:
 
 ## Verify
 
-- `scripts/eval-uiux-review-quality.ps1`
+- `scripts/codex.ps1 uiux smoke`
 - 浏览器截图或交互证据
 
 ## Pass Criteria

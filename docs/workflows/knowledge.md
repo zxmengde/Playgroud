@@ -28,7 +28,7 @@
 - `docs/knowledge/system-improvement/harness-log.md`
 - 可选的 Obsidian 写入说明或实际写入
 
-新建本地 knowledge item 时，优先使用 `scripts/new-knowledge-item.ps1 -Title "..." -Type "..."` 生成模板，再补充来源、状态、事实、推断和后续事项。该脚本只写入仓库内 `docs/knowledge/items/`，不直接写外部 vault。
+新建本地 knowledge item 时，优先使用 `scripts/codex.ps1 knowledge new -Title "..." -Type "..."` 生成模板，再补充来源、状态、事实、推断和后续事项。该入口只写入仓库内 `docs/knowledge/items/`，不直接写外部 vault。
 
 ## Obsidian 边界
 

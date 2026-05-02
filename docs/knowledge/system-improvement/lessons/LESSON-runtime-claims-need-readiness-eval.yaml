@@ -34,7 +34,7 @@
   },
   "promotion": {
     "target": "eval",
-    "target_path": "scripts/eval-agent-system.ps1",
+    "target_path": "scripts/lib/commands/eval-agent-system.ps1",
     "applied_by": "codex",
     "applied_at": "2026-05-02T00:58:00+08:00"
   }

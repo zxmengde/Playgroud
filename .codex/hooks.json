@@ -4,24 +4,24 @@
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex-hook-risk-check.ps1')\""
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex.ps1') hook risk\""
       }
     ],
     "SessionStart": [
       {
         "matcher": "startup|resume|clear",
-        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex-hook-session-start.ps1')\""
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex.ps1') hook session-start\""
       }
     ],
     "PostToolUse": [
       {
         "matcher": "Bash",
-        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex-hook-post-tool-capture.ps1')\""
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex.ps1') hook post-tool-capture\""
       }
     ],
     "Stop": [
       {
-        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex-hook-stop-check.ps1')\""
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"$root = git rev-parse --show-toplevel; & (Join-Path $root 'scripts/codex.ps1') hook stop-check\""
       }
     ]
   }

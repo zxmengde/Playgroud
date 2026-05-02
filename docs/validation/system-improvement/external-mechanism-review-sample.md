@@ -19,7 +19,7 @@
 - commit: `serena-readiness-local`
 - path: `C:\Users\mengde\.codex\config.toml`
 - line: `[mcp_servers.serena]` 使用本机 `serena` 命令启动 MCP。
-- path: `scripts/audit-serena-obsidian-readiness.ps1`
+- path: `scripts/lib/commands/audit-serena-obsidian-readiness.ps1`
 - line: 该脚本检查 `serena --version` 并启动本地 MCP 端口 smoke。
 
 ## Fit Decision

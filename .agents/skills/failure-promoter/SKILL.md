@@ -71,9 +71,8 @@ Required files:
 
 ## Verify
 
-- `scripts/validate-failure-log.ps1`
-- `scripts/validate-lessons.ps1`
-- `scripts/eval-lesson-promotion.ps1`
+- `scripts/codex.ps1 eval failure-loop`
+- `scripts/codex.ps1 validate`
 
 ## Pass Criteria
 

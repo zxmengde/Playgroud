@@ -76,9 +76,9 @@ Required files:
 
 ## Verify
 
-- `scripts/validate-system.ps1`
-- `scripts/eval-agent-system.ps1`
-- `scripts/check-finish-readiness.ps1 -Strict`
+- `scripts/codex.ps1 validate`
+- `scripts/codex.ps1 eval`
+- `scripts/lib/commands/check-finish-readiness.ps1 -Strict`
 
 ## Pass Criteria
 

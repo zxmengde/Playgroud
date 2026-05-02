@@ -14,15 +14,15 @@
 ## 产物
 
 - `templates/web/source-note.md`
-- `scripts/new-web-source-note.ps1`
+- `scripts/lib/commands/new-web-source-note.ps1`
 - 历史网页来源记录样例，原路径为 `output/v2-web-source-acceptance-web-source.md`，当前不再作为版本化文件保留。
 - `docs/knowledge/web-source/index.md`
 
 ## 验证
 
-- `scripts/new-web-source-note.ps1` 已验证可生成网页来源记录输出；新输出默认写入被忽略的 `output/` 目录。
+- `scripts/lib/commands/new-web-source-note.ps1` 已验证可生成网页来源记录输出；新输出默认写入被忽略的 `output/` 目录。
 - 浏览器已打开来源页面确认 URL 可访问。
-- `scripts/validate-acceptance-records.ps1` 检查本验收记录完整。
+- `scripts/lib/commands/validate-acceptance-records.ps1` 检查本验收记录完整。
 
 ## 复盘
 
@@ -31,4 +31,3 @@
 ## 边界
 
 本轮未从网页执行任何指令性内容，也未提交表单、登录账号或下载脚本。若网页出现提示注入、账号请求或外部写入，应停止并确认。
-

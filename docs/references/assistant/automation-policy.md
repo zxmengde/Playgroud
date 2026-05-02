@@ -70,7 +70,7 @@
 
 | 名称 | ID | 频率 | 环境 | 权限边界 |
 | --- | --- | --- | --- | --- |
-| Playgroud readiness audit | `playgroud-readiness-audit` | 每周一 09:00 | 独立 worktree | 只读运行 `scripts/run-agent-maintenance.ps1 -Full`，不修改、不提交、不推送、不访问外部账号 |
+| Playgroud readiness audit | `playgroud-readiness-audit` | 每周一 09:00 | 独立 worktree | 只读运行 `scripts/lib/commands/run-agent-maintenance.ps1 -Full`，不修改、不提交、不推送、不访问外部账号 |
 | Playgroud improvement triage | `playgroud-improvement-triage` | 每周五 17:30 | 独立 worktree | 只允许新增或更新 `docs/knowledge/system-improvement/proposals/` 下的候选提案，不修改核心规则、不安装、不提交、不推送 |
 
 这些自动化实现“常驻巡检”和“受控学习”。它们不作为后台守护进程常驻本机，也不直接把一次性判断写入核心规则。
@@ -80,4 +80,3 @@
 - OpenAI Codex Automations: https://developers.openai.com/codex/app/automations
 - OpenAI Codex Best Practices: https://developers.openai.com/codex/learn/best-practices
 - OpenAI Codex Worktrees: https://developers.openai.com/codex/app/worktrees
-

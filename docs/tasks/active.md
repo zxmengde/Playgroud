@@ -2,7 +2,7 @@
 
 ## Status
 
-验证通过，待提交与提交后严格收尾检查。当前任务是一次仓库级 Codex 自我改进优化，重点是事实基线、外部机制研究、最小机制改造、验证和最终审计报告。
+二次整改实现与 smoke 验证已完成，待提交、严格收尾检查和推送。当前结果是顶层 `scripts/*.ps1` 从 58 个降为 3 个，并建立 `scripts/codex.ps1` 统一命令层、capability map、research state、run log 和多个可运行 smoke workflow。
 
 ## Last Updated
 
@@ -10,61 +10,51 @@
 
 ## Goal
 
-在 `D:\Code\Playgroud` 中完成一次可验证、可回滚的 Codex 自我改进式优化。目标不是扩展为庞大 agent framework，而是通过删除低价值复杂度、修复运行事实失配、强化 eval 和 task state，使 Codex 更少重复犯错、更会外部调研、UI/UX、产品工程、实验验证、工具路由和中断恢复。
+在 `D:\Code\Playgroud` 中完成二次整改：减少顶层脚本数量，合并重复 audit / validate / eval / check / hook / new / setup 入口，落地统一 capability map，并使 research、UI/UX、Obsidian knowledge、task recovery、context management、doctor/readiness、skill routing 和 failure lesson mechanism 至少有最小可运行入口。
 
 ## Read Sources
 
 - `AGENTS.md`
+- `README.md`
 - `docs/core/index.md`
 - `docs/profile/user-model.md`
 - `docs/profile/preference-map.md`
 - `docs/tasks/active.md`
+- `docs/capabilities/index.md`
+- `docs/references/assistant/external-mechanism-transfer.md`
 - `docs/knowledge/system-improvement/routing-v1.yaml`
 - `docs/knowledge/system-improvement/harness-log.md`
-- `docs/workflows/self-improvement.md`
-- `docs/workflows/research.md`
-- `docs/workflows/product.md`
-- `docs/workflows/uiux.md`
-- `docs/workflows/knowledge.md`
-- `docs/references/assistant/external-capability-radar.md`
-- `docs/references/assistant/external-mechanism-transfer.md`
-- `docs/references/assistant/mcp-capability-plan.md`
-- `C:\Users\mengde\.codex\config.toml`
+- `.codex/hooks.json`
+- `scripts/`
 
 ## Commands
 
 - `git status --short --branch`
-- `git pull --ff-only`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\audit-file-usage.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\audit-minimality.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\audit-redundancy.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-system.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\eval-agent-system.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\audit-serena-obsidian-readiness.ps1`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\test-git-network.ps1 -Remote origin`
-- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\git-safe.ps1 clone --depth 1 --filter=blob:none <repo> <temp>`
+- `Get-ChildItem scripts -Filter *.ps1`
+- `rg "scripts/.+\.ps1" ...`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 doctor`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 audit`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 validate`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 eval`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 research smoke`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 uiux smoke`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 knowledge obsidian-dry-run`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 task recover`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 context budget`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\codex.ps1 capability map`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\pre-commit-check.ps1`
+- `git diff --check`
 
 ## Artifacts
 
-- docs 目录下的最终自我改进报告
-- `docs/tasks/active.md`
-- `docs/tasks/done.md`
-- `docs/workflows/coding.md`
-- `docs/workflows/knowledge.md`
-- `docs/references/assistant/external-capability-radar.md`
-- `docs/references/assistant/external-mechanism-transfer.md`
-- `docs/references/assistant/mcp-capability-plan.md`
-- `docs/references/assistant/tool-registry.md`
-- `docs/knowledge/system-improvement/failures/`
-- `docs/knowledge/system-improvement/lessons/`
-- `scripts/archive-task-state.ps1`
-- `scripts/check-task-state.ps1`
-- `scripts/validate-active-load.ps1`
-- `scripts/eval-external-mechanism-review-check.ps1`
-- `scripts/eval-product-engineering-closeout.ps1`
-- `scripts/eval-uiux-review-quality.ps1`
-- `docs/validation/system-improvement/*`
-- 用户级配置备份：`C:\Users\mengde\.codex\config.toml.bak-20260502-003513`
+- `scripts/codex.ps1`
+- `scripts/pre-commit-check.ps1`
+- `scripts/lib/commands/`
+- `scripts/lib/self-improvement-object-lib.ps1`
+- `docs/capabilities/capability-map.yaml`
+- `docs/knowledge/research/research-state.yaml`
+- `docs/knowledge/research/run-log.md`
+- `.codex/hooks.json`
 
 ## Unverified
 
@@ -72,13 +62,13 @@
 
 ## Blockers
 
-- 普通 `git pull --ff-only` 在当前 shell 出现 GitHub Schannel TLS 握手失败；`scripts/test-git-network.ps1 -Remote origin` 的 `git ls-remote` 通过，后续 GitHub 操作优先使用 `scripts/git-safe.ps1`。
+无当前阻塞。GitHub 网络仍优先使用 `scripts/git-safe.ps1` 或 `scripts/codex.ps1 git ...` 路径。
 
 ## Next
 
-1. 提交当前改动。
-2. 提交后运行 `check-finish-readiness.ps1 -Strict`。
-3. 使用 `scripts/git-safe.ps1 push origin main` 同步远端。
+1. 提交本轮改动。
+2. 提交后运行 `scripts/lib/commands/check-finish-readiness.ps1 -Strict`。
+3. 使用 `scripts/git-safe.ps1 push origin main` 推送。
 
 ## Recovery
 
@@ -87,16 +77,16 @@
 ```powershell
 git status --short --branch
 Get-Content -Raw .\docs\tasks\active.md
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-system.ps1
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\eval-agent-system.ps1
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-finish-readiness.ps1 -Strict
+.\scripts\codex.ps1 task recover
+.\scripts\codex.ps1 context pack
+.\scripts\codex.ps1 doctor
 ```
 
-若需要恢复用户级 Codex 配置，使用 `C:\Users\mengde\.codex\config.toml.bak-20260502-003513` 与当前 `C:\Users\mengde\.codex\config.toml` 对比后恢复。
+回滚本轮仓库改动优先使用 Git revert；用户级配置本轮不做新写入。
 
 ## Anti-Sycophancy
 
-- Literal-only: 不把“保持轻量”理解成“不改”；删除和合并低价值复杂度是本轮目标的一部分。
-- Real-goal: 真实目标是让 Codex 更可验证、更可恢复、更少重复犯错，而不是堆报告。
-- User-premise: 外部项目必须按机制筛选，不把项目清单当安装清单。
-- Unverified-claims: 不把文档声称写成运行事实；所有接通、优化、删除和回滚都以命令、文件或 diff 为证据。
+- Literal-only: 不把“统一入口”写成说明文件；必须能运行。
+- Real-goal: 真实目标是减少重复脚本入口并保留验证能力。
+- User-premise: 外部项目只贡献机制，不安装十套并行系统。
+- Unverified-claims: 未跑 smoke test 的能力不得写成 active。

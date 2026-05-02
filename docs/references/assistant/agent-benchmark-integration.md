@@ -24,8 +24,8 @@
 | Hermes | 有界记忆，区分用户画像和代理运行笔记 | 继续由 `docs/profile/` 与 `docs/knowledge/` 承担；不增加第二套记忆 MCP |
 | Hermes | skills 作为过程记忆，安装前保留来源和审查信息 | 新增安全技能；第三方技能继续按 `docs/references/assistant/third-party-skill-evaluation.md` 审查 |
 | Hermes | MCP 作为适配层，并尽量过滤暴露面 | 新增 `sequentialThinking` MCP；高权限 MCP 仍需评估记录 |
-| Hermes | stdio MCP 不应默认继承全部环境 | `scripts/repair-git-network-env.ps1` 只补必要 Windows、代理和本地例外变量 |
-| OpenClaw | 配置 schema、doctor 和运行前检查 | 新增 `scripts/check-agent-readiness.ps1`、`scripts/audit-minimality.ps1`、`scripts/test-codex-runtime.ps1` |
+| Hermes | stdio MCP 不应默认继承全部环境 | `scripts/lib/commands/repair-git-network-env.ps1` 只补必要 Windows、代理和本地例外变量 |
+| OpenClaw | 配置 schema、doctor 和运行前检查 | 新增 `scripts/lib/commands/check-agent-readiness.ps1`、`scripts/lib/commands/audit-minimality.ps1`、`scripts/lib/commands/test-codex-runtime.ps1` |
 | OpenClaw | workspace 与技能目录隔离 | 保留 Playgroud 作为控制仓库；禁用旧 `personal-work-assistant` 技能入口 |
 | OpenClaw | skills 安装、检查和更新应可审计 | 安装安全技能后通过技能列表复验；后续安装继续记录来源和用途 |
 | OpenClaw 安全研究 | 能力、身份、知识任一维度被污染都会显著增加风险 | 停止前检查加入最小化、MCP 配置和任务状态标记；外部资料不得直接触发删除、提交或账号写入 |
@@ -38,7 +38,7 @@
 
 第二，Hermes 的 MCP 工具过滤和 OpenClaw 的 skill allowlist 都说明，外部能力应按工具面和任务面收窄，而不是按可用能力全量暴露。当前仓库将 `sequentialThinking` 设为 required，将 `context7` 与 `openaiDeveloperDocs` 设为 recommended，不启用通用 filesystem、memory、邮件、日程、网盘、支付或金融类 MCP。
 
-第三，OpenClaw 的 `doctor` 思路适合迁移为只读检查。当前仓库已有 `scripts/check-agent-readiness.ps1`，本轮新增 `scripts/audit-active-references.ps1` 和 `scripts/audit-system-improvement-proposals.ps1`，把旧路径、缺失引用和未成形改进候选纳入停止前检查。
+第三，OpenClaw 的 `doctor` 思路适合迁移为只读检查。当前仓库已有 `scripts/lib/commands/check-agent-readiness.ps1`，本轮新增 `scripts/lib/commands/audit-active-references.ps1` 和 `scripts/lib/commands/audit-system-improvement-proposals.ps1`，把旧路径、缺失引用和未成形改进候选纳入停止前检查。
 
 ## 不迁移的部分
 
@@ -48,11 +48,11 @@
 
 ## 已执行的强制化改造
 
-- `scripts/audit-minimality.ps1`：检查版本化生成物、旧入口、大文件、重复小文件和本地输出目录。
-- `scripts/audit-video-skill-readiness.ps1`：检查 Bilibili 视频技能安装文件和本机依赖，避免视频能力只停留在说明层面。
-- `scripts/check-agent-readiness.ps1`：集中检查最小化证据、MCP 配置、运行时环境和任务状态标记。
-- `scripts/test-codex-runtime.ps1`：检查 Windows 环境变量、代理变量、Git、Python、Node、npm 和 npx。
-- `scripts/repair-git-network-env.ps1`：把 Git 代理同步为 Python、npm、MCP 常用代理环境变量。
+- `scripts/lib/commands/audit-minimality.ps1`：检查版本化生成物、旧入口、大文件、重复小文件和本地输出目录。
+- `scripts/lib/commands/audit-video-skill-readiness.ps1`：检查 Bilibili 视频技能安装文件和本机依赖，避免视频能力只停留在说明层面。
+- `scripts/lib/commands/check-agent-readiness.ps1`：集中检查最小化证据、MCP 配置、运行时环境和任务状态标记。
+- `scripts/lib/commands/test-codex-runtime.ps1`：检查 Windows 环境变量、代理变量、Git、Python、Node、npm 和 npx。
+- `scripts/lib/commands/repair-git-network-env.ps1`：把 Git 代理同步为 Python、npm、MCP 常用代理环境变量。
 - 用户级 Codex 配置：新增 `sequentialThinking` MCP，关闭当前无任务支撑的 Android 测试插件，补齐 Windows 和代理环境变量。
 - 用户级 skills：新增 `security-best-practices`、`security-ownership-map`、`security-threat-model` 与 `jupyter-notebook`，旧 `personal-work-assistant` 移入禁用目录。
 - 用户级视频 skills：新增 `bilibili-video-evidence` 与 `video-note-writer`，用于先采集 Bilibili 证据再生成 Markdown 笔记。

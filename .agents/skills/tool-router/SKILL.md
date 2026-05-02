@@ -68,8 +68,8 @@ Required files:
 
 ## Verify
 
-- `scripts/validate-routing-v1.ps1`
-- `scripts/eval-routing-selection.ps1`
+- `scripts/codex.ps1 capability map`
+- `scripts/codex.ps1 eval routing-selection`
 
 ## Pass Criteria
 

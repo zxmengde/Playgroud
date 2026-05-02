@@ -17,16 +17,16 @@ https.proxy=http://127.0.0.1:7897
 
 后续进一步诊断显示：Clash Verge 配置文件中存在 `mixed-port: 7897`，Windows 用户级系统代理也指向 `127.0.0.1:7897`，但 `curl.exe --proxy http://127.0.0.1:7897 https://github.com` 仍无法连接。`clash_verge_service` 服务处于运行状态，但普通 Codex 进程尝试重启服务时返回 `Access is denied`。`CheckNetIsolation` 对推断的 Codex 包名添加 loopback exemption 失败，且 Codex 包使用 `runFullTrust`，loopback exemption 不是可靠主路径。
 
-2026-04-26 再次运行 `scripts/test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin` 显示代理 TCP 端口已经可达，但 `curl` 和 `git ls-remote` 均在 Schannel TLS 握手阶段失败，错误为 `schannel: failed to receive handshake, SSL/TLS connection failed`。因此当前主要问题已从“代理端口不可达”转为“代理链路可建立 CONNECT，但 TLS 握手失败”。后续应优先检查 Clash/Mihomo 节点、规则、证书拦截、Git TLS 后端、系统时间和普通终端中同一命令的表现。
+2026-04-26 再次运行 `scripts/lib/commands/test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin` 显示代理 TCP 端口已经可达，但 `curl` 和 `git ls-remote` 均在 Schannel TLS 握手阶段失败，错误为 `schannel: failed to receive handshake, SSL/TLS connection failed`。因此当前主要问题已从“代理端口不可达”转为“代理链路可建立 CONNECT，但 TLS 握手失败”。后续应优先检查 Clash/Mihomo 节点、规则、证书拦截、Git TLS 后端、系统时间和普通终端中同一命令的表现。
 
-2026-04-26 后续定位到 Codex shell 进程缺少部分 Windows 基础环境变量，导致 Winsock、curl 和 Git 初始化网络失败，表现为 `Unknown error 10106`、`getaddrinfo() thread failed to start` 或代理端口不可连接。为当前进程补齐 `SystemRoot`、`WINDIR`、`ComSpec`、`APPDATA` 和 `LOCALAPPDATA` 后，`git ls-remote --heads origin main` 和 `curl.exe -I --proxy http://127.0.0.1:7897 https://github.com` 均可运行。已新增 `scripts/repair-git-network-env.ps1` 并在 `scripts/test-git-network.ps1` 开头调用。
+2026-04-26 后续定位到 Codex shell 进程缺少部分 Windows 基础环境变量，导致 Winsock、curl 和 Git 初始化网络失败，表现为 `Unknown error 10106`、`getaddrinfo() thread failed to start` 或代理端口不可连接。为当前进程补齐 `SystemRoot`、`WINDIR`、`ComSpec`、`APPDATA` 和 `LOCALAPPDATA` 后，`git ls-remote --heads origin main` 和 `curl.exe -I --proxy http://127.0.0.1:7897 https://github.com` 均可运行。已新增 `scripts/lib/commands/repair-git-network-env.ps1` 并在 `scripts/lib/commands/test-git-network.ps1` 开头调用。
 
 ## 诊断脚本
 
 优先运行：
 
 ```powershell
-.\scripts\test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin
+.\scripts\lib\commands\test-git-network.ps1 -Proxy http://127.0.0.1:7897 -Remote origin
 ```
 
 脚本会先修复当前进程缺失的 Windows 网络环境变量，再检查 Git 代理配置、远程地址、代理端口可达性、curl 代理访问和 `git ls-remote`。失败时根据具体阶段判断下一步。
@@ -41,7 +41,7 @@ https.proxy=http://127.0.0.1:7897
 Codex App 的 Windows 本地环境设置建议调用：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\scripts\setup-codex-environment.ps1"
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\scripts\lib\commands\setup-codex-environment.ps1"
 ```
 
 这会修复进程环境并设置本仓库本地 Git 代理。它不会写入用户级环境变量，也不会修改全局 Git 代理。
@@ -49,7 +49,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\sc
 若需要让新启动的 Codex shell 长期继承完整 Windows 环境变量，并让所有仓库默认使用同一 Git 代理，可在确认后运行：
 
 ```powershell
-.\scripts\install-codex-git-network-fix.ps1 -SetUserEnvironment -SetGlobalGitProxy
+.\scripts\lib\commands\install-codex-git-network-fix.ps1 -SetUserEnvironment -SetGlobalGitProxy
 ```
 
 该命令会修改用户级环境变量和全局 Git 配置，执行前需要任务级授权或预授权。执行后需要重启 Codex 再复测。
