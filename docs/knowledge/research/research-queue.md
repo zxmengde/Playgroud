@@ -1,6 +1,6 @@
 # Research Queue
 
-本文件只定义可审计的长研究队列，不代表后台服务或无人值守运行时已经启用。
+本文件只定义可审计的长研究队列，不代表后台服务或无人值守运行时已经启用。Policy marker: no background service, no unattended service.
 
 ## Queue Policy
 
@@ -11,6 +11,7 @@
 ## Queue Item Schema
 
 - id:
+- source:
 - question:
 - state: queued | running | review_needed | blocked | done | cancelled
 - evidence_quality:
@@ -23,7 +24,7 @@
 
 ## Current Queue
 
-当前有一项 review_needed 记录，用于验证本地 queue / review gate 机制；它不代表后台服务已启用。
+当前队列项均为 `blocked`，用于验证本地 queue / review gate 能拒绝证据不足的长研究项；它不代表后台服务已启用。
 
 ## Commands
 
@@ -38,13 +39,28 @@
 
 ### RQ-20260503-001
 - id: RQ-20260503-001
+- source: external adoption continuation
 - question: How to keep external adoption mechanisms usable without background runtime
-- state: review_needed
-- evidence_quality: local artifacts and validators
+- state: blocked
+- evidence_quality: insufficient_non_self_evidence
 - review_gate: manual review before claiming background capability
 - run_log: docs/knowledge/research/run-log.md
 - interruption_recovery: resume from research queue, run log and active task
 - user_authorization_boundary: no external write or long-running service
-- next_action: run validate-delivery-system
+- next_action: do not claim long-running research adoption until fixture or real lifecycle proof exists
 - rollback: git revert current commit
-- updated_at: 2026-05-03T03:33:17
+- updated_at: 2026-05-03T10:20:00
+
+### RQ-20260503-002
+- id: RQ-20260503-002
+- source: docs/validation/adoption-proof-fixtures.md
+- question: Can the local research queue reject insufficient evidence without pretending to run in background?
+- state: blocked
+- evidence_quality: insufficient_evidence
+- review_gate: blocked because queue item has no non-self research evidence yet
+- run_log: docs/knowledge/research/run-log.md
+- interruption_recovery: resume from queue item and run log before any future claim
+- user_authorization_boundary: no external write, cron, daemon, watchdog or unattended service
+- next_action: gather non-self evidence before moving to done
+- rollback: git revert current commit
+- updated_at: 2026-05-03T10:20:00

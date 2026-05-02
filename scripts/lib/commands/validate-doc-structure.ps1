@@ -7,6 +7,7 @@ $ErrorActionPreference = "Stop"
 $required = @(
     "docs\core\index.md",
     "docs\core\delivery-contract.md",
+    "docs\core\adoption-proof-standard.md",
     "docs\core\tool-use-budget.md",
     "docs\core\skill-use-policy.md",
     "docs\core\context-modes.md",
@@ -46,6 +47,7 @@ $required = @(
     "docs\workflows\product.md",
     "docs\workflows\uiux.md",
     "docs\validation\real-task-evals.md",
+    "docs\validation\adoption-proof-fixtures.md",
     "docs\tasks\board.md",
     "docs\tasks\attempts.md",
     "docs\references\assistant\hook-risk-stdin-smoke.md",
@@ -63,7 +65,7 @@ if ($missing.Count -gt 0) {
 }
 
 $coreMarkdown = @(Get-ChildItem -Path (Join-Path $Root "docs\core") -Filter "*.md" -File -ErrorAction SilentlyContinue)
-$allowedCoreMarkdown = @("index.md", "delivery-contract.md", "tool-use-budget.md", "skill-use-policy.md", "context-modes.md", "typed-object-registry.md")
+$allowedCoreMarkdown = @("index.md", "delivery-contract.md", "adoption-proof-standard.md", "tool-use-budget.md", "skill-use-policy.md", "context-modes.md", "typed-object-registry.md")
 $unexpectedCore = @($coreMarkdown | Where-Object { $allowedCoreMarkdown -notcontains $_.Name })
 if ($unexpectedCore.Count -gt 0) {
     throw ("Unexpected docs/core markdown files: " + (($unexpectedCore | Select-Object -ExpandProperty Name) -join ", "))

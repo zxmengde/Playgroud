@@ -4,18 +4,16 @@
 
 ## Active
 
-- task_id: TASK-20260503-adoption-continuity
-- outcome: 补全 obsidian-skills、vibe-kanban、Auto-claude-code-research-in-sleep 的本地机制，并合并过细 eval 脚本。
-- checkpoint: promotion ledger、task attempt、research queue/review gate、validator 与 help 映射已补齐；`validate`、`eval` 已通过，`git diff --check` 已清理尾随空格后通过。
-- next_action: 查看最终 diff，提交，运行 strict finish，推送并确认状态。
-- stale_detection: 若本任务已提交推送而 active/board 仍显示 running，必须归档到 `done.md` 并创建新 active task。
-- resume_summary: 从 `git status --short --branch`、`docs/tasks/active.md`、`docs/tasks/attempts.md`、`docs/knowledge/promotion-ledger.md` 和 `research queue` 恢复。
+- task_id: TASK-20260503-adoption-proof-audit
+- outcome: 审计 `3d0e91d` 的 adoption proof、状态漂移和 validator 假阳性，并提交修复分支。
+- checkpoint: adoption proof standard、fixture proof、validator、finish gate、状态同步、failure 记录和报告已完成。
+- next_action: 等待用户 review 修复分支和提交记录。
+- stale_detection: 若 latest attempt 为 `running` 或 `review_needed` 且 active task 声称完成，finish gate 必须失败；若 active 与 board 指向不同任务，先修状态再收尾。
+- resume_summary: 从 `git status --short --branch`、`docs/tasks/active.md`、`docs/tasks/attempts.md`、`docs/tasks/board.md`、promotion ledger 和 research queue 恢复。
 
 ## Next
 
-- 提交当前改动。
-- 提交后运行 strict finish。
-- 推送到 `origin/main` 并确认工作区干净。
+- 无当前 next task；后续只按用户 review 意见继续。
 
 ## Blocked
 
@@ -24,6 +22,8 @@
 ## Done
 
 - 2026-05-02: 二次整改已由提交 `c552c2f` 推送到 `origin/main`，不再作为 active task 保留。
+- 2026-05-03: 提交 `3d0e91d` 已存在于本地历史；其 adoption-continuity attempt 被本轮审计判定存在状态漂移，需以当前修复分支纠偏。
+- 2026-05-03: `TASK-20260503-adoption-proof-audit` 完成状态纠偏和反假阳性检查器，未直接推送 `main`。
 
 ## Recovery
 

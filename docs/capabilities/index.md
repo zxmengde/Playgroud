@@ -6,28 +6,30 @@
 
 | 状态 | 含义 |
 | --- | --- |
-| declared | 只有文档声明 |
+| documented | 只有文档声明 |
+| command_stub | 有命令入口或对象字段，但语义检查不足 |
 | smoke_passed | 只有样例或 smoke 路径通过 |
-| experimental | 可试用，但未证明稳定 |
-| task_proven | 通过真实任务 eval 或真实交付证据 |
-| user_proven | 用户在真实使用中确认有效 |
+| partial | 已吸收部分机制，但存在明确未覆盖范围 |
+| integration_tested | 有真实或 fixture-based integration proof，且 validator 检查关键语义 |
+| task_used | 已在真实任务中使用并留下非自指证据 |
+| user_confirmed | 用户在真实使用中确认有效 |
 | deprecated | 保留历史，不再默认使用 |
 
-不得把 sample smoke 直接写成 `task_proven` 或 `user_proven`。
+不得把 sample smoke 直接写成 `task_used` 或 `user_confirmed`。`adopted` 不再是允许状态。
 
 ## 当前能力
 
 | capability | maturity_status | 用户入口 | 证据 | 主要限制 |
 | --- | --- | --- | --- | --- |
-| delivery-readiness-contract | experimental | `docs/core/delivery-contract.md`、`scripts/codex.ps1 validate` | delivery contract、validator | 不能自动判断语义质量 |
+| delivery-readiness-contract | integration_tested | `docs/core/delivery-contract.md`、`scripts/codex.ps1 validate` | delivery contract、adoption proof validator、finish gate | 不能自动判断语义质量 |
 | command-help-route | smoke_passed | `scripts/codex.ps1 help`、`capability route` | help validator、dispatch | 只检查关键 help 项 |
 | uiux-real-review-pack | smoke_passed | `docs/workflows/uiux.md`、real-task eval | UI workflow、eval spec | 尚无本仓库真实 UI 截图任务 |
-| knowledge-promotion-lifecycle | experimental | `knowledge promote`、`knowledge promotions` | promotion ledger、knowledge workflow、object registry | Obsidian 写入仍需目标和回滚 |
-| task-board-session-recovery | experimental | `task board`、`task attempt`、`task recover` | board、attempt ledger、active/done | 无 kanban server |
-| context-modes | experimental | `docs/core/context-modes.md` | mode table、tool budget | 非运行时截断引擎 |
-| research-queue-review-gate | experimental | `research queue`、`research enqueue`、`research review-gate` | queue spec、run log、review gate 命令 | 无后台服务 |
+| knowledge-promotion-lifecycle | integration_tested | `knowledge promote`、`knowledge promotions` | promotion ledger、adoption proof fixture、knowledge workflow | Obsidian 写入仍需目标和回滚 |
+| task-board-session-recovery | integration_tested | `task board`、`task attempt`、`task recover` | board、attempt ledger、fixture lifecycle、finish gate | 无 kanban server |
+| context-modes | partial | `docs/core/context-modes.md` | mode table、tool budget | 非运行时截断引擎 |
+| research-queue-review-gate | integration_tested | `research queue`、`research enqueue`、`research review-gate` | queue spec、run log、fixture lifecycle | 无后台服务 |
 | research-to-claim-pipeline | smoke_passed | `docs/workflows/research.md` | research workflow、eval spec | research smoke 不证明完整论文任务 |
-| typed-object-registry | experimental | `docs/core/typed-object-registry.md` | registry、validator | 非完整 schema 编译器 |
+| typed-object-registry | integration_tested | `docs/core/typed-object-registry.md` | registry、adoption proof standard、validator | 非完整 schema 编译器 |
 | system-audit-validate-eval | smoke_passed | `scripts/codex.ps1 audit/validate/eval` | 统一入口、脚本结果 | 不能替代真实任务交付 |
 | failure-lesson-mechanism-loop | smoke_passed | `scripts/codex.ps1 eval failure-loop` | failure/lesson validators | 样例对象仍需人工判断高影响 lesson |
 
@@ -58,4 +60,4 @@
 
 ## 回滚
 
-能力回滚以 `docs/capabilities/capability-map.yaml` 的 `rollback` 字段为准。若能力只处于 `declared`、`smoke_passed` 或 `experimental`，不得在最终报告中写成用户已经验证。
+能力回滚以 `docs/capabilities/capability-map.yaml` 的 `rollback` 字段为准。若能力只处于 `documented`、`command_stub`、`smoke_passed`、`partial` 或 `integration_tested`，不得在最终报告中写成用户已经确认。

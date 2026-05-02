@@ -77,6 +77,29 @@ function Get-Section {
     return ""
 }
 
+function Get-LedgerBlocks {
+    param([Parameter(Mandatory = $true)][string]$RelativePath)
+
+    $path = Join-Path $Root $RelativePath
+    if (-not (Test-Path -LiteralPath $path)) { return @() }
+    $content = Get-Content -LiteralPath $path -Raw -Encoding UTF8
+    $blocks = @()
+    foreach ($match in [regex]::Matches($content, "(?ms)^###\s+(.+?)\s*\r?\n(.*?)(?=^###\s|\z)")) {
+        $fields = [ordered]@{}
+        foreach ($line in ($match.Groups[2].Value -split "\r?\n")) {
+            $fieldMatch = [regex]::Match($line, "^\s*-\s+([^:]+):\s*(.*)\s*$")
+            if ($fieldMatch.Success) {
+                $fields[$fieldMatch.Groups[1].Value.Trim()] = $fieldMatch.Groups[2].Value.Trim()
+            }
+        }
+        $blocks += [pscustomobject]@{
+            title = $match.Groups[1].Value.Trim()
+            fields = $fields
+        }
+    }
+    return $blocks
+}
+
 function Show-Help {
     Write-Output "Usage: scripts/codex.ps1 <command> [subcommand]"
     Write-Output ""
@@ -101,6 +124,8 @@ function Show-TaskRecovery {
     $path = Join-Path $Root "docs\tasks\active.md"
     if (-not (Test-Path -LiteralPath $path)) { throw "Missing docs/tasks/active.md" }
     $content = Get-Content -LiteralPath $path -Raw -Encoding UTF8
+    $attempts = @(Get-LedgerBlocks -RelativePath "docs\tasks\attempts.md")
+    $latestAttempt = $attempts | Select-Object -Last 1
     Write-Output "Task recovery"
     foreach ($heading in @("Status", "Goal", "Next", "Recovery", "Blockers")) {
         Write-Output ""
@@ -108,6 +133,15 @@ function Show-TaskRecovery {
         $section = Get-Section -Content $content -Heading $heading
         if ([string]::IsNullOrWhiteSpace($section)) { $section = "none" }
         Write-Output $section
+    }
+    if ($null -ne $latestAttempt) {
+        Write-Output ""
+        Write-Output "## Latest Attempt"
+        foreach ($field in @("id", "task_id", "status", "checkpoint", "resume_summary", "next_action", "stale_after", "verification")) {
+            if ($latestAttempt.fields.Contains($field)) {
+                Write-Output ("{0}: {1}" -f $field, $latestAttempt.fields[$field])
+            }
+        }
     }
 }
 
@@ -274,6 +308,7 @@ function Add-ResearchQueueItem {
 
     $fields = [ordered]@{
         id = $id
+        source = Get-ArgValue -CommandArgs $CommandArgs -Name "Source" -Default "manual"
         question = Get-ArgValue -CommandArgs $CommandArgs -Name "Question" -Default "unspecified"
         state = $state
         evidence_quality = Get-ArgValue -CommandArgs $CommandArgs -Name "EvidenceQuality" -Default "unchecked"

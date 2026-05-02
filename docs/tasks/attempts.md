@@ -38,11 +38,23 @@
 ### ATT-20260503-002
 - id: ATT-20260503-002
 - task_id: TASK-20260503-adoption-continuity
-- status: review_needed
+- status: cancelled
 - checkpoint: validate eval diff-check passed after mechanism adoption
-- resume_summary: ready for final diff review, commit, strict finish and push
-- next_action: commit and push after final status
+- resume_summary: cancelled by TASK-20260503-adoption-proof-audit because final claim conflicted with active task, attempt state and evidence quality
+- next_action: use TASK-20260503-adoption-proof-audit for correction; do not treat this attempt as completed adoption proof
 - stale_after: 2026-05-04
-- verification: validate; eval; validate-delivery-system; git diff --check
+- verification: fact audit found validator and strict finish false positives
 - rollback: git revert current commit
-- updated_at: 2026-05-03T03:36:50
+- updated_at: 2026-05-03T10:20:00
+
+### ATT-20260503-003
+- id: ATT-20260503-003
+- task_id: TASK-20260503-adoption-proof-audit
+- status: done
+- checkpoint: adoption proof standard, fixture proof, validator, finish gate, state repair and report completed
+- resume_summary: recover from active task, board, report and commit on fix/adoption-proof-state-drift
+- next_action: user review
+- stale_after: 2026-05-04
+- verification: validate-delivery-system; validate; eval; git diff --check; strict finish
+- rollback: git revert current commit
+- updated_at: 2026-05-03T11:10:00

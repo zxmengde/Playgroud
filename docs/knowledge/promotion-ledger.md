@@ -25,10 +25,32 @@
 ### KP-20260503-001
 - id: KP-20260503-001
 - source: external adoption continuation
-- status: curated_note
-- target: repository
+- status: superseded
+- target: archive
 - evidence: docs/capabilities/external-adoptions.md; docs/knowledge/promotion-ledger.md
 - verification: scripts/codex.ps1 knowledge check
 - rollback: git revert current commit
-- next_action: validate promotion ledger
-- updated_at: 2026-05-03T03:33:07
+- next_action: replaced by non-self promotion proof in KP-20260503-002 and KP-20260503-003
+- updated_at: 2026-05-03T10:20:00
+
+### KP-20260503-002
+- id: KP-20260503-002
+- source: docs/workflows/knowledge.md raw-note policy
+- status: raw_note
+- target: repository
+- evidence: docs/workflows/knowledge.md; docs/core/adoption-proof-standard.md
+- verification: scripts/codex.ps1 knowledge promotions
+- rollback: git revert current commit
+- next_action: curate into adoption proof standard and fixture
+- updated_at: 2026-05-03T10:20:00
+
+### KP-20260503-003
+- id: KP-20260503-003
+- source: KP-20260503-002
+- status: verified_knowledge
+- target: obsidian_ready
+- evidence: docs/core/adoption-proof-standard.md; docs/validation/adoption-proof-fixtures.md
+- verification: scripts/lib/commands/validate-delivery-system.ps1
+- rollback: git revert current commit
+- next_action: do not write external Obsidian vault unless user provides target and rollback path
+- updated_at: 2026-05-03T10:20:00

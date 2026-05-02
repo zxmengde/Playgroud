@@ -50,6 +50,6 @@ required_artifacts: diff、目录统计前后对比、adoption cards、capabilit
 required_verification: 新增 validator、`scripts/codex.ps1 validate`、`scripts/codex.ps1 eval`、`git diff --check`、finish readiness。  
 common_failure_modes: 只写报告；新增更多目录；缓存未清理；active task 漂移；capability 状态虚高；help 与命令不一致。  
 pass_conditions: 至少一个验证门检查新机制；缓存噪声清理；状态与入口一致；报告列出回滚方法。  
-fail_conditions: 无实际 diff；少于 8 个 adoption adopted/partial；sample smoke 写成 task_proven；未修复 help 或 hook 文档。  
+fail_conditions: 无实际 diff；外部机制状态仍使用 adopted；sample smoke 写成 task_used/user_confirmed；未修复 help 或 hook 文档。
 evidence_required: 修改文件清单、删除清单、统计表、验证输出、Git 状态、回滚步骤。  
 rollback_or_recovery: Git revert 当前提交；若未提交，按报告中的删除和新增清单逐项恢复。

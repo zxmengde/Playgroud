@@ -1,6 +1,6 @@
 # Skill Use Policy
 
-仓库级 skill 默认不自动加载。已 adopted 的外部机制默认加载对应 workflow/checklist 和最短 output contract；只有该机制的产物需要 skill 才读取对应 `SKILL.md`。非关键、高风险或会诱导无关脚本/MCP 的 skill 仍为 `do_not_load`。
+仓库级 skill 默认不自动加载。达到 `integration_tested` 及以上的外部机制默认加载对应 workflow/checklist 和最短 output contract；只有该机制的产物需要 skill 才读取对应 `SKILL.md`。非关键、高风险或会诱导无关脚本/MCP 的 skill 仍为 `do_not_load`。
 
 ## 统一政策
 
@@ -16,7 +16,7 @@ adopted_mechanism_default_load:
 
 trigger_to_skill_eval_lesson_loop:
 
-- 任务触发 adopted 机制时，先加载对应 workflow/checklist；若 checklist 不足，再加载一个最小 skill。
+- 任务触发 `integration_tested` 及以上机制时，先加载对应 workflow/checklist；若 checklist 不足，再加载一个最小 skill。
 - 机制产物完成后，运行对应 validator 或 eval：knowledge 用 `knowledge check` 与 `validate-delivery-system.ps1`，task/research 用 `validate-delivery-system.ps1`，UI/research 样例用 `scripts/codex.ps1 eval`。
 - 验证失败、重复失败或用户指出行为问题时，进入 `failure-promoter`，把失败沉淀为 lesson、workflow、validator 或 hook。
 

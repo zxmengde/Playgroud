@@ -45,6 +45,7 @@ $always = @($summary.always)
 foreach ($requiredPath in @(
         "AGENTS.md",
         "docs/core/index.md",
+        "docs/core/adoption-proof-standard.md",
         "docs/profile/user-model.md",
         "docs/profile/preference-map.md",
         "docs/tasks/active.md"

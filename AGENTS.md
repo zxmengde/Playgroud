@@ -33,4 +33,5 @@
 - failure 放在 `docs/knowledge/system-improvement/failures/`，lesson 放在 `docs/knowledge/system-improvement/lessons/`，routing 放在 `docs/knowledge/system-improvement/routing-v1.yaml`。
 - 失败经验优先转化为最小机制：memory、skill、hook、eval、workflow 或 MCP；只有机制无法承载时才补规则文本。
 - 复杂任务收尾前优先运行 `scripts/codex.ps1 validate`、`scripts/codex.ps1 eval`，最终门仍可直接运行私有实现 `scripts/lib/commands/check-finish-readiness.ps1 -Strict`。
-- sample smoke 只能证明 `smoke_passed`，不能写成 `task_proven` 或 `user_proven`。能力状态以 `docs/capabilities/capability-map.yaml` 的新枚举为准。
+- 外部机制证据等级以 `docs/core/adoption-proof-standard.md` 为准；`adopted` 不再作为完成状态，sample smoke 不能写成 `task_used` 或 `user_confirmed`。
+- 能力状态以 `docs/capabilities/capability-map.yaml` 的新枚举为准。

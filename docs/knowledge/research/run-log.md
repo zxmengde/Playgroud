@@ -18,8 +18,24 @@ Decision rule: promote only commands that pass smoke checks or record a concrete
 
 ### review-gate RQ-20260503-001
 - id: RQ-20260503-001
-- decision: review_needed
-- evidence_quality: local artifacts and validators only
+- decision: blocked
+- evidence_quality: insufficient_non_self_evidence
 - reviewer: codex
-- next_action: do not claim daemon or unattended runtime
-- updated_at: 2026-05-03T03:33:17
+- next_action: do not claim daemon, unattended runtime or adopted long-running queue
+- updated_at: 2026-05-03T10:20:00
+
+### enqueue RQ-20260503-002
+- id: RQ-20260503-002
+- decision: queued
+- evidence_quality: unchecked
+- reviewer: codex
+- next_action: run review gate before any done claim
+- updated_at: 2026-05-03T10:20:00
+
+### review-gate RQ-20260503-002
+- id: RQ-20260503-002
+- decision: blocked
+- evidence_quality: insufficient_evidence
+- reviewer: codex
+- next_action: keep queue item blocked until non-self evidence exists
+- updated_at: 2026-05-03T10:20:00

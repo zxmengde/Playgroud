@@ -31,6 +31,40 @@ function Invoke-ExitAwareCheck {
     }
 }
 
+function Get-Section {
+    param([string]$Content, [string]$Heading)
+    $pattern = "(?ms)^##\s+" + [regex]::Escape($Heading) + "\s*\r?\n(.*?)(?=^##\s|\z)"
+    $match = [regex]::Match($Content, $pattern)
+    if ($match.Success) { return $match.Groups[1].Value.Trim() }
+    return ""
+}
+
+function Get-LedgerBlocks {
+    param([string]$Text)
+    $blocks = @()
+    foreach ($match in [regex]::Matches($Text, "(?ms)^###\s+(.+?)\s*\r?\n(.*?)(?=^###\s|\z)")) {
+        $fields = [ordered]@{}
+        foreach ($line in ($match.Groups[2].Value -split "\r?\n")) {
+            $fieldMatch = [regex]::Match($line, "^\s*-\s+([^:]+):\s*(.*)\s*$")
+            if ($fieldMatch.Success) {
+                $fields[$fieldMatch.Groups[1].Value.Trim()] = $fieldMatch.Groups[2].Value.Trim()
+            }
+        }
+        $blocks += [pscustomobject]@{
+            title = $match.Groups[1].Value.Trim()
+            fields = $fields
+        }
+    }
+    return $blocks
+}
+
+function Get-BlockField {
+    param([object]$Block, [string]$Name)
+    if ($null -eq $Block) { return "" }
+    if ($Block.fields.Contains($Name)) { return [string]$Block.fields[$Name] }
+    return ""
+}
+
 Write-Output "## Finish readiness checks"
 
 Write-Output ""
@@ -44,6 +78,41 @@ if (@($gitStatus | Where-Object { $_ -match '^\?\?|^ M|^M |^A |^ D|^D ' }).Count
 Write-Output ""
 Write-Output "### Task state"
 & (Join-Path $Root "scripts\lib\commands\check-task-state.ps1") -Root $Root
+
+Write-Output ""
+Write-Output "### Final claim consistency"
+$activePath = Join-Path $Root "docs\tasks\active.md"
+$active = Get-Content -LiteralPath $activePath -Raw -Encoding UTF8
+$activeStatus = Get-Section -Content $active -Heading "Status"
+$activeNext = Get-Section -Content $active -Heading "Next"
+$activeUnverified = Get-Section -Content $active -Heading "Unverified"
+$attemptPath = Join-Path $Root "docs\tasks\attempts.md"
+$latestAttempt = $null
+if (Test-Path -LiteralPath $attemptPath) {
+    $latestAttempt = @(Get-LedgerBlocks (Get-Content -LiteralPath $attemptPath -Raw -Encoding UTF8)) | Select-Object -Last 1
+}
+$latestAttemptId = Get-BlockField $latestAttempt "id"
+$latestAttemptStatus = Get-BlockField $latestAttempt "status"
+Write-Output ("latest_attempt: {0} status={1}" -f $latestAttemptId, $latestAttemptStatus)
+if (@("running", "review_needed") -contains $latestAttemptStatus) {
+    Add-WarningLine "Latest task attempt is still open."
+}
+if ($activeUnverified -match "pending_validation:\s*true|unverified:\s*true") {
+    Add-WarningLine "Active task still marks validation as pending."
+}
+if ($activeNext -match "commit|push|validate|eval|strict|diff") {
+    Add-WarningLine "Active task still lists finish actions in Next."
+}
+$finalReportPath = Join-Path $Root "docs\Codex-adoption-proof-state-drift-audit.md"
+if (Test-Path -LiteralPath $finalReportPath) {
+    $finalReport = Get-Content -LiteralPath $finalReportPath -Raw -Encoding UTF8
+    if ($finalReport -match "completed|pushed" -and ($activeUnverified -match "pending_validation:\s*true|unverified:\s*true")) {
+        Add-WarningLine "Final report claims completion while active task is unverified."
+    }
+}
+if ($activeStatus -match "completed|pushed" -and ($activeUnverified -match "pending_validation:\s*true|unverified:\s*true")) {
+    Add-WarningLine "Active status claims completion while Unverified is still pending."
+}
 
 Write-Output ""
 Write-Output "### Knowledge indexes"

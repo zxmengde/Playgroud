@@ -11,9 +11,10 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 1. 检查 Git 状态。工作区干净且同步不会覆盖用户改动时，可以执行快进同步。
 2. 读取 `docs/tasks/active.md`、`docs/tasks/board.md`、本文件、`docs/core/delivery-contract.md`、`docs/profile/user-model.md`、`docs/profile/preference-map.md`。
 3. 复杂任务先定义 User Outcome、Done Criteria、Hidden Obligations、Non-goals、Risk Surface 和 Verification Plan。
-4. 使用 `docs/knowledge/system-improvement/routing-v1.yaml` 选择最小必要 workflow、skill、MCP 和脚本；预算见 `docs/core/tool-use-budget.md` 与 `docs/core/skill-use-policy.md`。
-5. 落地产物、运行 validators 与 evals、更新任务状态和必要知识。
-6. 收尾前通过 finish gate，不把未验证状态伪装成完成。
+4. 外部机制和 capability 状态以 `docs/core/adoption-proof-standard.md` 为准；不得把文档存在或命令入口写成能力完成。
+5. 使用 `docs/knowledge/system-improvement/routing-v1.yaml` 选择最小必要 workflow、skill、MCP 和脚本；预算见 `docs/core/tool-use-budget.md` 与 `docs/core/skill-use-policy.md`。
+6. 落地产物、运行 validators 与 evals、更新任务状态和必要知识。
+7. 收尾前通过 finish gate，不把未验证状态伪装成完成。
 
 ## Active Load
 
@@ -22,6 +23,7 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 - `AGENTS.md`
 - `docs/core/index.md`
 - `docs/core/delivery-contract.md`
+- `docs/core/adoption-proof-standard.md`
 - `docs/profile/user-model.md`
 - `docs/profile/preference-map.md`
 - `docs/tasks/active.md`
@@ -109,7 +111,7 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 - session-recovery
 - unverified-closeout-block
 
-真实任务 eval 规格见 `docs/validation/real-task-evals.md`。sample smoke 只能证明 `smoke_passed`；真实任务证据不足时不得写成 `task_proven` 或 `user_proven`。
+真实任务 eval 规格见 `docs/validation/real-task-evals.md`。adoption proof fixture 见 `docs/validation/adoption-proof-fixtures.md`。sample smoke 只能证明 `smoke_passed`；fixture proof 只能证明 `integration_tested`；真实任务证据不足时不得写成 `task_used` 或 `user_confirmed`。
 
 ## 权限边界
 
@@ -133,4 +135,6 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 - 已运行 `scripts/codex.ps1 eval`
 - 已运行 `scripts/lib/commands/check-finish-readiness.ps1 -Strict`
 - active task、knowledge 和 harness 摘要已更新
+- latest task attempt 不是 `running` 或 `review_needed`
+- final report、active task、board、attempt 和 Git 状态不矛盾
 - 没有把低信任输出当作系统事实
