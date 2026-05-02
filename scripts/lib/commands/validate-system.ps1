@@ -26,8 +26,14 @@ $required = @(
     "README.md",
     ".codex\hooks.json",
     "docs\core\index.md",
+    "docs\core\delivery-contract.md",
+    "docs\core\tool-use-budget.md",
+    "docs\core\skill-use-policy.md",
+    "docs\core\context-modes.md",
+    "docs\core\typed-object-registry.md",
     "docs\capabilities\index.md",
     "docs\capabilities\capability-map.yaml",
+    "docs\capabilities\external-adoptions.md",
     "docs\profile\user-model.md",
     "docs\profile\preference-map.md",
     "docs\profile\intake-questionnaire.md",
@@ -38,6 +44,7 @@ $required = @(
     "docs\knowledge\research\index.md",
     "docs\knowledge\research\research-state.yaml",
     "docs\knowledge\research\run-log.md",
+    "docs\knowledge\research\research-queue.md",
     "docs\knowledge\project\index.md",
     "docs\knowledge\web-source\index.md",
     "docs\knowledge\system-improvement\index.md",
@@ -54,6 +61,8 @@ $required = @(
     "docs\references\assistant\mcp-capability-plan.md",
     "docs\references\assistant\plugin-mcp-availability.md",
     "docs\references\assistant\codex-app-settings.md",
+    "docs\references\assistant\hook-risk-stdin-smoke.md",
+    "docs\validation\real-task-evals.md",
     "docs\validation\v2-acceptance\index.md",
     "docs\validation\system-improvement\external-mechanism-review-sample.md",
     "docs\validation\system-improvement\research-memo-sample.md",
@@ -61,6 +70,7 @@ $required = @(
     "docs\validation\system-improvement\product-engineering-sample.md",
     "docs\knowledge\items",
     "docs\tasks\active.md",
+    "docs\tasks\board.md",
     "docs\tasks\done.md",
     "docs\tasks\blocked.md",
     "docs\workflows\coding.md",
@@ -125,6 +135,7 @@ $required = @(
     "scripts\lib\commands\validate-routing-v1.ps1",
     "scripts\lib\commands\validate-skill-contracts.ps1",
     "scripts\lib\commands\validate-active-load.ps1",
+    "scripts\lib\commands\validate-delivery-system.ps1",
     "scripts\lib\self-improvement-object-lib.ps1",
     "scripts\lib\commands\codex-hook-risk-check.ps1",
     "scripts\lib\commands\codex-hook-session-start.ps1",
@@ -217,7 +228,6 @@ Invoke-ExitAwareCheck -Label "validate-skill-contracts" -ScriptPath (Join-Path $
 & (Join-Path $Root "scripts\lib\commands\audit-system-improvement-proposals.ps1") -Root $Root
 & (Join-Path $Root "scripts\lib\commands\audit-automation-config.ps1") -Root $Root
 & (Join-Path $Root "scripts\lib\commands\audit-video-skill-readiness.ps1")
-& (Join-Path $Root "scripts\lib\commands\audit-serena-obsidian-readiness.ps1") -Root $Root
 & (Join-Path $Root "scripts\lib\commands\audit-codex-capabilities.ps1") | Out-Null
 & (Join-Path $Root "scripts\lib\commands\audit-mcp-config.ps1") | Out-Null
 & (Join-Path $Root "scripts\lib\commands\check-agent-readiness.ps1") -Root $Root
@@ -230,6 +240,7 @@ Invoke-ExitAwareCheck -Label "validate-failure-log" -ScriptPath (Join-Path $Root
 Invoke-ExitAwareCheck -Label "validate-lessons" -ScriptPath (Join-Path $Root "scripts\lib\commands\validate-lessons.ps1") -Arguments @{ Root = $Root }
 Invoke-ExitAwareCheck -Label "validate-routing-v1" -ScriptPath (Join-Path $Root "scripts\lib\commands\validate-routing-v1.ps1") -Arguments @{ Root = $Root }
 Invoke-ExitAwareCheck -Label "validate-active-load" -ScriptPath (Join-Path $Root "scripts\lib\commands\validate-active-load.ps1") -Arguments @{ Root = $Root }
+Invoke-ExitAwareCheck -Label "validate-delivery-system" -ScriptPath (Join-Path $Root "scripts\lib\commands\validate-delivery-system.ps1") -Arguments @{ Root = $Root }
 & (Join-Path $Root "scripts\lib\commands\eval-agent-system.ps1") -Root $Root | Out-Null
 
 Write-Output "System validation passed."

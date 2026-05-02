@@ -107,13 +107,6 @@ try {
     Add-Result "automation_prompts_valid" $false $_.Exception.Message
 }
 
-try {
-    & (Join-Path $Root "scripts\lib\commands\audit-serena-obsidian-readiness.ps1") -Root $Root | Out-Null
-    Add-Result "serena_obsidian_readiness" ($LASTEXITCODE -eq 0) "Serena/Obsidian readiness audit completed"
-} catch {
-    Add-Result "serena_obsidian_readiness" $false $_.Exception.Message
-}
-
 $usageOutput = & (Join-Path $Root "scripts\lib\commands\audit-file-usage.ps1") -Root $Root
 $usageText = ($usageOutput -join "`n")
 $lowCount = 999
@@ -147,6 +140,7 @@ Invoke-EvalScript -Name "uiux_review_quality" -ScriptPath (Join-Path $Root "scri
 Invoke-EvalScript -Name "session_recovery" -ScriptPath (Join-Path $Root "scripts\lib\commands\eval-session-recovery.ps1")
 Invoke-EvalScript -Name "unverified_closeout_block" -ScriptPath (Join-Path $Root "scripts\lib\commands\eval-unverified-closeout-block.ps1")
 Invoke-EvalScript -Name "product_engineering_closeout" -ScriptPath (Join-Path $Root "scripts\lib\commands\eval-product-engineering-closeout.ps1")
+Invoke-EvalScript -Name "delivery_system_contracts" -ScriptPath (Join-Path $Root "scripts\lib\commands\validate-delivery-system.ps1")
 
 Invoke-EvalScript -Name "unified_research_smoke" -ScriptPath (Join-Path $Root "scripts\codex.ps1") -Arguments @("research", "smoke")
 Invoke-EvalScript -Name "unified_uiux_smoke" -ScriptPath (Join-Path $Root "scripts\codex.ps1") -Arguments @("uiux", "smoke")

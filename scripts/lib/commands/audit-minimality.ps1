@@ -41,9 +41,11 @@ if (Test-Path -LiteralPath $assistantDir) {
 $legacyAssistantFiles = @($assistantFiles | Where-Object { $_.Name -ne "index.md" })
 
 $coreFiles = @(Get-ChildItem -Path (Join-Path $Root "docs\core") -Filter "*.md" -File -ErrorAction SilentlyContinue)
-$legacyCoreFiles = @($coreFiles | Where-Object { $_.Name -ne "index.md" })
+$allowedCoreFiles = @("index.md", "delivery-contract.md", "tool-use-budget.md", "skill-use-policy.md", "context-modes.md", "typed-object-registry.md")
+$legacyCoreFiles = @($coreFiles | Where-Object { $allowedCoreFiles -notcontains $_.Name })
 $capFiles = @(Get-ChildItem -Path (Join-Path $Root "docs\capabilities") -Filter "*.md" -File -ErrorAction SilentlyContinue)
-$legacyCapFiles = @($capFiles | Where-Object { $_.Name -ne "index.md" })
+$allowedCapabilityFiles = @("index.md", "external-adoptions.md")
+$legacyCapFiles = @($capFiles | Where-Object { $allowedCapabilityFiles -notcontains $_.Name })
 
 $archiveLegacyPath = Join-Path $Root "docs\archive\assistant-v1"
 $outputPath = Join-Path $Root "output"

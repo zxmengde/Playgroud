@@ -57,6 +57,7 @@ Required files:
 - 至少一份可视或交互证据
 - 桌面与移动端覆盖情况明确
 - 主要 action、层次、状态必须检查
+- 截图证据、responsive、accessibility、interaction states、empty/loading/error states、copywriting、visual hierarchy 和 user task path 都必须显式覆盖或说明不适用
 
 ## Workflow
 

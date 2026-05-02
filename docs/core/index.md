@@ -9,10 +9,11 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 ## 默认执行循环
 
 1. 检查 Git 状态。工作区干净且同步不会覆盖用户改动时，可以执行快进同步。
-2. 读取 `AGENTS.md`、本文件、`docs/profile/user-model.md`、`docs/profile/preference-map.md`、`docs/tasks/active.md`。
-3. 使用 `docs/knowledge/system-improvement/routing-v1.yaml` 选择最小必要 skill 与 MCP 组合。
-4. 落地产物、运行 validators 与 evals、更新任务状态和必要知识。
-5. 收尾前通过 finish gate，不把未验证状态伪装成完成。
+2. 读取 `docs/tasks/active.md`、`docs/tasks/board.md`、本文件、`docs/core/delivery-contract.md`、`docs/profile/user-model.md`、`docs/profile/preference-map.md`。
+3. 复杂任务先定义 User Outcome、Done Criteria、Hidden Obligations、Non-goals、Risk Surface 和 Verification Plan。
+4. 使用 `docs/knowledge/system-improvement/routing-v1.yaml` 选择最小必要 workflow、skill、MCP 和脚本；预算见 `docs/core/tool-use-budget.md` 与 `docs/core/skill-use-policy.md`。
+5. 落地产物、运行 validators 与 evals、更新任务状态和必要知识。
+6. 收尾前通过 finish gate，不把未验证状态伪装成完成。
 
 ## Active Load
 
@@ -20,9 +21,11 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 
 - `AGENTS.md`
 - `docs/core/index.md`
+- `docs/core/delivery-contract.md`
 - `docs/profile/user-model.md`
 - `docs/profile/preference-map.md`
 - `docs/tasks/active.md`
+- `docs/tasks/board.md`
 
 默认摘要加载：
 
@@ -80,11 +83,11 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 
 ## MCP 边界
 
-- Serena：已接通用户级 Codex MCP。默认先用符号导航和引用查找；编辑能力只在真实代码任务中启用。
-- GitHub：已可用于 issue、PR、repo metadata 和外部项目 review。
-- Browser / Web：已可用于外部项目、研究工程和 UI 验证。
-- Obsidian：已接通官方 CLI。当前可直接读、搜、写已注册 vault；仓库 knowledge 仍保留为默认落点。
-- Remote / long-running：当前只实现接口规范、来源记录和权限边界，不默认安装重 runtime。
+- Serena：不默认打开。普通文件读取、grep、git、简单修改不使用 Serena。只有真实代码导航、符号引用、跨文件重构或文本检索反复失败时才允许启用；启用前说明 CLI 为什么不够、查询什么、何时退出、如何避免弹窗和重复 server。
+- GitHub：可用于 issue、PR、repo metadata 和外部项目 review；外部账号写入仍需任务级授权或预授权。
+- Browser / Web：用于外部项目、研究资料和 UI 证据；不替代本地文件读取。
+- Obsidian：官方 CLI 可用于读、搜、写已注册 vault；默认仍先写仓库 knowledge，外部 vault 写入必须有目标、权限和回滚方式。
+- Remote / long-running：当前只有 queue spec、来源记录、run log 和 review gate，不默认启用长期服务。
 
 ## Hooks 与 Evals
 
@@ -105,6 +108,8 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 - uiux-review-quality
 - session-recovery
 - unverified-closeout-block
+
+真实任务 eval 规格见 `docs/validation/real-task-evals.md`。sample smoke 只能证明 `smoke_passed`；真实任务证据不足时不得写成 `task_proven` 或 `user_proven`。
 
 ## 权限边界
 

@@ -5,9 +5,11 @@
     "always": [
       "AGENTS.md",
       "docs/core/index.md",
+      "docs/core/delivery-contract.md",
       "docs/profile/user-model.md",
       "docs/profile/preference-map.md",
-      "docs/tasks/active.md"
+      "docs/tasks/active.md",
+      "docs/tasks/board.md"
     ],
     "summary": {
       "failures": {
@@ -80,8 +82,8 @@
   },
   "mcp_profiles": {
     "Serena": {
-      "mode": "enabled",
-      "status": "available",
+      "mode": "manual",
+      "status": "available_on_demand",
       "stages": [
         "readonly-symbol-navigation",
         "symbol-aware-editing"
@@ -104,8 +106,8 @@
       ]
     },
     "Obsidian": {
-      "mode": "enabled",
-      "status": "available",
+      "mode": "manual",
+      "status": "available_on_demand",
       "stages": [
         "cli-read",
         "cli-search",
@@ -317,10 +319,11 @@
         "product-engineering-closer"
       ],
       "recommended_mcps": [
-        "Serena(enabled)",
+        "Serena(manual)",
         "GitHub"
       ],
       "forbidden_tools": [
+        "普通文件读取、grep、git 或简单修改默认启用 Serena",
         "未评估前默认启用 Serena 编辑能力",
         "大仓库中只靠批量替换做语义重构"
       ],
@@ -334,8 +337,8 @@
         "为什么需要语义工具的证据"
       ],
       "verification": [
-        "Serena 命令存在并可由 Codex MCP 配置启动",
-        "使用前先激活当前项目，编辑阶段只在真实代码任务中启用"
+        "启用前说明普通 CLI 为什么不够、要查什么符号或引用、何时退出",
+        "编辑阶段只在真实代码任务中启用，避免重复 server 和弹窗"
       ],
       "counterexamples": [
         "单文件小改",
@@ -400,7 +403,7 @@
         "knowledge-curator"
       ],
       "recommended_mcps": [
-        "ObsidianCLI(enabled)"
+        "ObsidianCLI(manual)"
       ],
       "forbidden_tools": [
         "未验证就写长期知识",

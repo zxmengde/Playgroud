@@ -6,11 +6,17 @@ $ErrorActionPreference = "Stop"
 
 $required = @(
     "docs\core\index.md",
+    "docs\core\delivery-contract.md",
+    "docs\core\tool-use-budget.md",
+    "docs\core\skill-use-policy.md",
+    "docs\core\context-modes.md",
+    "docs\core\typed-object-registry.md",
     "docs\assistant\index.md",
     "docs\references\assistant",
     "docs\archive\assistant-v1-summary.md",
     "docs\capabilities\index.md",
     "docs\capabilities\capability-map.yaml",
+    "docs\capabilities\external-adoptions.md",
     "docs\references\assistant\external-capability-radar.md",
     "docs\references\assistant\external-mechanism-transfer.md",
     "docs\references\assistant\codex-app-settings.md",
@@ -25,6 +31,7 @@ $required = @(
     "docs\knowledge\system-improvement\skill-audit.md",
     "docs\knowledge\research\research-state.yaml",
     "docs\knowledge\research\run-log.md",
+    "docs\knowledge\research\research-queue.md",
     ".agents\skills\playgroud-maintenance\SKILL.md",
     ".agents\skills\failure-promoter\SKILL.md",
     ".agents\skills\external-mechanism-researcher\SKILL.md",
@@ -37,6 +44,9 @@ $required = @(
     "docs\workflows\self-improvement.md",
     "docs\workflows\product.md",
     "docs\workflows\uiux.md",
+    "docs\validation\real-task-evals.md",
+    "docs\tasks\board.md",
+    "docs\references\assistant\hook-risk-stdin-smoke.md",
     ".codex\hooks.json"
 )
 
@@ -51,13 +61,15 @@ if ($missing.Count -gt 0) {
 }
 
 $coreMarkdown = @(Get-ChildItem -Path (Join-Path $Root "docs\core") -Filter "*.md" -File -ErrorAction SilentlyContinue)
-$unexpectedCore = @($coreMarkdown | Where-Object { $_.Name -ne "index.md" })
+$allowedCoreMarkdown = @("index.md", "delivery-contract.md", "tool-use-budget.md", "skill-use-policy.md", "context-modes.md", "typed-object-registry.md")
+$unexpectedCore = @($coreMarkdown | Where-Object { $allowedCoreMarkdown -notcontains $_.Name })
 if ($unexpectedCore.Count -gt 0) {
     throw ("Unexpected docs/core markdown files: " + (($unexpectedCore | Select-Object -ExpandProperty Name) -join ", "))
 }
 
 $capMarkdown = @(Get-ChildItem -Path (Join-Path $Root "docs\capabilities") -Filter "*.md" -File -ErrorAction SilentlyContinue)
-$unexpectedCaps = @($capMarkdown | Where-Object { $_.Name -ne "index.md" })
+$allowedCapMarkdown = @("index.md", "external-adoptions.md")
+$unexpectedCaps = @($capMarkdown | Where-Object { $allowedCapMarkdown -notcontains $_.Name })
 if ($unexpectedCaps.Count -gt 0) {
     throw ("Unexpected docs/capabilities markdown files: " + (($unexpectedCaps | Select-Object -ExpandProperty Name) -join ", "))
 }

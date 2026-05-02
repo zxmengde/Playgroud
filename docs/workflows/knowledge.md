@@ -22,6 +22,17 @@
 
 不要把 raw failure、临时调试输出或未验证网页观点写成长期 knowledge。
 
+## Promotion Lifecycle
+
+知识提升顺序：
+
+1. raw note：临时摘录、网页片段、调试记录，只能留在任务记录或草稿。
+2. curated note：已整理来源、事实和不确定性，但尚未证明可长期复用。
+3. verified knowledge：来源可追溯、适用范围明确、可复用，写入 `docs/knowledge/items/` 或对应对象。
+4. archived / superseded：过期、被替代或只保留历史价值，不进入默认 active load。
+
+仓库 knowledge 是默认落点。Obsidian 只在用户要求外部 vault 或长期笔记协作时使用；写入前必须知道 vault、目标路径、写入方式和回滚路径。
+
 ## 产物
 
 - `docs/knowledge/items/YYYY-MM-DD-title.md`

@@ -6,7 +6,9 @@
 
 - `docs/knowledge/research/research-state.yaml`
 - `docs/knowledge/research/run-log.md`
+- `docs/knowledge/research/research-queue.md`
 - 验证入口：`scripts/codex.ps1 research smoke`
+- 长研究队列只表示可审计 queue spec、review gate 和 run log，不表示后台服务已启用。
 
 | 日期 | 标题 | 状态 | 路径 |
 | --- | --- | --- | --- |

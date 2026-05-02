@@ -1,56 +1,61 @@
-# 能力清单、当前缺口与必要复杂度
+# 能力清单、证据状态与回滚入口
 
-本文件只记录当前真正落地并可校验的能力，不把愿景当作能力。
+本文件只记录当前真正落地并可检查的能力。统一能力地图见 `docs/capabilities/capability-map.yaml`，外部项目内化卡片见 `docs/capabilities/external-adoptions.md`。
 
-统一能力地图见 `docs/capabilities/capability-map.yaml`。默认只保留一套本仓库能力层；外部项目只贡献机制，不引入平行 runtime。统一入口为 `scripts/codex.ps1`。
+## 状态枚举
+
+| 状态 | 含义 |
+| --- | --- |
+| declared | 只有文档声明 |
+| smoke_passed | 只有样例或 smoke 路径通过 |
+| experimental | 可试用，但未证明稳定 |
+| task_proven | 通过真实任务 eval 或真实交付证据 |
+| user_proven | 用户在真实使用中确认有效 |
+| deprecated | 保留历史，不再默认使用 |
+
+不得把 sample smoke 直接写成 `task_proven` 或 `user_proven`。
 
 ## 当前能力
 
-| 能力 | 当前状态 | 当前证据 |
-| --- | --- | --- |
-| active load 恢复 | 可用 | `routing-v1.yaml`、SessionStart hook、`scripts/codex.ps1 context budget`、`scripts/codex.ps1 task recover` |
-| failure / lesson 对象系统 | 可用 | `failures/`、`lessons/`、两个历史样例、对应 validators |
-| skill 路由 | 可用 | `routing-v1.yaml`、`tool-router`、`scripts/codex.ps1 capability route <id>` |
-| 自我改进闭环 | 可用 | `failure-promoter`、`harness-log.md`、`scripts/codex.ps1 eval failure-loop` |
-| 研究工程 | 可用 | `research-engineering-loop`、`research-memo-sample.md`、`docs/knowledge/research/research-state.yaml`、`scripts/codex.ps1 research smoke` |
-| 产品工程 | 可用 | `product-engineering-closer`、`product.md`、`scripts/codex.ps1 eval product-engineering-closeout` |
-| UI/UX 评审 | 可用 | `uiux-reviewer`、`uiux.md`、`uiux-review-sample.md`、`scripts/codex.ps1 uiux smoke` |
-| 本地 knowledge-first 沉淀 | 可用 | `knowledge-curator`、`knowledge.md`、`scripts/codex.ps1 knowledge check` |
-| Obsidian 外部 vault 接入 | 可用 | `obsidian` CLI、`scripts/codex.ps1 knowledge obsidian-dry-run` |
-| Serena 语义代码能力 | 可用 | 用户级 `config.toml`、`serena` 安装、`audit-serena-obsidian-readiness.ps1` |
-| finish gate | 可用 | `finish-verifier`、Stop hook、`scripts/lib/commands/check-finish-readiness.ps1 -Strict` |
+| capability | maturity_status | 用户入口 | 证据 | 主要限制 |
+| --- | --- | --- | --- | --- |
+| delivery-readiness-contract | experimental | `docs/core/delivery-contract.md`、`scripts/codex.ps1 validate` | delivery contract、validator | 不能自动判断语义质量 |
+| command-help-route | smoke_passed | `scripts/codex.ps1 help`、`capability route` | help validator、dispatch | 只检查关键 help 项 |
+| uiux-real-review-pack | smoke_passed | `docs/workflows/uiux.md`、real-task eval | UI workflow、eval spec | 尚无本仓库真实 UI 截图任务 |
+| knowledge-promotion-lifecycle | experimental | `docs/workflows/knowledge.md` | knowledge workflow、object registry | Obsidian 写入仍需目标和回滚 |
+| task-board-session-recovery | experimental | `docs/tasks/board.md`、`task recover` | board、active/done | 无 kanban server |
+| context-modes | experimental | `docs/core/context-modes.md` | mode table、tool budget | 非运行时截断引擎 |
+| research-queue-review-gate | experimental | `docs/knowledge/research/research-queue.md` | queue spec、run log | 无后台服务 |
+| research-to-claim-pipeline | smoke_passed | `docs/workflows/research.md` | research workflow、eval spec | research smoke 不证明完整论文任务 |
+| typed-object-registry | experimental | `docs/core/typed-object-registry.md` | registry、validator | 非完整 schema 编译器 |
+| system-audit-validate-eval | smoke_passed | `scripts/codex.ps1 audit/validate/eval` | 统一入口、脚本结果 | 不能替代真实任务交付 |
+| failure-lesson-mechanism-loop | smoke_passed | `scripts/codex.ps1 eval failure-loop` | failure/lesson validators | 样例对象仍需人工判断高影响 lesson |
 
-## 当前 MCP 结论
+## 外部机制绑定
 
-| 方向 | 当前处理 | 理由 |
-| --- | --- | --- |
-| Serena | 已可用 | 已安装并写入用户级 Codex MCP 配置；新会话可直接加载 |
-| GitHub | 已可用 | 当前已有 GitHub 连接器和插件能力 |
-| Browser / Web | 已可用 | 当前已有 Browser Use、web-workflow 和截图能力 |
-| Obsidian | 已可用 | 已确认 vault、CLI 和读写 smoke；当前通过官方 CLI 接入 |
-| Remote / long-running | interface-only | 已有来源记录与权限规则，但不默认引入重 runtime |
-
-## 当前缺口
-
-| 缺口 | 当前判断 |
+| 外部项目 | 本地能力 |
 | --- | --- |
-| Serena 真实收益数据 | 仍需在真实代码仓库里积累更多跨文件重构对比样例 |
-| Obsidian 精细 patch | 当前走官方 CLI；如未来需要 heading/frontmatter 级 patch，再评估 REST API 或 MCP |
-| remote/chat runtime | 当前只实现接口规范和权限边界，没有安装完整 runtime |
+| everything-claude-code | delivery-readiness-contract、system-audit-validate-eval、failure-lesson-mechanism-loop |
+| ui-ux-pro-max-skill | uiux-real-review-pack |
+| obsidian-skills | knowledge-promotion-lifecycle |
+| oh-my-codex | command-help-route、system-audit-validate-eval |
+| vibe-kanban | task-board-session-recovery |
+| context-mode | context-modes |
+| Auto-claude-code-research-in-sleep | research-queue-review-gate |
+| AI-Research-SKILLs | research-queue-review-gate、research-to-claim-pipeline |
+| Trellis | typed-object-registry、task-board-session-recovery、delivery-readiness-contract |
+| claude-scholar | research-to-claim-pipeline、knowledge-promotion-lifecycle |
 
-## 必要复杂度
+## MCP 边界
 
-以下复杂度被保留，因为它们直接提供验证、恢复或防错：
+| 方向 | 当前处理 |
+| --- | --- |
+| Serena | 不默认启用；只在真实符号导航、引用查询或跨文件重构时使用 |
+| GitHub | 用于远程 Git、issue/PR 或仓库元数据；外部账号写入仍需授权边界 |
+| Browser / Web | 用于外部资料和真实 UI 证据；不替代本地文件读取 |
+| Obsidian | repository knowledge-first；外部 vault 写入需要目标、权限和回滚方式 |
+| Remote / long-running | 仅有 queue spec、run log 和 review gate；无后台 runtime |
 
-- `routing-v1.yaml`
-- `failures/` 与 `lessons/`
-- 9 个仓库级 skills
-- 统一 `scripts/codex.ps1` 入口
-- `scripts/lib/commands/` 下的私有命令实现
-- 4 个 hooks 阶段
+## 回滚
 
-以下复杂度仍然不保留：
-
-- 通用 filesystem、git、memory 类 MCP
-- 远程 UI、移动端工作台、kanban 平台的完整 runtime
-- 没有真实任务支撑的批量外部 skill 安装
+能力回滚以 `docs/capabilities/capability-map.yaml` 的 `rollback` 字段为准。若能力只处于 `declared`、`smoke_passed` 或 `experimental`，不得在最终报告中写成用户已经验证。

@@ -92,7 +92,9 @@ function Show-Help {
     Write-Output "  uiux <name>         smoke"
     Write-Output "  context <name>      budget | pack"
     Write-Output "  capability <name>   map | route <route-id>"
+    Write-Output "  cache <name>        status | clean-external-repos"
     Write-Output "  setup <name>        git-hooks | environment"
+    Write-Output "  git <args>          Run git through scripts/git-safe.ps1"
 }
 
 function Show-TaskRecovery {
@@ -173,7 +175,7 @@ function Show-CapabilityMap {
     $map = Read-JsonYamlFile -Path $path
     Write-Output ("capabilities: {0}" -f @($map.capabilities).Count)
     @($map.capabilities) | ForEach-Object {
-        Write-Output ("- {0}: {1}; entry={2}" -f $_.id, $_.status, $_.entry_command)
+        Write-Output ("- {0}: {1}; entry={2}" -f $_.id, $_.maturity_status, $_.user_visible_entry)
     }
 }
 
@@ -190,6 +192,48 @@ function Show-Route {
     Write-Output ("mcps: {0}" -f (@($route.recommended_mcps) -join ", "))
 }
 
+function Get-ExternalRepoCachePath {
+    return (Join-Path $Root ".cache\external-repos")
+}
+
+function Show-CacheStatus {
+    $path = Get-ExternalRepoCachePath
+    Write-Output "Cache status"
+    Write-Output ("external_repos_path: {0}" -f $path)
+    if (-not (Test-Path -LiteralPath $path)) {
+        Write-Output "external_repos_state: absent"
+        Write-Output "external_repos_files: 0"
+        Write-Output "external_repos_directories: 0"
+        return
+    }
+
+    $files = @(Get-ChildItem -LiteralPath $path -Recurse -File -Force -ErrorAction SilentlyContinue)
+    $dirs = @(Get-ChildItem -LiteralPath $path -Recurse -Directory -Force -ErrorAction SilentlyContinue)
+    Write-Output "external_repos_state: present"
+    Write-Output ("external_repos_files: {0}" -f $files.Count)
+    Write-Output ("external_repos_directories: {0}" -f $dirs.Count)
+}
+
+function Clear-ExternalRepoCache {
+    $path = Get-ExternalRepoCachePath
+    if (-not (Test-Path -LiteralPath $path)) {
+        Write-Output "external repo cache already absent"
+        return
+    }
+
+    $resolvedRoot = (Resolve-Path -LiteralPath $Root).Path.TrimEnd('\')
+    $resolvedTarget = (Resolve-Path -LiteralPath $path).Path.TrimEnd('\')
+    if (-not ($resolvedTarget.StartsWith($resolvedRoot, [System.StringComparison]::OrdinalIgnoreCase))) {
+        throw "Refusing to delete outside repository: $resolvedTarget"
+    }
+    if ($resolvedTarget -notlike "*\.cache\external-repos") {
+        throw "Refusing to delete unexpected cache path: $resolvedTarget"
+    }
+
+    Remove-Item -LiteralPath $resolvedTarget -Recurse -Force
+    Write-Output "external repo cache removed"
+}
+
 switch ($Command.ToLowerInvariant()) {
     "help" { Show-Help }
     "doctor" { Invoke-RootCommand "check-agent-readiness.ps1" $RemainingArgs }
@@ -204,6 +248,7 @@ switch ($Command.ToLowerInvariant()) {
                 "references" { Invoke-RootCommand "audit-active-references.ps1" $args }
                 "capabilities" { Invoke-PlainCommand "audit-codex-capabilities.ps1" $args }
                 "mcp" { Invoke-PlainCommand "audit-mcp-config.ps1" $args }
+                "mcp-readiness" { Invoke-RootCommand "audit-serena-obsidian-readiness.ps1" $args }
                 default { throw "Unknown audit subcommand: $name" }
             }
         }
@@ -288,6 +333,11 @@ switch ($Command.ToLowerInvariant()) {
         if ($RemainingArgs.Count -eq 0 -or $RemainingArgs[0] -eq "map") { Show-CapabilityMap }
         elseif ($RemainingArgs[0] -eq "route") { Show-Route -RouteId $RemainingArgs[1] }
         else { throw "Unknown capability subcommand: $($RemainingArgs[0])" }
+    }
+    "cache" {
+        if ($RemainingArgs.Count -eq 0 -or $RemainingArgs[0] -eq "status") { Show-CacheStatus }
+        elseif ($RemainingArgs[0] -eq "clean-external-repos") { Clear-ExternalRepoCache }
+        else { throw "Unknown cache subcommand: $($RemainingArgs[0])" }
     }
     "setup" {
         if ($RemainingArgs.Count -eq 0) { throw "Setup subcommand is required." }

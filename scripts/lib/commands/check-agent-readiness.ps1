@@ -83,10 +83,6 @@ Write-Output "## Runtime"
 & (Join-Path $Root "scripts\lib\commands\test-codex-runtime.ps1") -Root $Root -SkipNetwork
 
 Write-Output ""
-Write-Output "## Serena and Obsidian"
-& (Join-Path $Root "scripts\lib\commands\audit-serena-obsidian-readiness.ps1") -Root $Root
-
-Write-Output ""
 Write-Output "## Repository skills"
 & (Join-Path $Root "scripts\lib\commands\validate-skills.ps1") -Root $Root
 & (Join-Path $Root "scripts\lib\commands\audit-skills.ps1") -Root $Root

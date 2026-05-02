@@ -1,143 +1,147 @@
 {
-  "schema_version": 1,
-  "updated_at": "2026-05-02",
+  "schema_version": 2,
+  "updated_at": "2026-05-03",
+  "maturity_status_enum": [
+    "declared",
+    "smoke_passed",
+    "task_proven",
+    "user_proven",
+    "experimental",
+    "deprecated"
+  ],
   "policy": "one capability layer; external projects contribute mechanisms, not parallel runtimes",
   "capabilities": [
     {
-      "id": "doctor-readiness",
-      "problem": "Prevent installed capability drift and unverified completion claims.",
-      "source_projects": ["everything-claude-code", "oh-my-codex"],
-      "implementation": "Unified readiness command over existing local validators and runtime checks.",
-      "entry_command": "scripts/codex.ps1 doctor",
-      "default_load": true,
-      "duplicates": ["check-agent-readiness", "finish readiness"],
-      "status": "active",
-      "verification": "scripts/codex.ps1 doctor"
+      "id": "delivery-readiness-contract",
+      "problem": "Complex tasks need explicit outcome, done criteria, hidden obligations and finish evidence before large edits.",
+      "source_projects": ["everything-claude-code", "Trellis"],
+      "maturity_status": "experimental",
+      "user_visible_entry": "docs/core/delivery-contract.md; scripts/codex.ps1 validate",
+      "codex_trigger": "Before complex tasks and before claiming completion.",
+      "evidence": ["docs/core/delivery-contract.md", "scripts/lib/commands/validate-delivery-system.ps1"],
+      "verification": "scripts/codex.ps1 validate",
+      "known_limits": "The contract is enforced by validator presence and required fields; it does not infer semantic quality by itself.",
+      "rollback": "Remove validate-delivery-system.ps1 from validate-system.ps1 and restore prior startup text."
+    },
+    {
+      "id": "command-help-route",
+      "problem": "Command help and route discovery drift from actual dispatch behavior.",
+      "source_projects": ["oh-my-codex"],
+      "maturity_status": "smoke_passed",
+      "user_visible_entry": "scripts/codex.ps1 help; scripts/codex.ps1 capability route <route-id>",
+      "codex_trigger": "When user or Codex needs available commands, route details, git wrapper, or cache cleanup.",
+      "evidence": ["scripts/codex.ps1", "docs/references/assistant/hook-risk-stdin-smoke.md"],
+      "verification": "validate-delivery-system.ps1 checks help output for git and cache.",
+      "known_limits": "Help consistency is checked for key commands, not every subcommand argument.",
+      "rollback": "Restore previous Show-Help text and remove help checks from validator."
+    },
+    {
+      "id": "uiux-real-review-pack",
+      "problem": "UI tasks need visual and interaction evidence, not only code changes or sample smoke.",
+      "source_projects": ["ui-ux-pro-max-skill"],
+      "maturity_status": "smoke_passed",
+      "user_visible_entry": "docs/workflows/uiux.md; docs/validation/real-task-evals.md#ui-change-eval",
+      "codex_trigger": "Any page, component, layout, copy or interaction change.",
+      "evidence": ["docs/workflows/uiux.md", ".agents/skills/uiux-reviewer/SKILL.md", "docs/validation/real-task-evals.md"],
+      "verification": "scripts/codex.ps1 eval and validate-delivery-system.ps1 check the real-task eval fields.",
+      "known_limits": "No current real UI task with screenshots is attached to this repository state.",
+      "rollback": "Restore prior UI workflow and remove ui-change-eval field check."
+    },
+    {
+      "id": "knowledge-promotion-lifecycle",
+      "problem": "Temporary notes, repository knowledge and Obsidian writes need separate lifecycles.",
+      "source_projects": ["obsidian-skills", "claude-scholar"],
+      "maturity_status": "experimental",
+      "user_visible_entry": "docs/workflows/knowledge.md; scripts/codex.ps1 knowledge check",
+      "codex_trigger": "When information should move from raw note to curated note, verified knowledge, archived or superseded.",
+      "evidence": ["docs/workflows/knowledge.md", "docs/core/typed-object-registry.md"],
+      "verification": "scripts/codex.ps1 knowledge check; validate-delivery-system.ps1 checks registry and adoption cards.",
+      "known_limits": "Obsidian writes still require a clear target vault and rollback path; dry-run alone is not user_proven.",
+      "rollback": "Restore previous knowledge workflow and keep repository knowledge-first behavior."
+    },
+    {
+      "id": "task-board-session-recovery",
+      "problem": "Single active task files do not represent blocked, next, done, checkpoint and resume state well enough.",
+      "source_projects": ["vibe-kanban", "Trellis"],
+      "maturity_status": "experimental",
+      "user_visible_entry": "docs/tasks/board.md; scripts/codex.ps1 task recover",
+      "codex_trigger": "Long tasks, multiple tasks, blocked work, resume after interruption, stale task detection.",
+      "evidence": ["docs/tasks/board.md", "docs/tasks/active.md", "docs/tasks/done.md"],
+      "verification": "validate-delivery-system.ps1 checks board sections and task state path existence.",
+      "known_limits": "No server, database or multi-user kanban runtime is installed.",
+      "rollback": "Delete docs/tasks/board.md and restore docs/tasks/active.md from Git."
+    },
+    {
+      "id": "context-modes",
+      "problem": "A single context budget causes overloading and accidental tool use.",
+      "source_projects": ["context-mode"],
+      "maturity_status": "experimental",
+      "user_visible_entry": "docs/core/context-modes.md; scripts/codex.ps1 context budget",
+      "codex_trigger": "Before choosing delivery, research, audit, uiux, coding or recovery mode.",
+      "evidence": ["docs/core/context-modes.md", "docs/core/tool-use-budget.md"],
+      "verification": "validate-delivery-system.ps1 checks all six mode names and budget file presence.",
+      "known_limits": "Mode selection is policy-backed, not a runtime context truncation engine.",
+      "rollback": "Delete context-modes.md and remove validator checks."
+    },
+    {
+      "id": "research-queue-review-gate",
+      "problem": "Long research needs queue state, run log, review gate and interruption recovery without pretending to be a background service.",
+      "source_projects": ["Auto-claude-code-research-in-sleep", "AI-Research-SKILLs"],
+      "maturity_status": "experimental",
+      "user_visible_entry": "docs/knowledge/research/research-queue.md; scripts/codex.ps1 research run-log",
+      "codex_trigger": "Research spans multiple sessions or needs user review before further action.",
+      "evidence": ["docs/knowledge/research/research-queue.md", "docs/knowledge/research/run-log.md"],
+      "verification": "validate-delivery-system.ps1 checks queue schema fields; scripts/codex.ps1 research smoke remains sample-only evidence.",
+      "known_limits": "No daemon, watchdog, scheduled execution or notification service is enabled.",
+      "rollback": "Delete research-queue.md and remove related capability entry."
+    },
+    {
+      "id": "research-to-claim-pipeline",
+      "problem": "Research outputs need traceable movement from idea and literature to evidence, result, claim and limitation.",
+      "source_projects": ["AI-Research-SKILLs", "claude-scholar"],
+      "maturity_status": "smoke_passed",
+      "user_visible_entry": "docs/workflows/research.md; docs/validation/real-task-evals.md",
+      "codex_trigger": "Research memo, paper draft, figure/table linkage, citation audit or unsupported claim detection.",
+      "evidence": ["docs/workflows/research.md", "docs/workflows/literature-zotero.md", "docs/validation/real-task-evals.md"],
+      "verification": "scripts/codex.ps1 research smoke; validate-delivery-system.ps1 checks real-task eval fields.",
+      "known_limits": "Current smoke does not prove a full paper-writing task.",
+      "rollback": "Restore previous research workflow and remove real-task eval additions."
+    },
+    {
+      "id": "typed-object-registry",
+      "problem": "Task, failure, lesson, capability, adoption and research queue objects need shared fields and states.",
+      "source_projects": ["Trellis"],
+      "maturity_status": "experimental",
+      "user_visible_entry": "docs/core/typed-object-registry.md",
+      "codex_trigger": "When adding or changing structured objects in tasks, capability map, adoption cards or research queue.",
+      "evidence": ["docs/core/typed-object-registry.md", "scripts/lib/commands/validate-delivery-system.ps1"],
+      "verification": "validate-delivery-system.ps1 checks maturity and adoption status enums.",
+      "known_limits": "The registry checks key fields and states; it is not a full schema compiler.",
+      "rollback": "Remove registry file and validator checks."
     },
     {
       "id": "system-audit-validate-eval",
-      "problem": "Reduce duplicated audit, validate and eval entrypoints.",
+      "problem": "Audit, validate and eval need one visible entry without hiding real delivery gaps.",
       "source_projects": ["everything-claude-code", "oh-my-codex"],
-      "implementation": "scripts/codex.ps1 dispatches audit, validate and eval commands; private scripts live under scripts/lib/commands.",
-      "entry_command": "scripts/codex.ps1 audit | validate | eval",
-      "default_load": true,
-      "duplicates": ["audit-*", "validate-*", "eval-*", "check-*"],
-      "status": "active",
-      "verification": "scripts/codex.ps1 audit; scripts/codex.ps1 validate; scripts/codex.ps1 eval"
-    },
-    {
-      "id": "uiux-review",
-      "problem": "UI/UX review must include desktop, mobile, interaction, accessibility and responsive evidence.",
-      "source_projects": ["ui-ux-pro-max-skill"],
-      "implementation": "Keep a local evidence-first UI/UX sample and smoke command; avoid importing a large style database.",
-      "entry_command": "scripts/codex.ps1 uiux smoke",
-      "default_load": false,
-      "duplicates": [],
-      "status": "active",
-      "verification": "scripts/codex.ps1 uiux smoke"
-    },
-    {
-      "id": "obsidian-knowledge-adapter",
-      "problem": "Knowledge capture needs a single repository-first path and an optional Obsidian adapter.",
-      "source_projects": ["obsidian-skills", "claude-scholar"],
-      "implementation": "Repository knowledge items remain canonical; Obsidian CLI is checked by dry-run search before external vault writes.",
-      "entry_command": "scripts/codex.ps1 knowledge check | obsidian-dry-run",
-      "default_load": false,
-      "duplicates": ["Obsidian MCP", "obsidian-skills full import"],
-      "status": "active",
-      "verification": "scripts/codex.ps1 knowledge obsidian-dry-run"
-    },
-    {
-      "id": "task-workspace-session-recovery",
-      "problem": "Long tasks need restartable state without a separate kanban runtime.",
-      "source_projects": ["vibe-kanban", "Trellis"],
-      "implementation": "docs/tasks/active.md remains the task store; SessionStart and scripts/codex.ps1 task recover expose resumable state.",
-      "entry_command": "scripts/codex.ps1 task recover",
-      "default_load": true,
-      "duplicates": ["full kanban workspace", "Trellis CLI task store"],
-      "status": "active",
-      "verification": "scripts/codex.ps1 task recover"
-    },
-    {
-      "id": "context-management",
-      "problem": "Long sessions need context budget and compact recovery packs.",
-      "source_projects": ["context-mode"],
-      "implementation": "Active load budget stays in routing-v1; scripts/codex.ps1 context budget validates it and context pack prints a compact recovery view.",
-      "entry_command": "scripts/codex.ps1 context budget | pack",
-      "default_load": true,
-      "duplicates": ["context-mode runtime", "SQLite context store"],
-      "status": "active",
-      "verification": "scripts/codex.ps1 context budget"
-    },
-    {
-      "id": "skill-capability-routing",
-      "problem": "Skill, MCP and capability choice must be explicit and auditable.",
-      "source_projects": ["oh-my-codex", "everything-claude-code"],
-      "implementation": "routing-v1 remains canonical; capability map records status and verification; scripts/codex.ps1 capability route shows the selected route.",
-      "entry_command": "scripts/codex.ps1 capability map | route <id>",
-      "default_load": true,
-      "duplicates": ["parallel catalog systems", "full external skill marketplace"],
-      "status": "active",
-      "verification": "scripts/codex.ps1 capability map; scripts/codex.ps1 capability route uiux-review"
-    },
-    {
-      "id": "research-state-and-run-log",
-      "problem": "Research needs recoverable questions, hypotheses, experiments and evidence gaps.",
-      "source_projects": ["AI-Research-SKILLs", "Auto-claude-code-research-in-sleep", "claude-scholar"],
-      "implementation": "A local JSON-subset research-state file and run log provide a small research workflow without importing a large agent runtime.",
-      "entry_command": "scripts/codex.ps1 research smoke",
-      "default_load": false,
-      "duplicates": ["full autoresearch runtime", "remote review queue"],
-      "status": "active",
-      "verification": "scripts/codex.ps1 research smoke"
-    },
-    {
-      "id": "long-running-research-queue",
-      "problem": "Slow research should record queued experiments and review gates.",
-      "source_projects": ["Auto-claude-code-research-in-sleep", "AI-Research-SKILLs"],
-      "implementation": "Use local run log entries and explicit next_review; no autonomous remote execution by default.",
-      "entry_command": "scripts/codex.ps1 research run-log",
-      "default_load": false,
-      "duplicates": ["sleep research daemon", "external notification loop"],
-      "status": "experimental",
-      "verification": "scripts/codex.ps1 research smoke"
+      "maturity_status": "smoke_passed",
+      "user_visible_entry": "scripts/codex.ps1 audit | validate | eval",
+      "codex_trigger": "Before commit, after system changes, or when validator coverage is part of Done Criteria.",
+      "evidence": ["scripts/codex.ps1", "scripts/lib/commands/validate-system.ps1", "scripts/lib/commands/eval-agent-system.ps1"],
+      "verification": "scripts/codex.ps1 validate; scripts/codex.ps1 eval",
+      "known_limits": "Passing these commands does not by itself prove a real user task was delivered.",
+      "rollback": "Restore prior command dispatch and validator set."
     },
     {
       "id": "failure-lesson-mechanism-loop",
-      "problem": "Repeated failures must become lessons and then a verified mechanism.",
+      "problem": "Repeated failures need structured promotion into a mechanism and later verification.",
       "source_projects": ["everything-claude-code", "Trellis"],
-      "implementation": "Existing failure and lesson objects are validated; scripts/codex.ps1 eval failure-loop runs the example promotion checks.",
-      "entry_command": "scripts/codex.ps1 eval failure-loop",
-      "default_load": true,
-      "duplicates": [],
-      "status": "active",
-      "verification": "scripts/codex.ps1 eval failure-loop"
-    }
-  ],
-  "rejected": [
-    {
-      "source_project": "vibe-kanban",
-      "mechanism": "Full kanban server and workspace runtime",
-      "reason": "Adds a second task system and external service surface.",
-      "replacement": "docs/tasks/active.md plus scripts/codex.ps1 task recover"
-    },
-    {
-      "source_project": "context-mode",
-      "mechanism": "Full context sandbox runtime and SQLite store",
-      "reason": "Current repository needs budget enforcement more than a new context database.",
-      "replacement": "routing-v1 active load budget plus scripts/codex.ps1 context pack"
-    },
-    {
-      "source_project": "AI-Research-SKILLs",
-      "mechanism": "Full research skill bundle",
-      "reason": "Large skill surface would duplicate existing research workflow.",
-      "replacement": "local research-state and run-log"
-    },
-    {
-      "source_project": "obsidian-skills",
-      "mechanism": "Full Obsidian skill pack",
-      "reason": "Official Obsidian CLI already covers required dry-run and controlled write path.",
-      "replacement": "scripts/codex.ps1 knowledge obsidian-dry-run"
+      "maturity_status": "smoke_passed",
+      "user_visible_entry": "scripts/codex.ps1 eval failure-loop",
+      "codex_trigger": "Repeated mistakes, high-impact validator failure, or user feedback about Codex behavior.",
+      "evidence": ["docs/knowledge/system-improvement/failures", "docs/knowledge/system-improvement/lessons", "scripts/lib/commands/eval-lesson-promotion.ps1"],
+      "verification": "scripts/codex.ps1 eval failure-loop",
+      "known_limits": "The current eval uses representative objects; it does not replace human review for high-impact lessons.",
+      "rollback": "Remove new references and keep existing failure/lesson validators."
     }
   ]
 }

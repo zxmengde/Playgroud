@@ -10,6 +10,7 @@
 - 2026-04-27：创建受控自动化、Git pre-commit hook、Zotero 审计、视频技能就绪审计、文件使用审计和 MCP allowlist。
 - 2026-04-28：落地 failure / lesson / routing 对象系统、仓库级 skills、validators、evals、hooks 和 finish gate。
 - 2026-05-01：接通 Serena 用户级 MCP 与 Obsidian 官方 CLI，并留下 readiness 审计记录；2026-05-02 复查时修正用户级配置漂移。
+- 2026-05-02：二次整改已由提交 `c552c2f` 推送到 `origin/main`，完成顶层脚本收敛、统一 `scripts/codex.ps1`、capability map、research state、run log 和 smoke workflow；旧 active task 已在 2026-05-03 归档。
 
 新增归档应使用：
 

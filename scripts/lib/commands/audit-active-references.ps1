@@ -34,7 +34,7 @@ foreach ($rel in $includeRoots) {
     }
 }
 
-$prefixPattern = '(AGENTS\.md|README\.md|\.agents[\\/][A-Za-z0-9_.\\/\-]+|\.codex[\\/]hooks\.json|docs[\\/][A-Za-z0-9_.\\/\-]+|scripts[\\/][A-Za-z0-9_.\\/\-]+|templates[\\/][A-Za-z0-9_.\\/\-]+)'
+$prefixPattern = '(AGENTS\.md|README\.md|\.agents[\\/][\p{L}\p{N}_.\\/\-]+|\.codex[\\/]hooks\.json|docs[\\/][\p{L}\p{N}_.\\/\-]+|scripts[\\/][\p{L}\p{N}_.\\/\-]+|templates[\\/][\p{L}\p{N}_.\\/\-]+)'
 $skipPattern = '(\*|YYYY|<|>|\$|~|\{|\}|\[|\]|\.\.\.|^docs[\\/]knowledge[\\/]items[\\/]YYYY)'
 $historicalReferences = @(
     "docs/archive/assistant-v1/",
@@ -54,14 +54,18 @@ foreach ($file in ($files | Sort-Object FullName -Unique)) {
     if ($file.FullName -like "*docs\knowledge\system-improvement\2026-04-27-codex-self-improvement-report.md") {
         continue
     }
-    $content = Get-Content -LiteralPath $file.FullName -Raw -ErrorAction SilentlyContinue
+    $content = Get-Content -LiteralPath $file.FullName -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
     if ([string]::IsNullOrWhiteSpace($content)) { continue }
 
     foreach ($match in [regex]::Matches($content, $prefixPattern)) {
         $lineStart = $content.LastIndexOf("`n", [Math]::Max(0, $match.Index - 1))
         if ($lineStart -lt 0) { $lineStart = 0 } else { $lineStart += 1 }
+        $lineEnd = $content.IndexOf("`n", $match.Index)
+        if ($lineEnd -lt 0) { $lineEnd = $content.Length }
+        $lineText = $content.Substring($lineStart, $lineEnd - $lineStart)
         $linePrefix = $content.Substring($lineStart, $match.Index - $lineStart)
         if ($linePrefix -match 'https?://\S*$') { continue }
+        if ($file.FullName -like "*docs\capabilities\external-adoptions.md" -and $lineText.TrimStart().StartsWith('- `')) { continue }
 
         $candidate = $match.Value.Trim().Trim('`').Trim("'").Trim('"')
         $candidate = $candidate.TrimEnd('.', ',', ';', ':', ')')
