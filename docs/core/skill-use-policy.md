@@ -1,10 +1,24 @@
 # Skill Use Policy
 
-仓库级 skill 默认不自动加载。它们只在 workflow/checklist 不足、任务要求对应产物、用户明确要求该领域，或 delivery contract 指出能力缺口时使用。
+仓库级 skill 默认不自动加载。已 adopted 的外部机制默认加载对应 workflow/checklist 和最短 output contract；只有该机制的产物需要 skill 才读取对应 `SKILL.md`。非关键、高风险或会诱导无关脚本/MCP 的 skill 仍为 `do_not_load`。
 
 ## 统一政策
 
 default: do_not_load
+
+adopted_mechanism_default_load:
+
+- knowledge-promotion-lifecycle：读取 `docs/workflows/knowledge.md`、`docs/knowledge/promotion-ledger.md` 和 `scripts/codex.ps1 knowledge promote|promotions`；只有要写长期 knowledge 或 Obsidian 边界不清时加载 `knowledge-curator`。
+- task-board-session-recovery：读取 `docs/tasks/board.md`、`docs/tasks/attempts.md` 和 `scripts/codex.ps1 task board|attempt|recover`；长期任务默认写 checkpoint、resume_summary、next_action 和 stale_after。
+- research-queue-review-gate：读取 `docs/knowledge/research/research-queue.md`、`docs/knowledge/research/run-log.md` 和 `scripts/codex.ps1 research enqueue|review-gate`；多会话研究默认先 queue，再 review gate，不伪装后台服务。
+- delivery-readiness-contract：复杂任务默认读取 `docs/core/delivery-contract.md`，先写 Done Criteria 和 Hidden Obligations，再进行大修改。
+- uiux-real-review-pack：UI 改动默认读取 `docs/workflows/uiux.md` 与 `docs/validation/real-task-evals.md#ui-change-eval`，再决定是否加载 `uiux-reviewer`。
+
+trigger_to_skill_eval_lesson_loop:
+
+- 任务触发 adopted 机制时，先加载对应 workflow/checklist；若 checklist 不足，再加载一个最小 skill。
+- 机制产物完成后，运行对应 validator 或 eval：knowledge 用 `knowledge check` 与 `validate-delivery-system.ps1`，task/research 用 `validate-delivery-system.ps1`，UI/research 样例用 `scripts/codex.ps1 eval`。
+- 验证失败、重复失败或用户指出行为问题时，进入 `failure-promoter`，把失败沉淀为 lesson、workflow、validator 或 hook。
 
 load_only_when:
 

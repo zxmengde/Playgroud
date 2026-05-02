@@ -46,10 +46,17 @@
 .\scripts\codex.ps1 audit
 .\scripts\codex.ps1 validate
 .\scripts\codex.ps1 eval
+.\scripts\codex.ps1 task board
+.\scripts\codex.ps1 task attempt -Id ATT-YYYYMMDD-001 -TaskId TASK-YYYYMMDD-name -Status running -Checkpoint "..." -NextAction "..."
 .\scripts\codex.ps1 task recover
 .\scripts\codex.ps1 context budget
+.\scripts\codex.ps1 research queue
+.\scripts\codex.ps1 research enqueue -Id RQ-YYYYMMDD-001 -Question "..." -State queued
+.\scripts\codex.ps1 research review-gate -Id RQ-YYYYMMDD-001 -Decision review_needed
 .\scripts\codex.ps1 research smoke
 .\scripts\codex.ps1 uiux smoke
+.\scripts\codex.ps1 knowledge promote -Id KP-YYYYMMDD-001 -Source "..." -Status curated_note -Target repository
+.\scripts\codex.ps1 knowledge promotions
 .\scripts\codex.ps1 knowledge obsidian-dry-run
 .\scripts\codex.ps1 capability map
 .\scripts\codex.ps1 git status --short

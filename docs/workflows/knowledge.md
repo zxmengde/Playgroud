@@ -41,6 +41,15 @@
 
 新建本地 knowledge item 时，优先使用 `scripts/codex.ps1 knowledge new -Title "..." -Type "..."` 生成模板，再补充来源、状态、事实、推断和后续事项。该入口只写入仓库内 `docs/knowledge/items/`，不直接写外部 vault。
 
+需要把信息从 raw note 提升为 curated note 或 verified knowledge 时，先写 promotion ledger：
+
+```powershell
+.\scripts\codex.ps1 knowledge promote -Id KP-YYYYMMDD-001 -Source "source path or URL" -Status curated_note -Target repository -Evidence "path or command" -Verification ".\scripts\codex.ps1 knowledge check" -Rollback "git revert"
+.\scripts\codex.ps1 knowledge promotions
+```
+
+promotion record 必须说明 source、status、target、evidence、verification、rollback 和 next_action。未验证信息不能跳过 ledger 直接进入长期 memory。
+
 ## Obsidian 边界
 
 当前已接通官方 Obsidian CLI。默认仍先写仓库 knowledge；若任务明确要求写入外部 vault，可使用 `obsidian` CLI 读、搜、写已注册 vault。避免直接批量改写既有笔记；优先写新 note、追加 note 或写入专门目录。

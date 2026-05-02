@@ -45,6 +45,7 @@ $required = @(
     "docs\knowledge\research\research-state.yaml",
     "docs\knowledge\research\run-log.md",
     "docs\knowledge\research\research-queue.md",
+    "docs\knowledge\promotion-ledger.md",
     "docs\knowledge\project\index.md",
     "docs\knowledge\web-source\index.md",
     "docs\knowledge\system-improvement\index.md",
@@ -71,6 +72,7 @@ $required = @(
     "docs\knowledge\items",
     "docs\tasks\active.md",
     "docs\tasks\board.md",
+    "docs\tasks\attempts.md",
     "docs\tasks\done.md",
     "docs\tasks\blocked.md",
     "docs\workflows\coding.md",
@@ -145,12 +147,9 @@ $required = @(
     "scripts\lib\commands\eval-repeat-failure-capture.ps1",
     "scripts\lib\commands\eval-lesson-promotion.ps1",
     "scripts\lib\commands\eval-routing-selection.ps1",
-    "scripts\lib\commands\eval-external-mechanism-review-check.ps1",
-    "scripts\lib\commands\eval-research-memo-quality.ps1",
-    "scripts\lib\commands\eval-uiux-review-quality.ps1",
+    "scripts\lib\commands\eval-task-quality.ps1",
     "scripts\lib\commands\eval-session-recovery.ps1",
-    "scripts\lib\commands\eval-unverified-closeout-block.ps1",
-    "scripts\lib\commands\eval-product-engineering-closeout.ps1"
+    "scripts\lib\commands\eval-unverified-closeout-block.ps1"
 )
 
 $missing = @()

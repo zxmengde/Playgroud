@@ -8,18 +8,21 @@
 
 - 建立 `docs/core/delivery-contract.md`，要求复杂任务先定义 User Outcome、Done Criteria、Hidden Obligations、风险面、验证计划和停止条件。
 - 建立 `docs/core/tool-use-budget.md`，限制用脚本替代判断。
-- 建立 `docs/core/skill-use-policy.md`，为 9 个仓库级 skill 设定 default: do_not_load、加载条件、禁用条件和 max_read。
+- 建立 `docs/core/skill-use-policy.md`，为 9 个仓库级 skill 设定 default: do_not_load、加载条件、禁用条件和 max_read；2026-05-03 追加 adopted mechanism 默认 workflow/checklist load 规则。
 - 建立 `docs/core/context-modes.md`，定义 delivery、research、audit、uiux、coding、recovery 六种模式。
 - 建立 `docs/core/typed-object-registry.md`，统一 task、failure、lesson、capability、external adoption、research queue 的字段和状态。
 - 建立 `docs/capabilities/external-adoptions.md`，为 10 个指定外部项目写入 adoption cards。
 - 重写 `docs/capabilities/capability-map.yaml` 和 `docs/capabilities/index.md`，用新成熟度枚举替代旧 active。
 - 建立 `docs/validation/real-task-evals.md`，覆盖 writing、Python package、UI change、repo maintenance 四类真实任务 eval 规格。
-- 建立 `docs/tasks/board.md`，补 active/next/blocked/done、checkpoint、resume summary、stale detection 和 next action。
-- 建立 `docs/knowledge/research/research-queue.md`，只声明可审计 queue spec、run log 和 review gate，不声明后台服务。
+- 建立 `docs/tasks/board.md` 与 `docs/tasks/attempts.md`，补 active/next/blocked/done、task attempt、checkpoint、resume summary、stale detection 和 next action。
+- 建立 `docs/knowledge/promotion-ledger.md`，让 raw note -> curated note -> verified knowledge -> archived/superseded 可记录、可验证、可回滚。
+- 建立 `docs/knowledge/research/research-queue.md`，只声明可审计 queue spec、run log 和 review gate，不声明后台服务；追加 `research enqueue|review-gate` 命令。
 - 建立 `docs/references/assistant/hook-risk-stdin-smoke.md`，说明 hook risk 的标准输入 JSON 调用方式。
 - 新增 `scripts/lib/commands/validate-delivery-system.ps1`，并接入 `scripts/codex.ps1 validate` 与 `scripts/codex.ps1 eval`。
 - 修复 `scripts/codex.ps1 help`，补 `git <args>` 与 `cache <name>`。
 - 新增 `scripts/codex.ps1 cache status` 和 `scripts/codex.ps1 cache clean-external-repos`。
+- 新增 `scripts/codex.ps1 task board|attempt`、`knowledge promote|promotions`、`research queue|enqueue|review-gate`。
+- 合并四个过细 eval 脚本为 `scripts/lib/commands/eval-task-quality.ps1`，删除旧的 `eval-external-mechanism-review-check.ps1`、`eval-research-memo-quality.ps1`、`eval-uiux-review-quality.ps1`、`eval-product-engineering-closeout.ps1`。
 - 更新 `AGENTS.md`、`README.md`、`docs/core/index.md`、`routing-v1.yaml`，把启动顺序改为 git status -> active/core -> delivery contract -> 最小 workflow/skill/MCP/scripts。
 - 更新 UI/UX、research、literature-zotero、knowledge workflow，补证据、引用、状态和任务路径要求。
 - 归档旧 active task 到 `docs/tasks/done.md`，创建本轮 active task。
@@ -38,7 +41,7 @@
 
 | 指标 | 整改前 | 整改后 |
 | --- | ---: | ---: |
-| tracked file count | 161 | 173（本报告提交后） |
+| tracked file count | 161 | 172（续改提交后） |
 | tracked directory count | 62 | 43 |
 | all directory count | 4355 | 44 |
 | empty directory count | 38 | 0 |
@@ -47,7 +50,7 @@
 | max directory depth | 13 | 4 |
 | docs/ max directory depth | 4 | 4 |
 | `.agents/skills/*` empty dirs | 1 | 0 |
-| `scripts/lib/commands` 脚本数 | 56 | 57 |
+| `scripts/lib/commands` 脚本数 | 56 | 54（续改后） |
 | `.cache/external-repos` 文件数 | 12693 | 0 |
 | `.cache/external-repos` 目录数 | 4027 | 0 |
 | stale report dirs | `docs/reports` | 0 |
@@ -62,24 +65,24 @@
 | --- | --- | --- |
 | everything-claude-code | adopted | delivery contract、doctor/validate、delivery validator |
 | ui-ux-pro-max-skill | adopted | UI/UX workflow、uiux-reviewer、real-task eval |
-| obsidian-skills | partial | knowledge workflow、object registry、capability map |
+| obsidian-skills | adopted | knowledge workflow、promotion ledger、knowledge promote/promotions、object registry |
 | oh-my-codex | adopted | help 修复、cache/git 可发现性、help validator |
-| vibe-kanban | partial | task board、active task、task recover |
+| vibe-kanban | adopted | task board、task attempts、task board/attempt/recover |
 | context-mode | adopted | context modes、tool budget、routing 更新 |
-| Auto-claude-code-research-in-sleep | partial | research queue、review gate、run log validator |
+| Auto-claude-code-research-in-sleep | adopted | research queue、research enqueue/review-gate、run log validator |
 | AI-Research-SKILLs | adopted | research workflow、research-to-claim eval 字段 |
 | Trellis | adopted | typed object registry、adoption/capability validator |
 | claude-scholar | adopted | source discipline、citation audit、unsupported claim 检查 |
 
-adopted/partial 合计 10 项。未使用 researched_only。
+adopted/partial 合计 10 项；续改后 10 项均为 adopted。未使用 researched_only。
 
 ## 后续行为变化
 
 - 复杂任务开始前必须先有 Done Criteria 和 Hidden Obligations；否则不做大规模修改。
 - UI 任务必须看真实界面，至少说明截图、desktop/mobile、interaction、状态、accessibility、copy 和用户任务路径。
-- Knowledge 默认 repository-first；Obsidian 写入需要目标 vault、路径、权限和回滚方式。
-- 长任务不再只靠 `active.md`；使用 `docs/tasks/board.md` 记录 checkpoint 和 next action。
-- research queue 只能表示可审计队列和 review gate，不表示后台服务。
+- Knowledge 默认 repository-first；需要长期化时先写 `docs/knowledge/promotion-ledger.md`，Obsidian 写入需要目标 vault、路径、权限和回滚方式。
+- 长任务不再只靠 `active.md`；使用 `docs/tasks/board.md` 与 `docs/tasks/attempts.md` 记录 checkpoint、resume、next action 和 stale detection。
+- research queue 只能表示可审计队列和 review gate，不表示后台服务；`research enqueue|review-gate` 只写本地 Markdown 记录。
 - Serena 不默认启用；普通文件读取、grep、git、简单修改不用 Serena。
 - Capability 状态从 active 降级到 declared / smoke_passed / experimental / task_proven / user_proven / deprecated。
 - sample smoke 不再写成真实任务证明。
@@ -95,7 +98,7 @@ adopted/partial 合计 10 项。未使用 researched_only。
 ## 新增限制
 
 - Tool budget：每个任务默认最多 3 类系统脚本；脚本输出不会改变下一步行动时不运行。
-- Skill policy：9 个仓库级 skill 默认 do_not_load，只读触发条件、输出契约和最短 checklist。
+- Skill policy：9 个仓库级 skill 默认 do_not_load；adopted mechanism 默认加载对应 workflow/checklist，只有产物需要时才读最小 skill。
 - MCP policy：Serena、Browser、GitHub、Obsidian 不因 routing 或 skill 名称自动打开；普通 CLI 能解决的问题不引入 MCP。
 
 ## 新增真实任务 eval
@@ -140,7 +143,7 @@ git diff --check
 
 关键结果：
 
-- `validate-delivery-system.ps1`：PASS，10 个 adoption cards 全部为 adopted 或 partial，capability map 11 项均使用新 maturity_status。
+- `validate-delivery-system.ps1`：PASS，10 个 adoption cards 续改后全部为 adopted，capability map 11 项均使用新 maturity_status，并检查 promotion ledger、task attempts、research queue/review gate 和 help 入口。
 - `scripts/codex.ps1 validate`：System validation passed。
 - `scripts/codex.ps1 eval`：overall pass，current_files=173，delivery_system_contracts pass。
 - `git diff --check`：退出码 0；只出现 CRLF 行尾提示，没有 whitespace error。

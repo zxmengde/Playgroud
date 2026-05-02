@@ -32,6 +32,7 @@ $required = @(
     "docs\knowledge\research\research-state.yaml",
     "docs\knowledge\research\run-log.md",
     "docs\knowledge\research\research-queue.md",
+    "docs\knowledge\promotion-ledger.md",
     ".agents\skills\playgroud-maintenance\SKILL.md",
     ".agents\skills\failure-promoter\SKILL.md",
     ".agents\skills\external-mechanism-researcher\SKILL.md",
@@ -46,6 +47,7 @@ $required = @(
     "docs\workflows\uiux.md",
     "docs\validation\real-task-evals.md",
     "docs\tasks\board.md",
+    "docs\tasks\attempts.md",
     "docs\references\assistant\hook-risk-stdin-smoke.md",
     ".codex\hooks.json"
 )

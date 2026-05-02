@@ -35,12 +35,12 @@
 - `scripts/lib/commands/eval-repeat-failure-capture.ps1`
 - `scripts/lib/commands/eval-lesson-promotion.ps1`
 - `scripts/lib/commands/eval-routing-selection.ps1`
-- `scripts/lib/commands/eval-external-mechanism-review-check.ps1`
-- `scripts/lib/commands/eval-research-memo-quality.ps1`
-- `scripts/lib/commands/eval-uiux-review-quality.ps1`
+- `scripts/lib/commands/eval-task-quality.ps1 -Name external-mechanism-review-check`
+- `scripts/lib/commands/eval-task-quality.ps1 -Name research-memo-quality`
+- `scripts/lib/commands/eval-task-quality.ps1 -Name uiux-review-quality`
 - `scripts/lib/commands/eval-session-recovery.ps1`
 - `scripts/lib/commands/eval-unverified-closeout-block.ps1`
-- `scripts/lib/commands/eval-product-engineering-closeout.ps1`
+- `scripts/lib/commands/eval-task-quality.ps1 -Name product-engineering-closeout`
 - `scripts/lib/commands/codex-hook-post-tool-capture.ps1`
 
 修改：
@@ -122,7 +122,7 @@
 ## 7. 自我改进闭环演示
 
 - `FAIL-20260427-210500-a1c201` 被提升为 `LESSON-self-improvement-not-just-hygiene`，并 promotion 到 `docs/workflows/self-improvement.md`
-- `FAIL-20260427-213000-b77d42` 被提升为 `LESSON-external-scoring-needs-mechanism-evidence`，并 promotion 到 `scripts/lib/commands/eval-external-mechanism-review-check.ps1`
+- `FAIL-20260427-213000-b77d42` 被提升为 `LESSON-external-scoring-needs-mechanism-evidence`，并 promotion 到 `scripts/lib/commands/eval-task-quality.ps1`
 - `routing-v1.yaml` 把 self-improvement、research、product、coding、uiux、knowledge、finish、remote 路由到最小 skill / MCP 组合
 - `finish-verifier` 与 Stop hook 共同阻止未验证收尾
 

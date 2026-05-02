@@ -23,4 +23,28 @@
 
 ## Current Queue
 
-无活动长研究队列。本轮只建立 queue spec 和 validator 检查。
+当前有一项 review_needed 记录，用于验证本地 queue / review gate 机制；它不代表后台服务已启用。
+
+## Commands
+
+```powershell
+.\scripts\codex.ps1 research queue
+.\scripts\codex.ps1 research enqueue -Id RQ-YYYYMMDD-001 -Question "..." -State queued -EvidenceQuality unchecked -ReviewGate "manual review before claim" -NextAction "..."
+.\scripts\codex.ps1 research review-gate -Id RQ-YYYYMMDD-001 -Decision review_needed -EvidenceQuality unchecked -NextAction "..."
+.\scripts\codex.ps1 research run-log
+```
+
+`enqueue` 只写入本文件的队列记录。`review-gate` 只写入 `docs/knowledge/research/run-log.md`，不得被解释为后台执行或自动通过。
+
+### RQ-20260503-001
+- id: RQ-20260503-001
+- question: How to keep external adoption mechanisms usable without background runtime
+- state: review_needed
+- evidence_quality: local artifacts and validators
+- review_gate: manual review before claiming background capability
+- run_log: docs/knowledge/research/run-log.md
+- interruption_recovery: resume from research queue, run log and active task
+- user_authorization_boundary: no external write or long-running service
+- next_action: run validate-delivery-system
+- rollback: git revert current commit
+- updated_at: 2026-05-03T03:33:17

@@ -31,10 +31,10 @@ function Get-CommandFile {
 function Invoke-RootCommand {
     param(
         [Parameter(Mandatory = $true)][string]$Name,
-        [string[]]$Args = @()
+        [string[]]$CommandArgs = @()
     )
     $global:LASTEXITCODE = 0
-    & (Get-CommandFile $Name) -Root $Root @Args
+    & (Get-CommandFile $Name) -Root $Root @CommandArgs
     if ($null -ne $LASTEXITCODE -and $LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     exit 0
 }
@@ -42,10 +42,10 @@ function Invoke-RootCommand {
 function Invoke-PlainCommand {
     param(
         [Parameter(Mandatory = $true)][string]$Name,
-        [string[]]$Args = @()
+        [string[]]$CommandArgs = @()
     )
     $global:LASTEXITCODE = 0
-    & (Get-CommandFile $Name) @Args
+    & (Get-CommandFile $Name) @CommandArgs
     if ($null -ne $LASTEXITCODE -and $LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     exit 0
 }
@@ -53,17 +53,17 @@ function Invoke-PlainCommand {
 function Invoke-RootCommandNoExit {
     param(
         [Parameter(Mandatory = $true)][string]$Name,
-        [string[]]$Args = @()
+        [string[]]$CommandArgs = @()
     )
-    & (Get-CommandFile $Name) -Root $Root @Args
+    & (Get-CommandFile $Name) -Root $Root @CommandArgs
 }
 
 function Invoke-PlainCommandNoExit {
     param(
         [Parameter(Mandatory = $true)][string]$Name,
-        [string[]]$Args = @()
+        [string[]]$CommandArgs = @()
     )
-    & (Get-CommandFile $Name) @Args
+    & (Get-CommandFile $Name) @CommandArgs
 }
 
 function Get-Section {
@@ -86,9 +86,9 @@ function Show-Help {
     Write-Output "  validate            Run system validation"
     Write-Output "  eval                Run agent evals"
     Write-Output "  hook <name>         Run project hook implementation"
-    Write-Output "  task <name>         check | recover | archive"
-    Write-Output "  knowledge <name>    check | new | obsidian-dry-run"
-    Write-Output "  research <name>     state | run-log | smoke"
+    Write-Output "  task <name>         check | recover | board | attempt | archive"
+    Write-Output "  knowledge <name>    check | new | promote | promotions | obsidian-dry-run"
+    Write-Output "  research <name>     state | run-log | queue | enqueue | review-gate | smoke"
     Write-Output "  uiux <name>         smoke"
     Write-Output "  context <name>      budget | pack"
     Write-Output "  capability <name>   map | route <route-id>"
@@ -109,6 +109,74 @@ function Show-TaskRecovery {
         if ([string]::IsNullOrWhiteSpace($section)) { $section = "none" }
         Write-Output $section
     }
+}
+
+function Get-ArgValue {
+    param(
+        [string[]]$CommandArgs = @(),
+        [Parameter(Mandatory = $true)][string]$Name,
+        [string]$Default = ""
+    )
+
+    for ($i = 0; $i -lt $CommandArgs.Count; $i++) {
+        if ($CommandArgs[$i] -eq "-$Name" -and ($i + 1) -lt $CommandArgs.Count) {
+            return $CommandArgs[$i + 1]
+        }
+    }
+    return $Default
+}
+
+function Append-LedgerBlock {
+    param(
+        [Parameter(Mandatory = $true)][string]$RelativePath,
+        [Parameter(Mandatory = $true)][string]$Title,
+        [Parameter(Mandatory = $true)][System.Collections.Specialized.OrderedDictionary]$Fields
+    )
+
+    $path = Join-Path $Root $RelativePath
+    if (-not (Test-Path -LiteralPath $path)) {
+        throw "Missing ledger: $RelativePath"
+    }
+    $lines = New-Object System.Collections.Generic.List[string]
+    $lines.Add("")
+    $lines.Add(("### {0}" -f $Title))
+    foreach ($key in $Fields.Keys) {
+        $value = [string]$Fields[$key]
+        if ([string]::IsNullOrWhiteSpace($value)) { $value = "unspecified" }
+        $lines.Add(("- {0}: {1}" -f $key, $value))
+    }
+    Add-Content -LiteralPath $path -Value ($lines -join "`r`n") -Encoding UTF8
+    Write-Output ("updated {0}: {1}" -f $RelativePath, $Title)
+}
+
+function Show-TaskBoard {
+    Get-Content -LiteralPath (Join-Path $Root "docs\tasks\board.md") -Raw -Encoding UTF8
+}
+
+function Add-TaskAttempt {
+    param([string[]]$CommandArgs = @())
+
+    $id = Get-ArgValue -CommandArgs $CommandArgs -Name "Id"
+    if ([string]::IsNullOrWhiteSpace($id)) { throw "Task attempt -Id is required." }
+    $taskId = Get-ArgValue -CommandArgs $CommandArgs -Name "TaskId" -Default "unspecified"
+    $status = Get-ArgValue -CommandArgs $CommandArgs -Name "Status" -Default "running"
+    if (@("running", "review_needed", "blocked", "done", "cancelled") -notcontains $status) {
+        throw "Invalid task attempt status: $status"
+    }
+
+    $fields = [ordered]@{
+        id = $id
+        task_id = $taskId
+        status = $status
+        checkpoint = Get-ArgValue -CommandArgs $CommandArgs -Name "Checkpoint" -Default "unspecified"
+        resume_summary = Get-ArgValue -CommandArgs $CommandArgs -Name "ResumeSummary" -Default "unspecified"
+        next_action = Get-ArgValue -CommandArgs $CommandArgs -Name "NextAction" -Default "unspecified"
+        stale_after = Get-ArgValue -CommandArgs $CommandArgs -Name "StaleAfter" -Default "unspecified"
+        verification = Get-ArgValue -CommandArgs $CommandArgs -Name "Verification" -Default "unspecified"
+        rollback = Get-ArgValue -CommandArgs $CommandArgs -Name "Rollback" -Default "git revert"
+        updated_at = (Get-Date).ToString("s")
+    }
+    Append-LedgerBlock -RelativePath "docs\tasks\attempts.md" -Title $id -Fields $fields
 }
 
 function Show-ContextPack {
@@ -147,15 +215,93 @@ function Invoke-ResearchSmoke {
             throw "research-state missing field: $required"
         }
     }
-    Invoke-RootCommandNoExit "eval-research-memo-quality.ps1"
+    Invoke-RootCommandNoExit -Name "eval-task-quality.ps1" -CommandArgs @("research-memo-quality")
     Write-Output "research smoke: pass"
 }
 
 function Invoke-UiuxSmoke {
     $sample = Join-Path $Root "docs\validation\system-improvement\uiux-review-sample.md"
     if (-not (Test-Path -LiteralPath $sample)) { throw "Missing UI/UX sample." }
-    Invoke-RootCommandNoExit "eval-uiux-review-quality.ps1"
+    Invoke-RootCommandNoExit -Name "eval-task-quality.ps1" -CommandArgs @("uiux-review-quality")
     Write-Output "uiux smoke: pass"
+}
+
+function Add-KnowledgePromotion {
+    param([string[]]$CommandArgs = @())
+
+    $id = Get-ArgValue -CommandArgs $CommandArgs -Name "Id"
+    if ([string]::IsNullOrWhiteSpace($id)) { throw "Knowledge promote -Id is required." }
+    $status = Get-ArgValue -CommandArgs $CommandArgs -Name "Status" -Default "curated_note"
+    if (@("raw_note", "curated_note", "verified_knowledge", "archived", "superseded") -notcontains $status) {
+        throw "Invalid knowledge promotion status: $status"
+    }
+    $target = Get-ArgValue -CommandArgs $CommandArgs -Name "Target" -Default "repository"
+    if (@("repository", "obsidian_ready", "archive") -notcontains $target) {
+        throw "Invalid knowledge promotion target: $target"
+    }
+
+    $fields = [ordered]@{
+        id = $id
+        source = Get-ArgValue -CommandArgs $CommandArgs -Name "Source" -Default "unspecified"
+        status = $status
+        target = $target
+        evidence = Get-ArgValue -CommandArgs $CommandArgs -Name "Evidence" -Default "unspecified"
+        verification = Get-ArgValue -CommandArgs $CommandArgs -Name "Verification" -Default "scripts/codex.ps1 knowledge check"
+        rollback = Get-ArgValue -CommandArgs $CommandArgs -Name "Rollback" -Default "git revert"
+        next_action = Get-ArgValue -CommandArgs $CommandArgs -Name "NextAction" -Default "unspecified"
+        updated_at = (Get-Date).ToString("s")
+    }
+    Append-LedgerBlock -RelativePath "docs\knowledge\promotion-ledger.md" -Title $id -Fields $fields
+}
+
+function Show-KnowledgePromotions {
+    Get-Content -LiteralPath (Join-Path $Root "docs\knowledge\promotion-ledger.md") -Raw -Encoding UTF8
+}
+
+function Show-ResearchQueue {
+    Get-Content -LiteralPath (Join-Path $Root "docs\knowledge\research\research-queue.md") -Raw -Encoding UTF8
+}
+
+function Add-ResearchQueueItem {
+    param([string[]]$CommandArgs = @())
+
+    $id = Get-ArgValue -CommandArgs $CommandArgs -Name "Id"
+    if ([string]::IsNullOrWhiteSpace($id)) { throw "Research enqueue -Id is required." }
+    $state = Get-ArgValue -CommandArgs $CommandArgs -Name "State" -Default "queued"
+    if (@("queued", "running", "review_needed", "blocked", "done", "cancelled") -notcontains $state) {
+        throw "Invalid research queue state: $state"
+    }
+
+    $fields = [ordered]@{
+        id = $id
+        question = Get-ArgValue -CommandArgs $CommandArgs -Name "Question" -Default "unspecified"
+        state = $state
+        evidence_quality = Get-ArgValue -CommandArgs $CommandArgs -Name "EvidenceQuality" -Default "unchecked"
+        review_gate = Get-ArgValue -CommandArgs $CommandArgs -Name "ReviewGate" -Default "manual review before claim"
+        run_log = Get-ArgValue -CommandArgs $CommandArgs -Name "RunLog" -Default "docs/knowledge/research/run-log.md"
+        interruption_recovery = Get-ArgValue -CommandArgs $CommandArgs -Name "InterruptionRecovery" -Default "use queue item and run log"
+        user_authorization_boundary = Get-ArgValue -CommandArgs $CommandArgs -Name "Authorization" -Default "no external write"
+        next_action = Get-ArgValue -CommandArgs $CommandArgs -Name "NextAction" -Default "review queue"
+        rollback = Get-ArgValue -CommandArgs $CommandArgs -Name "Rollback" -Default "git revert"
+        updated_at = (Get-Date).ToString("s")
+    }
+    Append-LedgerBlock -RelativePath "docs\knowledge\research\research-queue.md" -Title $id -Fields $fields
+}
+
+function Add-ResearchReviewGate {
+    param([string[]]$CommandArgs = @())
+
+    $id = Get-ArgValue -CommandArgs $CommandArgs -Name "Id"
+    if ([string]::IsNullOrWhiteSpace($id)) { throw "Research review-gate -Id is required." }
+    $fields = [ordered]@{
+        id = $id
+        decision = Get-ArgValue -CommandArgs $CommandArgs -Name "Decision" -Default "review_needed"
+        evidence_quality = Get-ArgValue -CommandArgs $CommandArgs -Name "EvidenceQuality" -Default "unchecked"
+        reviewer = Get-ArgValue -CommandArgs $CommandArgs -Name "Reviewer" -Default "codex"
+        next_action = Get-ArgValue -CommandArgs $CommandArgs -Name "NextAction" -Default "manual review"
+        updated_at = (Get-Date).ToString("s")
+    }
+    Append-LedgerBlock -RelativePath "docs\knowledge\research\run-log.md" -Title ("review-gate " + $id) -Fields $fields
 }
 
 function Invoke-ObsidianDryRun {
@@ -241,14 +387,14 @@ switch ($Command.ToLowerInvariant()) {
     "audit" {
         if ($RemainingArgs.Count -gt 0) {
             $name = $RemainingArgs[0]
-            $args = @($RemainingArgs | Select-Object -Skip 1)
+            $subArgs = @($RemainingArgs | Select-Object -Skip 1)
             switch ($name) {
-                "minimality" { Invoke-RootCommand "audit-minimality.ps1" $args }
-                "usage" { Invoke-RootCommand "audit-file-usage.ps1" $args }
-                "references" { Invoke-RootCommand "audit-active-references.ps1" $args }
-                "capabilities" { Invoke-PlainCommand "audit-codex-capabilities.ps1" $args }
-                "mcp" { Invoke-PlainCommand "audit-mcp-config.ps1" $args }
-                "mcp-readiness" { Invoke-RootCommand "audit-serena-obsidian-readiness.ps1" $args }
+                "minimality" { Invoke-RootCommand "audit-minimality.ps1" $subArgs }
+                "usage" { Invoke-RootCommand "audit-file-usage.ps1" $subArgs }
+                "references" { Invoke-RootCommand "audit-active-references.ps1" $subArgs }
+                "capabilities" { Invoke-PlainCommand "audit-codex-capabilities.ps1" $subArgs }
+                "mcp" { Invoke-PlainCommand "audit-mcp-config.ps1" $subArgs }
+                "mcp-readiness" { Invoke-RootCommand "audit-serena-obsidian-readiness.ps1" $subArgs }
                 default { throw "Unknown audit subcommand: $name" }
             }
         }
@@ -268,8 +414,12 @@ switch ($Command.ToLowerInvariant()) {
             Write-Output "failure-loop eval: pass"
         } elseif ($RemainingArgs.Count -gt 0) {
             $name = $RemainingArgs[0]
-            $scriptName = "eval-$name.ps1"
-            Invoke-RootCommand $scriptName (@($RemainingArgs | Select-Object -Skip 1))
+            if (@("external-mechanism-review-check", "research-memo-quality", "uiux-review-quality", "product-engineering-closeout") -contains $name) {
+                Invoke-RootCommand -Name "eval-task-quality.ps1" -CommandArgs @($name)
+            } else {
+                $scriptName = "eval-$name.ps1"
+                Invoke-RootCommand $scriptName (@($RemainingArgs | Select-Object -Skip 1))
+            }
         } else {
             Invoke-RootCommand "eval-agent-system.ps1"
         }
@@ -277,33 +427,37 @@ switch ($Command.ToLowerInvariant()) {
     "hook" {
         if ($RemainingArgs.Count -eq 0) { throw "Hook name is required." }
         $hook = $RemainingArgs[0]
-        $args = @($RemainingArgs | Select-Object -Skip 1)
+        $subArgs = @($RemainingArgs | Select-Object -Skip 1)
         switch ($hook) {
-            "risk" { Invoke-PlainCommand "codex-hook-risk-check.ps1" $args }
-            "session-start" { Invoke-RootCommand "codex-hook-session-start.ps1" $args }
-            "post-tool-capture" { Invoke-RootCommand "codex-hook-post-tool-capture.ps1" $args }
-            "stop-check" { Invoke-RootCommand "codex-hook-stop-check.ps1" $args }
+            "risk" { Invoke-PlainCommand "codex-hook-risk-check.ps1" $subArgs }
+            "session-start" { Invoke-RootCommand "codex-hook-session-start.ps1" $subArgs }
+            "post-tool-capture" { Invoke-RootCommand "codex-hook-post-tool-capture.ps1" $subArgs }
+            "stop-check" { Invoke-RootCommand "codex-hook-stop-check.ps1" $subArgs }
             default { throw "Unknown hook: $hook" }
         }
     }
     "task" {
         if ($RemainingArgs.Count -eq 0) { Invoke-RootCommand "check-task-state.ps1" }
         $task = $RemainingArgs[0]
-        $args = @($RemainingArgs | Select-Object -Skip 1)
+        $subArgs = @($RemainingArgs | Select-Object -Skip 1)
         switch ($task) {
-            "check" { Invoke-RootCommand "check-task-state.ps1" $args }
+            "check" { Invoke-RootCommand "check-task-state.ps1" $subArgs }
             "recover" { Show-TaskRecovery }
-            "archive" { Invoke-RootCommand "archive-task-state.ps1" $args }
+            "board" { Show-TaskBoard }
+            "attempt" { Add-TaskAttempt -CommandArgs $subArgs }
+            "archive" { Invoke-RootCommand "archive-task-state.ps1" $subArgs }
             default { throw "Unknown task subcommand: $task" }
         }
     }
     "knowledge" {
         if ($RemainingArgs.Count -eq 0) { Invoke-RootCommand "validate-knowledge-index.ps1" }
         $name = $RemainingArgs[0]
-        $args = @($RemainingArgs | Select-Object -Skip 1)
+        $subArgs = @($RemainingArgs | Select-Object -Skip 1)
         switch ($name) {
-            "check" { Invoke-RootCommand "validate-knowledge-index.ps1" $args }
-            "new" { Invoke-PlainCommand "new-knowledge-item.ps1" $args }
+            "check" { Invoke-RootCommand "validate-knowledge-index.ps1" $subArgs }
+            "new" { Invoke-PlainCommand "new-knowledge-item.ps1" $subArgs }
+            "promote" { Add-KnowledgePromotion -CommandArgs $subArgs }
+            "promotions" { Show-KnowledgePromotions }
             "obsidian-dry-run" { Invoke-ObsidianDryRun }
             default { throw "Unknown knowledge subcommand: $name" }
         }
@@ -314,6 +468,9 @@ switch ($Command.ToLowerInvariant()) {
         switch ($name) {
             "state" { Get-Content -LiteralPath (Join-Path $Root "docs\knowledge\research\research-state.yaml") -Raw -Encoding UTF8 }
             "run-log" { Get-Content -LiteralPath (Join-Path $Root "docs\knowledge\research\run-log.md") -Raw -Encoding UTF8 }
+            "queue" { Show-ResearchQueue }
+            "enqueue" { Add-ResearchQueueItem -CommandArgs (@($RemainingArgs | Select-Object -Skip 1)) }
+            "review-gate" { Add-ResearchReviewGate -CommandArgs (@($RemainingArgs | Select-Object -Skip 1)) }
             "smoke" { Invoke-ResearchSmoke }
             default { throw "Unknown research subcommand: $name" }
         }
@@ -342,10 +499,10 @@ switch ($Command.ToLowerInvariant()) {
     "setup" {
         if ($RemainingArgs.Count -eq 0) { throw "Setup subcommand is required." }
         $name = $RemainingArgs[0]
-        $args = @($RemainingArgs | Select-Object -Skip 1)
+        $subArgs = @($RemainingArgs | Select-Object -Skip 1)
         switch ($name) {
-            "git-hooks" { Invoke-RootCommand "install-git-hooks.ps1" $args }
-            "environment" { Invoke-PlainCommand "setup-codex-environment.ps1" $args }
+            "git-hooks" { Invoke-RootCommand "install-git-hooks.ps1" $subArgs }
+            "environment" { Invoke-PlainCommand "setup-codex-environment.ps1" $subArgs }
             default { throw "Unknown setup subcommand: $name" }
         }
     }

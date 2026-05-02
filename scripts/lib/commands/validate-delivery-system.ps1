@@ -51,6 +51,8 @@ $requiredPaths = @(
     "docs/capabilities/external-adoptions.md",
     "docs/validation/real-task-evals.md",
     "docs/tasks/board.md",
+    "docs/tasks/attempts.md",
+    "docs/knowledge/promotion-ledger.md",
     "docs/knowledge/research/research-queue.md",
     "docs/references/assistant/hook-risk-stdin-smoke.md"
 )
@@ -70,6 +72,7 @@ $projects = @(
 )
 
 $cardsText = Get-FileText "docs/capabilities/external-adoptions.md"
+$cardStatuses = @{}
 $requiredCardFields = @(
     "source_project",
     "status",
@@ -104,6 +107,7 @@ foreach ($project in $projects) {
         continue
     }
     $status = $statusMatch.Groups[1].Value
+    $cardStatuses[$project] = $status
     if (@("adopted", "partial", "rejected_with_substitute") -notcontains $status) {
         Fail "external adoption card $project has invalid final status: $status"
     }
@@ -115,6 +119,16 @@ if ($adoptedOrPartial -ge 8) {
     Pass "external adoption adopted_or_partial=$adoptedOrPartial"
 } else {
     Fail "external adoption adopted_or_partial below minimum: $adoptedOrPartial < 8"
+}
+foreach ($project in @("obsidian-skills", "vibe-kanban", "Auto-claude-code-research-in-sleep")) {
+    if ($cardStatuses[$project] -ne "adopted") {
+        Fail "required external mechanism is not adopted: $project"
+    }
+}
+foreach ($needle in @("knowledge promote", "promotion-ledger.md", "task attempt", "attempts.md", "research enqueue", "research review-gate")) {
+    if ($cardsText -notmatch [regex]::Escape($needle)) {
+        Fail "external adoption cards missing callable artifact text: $needle"
+    }
 }
 
 $capabilityPath = Join-Path $Root "docs\capabilities\capability-map.yaml"
@@ -208,6 +222,11 @@ foreach ($skill in @("playgroud-maintenance", "failure-promoter", "external-mech
         Fail "skill use policy missing skill: $skill"
     }
 }
+foreach ($needle in @("adopted_mechanism_default_load", "trigger_to_skill_eval_lesson_loop", "knowledge-promotion-lifecycle", "task-board-session-recovery", "research-queue-review-gate")) {
+    if ($skillPolicyText -notmatch [regex]::Escape($needle)) {
+        Fail "skill use policy missing adopted mechanism rule: $needle"
+    }
+}
 Pass "skill use policy checked"
 
 $researchQueueText = Get-FileText "docs/knowledge/research/research-queue.md"
@@ -216,7 +235,38 @@ foreach ($field in @("review_gate", "evidence_quality", "run_log", "interruption
         Fail "research queue missing field: $field"
     }
 }
+foreach ($needle in @("research enqueue", "research review-gate", "research run-log")) {
+    if ($researchQueueText -notmatch [regex]::Escape($needle)) {
+        Fail "research queue missing command entry: $needle"
+    }
+}
 Pass "research queue checked"
+
+$promotionLedgerText = Get-FileText "docs/knowledge/promotion-ledger.md"
+foreach ($field in @("id", "source", "status", "target", "evidence", "verification", "rollback", "next_action", "updated_at")) {
+    if ($promotionLedgerText -notmatch "(?m)^-\s+" + [regex]::Escape($field) + "\s*:") {
+        Fail "knowledge promotion ledger missing schema field: $field"
+    }
+}
+foreach ($status in @("raw_note", "curated_note", "verified_knowledge", "archived", "superseded")) {
+    if ($promotionLedgerText -notmatch [regex]::Escape($status)) {
+        Fail "knowledge promotion ledger missing status enum: $status"
+    }
+}
+Pass "knowledge promotion ledger checked"
+
+$taskAttemptsText = Get-FileText "docs/tasks/attempts.md"
+foreach ($field in @("id", "task_id", "status", "checkpoint", "resume_summary", "next_action", "stale_after", "verification", "rollback", "updated_at")) {
+    if ($taskAttemptsText -notmatch "(?m)^-\s+" + [regex]::Escape($field) + "\s*:") {
+        Fail "task attempts missing schema field: $field"
+    }
+}
+foreach ($status in @("running", "review_needed", "blocked", "done", "cancelled")) {
+    if ($taskAttemptsText -notmatch [regex]::Escape($status)) {
+        Fail "task attempts missing status enum: $status"
+    }
+}
+Pass "task attempts checked"
 
 $rootFiles = @("README.md", "AGENTS.md", "docs/core/index.md")
 foreach ($file in $rootFiles) {
@@ -245,7 +295,7 @@ Pass "entry documents checked"
 try {
     $helpOutput = & (Join-Path $Root "scripts\codex.ps1") help
     $helpText = ($helpOutput -join "`n")
-    foreach ($needle in @("git <args>", "cache <name>", "clean-external-repos")) {
+    foreach ($needle in @("git <args>", "cache <name>", "clean-external-repos", "task <name>", "attempt", "knowledge <name>", "promote", "research <name>", "enqueue", "review-gate")) {
         if ($helpText -notmatch [regex]::Escape($needle)) {
             Fail "codex help missing: $needle"
         }

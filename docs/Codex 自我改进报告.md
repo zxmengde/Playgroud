@@ -22,9 +22,9 @@
 - 更新 `scripts/lib/commands/check-task-state.ps1`，要求 active task 必须包含 `Status`、`Last Updated` 和 ISO 日期。
 - 更新 `scripts/lib/commands/archive-task-state.ps1`，默认只写摘要归档；完整 active 原文需要显式 `-IncludeFull`。
 - 更新 `scripts/lib/commands/validate-active-load.ps1`，增加 active load 行数和字节预算，当前为 488 行、27844 字节。
-- 强化 `scripts/lib/commands/eval-external-mechanism-review-check.ps1`，外部机制评估必须包含 commit、path、line 证据，禁止假定式证据。
-- 强化 `scripts/lib/commands/eval-uiux-review-quality.ps1`，UI/UX 样例必须覆盖桌面、移动、交互、无障碍和响应式证据。
-- 强化 `scripts/lib/commands/eval-product-engineering-closeout.ps1`，产品工程样例必须包含成功标准、回滚和停止条件。
+- 强化 `scripts/lib/commands/eval-task-quality.ps1 -Name external-mechanism-review-check`，外部机制评估必须包含 commit、path、line 证据，禁止假定式证据。
+- 强化 `scripts/lib/commands/eval-task-quality.ps1 -Name uiux-review-quality`，UI/UX 样例必须覆盖桌面、移动、交互、无障碍和响应式证据。
+- 强化 `scripts/lib/commands/eval-task-quality.ps1 -Name product-engineering-closeout`，产品工程样例必须包含成功标准、回滚和停止条件。
 - 更新 validation samples，使样例与当前 Serena 已接通事实一致。
 - 更新 `docs/workflows/coding.md`，把 Serena 从 candidate 改为已接通的只读导航优先工具。
 - 更新 `docs/workflows/knowledge.md`，登记 `scripts/lib/commands/new-knowledge-item.ps1` 作为本地 knowledge item 生成入口。

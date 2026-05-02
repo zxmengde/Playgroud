@@ -35,7 +35,7 @@
   },
   "promotion": {
     "target": "eval",
-    "target_path": "scripts/lib/commands/eval-external-mechanism-review-check.ps1",
+    "target_path": "scripts/lib/commands/eval-task-quality.ps1",
     "applied_by": "codex",
     "applied_at": "2026-04-28T09:35:00+08:00"
   }

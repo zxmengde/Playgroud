@@ -20,10 +20,12 @@
 | type | owner_path | 必需字段 | 状态枚举 | 生命周期 |
 | --- | --- | --- | --- | --- |
 | task | `docs/tasks/active.md`、`docs/tasks/board.md`、`docs/tasks/done.md` | outcome、status、next_action、checkpoint、verification | active、next、blocked、done、archived | create -> active/blocked -> done/archived |
+| task_attempt | `docs/tasks/attempts.md` | id、task_id、status、checkpoint、resume_summary、next_action、stale_after、verification、rollback | running、review_needed、blocked、done、cancelled | start -> checkpoint -> review_needed/done/blocked |
 | failure | `docs/knowledge/system-improvement/failures/` | id、summary、impact、status、evidence、next_review | captured、triaged、candidate、closed、suppressed、rejected | capture -> triage -> candidate/closed |
 | lesson | `docs/knowledge/system-improvement/lessons/` | id、title、status、target、verification、rollback | accepted、promoted、verified、under_review、deprecated、rolled_back、expired、rejected | draft -> accepted -> promoted -> verified/deprecated |
 | capability | `docs/capabilities/capability-map.yaml` | id、source_projects、maturity_status、user_visible_entry、codex_trigger、verification、rollback | declared、smoke_passed、task_proven、user_proven、experimental、deprecated | declare -> smoke_passed/experimental -> task_proven -> user_proven/deprecated |
 | external_adoption | `docs/capabilities/external-adoptions.md` | source_project、inspected_evidence、learned_mechanism、local_artifact、trigger_condition、codex_behavior_delta、verification、rollback、status | adopted、partial、rejected_with_substitute | inspect -> partial/adopted/rejected_with_substitute |
+| knowledge_promotion | `docs/knowledge/promotion-ledger.md` | id、source、status、target、evidence、verification、rollback、next_action | raw_note、curated_note、verified_knowledge、archived、superseded | raw_note -> curated_note -> verified_knowledge -> archived/superseded |
 | research_queue | `docs/knowledge/research/research-queue.md` 或 `run-log.md` | question、state、evidence_quality、review_gate、run_log、interruption_recovery | queued、running、review_needed、blocked、done、cancelled | queue -> running -> review_needed -> done/blocked |
 
 ## 成熟度边界

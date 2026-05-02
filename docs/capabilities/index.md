@@ -22,10 +22,10 @@
 | delivery-readiness-contract | experimental | `docs/core/delivery-contract.md`、`scripts/codex.ps1 validate` | delivery contract、validator | 不能自动判断语义质量 |
 | command-help-route | smoke_passed | `scripts/codex.ps1 help`、`capability route` | help validator、dispatch | 只检查关键 help 项 |
 | uiux-real-review-pack | smoke_passed | `docs/workflows/uiux.md`、real-task eval | UI workflow、eval spec | 尚无本仓库真实 UI 截图任务 |
-| knowledge-promotion-lifecycle | experimental | `docs/workflows/knowledge.md` | knowledge workflow、object registry | Obsidian 写入仍需目标和回滚 |
-| task-board-session-recovery | experimental | `docs/tasks/board.md`、`task recover` | board、active/done | 无 kanban server |
+| knowledge-promotion-lifecycle | experimental | `knowledge promote`、`knowledge promotions` | promotion ledger、knowledge workflow、object registry | Obsidian 写入仍需目标和回滚 |
+| task-board-session-recovery | experimental | `task board`、`task attempt`、`task recover` | board、attempt ledger、active/done | 无 kanban server |
 | context-modes | experimental | `docs/core/context-modes.md` | mode table、tool budget | 非运行时截断引擎 |
-| research-queue-review-gate | experimental | `docs/knowledge/research/research-queue.md` | queue spec、run log | 无后台服务 |
+| research-queue-review-gate | experimental | `research queue`、`research enqueue`、`research review-gate` | queue spec、run log、review gate 命令 | 无后台服务 |
 | research-to-claim-pipeline | smoke_passed | `docs/workflows/research.md` | research workflow、eval spec | research smoke 不证明完整论文任务 |
 | typed-object-registry | experimental | `docs/core/typed-object-registry.md` | registry、validator | 非完整 schema 编译器 |
 | system-audit-validate-eval | smoke_passed | `scripts/codex.ps1 audit/validate/eval` | 统一入口、脚本结果 | 不能替代真实任务交付 |

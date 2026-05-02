@@ -4,19 +4,18 @@
 
 ## Active
 
-- task_id: TASK-20260503-delivery-debureaucracy
-- outcome: 完成 Codex 交付能力去官僚化、外部机制内化和目录去水整改。
-- checkpoint: 基线已确认；外部项目证据来自 `.cache/external-repos`；正在落地 adoption、capability、核心合同、validator、目录清理和报告。
-- next_action: 完成文件改动，清理缓存，运行新增 validator、validate、eval 和 diff 检查。
-- stale_detection: 若 `docs/tasks/active.md` 的 Last Updated 早于最近提交或仍指向已推送任务，必须更新或归档。
-- resume_summary: 从 `git status --short --branch`、本文件、`docs/tasks/active.md`、最终报告草稿恢复。
+- task_id: TASK-20260503-adoption-continuity
+- outcome: 补全 obsidian-skills、vibe-kanban、Auto-claude-code-research-in-sleep 的本地机制，并合并过细 eval 脚本。
+- checkpoint: promotion ledger、task attempt、research queue/review gate、validator 与 help 映射已补齐；`validate`、`eval` 已通过，`git diff --check` 已清理尾随空格后通过。
+- next_action: 查看最终 diff，提交，运行 strict finish，推送并确认状态。
+- stale_detection: 若本任务已提交推送而 active/board 仍显示 running，必须归档到 `done.md` 并创建新 active task。
+- resume_summary: 从 `git status --short --branch`、`docs/tasks/active.md`、`docs/tasks/attempts.md`、`docs/knowledge/promotion-ledger.md` 和 `research queue` 恢复。
 
 ## Next
 
-- 将 adoption cards 与 capability map 绑定。
-- 清理 `.cache/external-repos` 和一次性报告噪声。
-- 接入 `validate-delivery-system.ps1`。
-- 更新 README、AGENTS、核心入口、help 和 hook stdin 示例。
+- 提交当前改动。
+- 提交后运行 strict finish。
+- 推送到 `origin/main` 并确认工作区干净。
 
 ## Blocked
 
