@@ -5,6 +5,7 @@
 - 当前任务状态：`docs/tasks/`
 - 长期知识和研究队列：`docs/knowledge/`
 - 原版外部服务启动入口：`scripts/codex.ps1 vibe ...` 和 `scripts/codex.ps1 aris ...`
+- 项目级外部 skills：`.codex/skills/`
 - 可直接调用的统一入口：`scripts/codex.ps1`
 
 不再保留历史审计报告、fixture、复杂 validator、eval、hooks、skills 堆叠和外部仓库缓存。原版服务和上游仓库运行态放在 `.runtime/`，不提交进 Git。
@@ -21,6 +22,14 @@
 .\scripts\codex.ps1 vibe status
 .\scripts\codex.ps1 aris watchdog status
 ```
+
+外部 skills 已迁移为项目级 Codex skills，重启 Codex 后在本仓库内按任务自动触发：
+
+```text
+D:\Code\Playgroud\.codex\skills
+```
+
+原全局 active skills 已移到 `C:\Users\mengde\.codex\skills.disabled\2026-05-04-project-level-migration` 作为回滚副本。当前项目级 active skills 为 284 个；175 个 disabled 候选已逐个复判，结论见 `docs/skill-inventory-2026-05-04.json`，安装数量、CLI 命令和重复能力清单见 `docs/external-skills.md`。
 
 ## 外部机制已吸收的本地能力
 
@@ -71,6 +80,7 @@ README.md
 docs/
   capabilities.md
   core.md
+  external-skills.md
   profile.md
   services.md
   workflows.md
@@ -82,6 +92,14 @@ docs/
     promotion-ledger.md
     research-queue.md
     research-run-log.md
+.codex/
+  skills/
+    vibe-kanban-service/
+    aris-watchdog-service/
+    workspace-state-workflow/
+    context-mode-command-adapters/
+    omx-visual-verdict/
+    omx-visual-ralph/
 scripts/
   codex.ps1
   git-safe.ps1
