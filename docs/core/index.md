@@ -111,7 +111,7 @@ Playgroud 的目标不是保存更多规则，而是让 Codex 在本仓库中工
 - session-recovery
 - unverified-closeout-block
 
-真实任务 eval 规格见 `docs/validation/real-task-evals.md`。adoption proof fixture 见 `docs/validation/adoption-proof-fixtures.md`。sample smoke 只能证明 `smoke_passed`；fixture proof 只能证明 `integration_tested`；真实任务证据不足时不得写成 `task_used` 或 `user_confirmed`。
+真实任务 eval 规格见 `docs/validation/real-task-evals.md`。adoption proof fixture 见 `docs/validation/adoption-proof-fixtures.md`。操作验收 trace 见 `docs/validation/operational-acceptance-trace.md`，最终声明字段见 `docs/validation/final-claim-manifest.md`。sample smoke 只能证明 `smoke_passed`；fixture proof 只能证明 `integration_tested`；真实任务证据不足时不得写成 `task_used` 或 `user_confirmed`。
 
 ## 权限边界
 

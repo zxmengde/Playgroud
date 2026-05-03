@@ -65,6 +65,20 @@ function Get-BlockField {
     return ""
 }
 
+function Get-ManifestField {
+    param([string]$Text, [string]$Name)
+    $match = [regex]::Match($Text, "(?m)^" + [regex]::Escape($Name) + "\s*:\s*(.*)\s*$")
+    if ($match.Success) { return $match.Groups[1].Value.Trim() }
+    return ""
+}
+
+function Get-GitScalar {
+    param([string[]]$GitArgs)
+    $output = & git -C $Root @GitArgs 2>$null
+    if ($LASTEXITCODE -ne 0) { return "" }
+    return (($output | Select-Object -First 1) -as [string]).Trim()
+}
+
 Write-Output "## Finish readiness checks"
 
 Write-Output ""
@@ -112,6 +126,74 @@ if (Test-Path -LiteralPath $finalReportPath) {
 }
 if ($activeStatus -match "completed|pushed" -and ($activeUnverified -match "pending_validation:\s*true|unverified:\s*true")) {
     Add-WarningLine "Active status claims completion while Unverified is still pending."
+}
+
+$manifestPath = Join-Path $Root "docs\validation\final-claim-manifest.md"
+if (-not (Test-Path -LiteralPath $manifestPath)) {
+    Add-WarningLine "Missing final claim manifest."
+} else {
+    $manifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8
+    $requiredManifestFields = @(
+        "branch",
+        "commit",
+        "pushed_to",
+        "main_changed",
+        "working_tree_clean",
+        "active_task_status",
+        "latest_attempt_id",
+        "latest_attempt_status",
+        "pending_validation",
+        "validate_passed",
+        "eval_passed",
+        "strict_finish_passed",
+        "git_diff_check_passed",
+        "remaining_user_review_required"
+    )
+    foreach ($field in $requiredManifestFields) {
+        if ([string]::IsNullOrWhiteSpace((Get-ManifestField -Text $manifest -Name $field))) {
+            Add-WarningLine "Final claim manifest missing field: $field"
+        }
+    }
+
+    $branch = Get-GitScalar @("rev-parse", "--abbrev-ref", "HEAD")
+    $commit = Get-GitScalar @("rev-parse", "HEAD")
+    $dirty = @(& git -C $Root status --short --untracked-files=normal)
+    $latestIsTerminal = @("done", "blocked", "cancelled") -contains $latestAttemptStatus
+    Write-Output ("manifest_branch: {0}; current_branch: {1}" -f (Get-ManifestField -Text $manifest -Name "branch"), $branch)
+    Write-Output ("manifest_commit: {0}; current_commit: {1}" -f (Get-ManifestField -Text $manifest -Name "commit"), $commit)
+
+    $manifestClean = Get-ManifestField -Text $manifest -Name "working_tree_clean"
+    if ($manifestClean -eq "true" -and $dirty.Count -gt 0) {
+        Add-WarningLine "Final claim manifest requires a clean working tree, but git status is not clean."
+    }
+
+    $manifestPending = Get-ManifestField -Text $manifest -Name "pending_validation"
+    if ($manifestPending -eq "false" -and ($activeUnverified -match "pending_validation:\s*true|unverified:\s*true")) {
+        Add-WarningLine "Final claim manifest says no pending validation, but active task marks validation pending."
+    }
+
+    $manifestAttemptId = Get-ManifestField -Text $manifest -Name "latest_attempt_id"
+    if ($manifestAttemptId -notin @("current_latest_attempt", "live_check") -and $manifestAttemptId -ne $latestAttemptId) {
+        Add-WarningLine "Final claim manifest latest_attempt_id does not match current latest attempt."
+    }
+
+    $manifestAttemptStatus = Get-ManifestField -Text $manifest -Name "latest_attempt_status"
+    if ($manifestAttemptStatus -eq "terminal_required" -and -not $latestIsTerminal) {
+        Add-WarningLine "Final claim manifest requires terminal latest attempt, but latest attempt is open."
+    } elseif ($manifestAttemptStatus -notin @("terminal_required", "current_latest_attempt", "live_check") -and $manifestAttemptStatus -ne $latestAttemptStatus) {
+        Add-WarningLine "Final claim manifest latest_attempt_status does not match current latest attempt."
+    }
+
+    foreach ($field in @("validate_passed", "eval_passed", "strict_finish_passed", "git_diff_check_passed")) {
+        if ((Get-ManifestField -Text $manifest -Name $field) -ne "true") {
+            Add-WarningLine "Final claim manifest does not mark $field as true."
+        }
+    }
+
+    $remainingReview = Get-ManifestField -Text $manifest -Name "remaining_user_review_required"
+    if ($remainingReview -notin @("true", "false")) {
+        Add-WarningLine "Final claim manifest remaining_user_review_required must be true or false."
+    }
 }
 
 Write-Output ""

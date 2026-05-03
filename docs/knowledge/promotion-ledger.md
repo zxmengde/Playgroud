@@ -54,3 +54,36 @@
 - rollback: git revert current commit
 - next_action: do not write external Obsidian vault unless user provides target and rollback path
 - updated_at: 2026-05-03T10:20:00
+
+### KPL-20260503-002
+- id: KPL-20260503-002
+- source: false adoption closure / state drift after claimed push
+- status: raw_note
+- target: repository
+- evidence: docs/knowledge/system-improvement/failures/FAIL-20260503-102000-4a33c5.yaml; docs/Codex-adoption-proof-state-drift-audit.md; docs/validation/operational-acceptance-trace.md
+- verification: scripts/codex.ps1 knowledge promotions; scripts/lib/commands/validate-delivery-system.ps1
+- rollback: remove KPL-20260503-002 entries before commit or git revert final commit
+- next_action: curate into verified repository knowledge without external Obsidian write
+- updated_at: 2026-05-03T09:22:01
+
+### KPL-20260503-002
+- id: KPL-20260503-002
+- source: false adoption closure / state drift after claimed push
+- status: curated_note
+- target: repository
+- evidence: docs/knowledge/system-improvement/failures/FAIL-20260503-102000-4a33c5.yaml; docs/Codex-adoption-proof-state-drift-audit.md; docs/validation/operational-acceptance-trace.md
+- verification: scripts/codex.ps1 knowledge promotions; scripts/lib/commands/validate-delivery-system.ps1
+- rollback: remove KPL-20260503-002 entries before commit or git revert final commit
+- next_action: verify as repository knowledge after operational probes
+- updated_at: 2026-05-03T09:22:01
+
+### KPL-20260503-002
+- id: KPL-20260503-002
+- source: false adoption closure / state drift after claimed push
+- status: verified_knowledge
+- target: repository
+- evidence: docs/knowledge/system-improvement/failures/FAIL-20260503-102000-4a33c5.yaml; docs/Codex-adoption-proof-state-drift-audit.md; docs/validation/operational-acceptance-trace.md
+- verification: scripts/codex.ps1 knowledge promotions; scripts/lib/commands/validate-delivery-system.ps1
+- rollback: remove KPL-20260503-002 entries before commit or git revert final commit
+- next_action: use anti-self-reference evidence and final claim guard before closure
+- updated_at: 2026-05-03T09:22:01

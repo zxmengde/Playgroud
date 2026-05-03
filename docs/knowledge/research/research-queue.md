@@ -64,3 +64,31 @@
 - next_action: gather non-self evidence before moving to done
 - rollback: git revert current commit
 - updated_at: 2026-05-03T10:20:00
+
+### RQ-20260503-003
+- id: RQ-20260503-003
+- source: operational acceptance
+- question: How should Playgroud distinguish fixture-based integration proof from real task-used capability?
+- state: queued
+- evidence_quality: unchecked
+- review_gate: requires non-self operational trace and public command lifecycle before task_used claim
+- run_log: docs/knowledge/research/run-log.md
+- interruption_recovery: resume from research queue, run log, and operational acceptance trace
+- user_authorization_boundary: no external write and no background service
+- next_action: collect trace evidence then run review-gate
+- rollback: remove RQ-20260503-003 queue/run-log entries before commit or git revert final commit
+- updated_at: 2026-05-03T09:22:25
+
+### RQ-20260503-003
+- id: RQ-20260503-003
+- source: operational acceptance
+- question: How should Playgroud distinguish fixture-based integration proof from real task-used capability?
+- state: done
+- evidence_quality: sufficient_non_self_operational_trace
+- review_gate: review-gate RQ-20260503-003 passed in docs/knowledge/research/run-log.md
+- run_log: docs/knowledge/research/run-log.md
+- interruption_recovery: resume from research queue, run log, and operational acceptance trace
+- user_authorization_boundary: no external write and no background service
+- next_action: use task_used only after public command proof; keep user_confirmed absent
+- rollback: remove RQ-20260503-003 queue/run-log entries before commit or git revert final commit
+- updated_at: 2026-05-03T09:22:25

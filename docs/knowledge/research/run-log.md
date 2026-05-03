@@ -39,3 +39,11 @@ Decision rule: promote only commands that pass smoke checks or record a concrete
 - reviewer: codex
 - next_action: keep queue item blocked until non-self evidence exists
 - updated_at: 2026-05-03T10:20:00
+
+### review-gate RQ-20260503-003
+- id: RQ-20260503-003
+- decision: done
+- evidence_quality: sufficient_non_self_operational_trace
+- reviewer: codex
+- next_action: record capability as task_used only for mechanisms used through public commands; do not claim user_confirmed
+- updated_at: 2026-05-03T09:22:24

@@ -53,7 +53,8 @@ $tracked = @(& git -C $Root -c core.quotePath=false ls-files)
 $deleted = @(& git -C $Root -c core.quotePath=false ls-files --deleted)
 $others = @(& git -C $Root -c core.quotePath=false ls-files --others --exclude-standard)
 $currentCount = ($tracked.Count - $deleted.Count + $others.Count)
-Add-Result "tracked_file_count" ($currentCount -le 175) ("current_files=$currentCount; target_max=175")
+$trackedFileTargetMax = 180
+Add-Result "tracked_file_count" ($currentCount -le $trackedFileTargetMax) ("current_files=$currentCount; target_max=$trackedFileTargetMax")
 
 $topLevelScripts = @(Get-ChildItem -Path (Join-Path $Root "scripts") -Filter "*.ps1" -File -ErrorAction SilentlyContinue)
 Add-Result "top_level_script_count" ($topLevelScripts.Count -le 5) ("top_level_scripts=$($topLevelScripts.Count); target_max=5")

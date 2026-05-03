@@ -13,7 +13,7 @@
 | smoke_passed | 代表性 smoke 或样例路径通过 |
 | partial | 已吸收部分机制，但存在明确未覆盖范围 |
 | integration_tested | 有真实或 fixture-based integration proof，且 validator 会检查关键语义 |
-| task_used | 已在真实仓库任务中使用并留下非自指证据 |
+| task_used | 已在真实仓库任务中通过公开入口使用并留下非自指证据 |
 | user_confirmed | 用户在真实使用中确认有效 |
 | deprecated | 保留历史，不再默认使用 |
 
@@ -42,6 +42,8 @@
 10. 能说明它会如何阻止过去已经发生过的错误。
 
 字段 marker：`prevents_past_error` 必须说明该机制阻止哪类既有错误。
+
+`task_used` 还必须指向真实任务 trace，例如 `docs/validation/operational-acceptance-trace.md` 中的公开命令、状态转移和验证结果。fixture、字段完整性或文档说明只能支持 `integration_tested`，不能支持 `task_used`。
 
 ## 不得升级的情况
 

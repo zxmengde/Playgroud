@@ -58,3 +58,39 @@
 - verification: validate-delivery-system; validate; eval; git diff --check; strict finish
 - rollback: git revert current commit
 - updated_at: 2026-05-03T11:10:00
+
+### ATT-20260503-004
+- id: ATT-20260503-004
+- task_id: TASK-20260503-operational-acceptance
+- status: running
+- checkpoint: Phase 1 archive restored and trace initialized
+- resume_summary: Operational acceptance started from fix/adoption-proof-state-drift baseline
+- next_action: run public-entry task, knowledge, research probes and negative guards
+- stale_after: 2026-05-04
+- verification: strict finish must fail while attempt is open
+- rollback: remove ATT-20260503-004 entries before commit or git revert final commit
+- updated_at: 2026-05-03T09:19:36
+
+### ATT-20260503-004
+- id: ATT-20260503-004
+- task_id: TASK-20260503-operational-acceptance
+- status: review_needed
+- checkpoint: Task probe reached review gate after open-attempt strict failure
+- resume_summary: Recover shows ATT-20260503-004 and next action from active task
+- next_action: complete knowledge promotion and research queue probes, then close ATT-20260503-004
+- stale_after: 2026-05-04
+- verification: strict finish must still fail while review_needed
+- rollback: remove ATT-20260503-004 entries before commit or git revert final commit
+- updated_at: 2026-05-03T09:20:54
+
+### ATT-20260503-004
+- id: ATT-20260503-004
+- task_id: TASK-20260503-operational-acceptance
+- status: done
+- checkpoint: Operational acceptance probes, negative guards, trace, and capability rerating completed
+- resume_summary: Recover from operational trace, final claim manifest, task board, promotion ledger, and research queue
+- next_action: user review final branch/main result; do not claim user_confirmed
+- stale_after: 2026-05-04
+- verification: validate-delivery-system; validate; eval; git diff --check; strict finish
+- rollback: git revert final operational acceptance commit
+- updated_at: 2026-05-03T09:29:38

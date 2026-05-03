@@ -177,6 +177,8 @@ $requiredPaths = @(
     "docs/capabilities/external-adoptions.md",
     "docs/validation/real-task-evals.md",
     "docs/validation/adoption-proof-fixtures.md",
+    "docs/validation/operational-acceptance-trace.md",
+    "docs/validation/final-claim-manifest.md",
     "docs/tasks/board.md",
     "docs/tasks/attempts.md",
     "docs/knowledge/promotion-ledger.md",
@@ -387,6 +389,49 @@ if ($evalText -match "adopted/partial|task_proven|user_proven") {
     Fail "real task eval still uses retired adoption or maturity status"
 }
 Pass "real task eval specs checked"
+
+$operationalTrace = Get-FileText "docs/validation/operational-acceptance-trace.md"
+foreach ($section in @(
+        "Baseline",
+        "Probe 1: Task attempt lifecycle",
+        "Probe 2: Knowledge promotion lifecycle",
+        "Probe 3: Research queue review gate",
+        "Probe 4: Negative guard tests",
+        "Probe 5: Final claim guard",
+        "Merge Decision",
+        "Rollback"
+    )) {
+    if ($operationalTrace -notmatch "(?m)^##\s+" + [regex]::Escape($section) + "\s*$") {
+        Fail "operational acceptance trace missing section: $section"
+    }
+}
+if ($operationalTrace -match "result:\s*pending") {
+    Fail "operational acceptance trace still contains pending probe result"
+}
+Pass "operational acceptance trace checked"
+
+$finalClaimManifest = Get-FileText "docs/validation/final-claim-manifest.md"
+foreach ($field in @(
+        "branch",
+        "commit",
+        "pushed_to",
+        "main_changed",
+        "working_tree_clean",
+        "active_task_status",
+        "latest_attempt_id",
+        "latest_attempt_status",
+        "pending_validation",
+        "validate_passed",
+        "eval_passed",
+        "strict_finish_passed",
+        "git_diff_check_passed",
+        "remaining_user_review_required"
+    )) {
+    if ($finalClaimManifest -notmatch "(?m)^" + [regex]::Escape($field) + "\s*:") {
+        Fail "final claim manifest missing field: $field"
+    }
+}
+Pass "final claim manifest checked"
 
 $promotionLedgerText = Get-FileText "docs/knowledge/promotion-ledger.md"
 $promotionBlocks = @(Get-LedgerBlocks $promotionLedgerText)

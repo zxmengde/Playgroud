@@ -4,26 +4,28 @@
 
 ## Active
 
-- task_id: TASK-20260503-adoption-proof-audit
-- outcome: 审计 `3d0e91d` 的 adoption proof、状态漂移和 validator 假阳性，并提交修复分支。
-- checkpoint: adoption proof standard、fixture proof、validator、finish gate、状态同步、failure 记录和报告已完成。
-- next_action: 等待用户 review 修复分支和提交记录。
-- stale_detection: 若 latest attempt 为 `running` 或 `review_needed` 且 active task 声称完成，finish gate 必须失败；若 active 与 board 指向不同任务，先修状态再收尾。
-- resume_summary: 从 `git status --short --branch`、`docs/tasks/active.md`、`docs/tasks/attempts.md`、`docs/tasks/board.md`、promotion ledger 和 research queue 恢复。
+- task_id: TASK-20260503-operational-acceptance
+- outcome: 对 `fix/adoption-proof-state-drift` 做真实操作验收，并建立 final claim guard。
+- checkpoint: 旧报告已归档；task、knowledge、research 三个真实 probe 通过；三个负例按预期失败；`ATT-20260503-004` 已关闭为 `done`。
+- next_action: 用户 review 本轮提交、main 合并和推送结果；不得把 `task_used` 写成 `user_confirmed`。
+- stale_detection: 若 latest attempt 为 `running` 或 `review_needed`，`check-finish-readiness.ps1 -Strict` 必须失败；若 active、board、attempt 指向不同任务，先修状态再收尾。
+- resume_summary: 从 `git status --short --branch`、`docs/tasks/active.md`、`docs/tasks/attempts.md`、`docs/tasks/board.md`、operational trace、promotion ledger 和 research queue 恢复。
 
 ## Next
 
-- 无当前 next task；后续只按用户 review 意见继续。
+- 用户 review operational acceptance trace、final claim manifest、capability 评级和最终验证结果。
 
 ## Blocked
 
-无当前阻塞。若 GitHub 推送失败，记录网络错误和可恢复命令。
+无当前阻塞。若任一验收失败，保留修复分支并报告失败，不合并 main。
 
 ## Done
 
 - 2026-05-02: 二次整改已由提交 `c552c2f` 推送到 `origin/main`，不再作为 active task 保留。
-- 2026-05-03: 提交 `3d0e91d` 已存在于本地历史；其 adoption-continuity attempt 被本轮审计判定存在状态漂移，需以当前修复分支纠偏。
-- 2026-05-03: `TASK-20260503-adoption-proof-audit` 完成状态纠偏和反假阳性检查器，未直接推送 `main`。
+- 2026-05-03: 提交 `3d0e91d` 已存在于本地历史；其 adoption-continuity attempt 被后续审计判定存在状态漂移。
+- 2026-05-03: `TASK-20260503-adoption-proof-audit` 完成状态纠偏和反假阳性检查器，提交到 `fix/adoption-proof-state-drift`，未直接推送 `main`。
+- 2026-05-03: 旧整改报告已恢复到 archive 并标记 superseded，保留错误历史。
+- 2026-05-03: `TASK-20260503-operational-acceptance` 完成 task attempt、knowledge promotion、research queue 的真实操作验收，并记录三个负例测试。
 
 ## Recovery
 

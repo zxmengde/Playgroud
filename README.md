@@ -114,4 +114,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "$env:CODEX_WORKTREE_PATH\sc
 
 普通文件读取、grep、git 和简单修改不使用 Serena。只有真实代码导航、符号引用或跨文件重构时才启用 Serena，并在启用前说明 CLI 为什么不够、查询内容、退出条件和避免重复 server 的方式。
 
-外部机制状态以 `docs/core/adoption-proof-standard.md` 为准。`adopted` 不再作为状态使用；只有有非自指 evidence、integration proof、validator 语义检查和回滚路径的机制，才能写成 `integration_tested` 或更高等级。
+外部机制状态以 `docs/core/adoption-proof-standard.md` 为准。`adopted` 不再作为状态使用；只有有非自指 evidence、integration proof、validator 语义检查和回滚路径的机制，才能写成 `integration_tested` 或更高等级。`task_used` 必须指向真实任务 trace，例如 `docs/validation/operational-acceptance-trace.md`；不得把 fixture proof 写成用户确认。

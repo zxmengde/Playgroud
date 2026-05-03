@@ -24,10 +24,10 @@
 | delivery-readiness-contract | integration_tested | `docs/core/delivery-contract.md`、`scripts/codex.ps1 validate` | delivery contract、adoption proof validator、finish gate | 不能自动判断语义质量 |
 | command-help-route | smoke_passed | `scripts/codex.ps1 help`、`capability route` | help validator、dispatch | 只检查关键 help 项 |
 | uiux-real-review-pack | smoke_passed | `docs/workflows/uiux.md`、real-task eval | UI workflow、eval spec | 尚无本仓库真实 UI 截图任务 |
-| knowledge-promotion-lifecycle | integration_tested | `knowledge promote`、`knowledge promotions` | promotion ledger、adoption proof fixture、knowledge workflow | Obsidian 写入仍需目标和回滚 |
-| task-board-session-recovery | integration_tested | `task board`、`task attempt`、`task recover` | board、attempt ledger、fixture lifecycle、finish gate | 无 kanban server |
+| knowledge-promotion-lifecycle | task_used | `knowledge promote`、`knowledge promotions` | `KPL-20260503-002` 真实 promotion lifecycle、promotion ledger、operational trace | Obsidian 写入仍需目标和回滚 |
+| task-board-session-recovery | task_used | `task board`、`task attempt`、`task recover` | `ATT-20260503-004` 真实 attempt lifecycle、recover、strict finish open-attempt 阻断 | 无 kanban server |
 | context-modes | partial | `docs/core/context-modes.md` | mode table、tool budget | 非运行时截断引擎 |
-| research-queue-review-gate | integration_tested | `research queue`、`research enqueue`、`research review-gate` | queue spec、run log、fixture lifecycle | 无后台服务 |
+| research-queue-review-gate | task_used | `research queue`、`research enqueue`、`research review-gate` | `RQ-20260503-003` 真实 queue/review-gate lifecycle、run log、operational trace | 无后台服务 |
 | research-to-claim-pipeline | smoke_passed | `docs/workflows/research.md` | research workflow、eval spec | research smoke 不证明完整论文任务 |
 | typed-object-registry | integration_tested | `docs/core/typed-object-registry.md` | registry、adoption proof standard、validator | 非完整 schema 编译器 |
 | system-audit-validate-eval | smoke_passed | `scripts/codex.ps1 audit/validate/eval` | 统一入口、脚本结果 | 不能替代真实任务交付 |
@@ -60,4 +60,4 @@
 
 ## 回滚
 
-能力回滚以 `docs/capabilities/capability-map.yaml` 的 `rollback` 字段为准。若能力只处于 `documented`、`command_stub`、`smoke_passed`、`partial` 或 `integration_tested`，不得在最终报告中写成用户已经确认。
+能力回滚以 `docs/capabilities/capability-map.yaml` 的 `rollback` 字段为准。若能力只处于 `documented`、`command_stub`、`smoke_passed`、`partial` 或 `integration_tested`，不得在最终报告中写成用户已经确认。`task_used` 只表示本仓库真实任务中通过公开入口使用过一次，不等于 `user_confirmed`。
