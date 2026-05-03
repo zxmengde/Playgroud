@@ -62,8 +62,8 @@
 
 ## Merge Decision
 
-- decision: conditional.
-- reason: three positive probes and three negative guards passed; merge to `main` still requires final validation, commit, branch push, fast-forward merge, post-merge validation and main push.
+- decision: merged_and_pushed.
+- reason: `fix/adoption-proof-state-drift` was pushed, `main` was fast-forwarded from `3d0e91d` to the operational acceptance commit `568759d`, post-merge `validate`, `eval`, `git diff --check` and strict finish passed, and `git push origin main` succeeded. This trace entry records that operational decision; final branch and commit facts remain the live Git output source of truth.
 
 ## Rollback
 
