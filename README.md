@@ -1,12 +1,13 @@
 # Playgroud
 
-这是一个极简的 Codex 工作区控制仓库。保留的东西只有三类：
+这是一个极简的 Codex 工作区控制仓库。保留的东西主要有四类：
 
 - 当前任务状态：`docs/tasks/`
 - 长期知识和研究队列：`docs/knowledge/`
+- 原版外部服务启动入口：`scripts/codex.ps1 vibe ...` 和 `scripts/codex.ps1 aris ...`
 - 可直接调用的统一入口：`scripts/codex.ps1`
 
-不再保留历史审计报告、fixture、复杂 validator、eval、hooks、skills 堆叠和外部仓库缓存。
+不再保留历史审计报告、fixture、复杂 validator、eval、hooks、skills 堆叠和外部仓库缓存。原版服务和上游仓库运行态放在 `.runtime/`，不提交进 Git。
 
 ## 快速入口
 
@@ -17,6 +18,8 @@
 .\scripts\codex.ps1 knowledge promotions
 .\scripts\codex.ps1 research queue
 .\scripts\codex.ps1 capability map
+.\scripts\codex.ps1 vibe status
+.\scripts\codex.ps1 aris watchdog status
 ```
 
 ## 外部机制已吸收的本地能力
@@ -30,27 +33,35 @@
 .\scripts\codex.ps1 knowledge promotions
 ```
 
-### vibe-kanban -> task board / attempt / recover
+### vibe-kanban -> 原版 Web 服务
 
-长期任务用 board 和 attempts 记录 checkpoint、next action 和恢复信息。
-
-```powershell
-.\scripts\codex.ps1 task board
-.\scripts\codex.ps1 task attempt -Id ATT-20260503-001 -TaskId TASK-20260503-cleanup -Status running -Checkpoint "started" -NextAction "continue cleanup"
-.\scripts\codex.ps1 task recover
-```
-
-### Auto-claude-code-research-in-sleep -> research queue / review gate
-
-只保留本地队列和 review gate，不伪装后台服务。
+需要真实 kanban UI 时，直接运行原版 `npx vibe-kanban` 服务。运行态日志和 pid 写到 `.runtime/vibe-kanban/`。
 
 ```powershell
-.\scripts\codex.ps1 research enqueue -Id RQ-20260503-001 -Question "research question" -State queued -ReviewGate "manual review before claim"
-.\scripts\codex.ps1 research review-gate -Id RQ-20260503-001 -Decision review_needed -Evidence "what was checked" -NextAction "continue or stop"
-.\scripts\codex.ps1 research queue
+.\scripts\codex.ps1 vibe start -Port 3210
+.\scripts\codex.ps1 vibe status
+.\scripts\codex.ps1 vibe stop
 ```
 
-`review-gate` 会写入 `research-run-log.md`，并同步更新对应 queue item 的状态。
+默认地址：
+
+```text
+http://127.0.0.1:3210
+```
+
+### Auto-claude-code-research-in-sleep -> 原版 ARIS watchdog 后台能力
+
+ARIS 原仓库会克隆到 `.runtime/aris/Auto-claude-code-research-in-sleep/`。后台能力使用上游 `tools/watchdog.py`，不是 Markdown 队列替代。
+
+```powershell
+.\scripts\codex.ps1 aris install
+.\scripts\codex.ps1 aris watchdog start -Interval 60
+.\scripts\codex.ps1 aris watchdog status
+.\scripts\codex.ps1 aris watchdog register -Name exp01 -Type training -Session exp01 -SessionType tmux -Gpus "0,1"
+.\scripts\codex.ps1 aris watchdog stop
+```
+
+说明：ARIS watchdog 原版主要面向 Linux/远程实验环境，注册任务时依赖 `tmux` 或 `screen` 会话。Windows 本机可以启动 watchdog，但训练/下载任务监控通常应指向 WSL 或远程 Linux 会话。
 
 ## 目录
 
@@ -61,6 +72,7 @@ docs/
   capabilities.md
   core.md
   profile.md
+  services.md
   workflows.md
   tasks/
     active.md

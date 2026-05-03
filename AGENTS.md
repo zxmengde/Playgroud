@@ -9,7 +9,7 @@
 3. `docs/core.md`
 4. `docs/tasks/active.md`
 
-默认不启动 Serena、MCP、浏览器、Obsidian 或后台服务。普通文件读取、搜索、修改和 Git 操作用 CLI 完成。
+默认不启动 Serena、MCP、浏览器、Obsidian 或后台服务。用户明确要求原版服务或后台运行时，可以使用 `scripts/codex.ps1 vibe ...` 和 `scripts/codex.ps1 aris watchdog ...` 启停。普通文件读取、搜索、修改和 Git 操作用 CLI 完成。
 
 ## 权限边界
 
@@ -20,6 +20,8 @@
 - task：`scripts/codex.ps1 task board|attempt|recover`
 - knowledge：`scripts/codex.ps1 knowledge promote|promotions`
 - research：`scripts/codex.ps1 research queue|enqueue|review-gate|run-log`
+- vibe-kanban：`scripts/codex.ps1 vibe start|status|stop`
+- ARIS watchdog：`scripts/codex.ps1 aris install|watchdog start|watchdog status|watchdog stop`
 - git：`scripts/codex.ps1 git <args>`
 
 不要用脚本、验证和报告替代实际交付。需要检查时，只跑与当前改动直接相关的最小命令。

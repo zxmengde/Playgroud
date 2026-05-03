@@ -5,6 +5,7 @@ tmp/
 logs/
 *.log
 output/
+.runtime/
 
 # Python and Node artifacts
 __pycache__/

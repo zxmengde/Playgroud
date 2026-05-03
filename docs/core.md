@@ -9,6 +9,7 @@
 - `docs/tasks/`：当前任务、任务板、attempt 记录。
 - `docs/knowledge/`：knowledge promotion、research queue、research run log。
 - `docs/capabilities.md`：外部机制如何落到本地接口。
+- `docs/services.md`：原版外部服务的启动、停止和运行态位置。
 - `docs/workflows.md`：最短工作流。
 - `scripts/codex.ps1`：唯一主要入口。
 
@@ -17,7 +18,7 @@
 - 历史整改报告。
 - fixture、eval、strict finish、复杂 validator。
 - 第三方仓库缓存。
-- 默认加载的 skills、hooks、MCP 和长期后台服务。
+- 未经明确任务触发的 skills、hooks、MCP 和后台服务。
 
 ## 启动顺序
 

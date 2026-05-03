@@ -10,6 +10,63 @@ $ErrorActionPreference = "Stop"
 if ($null -eq $RemainingArgs) { $RemainingArgs = @() }
 
 $Root = (Resolve-Path "$PSScriptRoot\..").Path
+$Runtime = Join-Path $Root ".runtime"
+
+function Ensure-Directory {
+    param([Parameter(Mandatory = $true)][string]$Path)
+    if (-not (Test-Path -LiteralPath $Path)) {
+        New-Item -ItemType Directory -Force -Path $Path | Out-Null
+    }
+}
+
+function Get-CommandPath {
+    param([Parameter(Mandatory = $true)][string[]]$Names)
+    foreach ($name in $Names) {
+        $cmd = Get-Command $name -ErrorAction SilentlyContinue
+        if ($cmd) { return $cmd.Source }
+    }
+    return $null
+}
+
+function Read-JsonState {
+    param([Parameter(Mandatory = $true)][string]$Path)
+    if (-not (Test-Path -LiteralPath $Path)) { return $null }
+    try { return Get-Content -LiteralPath $Path -Raw -Encoding UTF8 | ConvertFrom-Json }
+    catch { return $null }
+}
+
+function Write-JsonState {
+    param([Parameter(Mandatory = $true)][string]$Path, [Parameter(Mandatory = $true)]$Data)
+    Ensure-Directory (Split-Path $Path -Parent)
+    $Data | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $Path -Encoding UTF8
+}
+
+function Test-RunningPid {
+    param([object]$PidValue)
+    if ($null -eq $PidValue) { return $false }
+    try {
+        $pidInt = [int]$PidValue
+        return $null -ne (Get-Process -Id $pidInt -ErrorAction SilentlyContinue)
+    } catch {
+        return $false
+    }
+}
+
+function Stop-StateProcess {
+    param([Parameter(Mandatory = $true)][string]$StatePath)
+    $state = Read-JsonState $StatePath
+    if (-not $state) {
+        Write-Output "not running"
+        return
+    }
+    if (Test-RunningPid $state.pid) {
+        Stop-Process -Id ([int]$state.pid) -Force
+        Write-Output ("stopped pid={0}" -f $state.pid)
+    } else {
+        Write-Output ("stale pid={0}" -f $state.pid)
+    }
+    Remove-Item -LiteralPath $StatePath -Force -ErrorAction SilentlyContinue
+}
 
 function Read-RepoFile {
     param([Parameter(Mandatory = $true)][string]$RelativePath)
@@ -108,6 +165,9 @@ function Show-Help {
     Write-Output "  research enqueue -Id RQ-YYYYMMDD-001 -Question <text> -State queued|running|review_needed|blocked|done|cancelled"
     Write-Output "  research review-gate -Id RQ-YYYYMMDD-001 -Decision review_needed|blocked|done"
     Write-Output "  research run-log"
+    Write-Output "  vibe start|stop|status"
+    Write-Output "  aris install|update"
+    Write-Output "  aris watchdog start|stop|status|register|unregister"
     Write-Output "  capability map"
     Write-Output "  git <args>"
 }
@@ -216,6 +276,225 @@ function Add-ResearchReviewGate {
     if ($updated) { Write-Output "updated docs\knowledge\research-queue.md: $id state=$decision" }
 }
 
+function Get-VibeRuntime {
+    $dir = Join-Path $Runtime "vibe-kanban"
+    Ensure-Directory $dir
+    return [pscustomobject]@{
+        dir = $dir
+        state = Join-Path $dir "state.json"
+        stdout = Join-Path $dir "stdout.log"
+        stderr = Join-Path $dir "stderr.log"
+    }
+}
+
+function Start-VibeKanban {
+    param([string[]]$Tokens)
+    $paths = Get-VibeRuntime
+    $state = Read-JsonState $paths.state
+    if ($state -and (Test-RunningPid $state.pid)) {
+        Write-Output ("vibe-kanban already running: pid={0} url={1}" -f $state.pid, $state.url)
+        return
+    }
+    $npx = Get-CommandPath @("npx.cmd", "npx")
+    if (-not $npx) { throw "npx is required to run original vibe-kanban." }
+
+    $port = Get-ArgValue $Tokens "Port" "3210"
+    $hostName = Get-ArgValue $Tokens "Host" "127.0.0.1"
+    $oldPort = $env:PORT
+    $oldHost = $env:HOST
+    try {
+        $env:PORT = $port
+        $env:HOST = $hostName
+        $proc = Start-Process -FilePath $npx `
+            -ArgumentList @("--yes", "vibe-kanban") `
+            -WorkingDirectory $Root `
+            -RedirectStandardOutput $paths.stdout `
+            -RedirectStandardError $paths.stderr `
+            -WindowStyle Hidden `
+            -PassThru
+    } finally {
+        $env:PORT = $oldPort
+        $env:HOST = $oldHost
+    }
+
+    $url = "http://${hostName}:${port}"
+    Write-JsonState $paths.state ([ordered]@{
+        pid = $proc.Id
+        command = "npx --yes vibe-kanban"
+        url = $url
+        host = $hostName
+        port = $port
+        stdout = $paths.stdout
+        stderr = $paths.stderr
+        started_at = (Get-Date).ToString("s")
+    })
+    Write-Output ("vibe-kanban started: pid={0} url={1}" -f $proc.Id, $url)
+}
+
+function Show-VibeKanbanStatus {
+    $paths = Get-VibeRuntime
+    $state = Read-JsonState $paths.state
+    if (-not $state) {
+        Write-Output "vibe-kanban: stopped"
+        return
+    }
+    $running = Test-RunningPid $state.pid
+    Write-Output ("vibe-kanban: {0}" -f ($(if ($running) { "running" } else { "stale" })))
+    Write-Output ("pid: {0}" -f $state.pid)
+    Write-Output ("url: {0}" -f $state.url)
+    Write-Output ("stdout: {0}" -f $state.stdout)
+    Write-Output ("stderr: {0}" -f $state.stderr)
+}
+
+function Stop-VibeKanban {
+    $paths = Get-VibeRuntime
+    Stop-StateProcess $paths.state
+}
+
+function Get-ArisRuntime {
+    $dir = Join-Path $Runtime "aris"
+    $repo = Join-Path $dir "Auto-claude-code-research-in-sleep"
+    $watchdogBase = Join-Path $dir "watchdog"
+    Ensure-Directory $dir
+    return [pscustomobject]@{
+        dir = $dir
+        repo = $repo
+        watchdogBase = $watchdogBase
+        state = Join-Path $dir "watchdog-state.json"
+        stdout = Join-Path $dir "watchdog-stdout.log"
+        stderr = Join-Path $dir "watchdog-stderr.log"
+    }
+}
+
+function Install-ArisOriginal {
+    $paths = Get-ArisRuntime
+    if (Test-Path -LiteralPath (Join-Path $paths.repo ".git")) {
+        Write-Output ("ARIS already installed: {0}" -f $paths.repo)
+        return
+    }
+    $git = Get-CommandPath @("git.exe", "git")
+    if (-not $git) { throw "git is required to clone ARIS." }
+    & $git clone https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep.git $paths.repo
+    if ($LASTEXITCODE -ne 0) { throw "ARIS clone failed." }
+    Write-Output ("ARIS installed: {0}" -f $paths.repo)
+}
+
+function Update-ArisOriginal {
+    $paths = Get-ArisRuntime
+    if (-not (Test-Path -LiteralPath (Join-Path $paths.repo ".git"))) {
+        Install-ArisOriginal
+        return
+    }
+    & git -C $paths.repo pull --ff-only
+    if ($LASTEXITCODE -ne 0) { throw "ARIS update failed." }
+}
+
+function Get-ArisPython {
+    $python = Get-CommandPath @("python.exe", "python", "py.exe", "py")
+    if (-not $python) { throw "Python is required to run ARIS watchdog." }
+    return $python
+}
+
+function Get-ArisWatchdogScript {
+    $paths = Get-ArisRuntime
+    $script = Join-Path $paths.repo "tools\watchdog.py"
+    if (-not (Test-Path -LiteralPath $script)) {
+        Install-ArisOriginal
+    }
+    if (-not (Test-Path -LiteralPath $script)) { throw "Missing ARIS watchdog.py after install." }
+    return $script
+}
+
+function Start-ArisWatchdog {
+    param([string[]]$Tokens)
+    $paths = Get-ArisRuntime
+    $state = Read-JsonState $paths.state
+    if ($state -and (Test-RunningPid $state.pid)) {
+        Write-Output ("ARIS watchdog already running: pid={0} base={1}" -f $state.pid, $state.base_dir)
+        return
+    }
+    $python = Get-ArisPython
+    $script = Get-ArisWatchdogScript
+    $interval = Get-ArgValue $Tokens "Interval" "60"
+    Ensure-Directory $paths.watchdogBase
+    $proc = Start-Process -FilePath $python `
+        -ArgumentList @($script, "--base-dir", $paths.watchdogBase, "--interval", $interval) `
+        -WorkingDirectory $Root `
+        -RedirectStandardOutput $paths.stdout `
+        -RedirectStandardError $paths.stderr `
+        -WindowStyle Hidden `
+        -PassThru
+    Write-JsonState $paths.state ([ordered]@{
+        pid = $proc.Id
+        command = "python watchdog.py --base-dir <runtime> --interval $interval"
+        base_dir = $paths.watchdogBase
+        stdout = $paths.stdout
+        stderr = $paths.stderr
+        started_at = (Get-Date).ToString("s")
+    })
+    Write-Output ("ARIS watchdog started: pid={0} base={1}" -f $proc.Id, $paths.watchdogBase)
+}
+
+function Show-ArisWatchdogStatus {
+    $paths = Get-ArisRuntime
+    $state = Read-JsonState $paths.state
+    if ($state -and (Test-RunningPid $state.pid)) {
+        Write-Output ("ARIS watchdog: running pid={0}" -f $state.pid)
+    } elseif ($state) {
+        Write-Output ("ARIS watchdog: stale pid={0}" -f $state.pid)
+    } else {
+        Write-Output "ARIS watchdog: stopped"
+    }
+    $python = Get-ArisPython
+    $script = Get-ArisWatchdogScript
+    & $python $script --base-dir $paths.watchdogBase --status
+}
+
+function Stop-ArisWatchdog {
+    $paths = Get-ArisRuntime
+    Stop-StateProcess $paths.state
+}
+
+function Register-ArisWatchdogTask {
+    param([string[]]$Tokens)
+    $paths = Get-ArisRuntime
+    $python = Get-ArisPython
+    $script = Get-ArisWatchdogScript
+    $json = Get-ArgValue $Tokens "Json"
+    if ([string]::IsNullOrWhiteSpace($json)) {
+        $name = Get-ArgValue $Tokens "Name"
+        $type = Get-ArgValue $Tokens "Type"
+        $session = Get-ArgValue $Tokens "Session"
+        if ([string]::IsNullOrWhiteSpace($name) -or [string]::IsNullOrWhiteSpace($type) -or [string]::IsNullOrWhiteSpace($session)) {
+            throw "aris watchdog register requires -Json or -Name -Type -Session."
+        }
+        $task = [ordered]@{
+            name = $name
+            type = $type
+            session = $session
+            session_type = Get-ArgValue $Tokens "SessionType" "screen"
+        }
+        $targetPath = Get-ArgValue $Tokens "TargetPath"
+        if (-not [string]::IsNullOrWhiteSpace($targetPath)) { $task.target_path = $targetPath }
+        $gpus = Get-ArgValue $Tokens "Gpus"
+        if (-not [string]::IsNullOrWhiteSpace($gpus)) {
+            $task.gpus = @($gpus -split "," | ForEach-Object { [int]($_.Trim()) })
+        }
+        $json = ($task | ConvertTo-Json -Compress -Depth 8)
+    }
+    & $python $script --base-dir $paths.watchdogBase --register $json
+}
+
+function Unregister-ArisWatchdogTask {
+    param([string[]]$Tokens)
+    $name = Get-ArgValue $Tokens "Name"
+    if ([string]::IsNullOrWhiteSpace($name)) { throw "aris watchdog unregister requires -Name." }
+    $paths = Get-ArisRuntime
+    $python = Get-ArisPython
+    $script = Get-ArisWatchdogScript
+    & $python $script --base-dir $paths.watchdogBase --unregister $name
+}
+
 switch ($Command.ToLowerInvariant()) {
     "help" { Show-Help }
     "task" {
@@ -246,6 +525,38 @@ switch ($Command.ToLowerInvariant()) {
             "enqueue" { Add-ResearchQueueItem $tokens }
             "review-gate" { Add-ResearchReviewGate $tokens }
             default { throw "Unknown research subcommand: $sub" }
+        }
+    }
+    "vibe" {
+        $sub = if ($RemainingArgs.Count -gt 0) { $RemainingArgs[0] } else { "status" }
+        $tokens = @($RemainingArgs | Select-Object -Skip 1)
+        switch ($sub) {
+            "start" { Start-VibeKanban $tokens }
+            "status" { Show-VibeKanbanStatus }
+            "stop" { Stop-VibeKanban }
+            default { throw "Unknown vibe subcommand: $sub" }
+        }
+    }
+    "aris" {
+        $sub = if ($RemainingArgs.Count -gt 0) { $RemainingArgs[0] } else { "status" }
+        $tokens = @($RemainingArgs | Select-Object -Skip 1)
+        switch ($sub) {
+            "install" { Install-ArisOriginal }
+            "update" { Update-ArisOriginal }
+            "status" { Show-ArisWatchdogStatus }
+            "watchdog" {
+                $watchSub = if ($tokens.Count -gt 0) { $tokens[0] } else { "status" }
+                $watchTokens = @($tokens | Select-Object -Skip 1)
+                switch ($watchSub) {
+                    "start" { Start-ArisWatchdog $watchTokens }
+                    "status" { Show-ArisWatchdogStatus }
+                    "stop" { Stop-ArisWatchdog }
+                    "register" { Register-ArisWatchdogTask $watchTokens }
+                    "unregister" { Unregister-ArisWatchdogTask $watchTokens }
+                    default { throw "Unknown aris watchdog subcommand: $watchSub" }
+                }
+            }
+            default { throw "Unknown aris subcommand: $sub" }
         }
     }
     "capability" {
